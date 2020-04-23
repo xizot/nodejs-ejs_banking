@@ -1,0 +1,187 @@
+.btn{
+    background-color: transparent;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    padding: 8px 10px;
+    letter-spacing: 1.1px;
+    cursor: pointer;
+}
+
+
+.dd-2{
+    top: 0;
+    right: 0 !important;
+    background-color: yellow !important;
+    transform: translateX(100%) !important;
+}
+
+.dd-1{
+    
+    bottom: 0; 
+    left: 0 !important;
+    transform: translate(-25%,100%);
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+header{
+    background-color: $main-color;
+    
+    .container{
+        padding: 10px;
+            ul{
+                li{
+                    &:hover{
+                        animation: fadeIn 0.5s ease-in;
+                        position: relative;
+                        >.drop-down{
+                            
+                            display: block;
+                        }
+                    }
+                }
+            }
+        .drop-down{
+            display: none;
+            min-width: 150px;
+            position: absolute;
+            background: $main-color;
+        
+            z-index: 9999;  
+            >ul{
+                display: block;
+                >li{
+                    cursor: pointer;
+                    padding: 10px 0;
+                    border-bottom: 1px solid #ddd;
+                   
+                    &:last-child{
+                        border-bottom: none;
+                    }
+                   >a{
+                       font-size: 14px;
+                       text-transform: uppercase;
+                       padding: 0 10px;
+                        color: white;
+                    }
+                }
+            }
+        }
+        
+        #logo{
+            a{
+                h1{
+
+                    color: White;
+                }
+            }
+        }
+        nav{
+            @include rs-lg{
+                display: none !important;
+            }
+            >ul{
+                >li{
+                    padding: 10px;
+                    position: relative;
+                    z-index: 2;
+                    >a{
+                        text-transform: uppercase;
+                        letter-spacing: 1.1px;
+                        font-size: 14px;
+                        color: rgba($color: #FFF, $alpha: 1);
+                        
+                        >i{
+                            display: inline-block;
+                            font-size: 13px;
+                            transform: translateY(-2px);
+                        }
+                        
+                    }
+                }
+            }
+        }
+        .search-box{
+            form{
+                input{
+                    height: 30px;
+                    padding: 8px 10px;
+                    border:none;
+                    outline: none;
+                    width: 300px;
+                    @include rs-lg{
+                        width: 60% !important;
+                     }
+                }
+                
+    
+                select{
+                    height: 30px;
+                    padding-left: 10px;
+                    background-color: white;
+                    border: none;
+                    outline: none;
+                    // background-color: #F0F0F0;
+                    font-weight: bold;
+                    border-top-left-radius: 4px;
+                    border-bottom-left-radius: 4px;
+                    max-width: 90px;
+                    @include rs-sm{
+                        width: 80px;
+                    }
+                    
+                }
+                .btn-search{
+                    height: 30px;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                    background-color: #000;
+                }
+            }
+            @include rs-sm{
+               width: 100% !important;
+               margin: 0 auto;
+            }
+            
+           
+
+        }
+
+        .menu{
+            @include rs-md{
+                display: none;
+            }
+            &-item{
+               
+                color: white;
+            }
+            .sign-in{
+                
+            }
+            .sign-up{
+                .btn{
+                   
+                    background-color: #000;
+                }
+            }
+        }
+
+        .rs-bar{
+            
+            display: none;
+            background-color: #000;
+            color: white;
+            padding: 8px 10px;
+        }
+    }
+}

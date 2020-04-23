@@ -1,0 +1,106 @@
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @include rs-xs{
+        max-width: 98% ;
+    }
+    @include rs-sm{
+        max-width: 1200px;
+    }
+}
+
+.flex{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.j-between{
+    justify-content: space-between;
+}
+
+.j-center{
+    justify-content: center;
+}
+
+.j-end{
+    justify-content: flex-end;
+}
+
+.a-center{
+    align-items: center;
+}
+
+
+// Padding  & Margin
+.mt-10{
+    margin-top: 10px;
+}
+
+.ml-10{
+    margin-left: 10px;
+}
+
+.mr-10{
+    margin-right: 10px;
+}
+
+.mb-10{
+    margin-bottom: 10px;
+}
+
+.pd-10{
+    padding: 10px;
+}
+
+.pt-10{
+    padding-top: 10px;
+}
+
+.pl-10{
+    padding-left: 10px;
+}
+
+.pr-10{
+    padding-right: 10px;
+}
+
+.pb-10{
+    padding-bottom: 10px;
+}
+
+.mt-20{
+    margin-top: 20px;
+}
+
+.ml-20{
+    margin-left: 20px;
+}
+
+.mr-20{
+    margin-right: 20px;
+}
+
+.mb-20{
+    margin-bottom: 20px;
+}
+
+.pd-20{
+    padding: 20px;
+}
+
+.pt-20{
+    padding-top: 20px;
+}
+
+.pl-20{
+    padding-left: 20px;
+}
+
+.pr-20{
+    padding-right: 20px;
+}
+
+.pb-20{
+    padding-bottom: 20px;
+}
