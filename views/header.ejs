@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/Nhat/main.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.compat.min.css">
+    <title><%= title || 'Trang Chủ' %></title>
+    <style>
+        .mt-60 {
+            margin-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="over-layer">
+
+        <header>
+            <div class="container">
+                <div class="header__content flex j-between a-center">
+                    <div class="left flex a-center">
+                        <div id="logo" class="logo">
+                            <a href="">
+                                LOGO
+                            </a>
+                        </div>
+                        <a href="/todo"><button class="btn">ToDo</button> </a>
+                        <a href="/news"><button class="btn">News</button> </a>
+                    </div>
+                    <% if(!currentUser) { %>
+
+                    <div class="sign-in__sign-up">
+                        <a href="/login">
+                            <button class="btn btn-sign-in">
+                                Sign In
+                            </button>
+                        </a>
+                        <a href="/register">
+                            <button class="btn btn-sign-up">
+                                Sign Up
+                            </button>
+                        </a>
+                    </div>
+                    <% } else{%>
+
+                    <%-`<a class="username" href="/logout"><button class="btn">
+                        ${currentUser.displayName} (Log out)
+                    </button>
+                </a>`%>
+                    <% }%>
+
+                </div>
+            </div>
+        </header>

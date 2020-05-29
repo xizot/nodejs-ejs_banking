@@ -1,0 +1,9 @@
+<%- include ('header',{title:'Home - Todo App'}); %>
+<div class="container mt-60">
+    <%if(currentUser){%>
+    <h1>To Do </h1>
+    <% }else{ %>
+    <h1>Trang chủ</h1>
+    <%}%>
+</div>
+<%- include ('footer'); %>

@@ -1,0 +1,43 @@
+{
+  "name": "web2-2020",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xizot/web2-2020.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xizot/web2-2020/issues"
+  },
+  "homepage": "https://github.com/xizot/web2-2020#readme",
+  "dependencies": {
+    "animate.css": "^4.1.0",
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "cookie-session": "^1.4.0",
+    "crypto": "^1.0.1",
+    "ejs": "^3.0.2",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "express-validator": "^6.4.1",
+    "node-cron": "^2.0.3",
+    "node-mailer": "^0.1.1",
+    "nodemailer": "^6.4.6",
+    "nodemon": "^2.0.3",
+    "path": "^0.12.7",
+    "pg": "^8.1.0",
+    "pg-hstore": "^2.3.3",
+    "rss-parser": "^3.8.0",
+    "sequelize": "^5.21.7",
+    "wow.js": "^1.2.2"
+  }
+}

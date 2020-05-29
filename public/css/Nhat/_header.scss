@@ -1,0 +1,56 @@
+header{
+    background-color:$main-color;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    .container{
+        .header__content{
+            padding: 10px 0;
+            #logo{
+                a{
+                    font-size: 36px;
+                    font-weight:bolder;
+                    color: #FFF;
+                }
+              
+            }
+            .left{
+                #logo{
+                    margin-right: 30px;
+                }
+                .btn{
+                    background-color:white;
+                    color: $main-color;
+                    &:hover{
+                        color: #333;
+                    }
+                }
+                a{
+                    button{
+                        margin-right: 10px;
+                    }
+                }
+            }
+            .username{
+                .btn{
+                    background-color:#000;
+                    color: white;
+                    &:hover{
+                        color: $main-color;
+                    }
+                   
+                }
+               
+            }
+            .btn-sign-in{
+                color: #FFF;
+            }
+            .btn-sign-up{
+                background-color:black;
+                color: white;
+            }
+        }
+    }
+}

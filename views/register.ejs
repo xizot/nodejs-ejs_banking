@@ -1,0 +1,52 @@
+<%- include ('header',{title:'Register - Todo App'}) %>
+<div class="register wow slideInRight" id="register">
+    <div class="container">
+        <div class="modal">
+            <div class="modal-title">
+                <span>
+                    <i class="fas fa-user"></i>
+                </span>
+                <h3>Đăng Kí</h3>
+            </div>
+            <form action="" method="post">
+
+                <div class="form-group">
+                    <input type="text" name="displayName" id="displayName" placeholder="Your Name *" required">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="email" id="email" placeholder="Your Email *" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" id="password" placeholder="Your Password *" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="cfpassword" id="cfpassword" placeholder="Confirm Your Password *"
+                        required>
+                </div>
+                <div class="form-group">
+                    <% if(errors || errors.length){ %>
+                    <% errors.forEach(item=>{%>
+                    <%- `<p>* ${item.msg}</p>`  %>
+                    <%})%>
+                    <%}%>
+                </div>
+                <div class="form-actions">
+                    <div class="remember flex a-center">
+                        <input type="checkbox" name="remember" id="remember">
+                        <label for="remember" class="cb-rember"></label>
+                        <label for="remember" class="txt-remember">Ghi Nhớ</label>
+                    </div>
+                    <input type="submit" value="Đăng Kí">
+
+                    <div class="another flex j-between a-center">
+                        <a href="">Quên mật khẩu?</a>
+                        <a href="./login">Đã có tài khoản? Đăng nhập</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<%- include('footer') %>
