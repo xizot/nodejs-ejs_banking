@@ -1,4 +1,4 @@
-#Lưu ý:
+# Lưu ý:
 
 ### Trước khi làm việc cần pull repon về local:
     * "git pull origin master" 
@@ -13,4 +13,5 @@
     * lên trang github vào repo của project rồi tạo pull request
 
 
-### confict
+### Khi bị conflict
+    ###### khi bị conflict nếu không biết xử lí thì liên hệ Lead
