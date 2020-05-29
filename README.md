@@ -1,4 +1,4 @@
-#Lưu ý:
+# Lưu ý:
 
 ### Trước khi làm việc cần pull repon về local:
     * "git pull origin master"
@@ -11,3 +11,6 @@
     * "git pull origin dev-hoang"
 ### Khi đã làm xong chức năng yêu cầu, cần Pull Request cho Lead
     * lên trang github vào repo của project rồi tạo pull request
+    
+### Demo conflict
+    
