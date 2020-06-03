@@ -45,6 +45,16 @@
 .a-center{
     align-items: center;
 }
+.t-center{
+    text-align: center;
+}
+
+.truncate{
+    width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 
 // Padding  & Margin
