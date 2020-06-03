@@ -1,6 +1,6 @@
 <%- include ('header',{title:'Login - Todo App'}) %>
 <div class="login wow backInUp" id="login">
-    <div class="container">
+    <div class="container flex">
         <div class="modal">
             <div class="modal-title">
                 <span>
@@ -19,22 +19,32 @@
                     <% if(errors){ %>
                     <%- `<p>* ${errors}</p>`  %>
                     <%}%>
-                </div>
-                <div class="form-actions">
-                    <div class="remember flex a-center">
-                        <input type="checkbox" name="remember" id="remember">
-                        <label for="remember" class="cb-rember"></label>
-                        <label for="remember" class="txt-remember">Ghi Nhớ</label>
                     </div>
-                    <input type="submit" value="Đăng Nhập">
-
-                    <div class="another flex j-between a-center">
-                        <a href="">Quên mật khẩu?</a>
-                        <a href="./register">Chưa có tài khoản? Đăng kí</a>
+                    <div class="form-actions">
+                        <div class="remember flex a-center">
+                            <input type="checkbox" name="remember" id="remember">
+                            <label for="remember" class="cb-rember"></label>
+                            <label for="remember" class="txt-remember">Ghi Nhớ</label>
+                        </div>
+                        <input type="submit" value="Đăng Nhập">
+    
+                        <div class="another flex j-between a-center">
+                            <a href="">Quên mật khẩu?</a>
+                            <a href="./register">Chưa có tài khoản? Đăng kí</a>
+                        </div>
                     </div>
+                </form>
+                <div class="social-login">
+                    <center><span>Or login with</span></center>
+                    <div class="flex j-center">
+                        <a href="/auth/facebook"><button class="btn btn-facebook"><i class="fab fa-facebook-square"></i> Facebook</button></a>
+                        <a href="/auth/google"><button class="btn btn-google"><i class="fab fa-google"></i> Google</button></a>
+                    </div>
+                   
                 </div>
-            </form>
         </div>
+        
+    
 
     </div>
 </div>

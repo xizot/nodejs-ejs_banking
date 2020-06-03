@@ -28,6 +28,8 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 
 //get request
+app.use('/', require('./routes/index'));
+app.use('/login', require('./routes/login'));
 
 
 
