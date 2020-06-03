@@ -32,19 +32,6 @@ async function sendMail(to, subject, content, html) {
     console.log("Message sent: %s", info.messageId);
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 }
-const sendNews = async (id, allNews) => {
-    const getUser = await User.findByID(id);
-    var tmp = "";
-    if (getUser && allNews) {
-        allNews.forEach(news => {
-            tmp += `<a href="${news.link}" target="_blank">${news.title} </a></br></br>`;
-        })
-        if (tmp || tmp.length) {
-            setTimeout(() => {
-                sendMail(getUser.email, "Tin tức về dịch covid 19", tmp, tmp);
-            }, 0)
-        }
-    }
-}
+
 
 module.exports = { sendMail, sendNews };
