@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
-const db = require('../services/db');
+const db = require('./db');
 const Model = Sequelize.Model;
 // const users = [
 //     {
@@ -81,13 +81,11 @@ User.init({
         type: Sequelize.STRING,
         allowNull: false,
     },
-    displayName: {
-        type: Sequelize.STRING,
+    permisstion: {
+        type: Sequelize.INTEGER,
         allowNull: false,
+        defaultValue: 0,
     },
-    token: {
-        type: Sequelize.STRING
-    }
 }, {
     sequelize: db,
     modelName: 'user'
