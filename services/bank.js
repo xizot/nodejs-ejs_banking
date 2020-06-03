@@ -7,7 +7,7 @@ class Bank extends Model {
 
 Bank.init({
     //attributes
-    id: {
+    bankCode: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
@@ -24,5 +24,5 @@ Bank.init({
 
 
 
-module.exports = User;
+module.exports = Bank;
 

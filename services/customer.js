@@ -2,6 +2,8 @@ const db = require('./db');
 const Sequelize = require('sequelize');
 const Model = Sequelize.Model;
 const { uuid } = require('uuidv4');
+const User = require('./User');
+const Bank = require('./bank');
 
 class Customer extends Model {
 
@@ -29,11 +31,7 @@ class Customer extends Model {
 
 Customer.init({
     userID: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
-    name: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
     identityTypes: {
@@ -50,12 +48,13 @@ Customer.init({
     },
     image: {
         type: Sequelize.INTEGER,
-    },
-    bankID: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
     }
 }, {
     sequelize: db,
     modelName: 'customer',
 })
+
+
+User.hasOne(Customer, { foreignKey: 'userID', sourceKey: 'id' });
+
+module.exports = Customer;

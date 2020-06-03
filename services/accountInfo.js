@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
 const db = require('./db');
 const Model = Sequelize.Model;
+const User = require('./user');
+const Bank = require('./bank');
 // const users = [
 //     {
 //         id: '1',
@@ -19,6 +21,40 @@ const Model = Sequelize.Model;
 // ]
 
 class AccountInfo extends Model {
+
+    static async getBySTK(stk) {
+        return this.findAll({
+            where: {
+                STK: stk,
+            }
+        })
+    }
+
+    static async getByBankCode(bankCode) {
+        return this.findAll({
+            where: {
+                bankCode: bankCode,
+            }
+        })
+    }
+
+    static async getByUserID(userID) {
+        return this.findAll({
+            where: {
+                userID: userID,
+            }
+        })
+    }
+
+    static async setActive(id, num) {
+        const found = await this.findByPk(id);
+
+        if (found) {
+            found.isActive = num;
+            found.save();
+        }
+    }
+
 }
 
 AccountInfo.init({
@@ -59,17 +95,25 @@ AccountInfo.init({
         allowNull: false,
         defaultValue: 0,
     },
-    bankID: {
+    bankCode: {
         type: Sequelize.STRING,
         allowNull: false,
-    }
+    },
+    userID: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+    },
+
 }, {
     sequelize: db,
     modelName: 'accountinfor'
 })
 
+User.hasOne(AccountInfo, { foreignKey: 'userID', sourceKey: 'id' });
+Bank.hasOne(AccountInfo, { foreignKey: 'bankCode', sourceKey: 'bankCode' })
 
 
 
-module.exports = User;
+
+module.exports = AccountInfo;
 

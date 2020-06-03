@@ -5,6 +5,9 @@ const app = express();
 const cookieSession = require('cookie-session');
 const db = require('./services/db');
 
+const Transfer = require('./services/transfer.js');
+const AccountInfo = require('./services/accountInfo.js');
+
 //cookie session
 app.use(cookieSession({
     name: 'session',
