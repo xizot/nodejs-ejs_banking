@@ -1,7 +1,8 @@
-const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
 const db = require('./db');
 const Model = Sequelize.Model;
+const User = require('./User');
+const Bank = require('./bank');
 // const users = [
 //     {
 //         id: '1',
@@ -24,11 +25,11 @@ class Transfer extends Model {
 Transfer.init({
     //attributes
     from: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
     to: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
     amount: {
@@ -38,12 +39,12 @@ Transfer.init({
     message: {
         type: Sequelize.STRING,
     },
-    bankID: {
+    bankCode: {
         type: Sequelize.STRING,
         allowNull: false,
     },
     date: {
-        type: Sequelize.Date,
+        type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.NOW(),
     },
@@ -54,11 +55,14 @@ Transfer.init({
 
 }, {
     sequelize: db,
-    modelName: 'transfer'
+    modelName: 'transfer',
 })
 
 
+User.hasOne(Transfer, { foreignKey: 'from', sourceKey: 'id' })
+User.hasOne(Transfer, { foreignKey: 'to', sourceKey: 'id' })
+Bank.hasOne(Transfer, { foreignKey: 'bankCode', sourceKey: 'bankCode' })
 
 
-module.exports = User;
+module.exports = Transfer;
 
