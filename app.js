@@ -34,6 +34,7 @@ app.use('/login', require('./routes/login'));
 
 
 
+
 db.sync().then(function () {
     app.listen(PORT, function () {
         console.log('server listening on port ' + PORT);

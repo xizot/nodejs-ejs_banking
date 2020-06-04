@@ -37,6 +37,13 @@ class User extends Model {
             }
         });
     };
+    static async findBySomeThing(key) {
+        // find user by username, email, id, phoneNumber
+        var found = await this.findByID(key) || await this.findByEmail(key) || await this.findByUsername(key) || await this.findByPhoneNumber(key);
+
+        return found;
+
+    }
     static async verifyPassword(password, hash) {
         return bcrypt.compare(password, hash);
     };
