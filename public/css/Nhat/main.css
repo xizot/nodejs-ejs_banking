@@ -38,6 +38,7 @@
   cursor: pointer;
   -webkit-transition: all .1s ease-in;
   transition: all .1s ease-in;
+  background-color: #2dbe60;
 }
 
 .btn:hover {
@@ -369,10 +370,6 @@
   .row .col-xl-12 {
     width: 100%;
   }
-}
-
-div[class^="col-"] p {
-  background-color: red;
 }
 
 header {
@@ -1184,5 +1181,289 @@ body {
 
 .wrapper .wrapper__right .modal form .another a:hover {
   text-decoration: underline;
+}
+
+.dashboard {
+  background-color: #ddd;
+}
+
+.dashboard .container .dashboard__content-left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.dashboard .container .dashboard__content-left .section {
+  background-color: white;
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 0px 2px 1px #ddd;
+          box-shadow: 0px 0px 2px 1px #ddd;
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 0 40px;
+}
+
+.dashboard .container .dashboard__content-left .dashboard-profile {
+  padding: 20px 0;
+  text-align: center;
+}
+
+.dashboard .container .dashboard__content-left .dashboard-profile .image {
+  position: relative;
+  padding: 60px 0;
+}
+
+.dashboard .container .dashboard__content-left .dashboard-profile .image img {
+  border-radius: 50%;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 0px;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.dashboard .container .dashboard__content-left .dashboard-profile .image form {
+  position: absolute;
+}
+
+@media only screen and (min-width: 320px) {
+  .dashboard .container .dashboard__content-left .dashboard-profile .image form {
+    left: 55%;
+    bottom: 20px;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .dashboard .container .dashboard__content-left .dashboard-profile .image form {
+    right: 0;
+    bottom: 20px;
+  }
+}
+
+.dashboard .container .dashboard__content-left .dashboard-profile .image form .custom-file-upload {
+  background-color: #2dbe60;
+  border-radius: 50%;
+  padding: 10px;
+  color: white;
+}
+
+.dashboard .container .dashboard__content-left .dashboard-profile .image form .custom-file-upload i {
+  font-size: 14px;
+}
+
+.dashboard .container .dashboard__content-left .dashboard-profile .image form input {
+  display: none;
+}
+
+.dashboard .container .dashboard__content-left .dashboard-profile .name {
+  font-weight: bolder;
+  letter-spacing: 1.25px;
+}
+
+.dashboard .container .dashboard__content-left .dashboard-profile div {
+  margin-top: 20px;
+}
+
+.dashboard .container .dashboard__content-left .dashboard-profile div i {
+  font-size: 22px;
+  color: #ddd;
+  cursor: pointer;
+}
+
+.dashboard .container .dashboard__content-left .account-info {
+  text-align: center;
+  padding-top: 20px;
+}
+
+.dashboard .container .dashboard__content-left .account-info i {
+  display: block;
+  font-size: 40px;
+  color: #ddd;
+}
+
+.dashboard .container .dashboard__content-left .account-info .availabel-balance {
+  margin: 20px 0;
+  font-size: 26px;
+  color: #333;
+  font-weight: bolder;
+  letter-spacing: 1.75px;
+}
+
+.dashboard .container .dashboard__content-left .account-info .tag {
+  color: #ddd;
+  font-size: 16px;
+}
+
+.dashboard .container .dashboard__content-left .account-info .account-info__actions {
+  border-top: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.dashboard .container .dashboard__content-left .account-info .account-info__actions a {
+  color: #2dbe60;
+  text-transform: capitalize;
+  font-size: 14px;
+}
+
+.dashboard .container .dashboard__content-left .needhelp {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.dashboard .container .dashboard__content-left .needhelp i {
+  display: block;
+  font-size: 60px;
+  color: #ddd;
+  margin-bottom: 20px;
+}
+
+.dashboard .container .dashboard__content-left .needhelp p {
+  margin: 0 auto;
+  font-size: 14px;
+  color: #333;
+  letter-spacing: 1.25px;
+  margin-top: 10px;
+  max-width: 80%;
+}
+
+.dashboard .container .dashboard__content-left .needhelp a {
+  margin-top: 10px;
+  display: block;
+}
+
+.dashboard .container .dashboard__content-left .needhelp a .btn {
+  color: white;
+}
+
+.dashboard .container .dashboard__content-right .profile-complete {
+  background-color: white;
+  padding: 20px;
+}
+
+.dashboard .container .dashboard__content-right .profile-complete .title h3 {
+  color: #333;
+  font-weight: 400;
+  margin-right: 20px;
+}
+
+.dashboard .container .dashboard__content-right .profile-complete .title span {
+  background-color: #ddd;
+  padding: 2px 5px;
+  color: #2dbe60;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.dashboard .container .dashboard__content-right .profile-complete__content .profile-comlete__content--item {
+  padding: 10px;
+}
+
+.dashboard .container .dashboard__content-right .profile-complete__content .profile-comlete__content--item .gutter {
+  padding: 20px 10px;
+  text-align: center;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.dashboard .container .dashboard__content-right .profile-complete__content .profile-comlete__content--item i {
+  display: block;
+  font-size: 36px;
+  color: #ddd;
+}
+
+.dashboard .container .dashboard__content-right .profile-complete__content .profile-comlete__content--item p {
+  font-size: 14px;
+}
+
+.dashboard .container .dashboard__content-right .profile-complete__content .profile-comlete__content--item input {
+  display: none;
+}
+
+.dashboard .container .dashboard__content-right .profile-complete__content .profile-comlete__content--item input:checked ~ label::after {
+  opacity: 1;
+}
+
+.dashboard .container .dashboard__content-right .profile-complete__content .profile-comlete__content--item label {
+  display: block;
+  margin: 20px auto;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  position: relative;
+  cursor: pointer;
+}
+
+.dashboard .container .dashboard__content-right .profile-complete__content .profile-comlete__content--item label::after {
+  content: '✔';
+  background: #2dbe60;
+  color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  padding: 2px;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 9;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  opacity: 0;
+}
+
+.dashboard .container .dashboard__content-right .recent-activity .heading {
+  padding: 0 24px;
+}
+
+.dashboard .container .dashboard__content-right .recent-activity .recent-activity__content--item {
+  padding: 5px 24px;
+  background-color: white;
+}
+
+.dashboard .container .dashboard__content-right .recent-activity .recent-activity__content--item .date .day {
+  color: #333;
+}
+
+.dashboard .container .dashboard__content-right .recent-activity .recent-activity__content--item .date .month {
+  color: gray;
+  font-size: 14px;
+}
+
+.dashboard .container .dashboard__content-right .recent-activity .recent-activity__content--item .description .bank {
+  color: #333;
+}
+
+.dashboard .container .dashboard__content-right .recent-activity .recent-activity__content--item .description .actions {
+  color: gray;
+  font-size: 13px;
+}
+
+.dashboard .container .dashboard__content-right .recent-activity .recent-activity__content--item .status .waiting {
+  color: yellow;
+  font-weight: bold;
+}
+
+.dashboard .container .dashboard__content-right .recent-activity .recent-activity__content--item .amount {
+  font-size: 15px;
 }
 /*# sourceMappingURL=main.css.map */
