@@ -14,7 +14,8 @@ router.get('/', function (req, res) {
 })
 
 router.post('/', asyncHandler(async function (req, res) {
-    const user = await User.findUserByEmail(req.body.email);
+    const user = await User.findBySomeThing(req.body.txtEmail);
+    return res.json(user);
     if (user) {
 
         if (await User.verifyPassword(req.body.password, user.password)) {
