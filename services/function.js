@@ -1,4 +1,4 @@
-
+const Nexmo = require('nexmo');
 const nodemailer = require("nodemailer");
 const User = require('../services/user');
 process.env.ADMIN_EMAIL = '1760131bot@gmail.com';
@@ -34,4 +34,26 @@ async function sendMail(to, subject, content, html) {
 }
 
 
-module.exports = { sendMail, sendNews };
+
+process.env.API_KEY = '09856490';
+process.env.API_SECRET = 'ouK6Au5WEHKxkQec';
+const from = 'Vonage APIs';
+const nexmo = new Nexmo({
+    apiKey: '09856490',
+    apiSecret: 'ouK6Au5WEHKxkQec',
+});
+
+const sendSMS = (to, text) => {
+    setTimeout(() => {
+        nexmo.message.sendSms(from, to, text, (err, res) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log(res);
+            }
+        });
+    }, 0)
+}
+
+module.exports = { sendMail, sendSMS };

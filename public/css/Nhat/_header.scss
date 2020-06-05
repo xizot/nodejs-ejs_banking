@@ -1,16 +1,22 @@
+
 header{
-    background-color:$main-color;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 999;
+   
+    .navigation-bar{
+        background-color:white;
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+    }
     .container{
+      
         .header__content{
+          
+          
             padding: 10px 0;
             #logo{
                 a{
-                    font-size: 36px;
                     font-weight:bolder;
                     color: #FFF;
                 }
@@ -22,7 +28,7 @@ header{
                 }
                 .btn{
                     background-color:white;
-                    color: $main-color;
+                   
                     &:hover{
                         color: #333;
                     }
@@ -30,12 +36,15 @@ header{
                 a{
                     button{
                         margin-right: 10px;
+                        font-size: 14px;
+                        font-weight: bolder;
+                        color:#333;
                     }
+                    
                 }
             }
             .username{
                 .btn{
-                    background-color:#000;
                     color: white;
                     &:hover{
                         color: $main-color;
@@ -46,11 +55,127 @@ header{
             }
             .btn-sign-in{
                 color: #FFF;
+                background-color:black;
             }
             .btn-sign-up{
-                background-color:black;
+               
                 color: white;
             }
         }
     }
+  
+}
+
+.slider{
+    width: 100%;
+    .slider__item{
+       position: relative;
+       background-color: red;
+       z-index: 99;
+        // padding:10rem 0;
+        height: 80vh;
+        max-height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .slider__item--content{
+            
+            text-align: center;
+            color: white;
+            font-weight: bolder;
+            h1{
+                margin: 0 auto;
+                font-size: 60px;
+                max-width: 90%;
+            }
+            h3{
+                font-size: 18px;
+                margin: 20px 0 10px;
+            }
+            p{
+
+            }
+
+        }
+        .slider__item-actions{
+            margin-top: 20px;
+            text-align: center;
+            .btn{
+                padding: 15px 25px;
+                color: white;
+            }
+        }
+    }
+    .bg-1{
+        background:url('../../img/image-1.jpg') !important;
+        background-size: cover !important;
+        background-repeat: no-repeat !important;
+    }
+    .bg-2{
+        background:url('../../img/image-2.jpg') !important;
+        background-size: cover !important;
+        background-repeat: no-repeat !important;
+    }
+    .bg-3{
+        background:url('../../img/image-3.jpg') !important;
+        background-size: cover !important;
+        background-repeat: no-repeat !important;
+    }
+    .owl-nav{
+        button{
+            margin: 0 10px;
+            width: 40px;
+            height: 40px;
+            background-color: white !important;
+            img{
+                width: 100%;
+                height: auto;
+            }
+            &:focus{
+                border: none !important;
+                outline: none !important;
+            }
+        }
+        .owl-prev{
+            position: absolute;
+           left: 0px;
+           top: 50%;
+           transform: translateY(-50%);
+        }
+        .owl-next{
+            position: absolute;
+            right:0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index:999;
+        }
+    }
+    .owl-dots{
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        .owl-dot{
+            
+            span{
+                background-color: white;
+                border: 2px solid #ddd;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+            }
+            &:focus{
+                outline: none;
+                border: none;
+            }
+        }
+    }
+}
+.overlayer{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color: #000000, $alpha: .4);
+    z-index:-1;
 }

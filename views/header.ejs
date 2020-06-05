@@ -9,6 +9,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.compat.min.css">
+    <link rel="stylesheet" href="./vendor/OwlCarousel/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="./vendor/OwlCarousel/dist/assets/owl.theme.default.min.css">
     <title><%= title || 'Trang Chủ' %></title>
     <style>
         .mt-60 {
@@ -21,39 +23,46 @@
     <div class="over-layer">
 
         <header>
-            <div class="container">
-                <div class="header__content flex j-between a-center">
-                    <div class="left flex a-center">
-                        <div id="logo" class="logo">
-                            <a href="">
-                                LOGO
+            <div class="navigation-bar">
+
+                <div class="container">
+                    <div class="header__content flex j-between a-center">
+                        <div class="left flex a-center">
+                            <div id="logo" class="logo">
+                                <a href="">
+                                    <img src="http://demo.harnishdesign.net/html/payyed/images/logo.png" alt="">
+                                </a>
+                            </div>
+                            <a href="/"><button class="btn">My Account</button> </a>
+                            <a href="/"><button class="btn">About US</button> </a>
+                            <a href="/"><button class="btn">Fees</button> </a>
+                            <a href="/"><button class="btn">Help</button> </a>
+                            <a href="/"><button class="btn">Feature</button> </a>
+                            <a href="/"><button class="btn">Page</button> </a>
+                        </div>
+                        <% if(!currentUser) { %>
+
+                        <div class="sign-in__sign-up">
+                            <a href="/login">
+                                <button class="btn btn-sign-in">
+                                    Sign In
+                                </button>
+                            </a>
+                            <a href="/register">
+                                <button class="btn btn-sign-up">
+                                    Sign Up
+                                </button>
                             </a>
                         </div>
-                        <a href="/todo"><button class="btn">ToDo</button> </a>
-                        <a href="/news"><button class="btn">News</button> </a>
+                        <% } else{%>
+
+                        <%-`<a class="username" href="/logout"><button class="btn">
+                            ${currentUser.displayName} (Log out)
+                        </button>
+                    </a>`%>
+                        <% }%>
+
                     </div>
-                    <% if(!currentUser) { %>
-
-                    <div class="sign-in__sign-up">
-                        <a href="/login">
-                            <button class="btn btn-sign-in">
-                                Sign In
-                            </button>
-                        </a>
-                        <a href="/register">
-                            <button class="btn btn-sign-up">
-                                Sign Up
-                            </button>
-                        </a>
-                    </div>
-                    <% } else{%>
-
-                    <%-`<a class="username" href="/logout"><button class="btn">
-                        ${currentUser.displayName} (Log out)
-                    </button>
-                </a>`%>
-                    <% }%>
-
                 </div>
             </div>
         </header>

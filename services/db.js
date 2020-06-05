@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 
+
 //Nhat
 const connectionString = process.env.DATABASE_URL || 'postgres://postgres:1604@localhost:5432/bank';
 //Hau

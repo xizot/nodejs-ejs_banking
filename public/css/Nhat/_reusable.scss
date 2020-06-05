@@ -58,6 +58,38 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.full-width{
+    width: 100%;
+}
+.text-color{
+    color: #333;
+}
+.red{
+    color: red !important;
+}
+.t-capitalize{
+    text-transform: capitalize !important;
+}
+.white{
+    color:white;
+}
+.full-height{
+    width: 100%;
+}
+
+.p-relative{
+    position: relative;
+}
+.h-80{
+    height: 80vh;
+    max-height: 100%;
+}
+
+.h-100{
+    height: 100vh;
+    max-height: 100%;
+}
+
 
 
 // Padding  & Margin
