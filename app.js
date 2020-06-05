@@ -30,6 +30,10 @@ app.set('view engine', 'ejs');
 //get request
 app.use('/', require('./routes/index'));
 app.use('/login', require('./routes/login'));
+app.use('/logout', require('./routes/logout'));
+app.use('/update-phone-number', require('./routes/updatePhoneNumber'));
+app.use('/active-phone-number', require('./routes/activePhoneNumber.js'));
+
 
 
 

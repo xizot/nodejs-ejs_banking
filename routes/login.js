@@ -14,22 +14,23 @@ router.get('/', function (req, res) {
 })
 
 router.post('/', asyncHandler(async function (req, res) {
+
     const user = await User.findBySomeThing(req.body.txtEmail);
-    return res.json(user);
     if (user) {
 
-        if (await User.verifyPassword(req.body.password, user.password)) {
+        if (await User.verifyPassword(req.body.txtPassword, user.password)) {
             errors = null;
             req.session.userID = user.id;
             req.session.email = user.email;
-            if (user.token) {
-                console.log('Vui lòng kích họat tài khoản');
-                return res.redirect('/active');
+            if (!user.phoneNumber) {
+                console.log('Update your phone number please');
+                return res.redirect('/update-phone-number');
             }
-            else {
-
-                return res.redirect('/todo');
+            else if (user.phoneNumber && user.phoneCode) {
+                console.log('Confirm your phone number please');
+                return res.redirect('/active-phone-number');
             }
+            return res.redirect('/');
         }
         else {
             errors = "Vui lòng kiểm tra lại mật khẩu";
@@ -40,6 +41,5 @@ router.post('/', asyncHandler(async function (req, res) {
         errors = "Vui lòng kiểm tra lại tài khoản";
         return res.redirect('/login');
     }
-    // return res.redirect('/login');
 }))
 module.exports = router;

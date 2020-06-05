@@ -1,9 +1,41 @@
-<%- include ('header',{title:'Home - Todo App'}); %>
-<div class="container mt-60">
-    <%if(currentUser){%>
-    <h1>To Do </h1>
-    <% }else{ %>
-    <h1>Trang chủ</h1>
-    <%}%>
+<%- include ('header',{title:'Home - Transfer Money'}); %>
+<div class="slider">
+    <div class="owl-carousel owl-theme">
+        <div class="slider__item bg-1">
+            <div class="overlayer"></div>
+            <div class="slider__item--content">
+                <h1>Send & Receive Money</h1>
+                <h3>Quickly and easily send, receive and request money online with Payyed.</h3>
+                <p>Over 180 countries and 120 currencies supported.</p>
+            </div>
+            <div class="slider__item-actions">
+                <a href=""><button class="btn">Open a free account</button></a>
+            </div>
+        </div>
+        <div class="slider__item bg-2">
+            <div class="overlayer"></div>
+            <div class="slider__item--content">
+                <h1>Trusted by more than 50,000 businesses worldwide.</h1>
+                <p>Over 180 countries and 120 currencies supported.</p>
+            </div>
+            <div class="slider__item-actions ">
+                <a href=""><button class="btn">Open a free account</button></a>
+            </div>
+        </div>
+        <div class="slider__item bg-3">
+            <div class="overlayer"></div>
+            <div class="slider__item--content">
+                <h1>Send & Receive Money</h1>
+                <h3>Quickly and easily send, receive and request money online with Payyed.</h3>
+                <p>Over 180 countries and 120 currencies supported.</p>
+            </div>
+            <div class="slider__item-actions">
+                <a href=""><button class="btn">Open a free account</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container row">
+    <%- include('card',{card}) %>
 </div>
 <%- include ('footer'); %>

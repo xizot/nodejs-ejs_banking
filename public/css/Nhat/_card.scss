@@ -1,0 +1,94 @@
+.card{
+    // display: inline-block;
+    // width: auto;
+   padding: 40px 20px;
+    // display: flex;
+    &__content{
+       padding: 40px;
+            .gutter{
+                padding: 40px 30px;
+                border-radius: 10px;
+                
+            }
+    }
+    &-number{
+        font-size: 18px;
+        color: rgba($color: #fff, $alpha: .9);
+        font-weight: bolder;
+        letter-spacing: 1.25px;
+        text-shadow: 1px 1px 1px #333,
+                    -1px -1px 1px gray;
+    }
+    &-date{
+      
+        margin: 10px 0;
+        &__item{
+            display: flex;
+            align-items: center;
+            p{
+                font-size: 8px;
+                text-transform: uppercase;
+                font-weight: 200;
+                max-width: 4px;
+                margin-right: 25px;
+            }
+            .date{
+                
+                color: rgba($color: #fff, $alpha: .9);
+                font-weight: bolder;
+                letter-spacing: 1.25px;
+                text-shadow: 1px 1px 1px #333,
+                            -1px -1px 1px gray;
+            }
+        }
+        .card-good-thru{
+            margin-left: 30px;
+        }
+    }
+    &-name{
+        color: rgba($color: #fff, $alpha: .9);
+        font-weight: bolder;
+        letter-spacing: 1.25px;
+        font-size: 14px;
+        text-transform: uppercase;
+        text-shadow: 1px 1px 1px #333,
+                    -1px -1px 1px gray;
+    }
+    &-from{
+
+    }
+    &-good-thru{
+
+    }
+    .type{
+        p{
+            padding: 4px 2px;
+            background-color: white;
+            font-size: 16px;
+            font-weight: bolder;
+            margin-left: 10px;
+        }
+        .napas, .visa{
+            color: blue;
+        }
+    }
+    .arg{
+
+    }
+}
+.techcombank{
+    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(7,121,222,1) 0%, rgba(20,72,140,1) 90% );
+    .gutter{
+       
+        box-shadow: 3px 3px 10px #113d77, 
+                    -3px -3px 10px #1753a1;
+    }
+
+}
+.arg{
+    background-image: radial-gradient( circle farthest-corner at 50.4% 50.5%,  rgba(251,32,86,1) 0%, rgba(135,2,35,1) 90% );
+    .gutter{
+        box-shadow: 3px 3px 10px #73021e, 
+        -3px -3px 10px #9b0228;
+    }
+}

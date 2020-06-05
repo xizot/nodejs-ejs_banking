@@ -5,6 +5,24 @@ const Model = Sequelize.Model;
 
 class User extends Model {
 
+    static async setPhoneNumberCode(id, number, code) {
+        const found = await this.findByID(id);
+        if (found) {
+            found.phoneNumber = number;
+            found.phoneCode = code;
+            found.save();
+        }
+    }
+
+    static async activePhoneNumber(id, code) {
+        const found = await this.findByID(id);
+        if (found && found.phoneCode == code) {
+            found.phoneCode = null;
+            found.save();
+            return true;
+        }
+        return false;
+    }
     static async getAll() {
         const user = await this.findAll({
             where: {
@@ -39,8 +57,7 @@ class User extends Model {
     };
     static async findBySomeThing(key) {
         // find user by username, email, id, phoneNumber
-        var found = await this.findByID(key) || await this.findByEmail(key) || await this.findByUsername(key) || await this.findByPhoneNumber(key);
-
+        var found = await this.findByEmail(key) || await this.findByUsername(key) || await this.findByPhoneNumber(key);
         return found;
 
     }
@@ -83,6 +100,9 @@ User.init({
         allowNull: false,
         defaultValue: 0,
     },
+    phoneCode: {
+        type: Sequelize.STRING,
+    }
 }, {
     sequelize: db,
     modelName: 'user'
