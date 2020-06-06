@@ -1,10 +1,8 @@
-const express = require('express');
-const router = express.Router();
+const passport = require('passport');
 
 
-router.get('/', (req, res) => {
+module.exports = (req, res) => {
+    req.logout();
     delete req.session.userID;
     res.redirect('/');
-})
-
-module.exports = router;
+}

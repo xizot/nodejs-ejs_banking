@@ -1,0 +1,16 @@
+
+- Thông tin khách hàng:
+
+KHACHHANG(ID, HoTen,LoaiGiayTo,SoGiayTo,NgayCap,HinhAnh)
+	+ ID là khóa chính không trùng lặp.
+	+ LoaiGiayTo: kiểu boolean (1: CMND, 2: CCCD, 3: Hộ Chiếu)
+- Thông tin tài khoản:
+
+TAIKHOAN(ID, STK, SoDu, DonViTienTe, LichSuGiaoDich, LaiSuat, NgayMo, NgayDong, Ki Han, IsActive, Permisstion)
+	+ IsActive: (0: Chưa xác thực, 1: Đã Xác Thực, 2: Đã Bị Khóa)
+	+ Permisstion: (0: khách hàng, 1: nhân viên)
+
+- Thông tin giao dịch:
+
+CHUYENKHOAN(ID, SoTien,STK_Gui, NoiDung, NganHangThuHuong, TaiKhoanThuHuong)
+	- Số tiền gửi không được quá mức cho phép

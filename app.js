@@ -5,13 +5,14 @@ const app = express();
 const cookieSession = require('cookie-session');
 const db = require('./services/db');
 
+const Transfer = require('./services/transfer.js');
+const AccountInfo = require('./services/accountInfo.js');
+
 //cookie session
 app.use(cookieSession({
     name: 'session',
     keys: ['1232'],
 }))
-
-
 
 
 //use static folder
@@ -30,13 +31,13 @@ app.set('view engine', 'ejs');
 app.use('/', require('./routes/index'));
 app.use('/login', require('./routes/login'));
 app.use('/logout', require('./routes/logout'));
-app.use('/register', require('./routes/register'));
-app.use('/todo', require('./routes/todo'));
-app.use('/api', require('./routes/api'));
-app.use('/active', require('./routes/active'));
-app.use('/resend', require('./routes/resend'));
-app.use('/news/api', require('./routes/news'));
-app.use('/news', require('./routes/crawler'));
+app.use('/update-phone-number', require('./routes/updatePhoneNumber'));
+app.use('/active-phone-number', require('./routes/activePhoneNumber.js'));
+
+app.get('/transfer', (req, res) => {
+    return res.render('transfer');
+})
+
 
 
 

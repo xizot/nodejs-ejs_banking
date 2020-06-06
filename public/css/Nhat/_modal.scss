@@ -1,7 +1,10 @@
 .modal{
 
     width: 350px;
-    margin: 7rem  auto 3rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     padding: 20px;
     background-color: rgba($color: #ddd, $alpha: .9);
     border-radius: 10px;
@@ -51,7 +54,7 @@
                 border-radius: 5px;
                 width: 100%;
                 &::placeholder{
-                    color: $main-color;
+                    color:rgba($color:  #333, $alpha: .4);
                 }
             }
             p{
@@ -110,7 +113,47 @@
             .another{
                 margin-top: 10px;
                 font-size: 13px;
-                color: red;
+            }
+          
+        }
+
+    }
+    
+}
+.social-login{
+    border-top: 1px solid #ddd;
+  margin-top: 10px;
+    span{
+        display: block;
+        color: gray;
+        margin:10px 0;
+        font-size: 14px;
+        font-weight: border;
+    }
+    a{
+        button{
+            border:1px solid rgba(gray,.4) !important;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all .4s ease-in-out;
+        }
+        .btn-facebook{
+            color: blue;
+          
+            &:hover{
+                background-color:blue;
+                color: white;
+                border:1px solid blue !important;
+            }
+        }
+        .btn-google{
+            margin-left: 5px;
+            color: $main-color;
+            &:hover{
+                background-color:$main-color;
+            color: white;
+
+                border:1px solid $main-color !important;
             }
         }
     }

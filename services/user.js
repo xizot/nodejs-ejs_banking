@@ -1,25 +1,28 @@
 const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
-const db = require('../services/db');
+const db = require('./db');
 const Model = Sequelize.Model;
-// const users = [
-//     {
-//         id: '1',
-//         email: '1760131',
-//         password: '$2b$10$SDLblW5wg5PqJAqq.vR.s.0aCJfHMwkjGc.o4MLnzeE2N3TlEGGDW',
-//         displayName: 'Nguyen Van Nhat'
-//     },
-//     {
-//         id: '1',
-//         email: '1760057',
-//         password: '$2b$10$sTrBCRx1QYd857GcTz.3supgeGZPIei1d2GinrSIQUGv05q.eTvfS',
-//         displayName: 'Minh Hau Pham Thi'
-//     },
-
-// ]
 
 class User extends Model {
 
+    static async setPhoneNumberCode(id, number, code) {
+        const found = await this.findByID(id);
+        if (found) {
+            found.phoneNumber = number;
+            found.phoneCode = code;
+            found.save();
+        }
+    }
+
+    static async activePhoneNumber(id, code) {
+        const found = await this.findByID(id);
+        if (found && found.phoneCode == code) {
+            found.phoneCode = null;
+            found.save();
+            return true;
+        }
+        return false;
+    }
     static async getAll() {
         const user = await this.findAll({
             where: {
@@ -31,62 +34,74 @@ class User extends Model {
     static async findByID(id) {
         return User.findByPk(id);
     };
-    static async findUserByEmail(email) {
+    static async findByEmail(email) {
         return User.findOne({
             where: {
                 email,
             }
         });
     };
+    static async findByUsername(username) {
+        return User.findOne({
+            where: {
+                username: username,
+            }
+        });
+    };
+    static async findByPhoneNumber(phoneNumber) {
+        return User.findOne({
+            where: {
+                phoneNumber: phoneNumber,
+            }
+        });
+    };
+    static async findBySomeThing(key) {
+        // find user by username, email, id, phoneNumber
+        var found = await this.findByEmail(key) || await this.findByUsername(key) || await this.findByPhoneNumber(key);
+        return found;
+
+    }
     static async verifyPassword(password, hash) {
         return bcrypt.compare(password, hash);
     };
 
-    static async addUser(email, password, displayName, token) {
-        const hashpw = bcrypt.hashSync(password, 10);
-        const newUser = {
-            email,
-            password: hashpw,
-            displayName: displayName || "No Name",
-            token,
-        }
-        if (newUser) {
-            await User.create(newUser);
-            const tmp = await this.findUserByEmail(email);
-            return tmp;
-        }
+    static async createUser(user) {
 
-        return false;
-    }
-
-    static async active(token, userId) {
-        const found = await this.findByID(userId);
-        if (found.token === token) {
-            found.token = null;
-            found.save();
-            return true;
+        if (user) {
+            return this.create(user).then(user => user);
         }
-        return false;
+        return 0; // xảy ra lỗi
     }
 }
 
 User.init({
     //attributes
-    email: {
+    displayName: {
         type: Sequelize.STRING,
         allowNull: false,
+    },
+    email: {
+        type: Sequelize.STRING,
         unique: true,
+    },
+    username: {
+        type: Sequelize.STRING,
+        unique: true,
+    },
+    phoneNumber: {
+        type: Sequelize.STRING,
     },
     password: {
         type: Sequelize.STRING,
         allowNull: false,
     },
-    displayName: {
-        type: Sequelize.STRING,
+    permisstion: {
+        type: Sequelize.INTEGER,
         allowNull: false,
+        defaultValue: 0,
     },
-    token: {
-        type: Sequelize.STRING
+    phoneCode: {
+        type: Sequelize.STRING,
     }
 }, {
     sequelize: db,

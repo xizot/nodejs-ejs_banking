@@ -1,4 +1,4 @@
-
+const Nexmo = require('nexmo');
 const nodemailer = require("nodemailer");
 const User = require('../services/user');
 process.env.ADMIN_EMAIL = '1760131bot@gmail.com';
@@ -32,19 +32,28 @@ async function sendMail(to, subject, content, html) {
     console.log("Message sent: %s", info.messageId);
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 }
-const sendNews = async (id, allNews) => {
-    const getUser = await User.findByID(id);
-    var tmp = "";
-    if (getUser && allNews) {
-        allNews.forEach(news => {
-            tmp += `<a href="${news.link}" target="_blank">${news.title} </a></br></br>`;
-        })
-        if (tmp || tmp.length) {
-            setTimeout(() => {
-                sendMail(getUser.email, "Tin tức về dịch covid 19", tmp, tmp);
-            }, 0)
-        }
-    }
+
+
+
+process.env.API_KEY = '09856490';
+process.env.API_SECRET = 'ouK6Au5WEHKxkQec';
+const from = 'Vonage APIs';
+const nexmo = new Nexmo({
+    apiKey: '09856490',
+    apiSecret: 'ouK6Au5WEHKxkQec',
+});
+
+const sendSMS = (to, text) => {
+    setTimeout(() => {
+        nexmo.message.sendSms(from, to, text, (err, res) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log(res);
+            }
+        });
+    }, 0)
 }
 
-module.exports = { sendMail, sendNews };
+module.exports = { sendMail, sendSMS };

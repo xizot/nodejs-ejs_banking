@@ -1,3 +1,5 @@
+@import './variables';
+
 .container{
     max-width: 1200px;
     margin: 0 auto;
@@ -20,6 +22,7 @@
     letter-spacing: 1.1px;
     cursor: pointer;
     transition: all .1s ease-in;
+    background-color: $main-color;
     &:hover{
         transform:translateY(-2px);
     }
@@ -45,6 +48,48 @@
 .a-center{
     align-items: center;
 }
+.t-center{
+    text-align: center;
+}
+
+.truncate{
+    width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.full-width{
+    width: 100%;
+}
+.text-color{
+    color: #333;
+}
+.red{
+    color: red !important;
+}
+.t-capitalize{
+    text-transform: capitalize !important;
+}
+.white{
+    color:white;
+}
+.full-height{
+    width: 100%;
+}
+
+.p-relative{
+    position: relative;
+}
+.h-80{
+    height: 80vh;
+    max-height: 100%;
+}
+
+.h-100{
+    height: 100vh;
+    max-height: 100%;
+}
+
 
 
 // Padding  & Margin

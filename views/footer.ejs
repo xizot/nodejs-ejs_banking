@@ -4,9 +4,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
 <script src="./js/Nhat/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script src="./vendor/OwlCarousel/dist/owl.carousel.min.js"></script>
 
 <script>
     new WOW().init();
+    $(document).ready(function () {
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            items: 1,
+            autoplay: true,
+            autoplayHoverPause: true,
+            nav: true,
+            navText: ['<img src="../../img/angle-left.png"/>', '<img src="../../img/angle-right.png"/>'],
+        });
+    });
 </script>
 
 </html>
