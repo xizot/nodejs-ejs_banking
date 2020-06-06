@@ -22,14 +22,17 @@ router.post('/', asyncHandler(async function (req, res) {
             errors = null;
             req.session.userID = user.id;
             req.session.email = user.email;
-            if (!user.phoneNumber) {
-                console.log('Update your phone number please');
-                return res.redirect('/update-phone-number');
-            }
-            else if (user.phoneNumber && user.phoneCode) {
-                console.log('Confirm your phone number please');
-                return res.redirect('/active-phone-number');
-            }
+
+            //tam thoi chua su dung toi
+
+            // if (!user.phoneNumber) {
+            //     console.log('Update your phone number please');
+            //     return res.redirect('/update-phone-number');
+            // }
+            // else if (user.phoneNumber && user.phoneCode) {
+            //     console.log('Confirm your phone number please');
+            //     return res.redirect('/active-phone-number');
+            // }
             return res.redirect('/');
         }
         else {
