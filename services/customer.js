@@ -32,19 +32,19 @@ class Customer extends Model {
 Customer.init({
     userID: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+
     },
     identityTypes: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+
     },
     identity: {
         type: Sequelize.STRING,
-        allowNull: false,
+
     },
     beginDate: {
         type: Sequelize.DATE,
-        allowNull: false,
+
     },
     image: {
         type: Sequelize.STRING,
