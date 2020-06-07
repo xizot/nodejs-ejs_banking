@@ -66,7 +66,6 @@ class User extends Model {
     };
 
     static async createUser(user) {
-
         if (user) {
             return this.create(user).then(user => user);
         }
@@ -93,7 +92,6 @@ User.init({
     },
     password: {
         type: Sequelize.STRING,
-        allowNull: false,
     },
     permisstion: {
         type: Sequelize.INTEGER,
@@ -102,7 +100,20 @@ User.init({
     },
     phoneCode: {
         type: Sequelize.STRING,
-    }
+    },
+    facebookID: {
+        type: Sequelize.STRING
+    },
+    googleID: {
+        type: Sequelize.STRING
+    },
+
+    googleAccessToken: {
+        type: Sequelize.STRING
+    },
+    facebookAccessToken: {
+        type: Sequelize.STRING
+    },
 }, {
     sequelize: db,
     modelName: 'user'

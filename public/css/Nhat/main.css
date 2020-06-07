@@ -82,6 +82,10 @@
   text-align: center;
 }
 
+.bg-main {
+  background-color: #2dbe60;
+}
+
 .truncate {
   width: 250px;
   white-space: nowrap;
@@ -421,7 +425,7 @@ header .navigation-bar {
 }
 
 header .container .header__content {
-  padding: 10px 0;
+  padding: 20px 0;
 }
 
 header .container .header__content #logo a {
@@ -453,7 +457,7 @@ header .container .header__content .username .btn {
 }
 
 header .container .header__content .username .btn:hover {
-  color: #2dbe60;
+  background: linear-gradient(145deg, #29ab56, #30cb67);
 }
 
 header .container .header__content .btn-sign-in {
@@ -901,6 +905,7 @@ footer .footer .container .row .footer-item > ul li:before {
 
 .social-login a .btn-facebook {
   color: blue;
+  background-color: white;
 }
 
 .social-login a .btn-facebook:hover {
@@ -911,13 +916,14 @@ footer .footer .container .row .footer-item > ul li:before {
 
 .social-login a .btn-google {
   margin-left: 5px;
-  color: #2dbe60;
+  background-color: white;
+  color: red;
 }
 
 .social-login a .btn-google:hover {
-  background-color: #2dbe60;
+  background-color: red;
   color: white;
-  border: 1px solid #2dbe60 !important;
+  border: 1px solid red !important;
 }
 
 .body {
@@ -1733,5 +1739,139 @@ body {
 .arg .gutter {
   -webkit-box-shadow: 3px 3px 10px #73021e,  -3px -3px 10px #9b0228;
           box-shadow: 3px 3px 10px #73021e,  -3px -3px 10px #9b0228;
+}
+
+.transfer .navigation ul li {
+  padding: 15px;
+}
+
+.transfer .navigation ul li a {
+  color: white;
+  text-transform: uppercase;
+}
+
+.transfer .navigation ul li:hover {
+  background-color: rgba(2, 39, 15, 0.4);
+}
+
+.transfer .container .modal {
+  position: relative !important;
+  top: 20px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+@media only screen and (min-width: 576px) {
+  .transfer .container .modal {
+    max-width: 98%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .transfer .container .modal {
+    width: 400px;
+  }
+}
+
+.transfer .container .modal .title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 400;
+}
+
+.transfer .container .modal .title h3 {
+  text-transform: uppercase;
+  font-size: 30px;
+  margin-bottom: 10px;
+  text-shadow: 3px 3px 3px gray;
+}
+
+.transfer .container .modal .title span {
+  color: gray;
+  font-size: 16px;
+}
+
+.transfer .container .modal form .form-group select {
+  margin: 15px 0;
+  outline: none;
+  border: 1px solid rgba(45, 190, 96, 0.4);
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.transfer .container .modal form .form-group select option {
+  outline: none;
+}
+
+.transfer .container .modal form .form-group textarea {
+  border: 1px solid rgba(45, 190, 96, 0.4);
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  resize: none;
+  outline: none;
+  margin: 15px 0;
+}
+
+.transfer .container .modal form .form-action .btn {
+  padding: 15px 25px;
+  width: 100%;
+  color: white;
+}
+
+.transfer-success .container .modal {
+  margin-top: 60px;
+  padding: 40px 20px;
+}
+
+.transfer-success .container .modal .title h3 {
+  color: #333;
+  text-shadow: none;
+}
+
+.transfer-success .container .modal .send-success__content .icon i {
+  display: block;
+  margin: 0 auto;
+  color: white;
+  max-width: 60px;
+  max-height: 60px;
+  line-height: 60px;
+  text-align: center;
+  background-color: #2dbe60;
+  border-radius: 100%;
+  font-size: 30px;
+}
+
+.transfer-success .container .modal .send-success__content .icon h3 {
+  color: #2dbe60;
+  font-size: 42px;
+  text-align: center;
+  margin: 10px 0;
+  font-weight: 400;
+}
+
+.transfer-success .container .modal .send-success__content .icon span {
+  display: block;
+  color: #333;
+  text-align: center;
+  letter-spacing: 1.25px;
+}
+
+.transfer-success .container .modal .info {
+  margin: 50px 0 20px;
+  text-align: center;
+  line-height: 26px;
+}
+
+.transfer-success .container .modal .info a {
+  color: #2dbe60;
+}
+
+.transfer-success .container .modal a .btn {
+  width: 100%;
+  color: white;
+  padding: 15px 25px;
 }
 /*# sourceMappingURL=main.css.map */

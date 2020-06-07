@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../services/user');
 const asyncHandler = require('express-async-handler');
-
-var errors = null;
+const { check, validationResult, body } = require('express-validator');
+var errors = [];
 router.get('/', function (req, res) {
     if (req.currentUser) {
         res.redirect('/');
@@ -19,7 +19,7 @@ router.post('/', asyncHandler(async function (req, res) {
     if (user) {
 
         if (await User.verifyPassword(req.body.txtPassword, user.password)) {
-            errors = null;
+            errors = [];
             req.session.userID = user.id;
             req.session.email = user.email;
 
@@ -36,12 +36,12 @@ router.post('/', asyncHandler(async function (req, res) {
             return res.redirect('/');
         }
         else {
-            errors = "Vui lòng kiểm tra lại mật khẩu";
+            errors = [{ msg: "Vui lòng kiểm tra lại mật khẩu" }];
             return res.redirect('/login');
         }
     }
     else {
-        errors = "Vui lòng kiểm tra lại tài khoản";
+        errors = [{ msg: "Vui lòng kiểm tra lại tài khoản" }];
         return res.redirect('/login');
     }
 }))

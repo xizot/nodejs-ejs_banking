@@ -51,7 +51,9 @@
 .t-center{
     text-align: center;
 }
-
+.bg-main{
+    background-color: $main-color;
+}
 .truncate{
     width: 250px;
   white-space: nowrap;

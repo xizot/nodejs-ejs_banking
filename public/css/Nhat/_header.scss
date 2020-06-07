@@ -14,7 +14,7 @@ header{
         .header__content{
           
           
-            padding: 10px 0;
+            padding: 20px 0;
             #logo{
                 a{
                     font-weight:bolder;
@@ -47,7 +47,8 @@ header{
                 .btn{
                     color: white;
                     &:hover{
-                        color: $main-color;
+                        background: linear-gradient(145deg, #29ab56, #30cb67);
+                 
                     }
                    
                 }

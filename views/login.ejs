@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/Nhat/main.css">
-    <title>Document</title>
-</head>
+<%- include('header',{title: 'Payyed - Login'}) %>
 
 <body>
     <!-- //header -->
@@ -26,6 +18,11 @@
         </div>
         <div class="wrapper__right  col-xs-12 col-md-6">
             <div class="modal">
+                <div class="title">
+                    <h3
+                        style="margin: 0  0 20px; font-size: 32px;text-transform: uppercase;color: #333;font-weight: 400;">
+                        Log In</h3>
+                </div>
                 <form action="" method="post">
                     <div class="form-group">
                         <label for="txtEmail">Email Address</label>
@@ -38,8 +35,10 @@
                             placeholder="* * * * * * * * *">
                     </div>
                     <div class="form-group">
-                        <% if(errors){ %>
-                        <%- `<p>* ${errors}</p>`  %>
+                        <% if(errors || errors.length){ %>
+                        <% errors.forEach(item=>{%>
+                        <%- `<p>* ${item.msg}</p>`  %>
+                        <%})%>
                         <%}%>
                     </div>
                     <div class="form-actions">
@@ -60,6 +59,15 @@
                         </div>
                     </div>
                 </form>
+
+                <div class="social-login">
+                    <center><span>Or login with</span></center>
+                    <div class="flex j-center">
+                        <a href="/auth/facebook"><button class="btn btn-facebook"><i class="fab fa-facebook-square"></i> Facebook</button></a>
+                        <a href="/auth/google"><button class="btn btn-google bg-red"><i class="fab fa-google"></i> Google</button></a>
+                    </div>
+                   
+                </div>
             </div>
         </div>
     </div>

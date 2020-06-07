@@ -139,7 +139,7 @@
         }
         .btn-facebook{
             color: blue;
-          
+          background-color: white;
             &:hover{
                 background-color:blue;
                 color: white;
@@ -148,12 +148,13 @@
         }
         .btn-google{
             margin-left: 5px;
-            color: $main-color;
+            background-color: white;
+            color: red;
             &:hover{
-                background-color:$main-color;
+                background-color:red;
             color: white;
 
-                border:1px solid $main-color !important;
+                border:1px solid red !important;
             }
         }
     }

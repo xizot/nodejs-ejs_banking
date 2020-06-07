@@ -2,9 +2,11 @@ const express = require('express');
 const PORT = process.env.PORT || 5000;
 const bodyParser = require('body-parser');
 const app = express();
+var http = require('http').createServer(app)
+var io = require('socket.io').listen(http);
 const cookieSession = require('cookie-session');
 const db = require('./services/db');
-
+const passport = require('./middlewares/passport');
 const Transfer = require('./services/transfer.js');
 const AccountInfo = require('./services/accountInfo.js');
 
@@ -21,6 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //use middlewares
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(require('./middlewares/auth'));
 
 //set layout
@@ -30,19 +34,50 @@ app.set('view engine', 'ejs');
 //get request
 app.use('/', require('./routes/index'));
 app.use('/login', require('./routes/login'));
+app.use('/register', require('./routes/register'));
 app.use('/logout', require('./routes/logout'));
 app.use('/update-phone-number', require('./routes/updatePhoneNumber'));
 app.use('/active-phone-number', require('./routes/activePhoneNumber.js'));
 
-app.get('/transfer', (req, res) => {
-    return res.render('transfer');
-})
+app.use('/transfer', require('./routes/transfer'));
+app.use('/info', require('./routes/info'));
+app.use('/api', require('./routes/api'));
+app.use('/transfer-success', require('./routes/transfer-success'));
+app.set('socketio', io);
+app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', {
+        successRedirect: '/',
+        failureRedirect: '/login'
+    }));
+
+app.get('/auth/google',
+    passport.authenticate('google', { scope: ['profile'] }));
+
+app.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    function (req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/');
+    });
+const users = [];
+io.on('connection', (socket) => {
+    socket.on("transfer", data => {
+        // io.emit("server-said", data);
+        console.log(data);
+    });
+
+    socket.on('client-send-user', data => {
+        console.log(data);
+    })
+
+});
 
 
 
 
 db.sync().then(function () {
-    app.listen(PORT, function () {
+    http.listen(PORT, function () {
         console.log('server listening on port ' + PORT);
     });
 }).catch(function (error) {
