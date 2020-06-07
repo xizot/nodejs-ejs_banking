@@ -19,10 +19,6 @@ class RequestActiveUser extends Model {
 
             return this.create({
                 userID,
-                identityTypes,
-                identity,
-                beginDate,
-                image
             }).then((value) => value);
         }
     }
@@ -53,23 +49,9 @@ RequestActiveUser.init({
         type: Sequelize.INTEGER,
         allowNull: false,
     },
-    identityTypes: {
-        // kieu giay to la 
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
-    identity: {
-        // so giay to
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
-    beginDate: {
-        //ngay cap
+    date: {
         type: Sequelize.DATE,
-        allowNull: false,
-    },
-    image: {
-        type: Sequelize.STRING,
+        defaultValue: Sequelize.NOW,
     }
 
 }, {
