@@ -48,10 +48,6 @@ Transfer.init({
         allowNull: false,
         defaultValue: Sequelize.NOW(),
     },
-    limit: {
-        type: Sequelize.DOUBLE,
-        allowNull: false,
-    }
 
 }, {
     sequelize: db,

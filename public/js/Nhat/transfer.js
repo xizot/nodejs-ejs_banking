@@ -52,6 +52,9 @@ $(function () {
                         if (data == '0') {
                             addError('Số tài khoản và ngân hàng không hợp lệ');
                         }
+                        if (data == '1') {
+                            $(location).attr('href', '/transfer-success');
+                        }
                     },
                 );
                 // console.log('Số dư tài khoản đủ');
