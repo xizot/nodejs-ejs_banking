@@ -1,0 +1,90 @@
+.transfer{
+    .navigation{
+        ul{
+            
+            li{
+                padding: 15px;
+
+                a{
+                    color: white;
+                    text-transform: uppercase;    
+                }
+
+                &:hover{
+                    background-color: rgba(2, 39, 15, 0.4);
+                }
+            }
+        }
+    }
+    .container{
+       
+        .modal{
+      
+            position: relative !important;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            // max-width: 600px;
+            @include rs-sm{
+                max-width: 98%;
+            }
+            @include rs-md{
+                width: 400px;
+            }
+            // min-width: 98%;
+            .title{
+                text-align: center;
+                margin-bottom: 30px;
+               
+                font-weight: 400;
+               
+                h3{
+                    text-transform: uppercase;
+                    font-size: 30px;
+                    margin-bottom: 10px;
+                    text-shadow: 3px 3px 3px gray;
+                    
+                }
+                span{
+                    color: gray;
+                    font-size: 16px;
+                }
+               
+            }
+            form{
+                .form-group{
+                    input{
+
+                    }
+                    select{
+                        margin: 15px 0;
+                        outline: none;
+                        border: 1px solid rgba(45, 190, 96, 0.4);
+                        padding: 10px;
+                        border-radius: 5px;
+                        width: 100%;
+                        option{
+                            outline: none;
+                        }
+                    }
+                    textarea{
+                        border: 1px solid rgba(45, 190, 96, 0.4);
+                        padding: 10px;
+                        border-radius: 5px;
+                        width: 100%;
+                        resize: none;
+                        outline: none;
+                        margin: 15px 0;
+                    }
+                }
+                .form-action{
+                    .btn{
+                        padding: 15px 25px;
+                        width: 100%;
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+}
