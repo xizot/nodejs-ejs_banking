@@ -1,0 +1,41 @@
+<%- include ('header',{title:'Home - Transfer Money'}); %>
+
+<div class="transfer transfer-success">
+    <div class="navigation">
+        <ul class="flex j-center a-center bg-main">
+            <li>
+                <a href="">Send</a>
+
+            </li>
+            <li>
+                <a href="">Request</a>
+
+            </li>
+        </ul>
+    </div>
+    <div class="container h-100 ">
+        <div class="modal send-success">
+            <div class="title">
+                <h3>Send Money</h3>
+            </div>
+            <div class="send-success__content">
+                <div class="icon">
+                    <i class="fas fa-check"></i>
+                    <h3>Success!</h3>
+                    <span>Transactions Complete</span>
+                </div>
+                <div class="info">
+                    You've Succesfully sent <b>$1000</b> to <b>demo@gmail.com</b>, See transaction details under <a
+                        href="">Activity</a>.
+                </div>
+            </div>
+            <a href="/transfer"><button class="btn">Send Money Again</button></a>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="./js/Nhat/transfer.js"></script>
+
+<%- include ('footer'); %>

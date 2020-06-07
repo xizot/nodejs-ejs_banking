@@ -29,6 +29,14 @@ class AccountInfo extends Model {
             }
         })
     }
+    static async getBySTKAndBankCode(stk, bankcode) {
+        return this.findOne({
+            where: {
+                STK: stk,
+                bankCode: bankcode,
+            }
+        })
+    }
 
     static async getByBankCode(bankCode) {
         return this.findAll({
@@ -39,12 +47,25 @@ class AccountInfo extends Model {
     }
 
     static async getByUserID(userID) {
-        return this.findAll({
+        return this.findOne({
             where: {
                 userID: userID,
             }
         })
     }
+
+    async addMoney(from, money) {
+        const foundFrom = await AccountInfo.getByUserID(from);
+        if (foundFrom) {
+            foundFrom.balance = Number(foundFrom.balance) - Number(money);
+            foundFrom.save();
+
+            this.balance = Number(this.balance) + Number(money);
+            return this.save();
+        }
+
+    }
+
 
     static async setActive(id, num) {
         const found = await this.findByPk(id);
@@ -103,6 +124,10 @@ AccountInfo.init({
         type: Sequelize.INTEGER,
         allowNull: false,
     },
+    limit: {
+        type: Sequelize.INTEGER,
+        defaultValue: 20000000,
+    }
 
 }, {
     sequelize: db,

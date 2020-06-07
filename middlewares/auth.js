@@ -8,9 +8,8 @@ const asyncHandler = require('express-async-handler');
 
 module.exports = asyncHandler(async function auth(req, res, next) {
     const userID = req.session.userID || null;
-    res.locals.currentUser = null;
-
-    req.currentUser = null;
+    res.locals.currentUser = req.user || null;
+    req.currentUser = req.user || null;
     if (!userID) {
         return next();
     }

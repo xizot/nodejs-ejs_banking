@@ -17,9 +17,9 @@ class Customer extends Model {
         return this.findByPk(id);
     }
 
-    // Trả về danh sách khách hàng. khi lấy dữ liệu nhớ để ý (return Promise)
+    // Trả về 1 khách hàng. khi lấy dữ liệu nhớ để ý (return Promise)
     static async getByUserID(userID) {
-        return this.findAll({
+        return this.findOne({
             where: {
                 userID: userID,
             }
@@ -47,8 +47,13 @@ Customer.init({
         allowNull: false,
     },
     image: {
+        type: Sequelize.STRING,
+    },
+    isActive: {
         type: Sequelize.INTEGER,
-    }
+        allowNull: false,
+        defaultValue: 0,
+    },
 }, {
     sequelize: db,
     modelName: 'customer',
