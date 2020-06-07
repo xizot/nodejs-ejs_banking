@@ -124,6 +124,10 @@ AccountInfo.init({
         type: Sequelize.INTEGER,
         allowNull: false,
     },
+    limit: {
+        type: Sequelize.INTEGER,
+        defaultValue: 20000000,
+    }
 
 }, {
     sequelize: db,
