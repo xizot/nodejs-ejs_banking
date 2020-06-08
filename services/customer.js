@@ -60,6 +60,6 @@ Customer.init({
 })
 
 
-User.hasOne(Customer, { foreignKey: 'userID', sourceKey: 'id' });
+// User.hasOne(Customer, { foreignKey: 'userID', sourceKey: 'id' });
 
 module.exports = Customer;
