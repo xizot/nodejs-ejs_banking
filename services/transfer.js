@@ -55,9 +55,9 @@ Transfer.init({
 })
 
 
-User.hasOne(Transfer, { foreignKey: 'from', sourceKey: 'id' })
-User.hasOne(Transfer, { foreignKey: 'to', sourceKey: 'id' })
-Bank.hasOne(Transfer, { foreignKey: 'bankCode', sourceKey: 'bankCode' })
+// User.hasOne(Transfer, { foreignKey: 'from', sourceKey: 'id' })
+// User.hasOne(Transfer, { foreignKey: 'to', sourceKey: 'id' })
+// Bank.hasOne(Transfer, { foreignKey: 'bankCode', sourceKey: 'bankCode' })
 
 
 module.exports = Transfer;

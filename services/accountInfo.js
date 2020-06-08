@@ -23,7 +23,7 @@ const Bank = require('./bank');
 class AccountInfo extends Model {
 
     static async getBySTK(stk) {
-        return this.findOne({
+        return this.findAll({
             where: {
                 STK: stk,
             }
@@ -134,8 +134,8 @@ AccountInfo.init({
     modelName: 'accountinfor'
 })
 
-User.hasOne(AccountInfo, { foreignKey: 'userID', sourceKey: 'id' });
-Bank.hasOne(AccountInfo, { foreignKey: 'bankCode', sourceKey: 'bankCode' })
+// User.hasOne(AccountInfo, { foreignKey: 'userID', sourceKey: 'id' });
+// Bank.hasOne(AccountInfo, { foreignKey: 'bankCode', sourceKey: 'bankCode' })
 
 
 

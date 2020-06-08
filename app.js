@@ -38,13 +38,7 @@ app.use('/register', require('./routes/register'));
 app.use('/logout', require('./routes/logout'));
 app.use('/update-phone-number', require('./routes/updatePhoneNumber'));
 app.use('/active-phone-number', require('./routes/activePhoneNumber.js'));
-app.use('/quanli', require('./routes/staff'));
 
-app.use('/quanli', require('./routes/staff.js'));
-
-app.get('/transfer', (req, res) => {
-    return res.render('transfer');
-})
 app.use('/transfer', require('./routes/transfer'));
 app.use('/info', require('./routes/info'));
 app.use('/api', require('./routes/api'));
