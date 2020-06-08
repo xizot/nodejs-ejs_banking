@@ -23,7 +23,7 @@ const Bank = require('./bank');
 class AccountInfo extends Model {
 
     static async getBySTK(stk) {
-        return this.findOne({
+        return this.findAll({
             where: {
                 STK: stk,
             }

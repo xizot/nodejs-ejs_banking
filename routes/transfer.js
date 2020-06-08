@@ -3,19 +3,17 @@ const router = express.Router();
 const exchangeRate = require('../services/exchangeRate');
 const Bank = require('../services/bank');
 const AccountInfo = require('../services/accountInfo');
-const exchangeRates = [];
-const banks = [];
+var exchangeRates = [];
+var banks = [];
 const errors = [];
 
 
-router.get('/', async function(req, res) {
-    return res.end('done');
-    // exchangeRates = await exchangeRate.findAll();
-    // banks = await Bank.findAll();
-    // kho hieu vl @@
-    // console.log(banks);
-    // console.log(exchangeRates);
-    // return res.render('transfer', { exchangeRates, banks, errors:errors });
+router.get('/', async (req, res) => {
+    var io = req.app.get('socketio');
+    exchangeRates = await exchangeRate.findAll();
+    banks = await Bank.findAll();
+
+    return res.render('transfer', { exchangeRates, banks, errors });
 })
 
 router.post('/', async (req, res) => {
@@ -32,6 +30,9 @@ router.post('/', async (req, res) => {
         found.addMoney(txtMoney);
         return res.json(found);
     }
+
+
+
 
     console.log(req.body);
 })
