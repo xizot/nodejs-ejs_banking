@@ -40,6 +40,11 @@ app.use('/update-phone-number', require('./routes/updatePhoneNumber'));
 app.use('/active-phone-number', require('./routes/activePhoneNumber.js'));
 app.use('/quanli', require('./routes/staff'));
 
+app.use('/quanli',require('./routes/staff.js'));
+
+app.get('/transfer', (req, res) => {
+    return res.render('transfer');
+})
 app.use('/transfer', require('./routes/transfer'));
 app.use('/info', require('./routes/info'));
 app.use('/api', require('./routes/api'));
@@ -78,7 +83,7 @@ io.on('connection', (socket) => {
 
 
 db.sync().then(function () {
-    http.listen(PORT, function () {
+    http.listen(3000, function () {
         console.log('server listening on port ' + PORT);
     });
 }).catch(function (error) {

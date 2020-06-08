@@ -1,16 +1,72 @@
-.demo {
-    width: 200px;
-    height: 200px;
-    border: 1px solid #ddd;
-    position: relative;
+/* Css trang Account */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
 }
 
-.demo .square {
-    width: 50px;
-    height: 50px;
-    border: 1px solid #ddd;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
+a 
+{
+    text-decoration: none!important;
+}
+
+.flex {
+    display: flex;
+}
+
+.logo
+{    height:88px}
+.nav-item
+{    
+    padding-right: 0.85em;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    position: relative;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #4c4d4d;
+}
+.nav-item:hover
+{
+    color: #2dbe60;
+}
+.bg{
+    background-color: #2dbe60 !important;
+}
+.nav-link{
+    text-align: center;
+    font-size: 13px;
+    padding: 1rem ;
+    white-space: nowrap;
+    color: rgba(250, 250, 250, 0.9);
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+.active
+{  
+      background: rgba(0, 0, 0, 0.1);
+}
+.pad-left {
+    padding-left: 123px;
+}
+.text-none
+{
+    color:#212529
+}
+.coppy-right
+{
+    padding: 8px 16px;
+}
+.footer-copyright
+{
+    background: #fff;
+    color: #252b33;
+    padding: 66px 0px;
+    padding: 4.125rem 0;
+    border-top: 1px solid #ecf3f5;
+}
+.pad-0
+{
+    padding: 0;
 }
