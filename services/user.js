@@ -57,7 +57,12 @@ class User extends Model {
         });
     };
     static async findBySomeThing(key) {
-        // find user by username, email, id, phoneNumber
+        // Tìm 1 user = email HOẶC EMaIL HOẶC phonE ??  HIểu K ?
+        // find user BY username, email, phoneNumber. key la uẻname hoặc email hoặc phoneNumber ghi 3 cái luôn á
+        // hoặc :# m truyền cái gì vào cung được 1 paramêtrr mà ba
+        // / thích truyền email, ko thì user, ko thì phoneNumber nhưng mà tìm 3 4 cái mà thì truyền cái gì vào
+        // m muốn tìm = cái gì
+        // thì cứ truyền vào
         var found = await this.findByEmail(key) || await this.findByUsername(key) || await this.findByPhoneNumber(key);
         return found;
 
