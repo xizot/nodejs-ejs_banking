@@ -1,0 +1,36 @@
+
+    <ul>
+        <% if(users){%>
+        <%users.forEach(item=>{%>
+            <%- `<li>Họ tên : ${item.displayName}</li>`%>
+            <%- `<li>Email:: ${item.email}</li>`%>
+            <%- `<li>User Name: ${item.username}</li>`%>
+            <%- `<li>Số phone: ${item.phoneNumber}</li>`%>
+        <%})%>
+        <%}%>
+       
+    </ul>
+    
+
+    <%- include ('header',{title:'Home - Transfer Money'}); %>
+<form action="" method="post">
+    <div class="form-group">
+        <label for="txtCustomer">Tìm kiếm thông tin khách hàng</label>
+        <input type="text" class="txtCustomer" required placeholder="Enter Your Email , Username, STK "
+            name="txtCustomer" id="txtCustomer">
+        <input type="submit" value="Tìm kiếm ">
+    </div>
+
+    </div>
+</form>
+<%- include ('footer'); %>
+<style>
+    .txtCustomer {
+        margin: 15px 0;
+        outline: none;
+        border: 1px solid rgba(45, 190, 96, 0.4);
+        padding: 10px;
+        border-radius: 5px;
+        width: 200px;
+    }
+</style>
