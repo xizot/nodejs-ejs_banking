@@ -1,5 +1,5 @@
 const express = require('express');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const bodyParser = require('body-parser');
 const app = express();
 var http = require('http').createServer(app)
@@ -40,7 +40,7 @@ app.use('/update-phone-number', require('./routes/updatePhoneNumber'));
 app.use('/active-phone-number', require('./routes/activePhoneNumber.js'));
 app.use('/quanli', require('./routes/staff'));
 
-app.use('/quanli',require('./routes/staff.js'));
+app.use('/quanli', require('./routes/staff.js'));
 
 app.get('/transfer', (req, res) => {
     return res.render('transfer');
@@ -83,7 +83,7 @@ io.on('connection', (socket) => {
 
 
 db.sync().then(function () {
-    http.listen(3000, function () {
+    http.listen(PORT, function () {
         console.log('server listening on port ' + PORT);
     });
 }).catch(function (error) {
