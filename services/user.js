@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
 const db = require('./db');
 const Model = Sequelize.Model;
+const Customer = require('../services/customer');
 
 class User extends Model {
 
@@ -67,7 +68,16 @@ class User extends Model {
 
     static async createUser(user) {
         if (user) {
-            return this.create(user).then(user => user);
+            return this.create(user).then(async user => {
+                console.log(user);
+                if (user) {
+                    await Customer.create({
+                        userID: user.id,
+                        isActive: 0,
+                    })
+                }
+                return user;
+            });
         }
         return 0; // xảy ra lỗi
     }
