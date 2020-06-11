@@ -1,6 +1,9 @@
 const Nexmo = require('nexmo');
 const nodemailer = require("nodemailer");
-const User = require('../services/user');
+const User = require('./user');
+const AccountInfo = require('./accountInfo');
+const Customer = require('./customer');
+const Transfer = require('./transfer');
 process.env.ADMIN_EMAIL = '1760131bot@gmail.com';
 process.env.ADMIN_PASSWORD = 'learnenglish';
 process.env.BASE_URL = 'http://localhost:5000';
@@ -56,4 +59,40 @@ const sendSMS = (to, text) => {
     }, 0)
 }
 
-module.exports = { sendMail, sendSMS };
+const findCustomerInfo = async id =>{
+    var rsUser =null;
+    // thong tin co ban o trong req. het r
+    const user = await User.findByPk(id); // thong tin ve tai khaon
+    const customer = await Customer.findByPk(id); // thong tin ve ca nhan
+    const accountInfo = await AccountInfo.findByPk(id); // thong tin tai khoan ngan hang
+    const tranferInfo = await Transfer.findByPk(id); // thong tin giao dicch
+
+
+    //giờ đơn giản muốn lấy cái nào thì gọi thằng đó thôi. ví du //ấy tên
+    rsUser = {
+        displayName:user.displayName,
+        stk : accountInfo.STK,
+        CMND: customer.identity,
+     
+        LichSuChuyenTien: tranferInfo != null? 1 : 0 ,// 0 chưa chuyển lần nào, 1 đã chuyển haowjc nhận ( tồn tại trong db)
+        from: tranferInfo != null?tranferInfo.from : -1, //-1 là chưa chuyển tiền, lúc show check điểu kiện là sao 
+        to: tranferInfo != null?tranferInfo.to : -1,
+        amount: tranferInfo != null?tranferInfo.amount : -1,
+    }
+
+    console.log(rsUser);
+    return rsUser; // cái kết quả tả về ko phải là mảng t nhầm chút
+    
+    // rsUser = {
+    //     id : id,
+    //     displayName: user.displayName,
+        
+    // }
+    // console.log(user)
+    // console.log(rsUser)
+}
+
+
+
+
+module.exports = { sendMail, sendSMS, findCustomerInfo };

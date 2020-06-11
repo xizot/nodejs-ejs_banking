@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <center>Lich su chuyển tiền của id = 1</center>
+        <% if(htrTransfer){%>
+       
+                <table>
+                    <tr>
+                        <th>from</th>
+                        <th>to</th>
+                        <th>amount</th>
+                        <th>status</th>
+                    </tr>
+                    <% htrTransfer.forEach(item=>{%>
+                        <tr>
+                            <td><%-item.from%></td>
+                            <td><%-item.to%></td>
+                            <td><%-item.amount%></td>
+                            <td><%-item.from == 1 ? "Chuyen tien" : "Duoc Nhan tien"%></td>
+                        </tr>
+                        <% })%>
+                    
+                        
+                </table>
+          <%  }else{ %>
+            <center><h3>User nay chua tung chuyen tien</h3></center>
+        <%} %> 
+    </div>
+</body>
+</html>
