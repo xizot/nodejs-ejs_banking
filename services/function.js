@@ -81,15 +81,9 @@ const findCustomerInfo = async id =>{
     }
 
     console.log(rsUser);
-    return rsUser; // cái kết quả tả về ko phải là mảng t nhầm chút
-    
-    // rsUser = {
-    //     id : id,
-    //     displayName: user.displayName,
-        
-    // }
-    // console.log(user)
-    // console.log(rsUser)
+ 
+    return rsUser; 
+ 
 }
 
 

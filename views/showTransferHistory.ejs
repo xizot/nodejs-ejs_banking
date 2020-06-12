@@ -1,36 +1,252 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<%- include ('header',{title:'Home - Transfer Money'}); %>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div class="container">
-        <center>Lich su chuyển tiền của id = 1</center>
-        <% if(htrTransfer){%>
-       
-                <table>
+        <div class="text-center title-history ">LỊCH SỬ GIAO DỊCH</div>
+        <div class="mar-35"></div>
+        <div class="main-content">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#">Tài khoản</a></li>
+                <li><a href="#">Thẻ</a></li>
+            </ul>
+            <div class="mar-35"></div>
+            <select class="mdb-select md-form">
+                <option value="" disabled selected>10486842055 - Trương Huy Hoàng - Số dư : 69,696,000,000 VND</option>
+                <option value="1">Thông tin tài khoản 2</option>
+                <option value="2">Thông tin tài khoản 3 </option>
+            </select>
+            <div class="mar-35"></div>
+            <div class="surplus-main grid">
+                <div class="surplus"> Số dư hiện tại <br> 100,000 VND </div>
+                <div class="surplus"> Số dư khả dụng <br> 50,000 VND </div>
+            </div>
+            <div class="accordion-wrapper">
+                <div class="text-center title-history ">Thông tin tài khoản </div>
+                <div class="accordion-body" id="acctdetail">
+                    <div class="account-info-wrapper grid">
+                        <div class="account-info-col account-details-status">
+                            <div class="0" id="statusDetails">
+                                <div class="account-info-label">Trạng thái tài khoản
+                                </div>
+                                <div class="account-info-controls">Hoạt động
+                                </div>
+                            </div>
+                        </div>
+                        <div class="account-info-col" id="accountOrCardNameDetails">
+                            <div class="account-info-label">Tên chủ tài khoản
+                            </div>
+                            <div class="account-info-controls">
+                                Trương Huy Hoàng
+                            </div>
+                        </div>
+                        <div class="account-info-col" id="accountNumDetails">
+                            <div class="account-info-label">Số tài khoản
+                            </div>
+                            <div class="account-info-controls">104868743055
+                            </div>
+                        </div>
+                        <div class="account-info-col" id="accountTypeDetails">
+                            <div class="account-info-label">Loại tài khoản
+                            </div>
+                            <div class="account-info-controls">Tiền gửi thanh toán
+                            </div>
+                        </div>
+                        <div class="account-info-col" id="branchDetails">
+                            <div class="account-info-label">Chi nhánh
+                            </div>
+                            <div class="account-info-controls">CN TP HCM - HOI SO
+                            </div>
+                        </div>
+                        <div class="account-info-col" id="issueDateDetails">
+                            <div class="account-info-label">Ngày mở tài khoản
+                            </div>
+                            <div class="account-info-controls">01/08/2018
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mar-35"></div>
+        <fieldset class="fieldset" id="search-transactions">
+            <legend class="legend">Tìm kiếm giao dịch</legend>
+            <div class="search-wrapper" id="search-wrapper">
+                <div class="basic-search accounts grid" id="basic-search">
+                    <div class="form-group searchform cf">
+                        <label for="txtCustomer">Nội dung chuyển khoản</label>
+                        <input type="text" class="text-center" required="" placeholder="Nội dung  ">
+                        <input type="submit" value="Tìm kiếm ">
+                    </div>
+                    <div class="form-group searchform cf">
+                        <label for="txtCustomer">Thời gian giao dịch</label>
+                        <input type="text" class="text-center" required="" placeholder="Thời gian  ">
+                        <input type="submit" value="Tìm kiếm ">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="mar-100"></div>
+        <div class="">
+ 
+        <table class="table table-searchform container">
+            <thead>
+                <tr>
+                    <th scope="col">Ngày</th>
+                    <th scope="col">Loai giao dịch</th>
+                    <th scope="col">Nội dung</th>
+                    <th scope="col">Số iền</th>
+                    <th scope="col">Số dư</th>  
+                </tr>
+            </thead>
+            <tbody>
+
                     <tr>
-                        <th>from</th>
-                        <th>to</th>
-                        <th>amount</th>
-                        <th>status</th>
-                    </tr>
-                    <% htrTransfer.forEach(item=>{%>
-                        <tr>
-                            <td><%-item.from%></td>
-                            <td><%-item.to%></td>
-                            <td><%-item.amount%></td>
-                            <td><%-item.from == 1 ? "Chuyen tien" : "Duoc Nhan tien"%></td>
-                        </tr>
-                        <% })%>
-                    
-                        
-                </table>
-          <%  }else{ %>
-            <center><h3>User nay chua tung chuyen tien</h3></center>
-        <%} %> 
+                        <td>12/06/2020 </td>
+                        <td>Chuyển tiền</td>
+                        <td>Tiền học phí</td>
+                        <td>69,000,000 VND</td>
+                        <td>100,000,000 VND</td>
+            </tbody>
+          </table>
+        </div>
+        <div class="">
+            <% if(htrTransfer){%>
+            <table>
+                <tr>
+                    <th>from</th>
+                    <th>to</th>
+                    <th>amount</th>
+                    <th>status</th>
+                </tr>
+                <% htrTransfer.forEach(item=>{%>
+                <tr>
+                    <td><%-item.from %> </td>
+                    <td><%-item.to%></td>
+                    <td><%-item.amount%></td>
+                    <td><%-item.from == 1 ? "Chuyen tien" : "Duoc Nhan tien"%></td>
+                </tr>
+                <% })%>
+        
+        
+            </table>
+            <%  }else{ %>
+            <center>
+                <h3>User nay chua tung chuyen tien</h3>
+            </center>
+            <%} %>
+            </div>
+        </body>
     </div>
-</body>
+  
+
 </html>
+<style>
+    .title-history {
+        background-color: cornflowerblue;
+        padding: 15px;
+        border-radius: 10px;
+        color: #fff;
+    }
+
+    .title-green {
+        background-color: #dd2128;
+        font-size: 1.2em;
+        font-weight: 600;
+    }
+
+    .mdb-select {
+        border: solid 2px #e2e2e2;
+        background: #fff;
+        color: #008fd5;
+        font-size: 14px;
+        padding: 8px 45px 8px 15px;
+        height: 50px;
+        width: 100%;
+    }
+
+    .mar-35 {
+        margin: 35px;
+    }
+    .mar-100 {
+        margin: 100px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-column-gap: 50px;
+        padding: 10px;
+        font-size: 18px;
+        text-align: center;
+
+    }
+
+    .surplus {
+        font-size: 1.235em;
+        font-weight: normal;
+        color: #008FD5;
+    }
+
+    .main-content {
+        padding: 30px;
+        clear: both;
+    }
+
+    .accordion-wrapper {
+        border: 2px solid #CCC;
+        padding-bottom: 0.35714em;
+        border-radius: 13px;
+    }
+
+    .account-info-controls {
+        font-size: 1em;
+        line-height: 1.25em;
+        font-weight: bold;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .searchform {
+        background: #f4f4f4;
+        border: 1px solid #d3d3d3;
+        left: 50%;
+        padding: 29px 59px;
+        position: absolute;
+        margin: -22px 0 0 -170px;
+        top: 33px;
+        width: 339px;
+        box-shadow: 0 4px 9px rgba(0, 0, 0, .37);
+        border-radius: 10px;
+        position: relative;
+    }
+
+    .searchform input {
+        background: #fefefe;
+        border: none;
+        font: 12px/12px 'HelveticaNeue', Helvetica, Arial, sans-serif;
+        margin-right: 5px;
+        margin-top: 10px;
+        padding: 10px;
+        width: 216px;
+        box-shadow: 0 0 4px rgba(0, 0, 0, .4) inset, 1px 1px 1px rgba(255, 255, 255, .75);
+        border-radius: 9px;
+    }
+
+    .table-searchform {
+        top: 20%;
+        box-shadow: 0 4px 9px rgba(0, 0, 0, .37);
+        border-radius: 10px;
+        position: relative;
+    }
+</style>

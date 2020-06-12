@@ -1,5 +1,6 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <%- include ('header',{title:'Home - Transfer Money'}); %>
 <form action="" method="post">
     <div class="form-group searchform cf">
@@ -9,13 +10,17 @@
         <input type="submit" value="Tìm kiếm ">
     </div>
 </form>
-<table class="table table-searchform">
+<div class="container"></div>
+<table class="table table-searchform container">
     <thead>
         <tr>
             <th scope="col">Display Name</th>
             <th scope="col">Email</th>
             <th scope="col">User Name</th>
             <th scope="col">Phone</th>
+            <th scope="col">Xác thực tài khoản</th>
+            <th scope="col">Tình trạng khách hàng</th>
+            <th scope="col">Lịch sử giao dịch </th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +30,17 @@
             <%- `<td>${users.email}</td>`%>
             <%- `<td> ${users.username}</td>`%>
             <%- `<td> ${users.phoneNumber}</td>`%>
+            <%- `<td class="btn btn-sign-up btn-acp">Xác thực</td>`%>  
+            <%- `<td class="btn btn-sign-up btn-acp btn-dark">Từ chối</td>`%>  
+            <%- `<td><select class="mdb-select md-form">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="1">Chưa xác thực</option>
+                <option value="2">Đã xác thực</option>
+                <option value="3">Khóa          </option>
+              </select>
+              </td>`%>
+           
+            <%- `<td> <a href="./lichsu"  class="btn btn-sign-up btn-acp mar-7" > Truy cập </a></td>`%>
             <%}%>
       
       </tr>
@@ -68,7 +84,25 @@
     border-radius: 10px;
     position: relative;
 }
+.btn-acp
+{
+    margin: 2px;
+    color: #fff;
+    padding: 7px!important;
+}
+.btn-dark {
+    background-color: black;
+}
+.mar-7
+{
+    margin:-7px!important;
+}
 </style>
-<%- include ('header',{title:'Home - Transfer Money'}); %>
+<script>
+    // Material Select Initialization
+$(document).ready(function() {
+    $('.mdb-select').materialSelect();
+    });
+</script>
  
     <%- include ('footer'); %>

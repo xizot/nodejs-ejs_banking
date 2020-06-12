@@ -72,12 +72,7 @@ io.on('connection', (socket) => {
 });
 
 
-//demo tim kieesm thong tin chuyen tien cua 1 user ( userID = 1)
-// may cai demo nay k up.  khi nào làm thật rôi up cứ để ở local đi
-// ko thì push nhưng lần sau púhs lại thì nhớ xóa nó đi. mấy chỗ console.log cnũg xóa bớt đi
-// chỉ xóa mấy cái thừa nha. :v. ok k
-// thừa: ví du: nãy t console.log(htrTransfer) để xem nó có xuất ra gì ko ( test) sau khi test xong thì xóa. ok? ok ok ok ok ok ok roi gio púh thoải mái đi
-// sau khi hoàn thiện thì nhớ tạo PULL REQUESTh
+
 const Transfer = require('./services/transfer.js');
 const Op = require('sequelize').Op
 app.use('/lichsu', async (req, res)=>{
