@@ -1,0 +1,176 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payyed - DashBoard</title>
+    <link rel="stylesheet" href="./css/Nhat/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
+</head>
+
+<body> -->
+<%- include ('header',{title:'Payyed - Dashboard'}); %>
+<div class="dashboard">
+
+    <div class="container">
+        <div class="dashboard__content row">
+            <div class="col-xs-12 col-md-3 dashboard__content-left ">
+                <div class="profile dashboard-profile section">
+                    <div class="image">
+
+                        <img src="./img/profile-thumb.jpg" alt="">
+                        <form action="" enctype="multipart/form-data">
+                            <label for="avatar" class="avatar custom-file-upload"><i class="fas fa-camera"></i></label>
+                            <input type="file" name="avatar" id="avatar">
+                        </form>
+                    </div>
+                    <p class="name"><%- currentUser.displayName%></p>
+                    <div>
+                        <i class="far fa-edit"></i>
+                    </div>
+                </div>
+                <div class="account account-info section">
+                    <i class="far fa-credit-card"></i>
+                    <div class="availabel-balance">
+                        $2956.00
+                    </div>
+                    <p class="tag">Available Balance</p>
+                    <div class="account-info__actions flex j-between a-center">
+                        <a href="">Withdraw</a>
+                        <a href="">Deposit</a>
+                    </div>
+                </div>
+
+
+
+                <div class="needhelp section">
+                    <i class="fas fa-comments"></i>
+                    <h3 class="t-center">Need help?</h3>
+                    <p>Have questions or concerns regrading your account?</p>
+                    <p>Our experts are here to help!.</p>
+                    <a href=""><button class="btn">Chat with Us</button></a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-9  dashboard__content-right">
+                <div class="profile-complete">
+                    <div class="title flex a-center">
+                        <h3>
+                            Profile Completeness
+                        </h3>
+                        <span class="tag">
+                            50%
+                        </span>
+                    </div>
+                    <div class="profile-complete__content row">
+                        <div class="profile-comlete__content--item col-xs-12 col-md-3">
+                            <div class="gutter">
+
+                                <i class="fas fa-mobile-alt"></i>
+                                <input type="checkbox" name="cbActive1" id="cbActive1" checked>
+                                <label for="cbActive1" class="customInput1"></label>
+                                <p>Mobile Added</p>
+                            </div>
+                        </div>
+                        <div class="profile-comlete__content--item col-xs-12 col-md-3">
+                            <div class="gutter">
+
+                                <i class="far fa-envelope"></i>
+                                <input type="checkbox" name="cbActive2" id="cbActive2" checked>
+                                <label for="cbActive2" class="customInput2"></label>
+                                <p>Email Added</p>
+                            </div>
+                        </div>
+                        <div class="profile-comlete__content--item col-xs-12 col-md-3">
+                            <div class="gutter">
+
+                                <i class="far fa-credit-card"></i>
+                                <input type="checkbox" name="cbActive3" id="cbActive3">
+                                <label for="cbActive3" class="customInput"></label>
+                                <p>Card Add</p>
+                            </div>
+                        </div>
+                        <div class="profile-comlete__content--item col-xs-12 col-md-3">
+                            <div class="gutter">
+
+                                <i class="fas fa-university"></i>
+                                <input type="checkbox" name="cbActive4" id="cbActive4">
+                                <label for="cbActive4" class="customInput4"></label>
+                                <p>Bank Add</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="recent-activity mt-20">
+                    <div class="recent-activity__content">
+
+                        <div class="heading">
+                            <div class="row a-center">
+                                <div class="col-xs-1">
+                                    <label for="">Date</label>
+                                </div>
+                                <div class="col-xs-7 ">
+                                    <label for="">
+                                        Description</label>
+                                </div>
+                                <div class="col-xs-2 t-center ">
+                                    <label for="">Status</label>
+                                </div>
+                                <div class="col-xs-2 ">
+                                    <label for="">Amount</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="recent-activity__content br-4 ">
+                            <% if(Activity.length > 0){%>
+                            <%Activity.forEach(item=>{%>
+                            <div onclick="showTransactionDetail(<%-item.amount%>,0,<%-item.amount%>,<%-item.from%>,<%-item.to%>,'<%-item.message%>','<%-item.date%>')"
+                                class="recent-activity__content--item row a-center" id=<%- item.id %>
+                                style="cursor:pointer">
+                                <div class="col-xs-1 date">
+                                    <!-- <%-item.date%> -->
+                                    <div class="day"><%- new Date(item.date).getDate()%></div>
+                                    <div class="month"><%- months[new Date(item.date).getMonth()]%></div>
+                                </div>
+                                <div class="col-xs-7 description">
+                                    <div class="bank"><%-item.bankCode%></div>
+                                    <div class="actions">
+                                        <%if(item.from == currentUser.id){%>
+                                        Payment Sent
+                                        <%}else{%>
+                                        Payment Received
+                                        <%}%>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2 t-center status">
+                                            <label class=<%= item.from == currentUser.id?`t-center-sent` : `t-center-received` %>>
+                                        <%= item.from == currentUser.id?`x` : `✔` %>
+                                        </label>
+                                    </div>
+                                    <div class="col-xs-2 amount">
+                                        <label for="">
+                                            <%if(item.from == currentUser.id){%>
+                                            -
+                                            <%}else{%>
+                                            +
+                                            <%}%>
+                                                <%-item.amount%>
+                                            <span style="color: gray;">(USD)</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <%})%>
+                                <% }%>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include ('footer'); %>
+    <script src="./js/Nhat/dashboard.js"></script>

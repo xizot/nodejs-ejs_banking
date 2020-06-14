@@ -24,6 +24,11 @@ $(function () {
             alert('Vui lòng điền đầy đủ thông tin');
             return;
         }
+        var tmp = money;
+        if (currencyUnit == "VND") {
+            tmp = money * (1 / 23000);
+        }
+
         const newObj = {
             money: money,
             currencyUnit: currencyUnit,
@@ -35,8 +40,13 @@ $(function () {
         $('.error').remove();
         $.get("api/account/info", function (data, textStatus, jqXHR) {
 
-            console.log(data);
-            if (Number(data.balance) < Number(money)) {
+            if (!data) {
+                addError('Tài khoản chưa có tài khoản ngân hàng <a href="/">Thêm tài khoản</a>');
+            }
+            else if (data.isActive == 0) {
+                addError('Tài khoản đã bị khóa');
+            }
+            else if (Number(data.balance) < Number(tmp)) {
                 addError('Số dư tài khoản không đủ');
             }
             else {
@@ -53,6 +63,12 @@ $(function () {
                             addError('Số tài khoản và ngân hàng không hợp lệ');
                         }
                         if (data == '1') {
+                            const activity = {
+                                stk,
+                                money,
+                                currencyUnit
+                            }
+                            localStorage.setItem('activityTransfer', JSON.stringify(activity));
                             $(location).attr('href', '/transfer-success');
                         }
                     },

@@ -1,25 +1,37 @@
 const Sequelize = require('sequelize');
 const db = require('./db');
 const Model = Sequelize.Model;
-const User = require('./User');
-const Bank = require('./bank');
-// const users = [
-//     {
-//         id: '1',
-//         email: '1760131',
-//         password: '$2b$10$SDLblW5wg5PqJAqq.vR.s.0aCJfHMwkjGc.o4MLnzeE2N3TlEGGDW',
-//         displayName: 'Nguyen Van Nhat'
-//     },
-//     {
-//         id: '1',
-//         email: '1760057',
-//         password: '$2b$10$sTrBCRx1QYd857GcTz.3supgeGZPIei1d2GinrSIQUGv05q.eTvfS',
-//         displayName: 'Minh Hau Pham Thi'
-//     },
+const Op = Sequelize.Op;
 
-// ]
 
 class Transfer extends Model {
+
+    static async addNew(from, to, amount, message, currencyUnit, bankCode) {
+        const newTf = {
+            from,
+            to,
+            amount,
+            message,
+            currencyUnit,
+            bankCode,
+        }
+        return this.create(newTf).then(value => value);
+    }
+
+    static async getActivity(id) {
+        return this.findAll({
+            where: {
+                [Op.or]: [
+                    {
+                        from: id
+                    },
+                    {
+                        to: id
+                    }
+                ]
+            }
+        })
+    }
 }
 
 Transfer.init({
@@ -48,6 +60,11 @@ Transfer.init({
         allowNull: false,
         defaultValue: Sequelize.NOW(),
     },
+    currencyUnit: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: "USD",
+    }
 
 }, {
     sequelize: db,
