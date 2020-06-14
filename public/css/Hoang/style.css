@@ -14,3 +14,103 @@
     left: 50%;
     transform: translate(-50%, -50%) rotate(45deg);
 }
+
+    .title-history {
+        background-color: #2dbe60;
+        padding: 15px;
+        border-radius: 10px;
+        color: #fff;
+    }
+
+    .title-green {
+        background-color: #dd2128;
+        font-size: 1.2em;
+        font-weight: 600;
+    }
+
+    .mdb-select {
+        border: solid 2px #e2e2e2;
+        background: #fff;
+        color: #008fd5;
+        font-size: 14px;
+        padding: 8px 45px 8px 15px;
+        height: 50px;
+        width: 100%;
+    }
+
+    .mar-35 {
+        margin: 35px;
+    }
+    .mar-100 {
+        margin: 100px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-column-gap: 50px;
+        padding: 10px;
+        font-size: 18px;
+        text-align: center;
+
+    }
+
+    .surplus {
+        font-size: 1.235em;
+        font-weight: normal;
+        color: #008FD5;
+    }
+
+    .main-content {
+        padding: 30px;
+        clear: both;
+    }
+
+    .accordion-wrapper {
+        border: 2px solid #CCC;
+        padding-bottom: 0.35714em;
+        border-radius: 13px;
+    }
+
+    .account-info-controls {
+        font-size: 1em;
+        line-height: 1.25em;
+        font-weight: bold;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .searchform {
+        background: #f4f4f4;
+        border: 1px solid #d3d3d3;
+        left: 50%;
+        padding: 29px 59px;
+        position: absolute;
+        margin: -22px 0 0 -170px;
+        top: 33px;
+        width: 339px;
+        box-shadow: 0 4px 9px rgba(0, 0, 0, .37);
+        border-radius: 10px;
+        position: relative;
+    }
+
+    .searchform input {
+        background: #fefefe;
+        border: none;
+        font: 12px/12px 'HelveticaNeue', Helvetica, Arial, sans-serif;
+        margin-right: 5px;
+        margin-top: 10px;
+        padding: 10px;
+        width: 216px;
+        box-shadow: 0 0 4px rgba(0, 0, 0, .4) inset, 1px 1px 1px rgba(255, 255, 255, .75);
+        border-radius: 9px;
+    }
+
+    .table-searchform {
+        top: 20%;
+        box-shadow: 0 4px 9px rgba(0, 0, 0, .37);
+        border-radius: 10px;
+        position: relative;
+    }
+
+    /* // no nhan css roi sao sida vl :V. xius chiu kho fix lai nha. quay lại trang quản lí */

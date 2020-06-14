@@ -4,6 +4,7 @@ const User = require('./user');
 const AccountInfo = require('./accountInfo');
 const Customer = require('./customer');
 const Transfer = require('./transfer');
+
 process.env.ADMIN_EMAIL = '1760131bot@gmail.com';
 process.env.ADMIN_PASSWORD = 'learnenglish';
 process.env.BASE_URL = 'http://localhost:5000';
@@ -73,7 +74,9 @@ const findCustomerInfo = async id =>{
         displayName:user.displayName,
         stk : accountInfo.STK,
         CMND: customer.identity,
-     
+        date:tranferInfo.date,
+        message: tranferInfo.message,
+        balance:accountInfo.balance,
         LichSuChuyenTien: tranferInfo != null? 1 : 0 ,// 0 chưa chuyển lần nào, 1 đã chuyển haowjc nhận ( tồn tại trong db)
         from: tranferInfo != null?tranferInfo.from : -1, //-1 là chưa chuyển tiền, lúc show check điểu kiện là sao 
         to: tranferInfo != null?tranferInfo.to : -1,

@@ -75,29 +75,8 @@ io.on('connection', (socket) => {
 
 const Transfer = require('./services/transfer.js');
 const Op = require('sequelize').Op
-app.use('/lichsu', async (req, res)=>{
-    const rsUser =null;
-    const htrTransfer = await Transfer.findAll(
-        { 
-            where:{
-                [Op.or]:{
-                    from:{
-                        [Op.eq]:1
-                    },
-                    to:{
-                        [Op.eq]:1
-                    }
-                    
-                }
-               
-        }
-    }); // lấy lịch sử giao dịch. 1 người có thể giao dịch nhiều lần nên phải tìm tất cả
-
-    if(htrTransfer){
-        return res.render('showTransferHistory',{rsUser, htrTransfer});
-    }
-    return res.end('khong co gi')
-})
+app.use('/lichsu',require('./routes/historyTransfer'));
+   
 
 db.sync().then(function () {
     http.listen(PORT, function () {
