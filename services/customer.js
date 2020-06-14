@@ -28,7 +28,6 @@ class Customer extends Model {
 
 }
 
-
 Customer.init({
     userID: {
         type: Sequelize.INTEGER,

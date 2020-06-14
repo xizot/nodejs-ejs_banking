@@ -2,8 +2,7 @@ const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
 const db = require('./db');
 const Model = Sequelize.Model;
-const User = require('./user');
-const Bank = require('./bank');
+const Transfer = require('./transfer');
 // const users = [
 //     {
 //         id: '1',
@@ -54,13 +53,16 @@ class AccountInfo extends Model {
         })
     }
 
-    async addMoney(from, money) {
-        const foundFrom = await AccountInfo.getByUserID(from);
-        if (foundFrom) {
-            foundFrom.balance = Number(foundFrom.balance) - Number(money);
-            foundFrom.save();
+    async addMoney(from, amount, message, currencyUnit, bankCode) {
 
-            this.balance = Number(this.balance) + Number(money);
+        const foundFrom = await AccountInfo.getByUserID(from);
+
+
+        if (foundFrom) {
+            foundFrom.balance = Number(foundFrom.balance) - (Number(amount));
+            foundFrom.save();
+            this.balance = Number(this.balance) + (Number(amount));
+            await Transfer.addNew(foundFrom.STK, this.STK, amount, message, currencyUnit, bankCode);
             return this.save();
         }
 
@@ -92,8 +94,8 @@ AccountInfo.init({
         allowNull: false,
     },
     currencyUnit: {
-        // loai tien te
-        type: Sequelize.INTEGER,
+        // loai tien te : USD / VND
+        type: Sequelize.STRING,
         allowNull: false,
     },
     beginDate: {
@@ -116,6 +118,7 @@ AccountInfo.init({
         allowNull: false,
         defaultValue: 0,
     },
+    // ma ngan hang ARG: agribank / TECHCOMBANK: Techombank
     bankCode: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -123,10 +126,6 @@ AccountInfo.init({
     userID: {
         type: Sequelize.INTEGER,
         allowNull: false,
-    },
-    limit: {
-        type: Sequelize.INTEGER,
-        defaultValue: 20000000,
     }
 
 }, {

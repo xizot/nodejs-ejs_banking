@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const AccountInfo = require('../services/accountInfo');
+const Transfer = require('../services/transfer');
 router.get('/account/info', async (req, res) => {
     if (req.currentUser) {
         const found = await AccountInfo.getByUserID(req.currentUser.id);
@@ -13,12 +14,21 @@ router.get('/account/info', async (req, res) => {
 
 // })
 
+//add money with api
 router.post('/account/addMoney', async (req, res) => {
+    const accountInfo = await AccountInfo.getByUserID(req.currentUser.id);
+
+    if (!accountInfo) {
+        return res.end('-3'); // chuưa cập nhật tài khoản
+    }
+
     const stk = req.body.stk;
     const bankCode = req.body.bankCode;
-    const money = req.body.money;
+    var money = req.body.money;
     const message = req.body.message;
-    const currencyUnit = req.body.urrencyUnit;
+    const currencyUnit = req.body.currencyUnit;
+
+
     if (stk && bankCode) {
         const found = await AccountInfo.getBySTKAndBankCode(stk, bankCode);
 
@@ -26,10 +36,11 @@ router.post('/account/addMoney', async (req, res) => {
             if (found.userID == req.currentUser.id) {
                 return res.end('-1'); // lỗi gửi tiền cho chính mình
             }
-
-            console.log('da vao day');
-            await found.addMoney(req.currentUser.id, money);
-            return res.end('1');
+            if (currencyUnit == "VND") {
+                money = money * (1 / 23000);
+            }
+            await found.addMoney(req.currentUser.id, money, message, currencyUnit, bankCode);
+            return res.end('1'); // thanh cong
         }
         else {
             return res.end('0');
@@ -37,6 +48,14 @@ router.post('/account/addMoney', async (req, res) => {
     }
 
     return res.end('-2'); //Lỗi k cố định
+})
+
+//get info of transfer id with api
+
+router.get('/transfer/:id', async (req, res) => {
+    const { id } = req.params;
+    const found = await Transfer.findByPk(id);
+    console.log(found);
 })
 
 

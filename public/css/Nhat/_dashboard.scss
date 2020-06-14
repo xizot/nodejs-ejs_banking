@@ -1,3 +1,7 @@
+
+.br-4{
+    border-radius: 4px;
+}
 .dashboard{
     background-color: #ddd;
     .container{
@@ -136,7 +140,7 @@
             &-right{
                 .profile-complete{
                     background-color: white;
-                    padding: 20px;
+                    padding: 20px 20px 30px;
                     .title{
                         h3{
                             color: #333;
@@ -241,11 +245,36 @@
                             }
                         }
                         .status{
+                            position: relative;
                             .waiting
                             {
                                 color: yellow;
                                 font-weight: bold;
 
+                            }
+
+                            label[class^="t-center-"]{
+                                text-align: center;
+                              
+                                color: white;
+                                position: absolute;
+                                left: 50%;
+                                top: 50%;
+                                width: 16px;
+                                height: 16px;
+                                padding: 2px;
+                                transform: translate(-50%,-50%);
+                                z-index: 9;
+                                border-radius: 50%;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                            }
+                            .t-center-sent{
+                                background: red;
+                            }
+                            .t-center-received{
+                                background: $main-color;
                             }
     
                         }
