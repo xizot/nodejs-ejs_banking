@@ -25,17 +25,18 @@
                     <span>Transactions Complete</span>
                 </div>
                 <div class="info">
-                    You've Succesfully sent <b>$1000</b> to <b>demo@gmail.com</b>, See transaction details under <a
-                        href="">Activity</a>.
+                    You've Succesfully sent
+                    <b class="pay-money">$1000</b>
+                    to
+                    <b class="to"></b>, See transaction
+                    details under <a href="">Activity</a>.
                 </div>
             </div>
             <a href="/transfer"><button class="btn">Send Money Again</button></a>
         </div>
     </div>
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
+<%- include ('footer'); %>
 <script src="/socket.io/socket.io.js"></script>
 <script src="./js/Nhat/transfer.js"></script>
-
-<%- include ('footer'); %>
+<script src="./js/Nhat/success.js"></script>

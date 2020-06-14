@@ -28,6 +28,7 @@ app.use(passport.session());
 app.use(require('./middlewares/auth'));
 
 //set layout
+app.set('socketio', io);
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
@@ -43,7 +44,7 @@ app.use('/transfer', require('./routes/transfer'));
 app.use('/info', require('./routes/info'));
 app.use('/api', require('./routes/api'));
 app.use('/transfer-success', require('./routes/transfer-success'));
-app.set('socketio', io);
+app.use('/dashboard', require('./routes/dashboard'));
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {

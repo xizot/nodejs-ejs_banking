@@ -1365,6 +1365,10 @@ body {
   text-decoration: underline;
 }
 
+.br-4 {
+  border-radius: 4px;
+}
+
 .dashboard {
   background-color: #ddd;
 }
@@ -1530,7 +1534,7 @@ body {
 
 .dashboard .container .dashboard__content-right .profile-complete {
   background-color: white;
-  padding: 20px;
+  padding: 20px 20px 30px;
 }
 
 .dashboard .container .dashboard__content-right .profile-complete .title h3 {
@@ -1640,9 +1644,45 @@ body {
   font-size: 13px;
 }
 
+.dashboard .container .dashboard__content-right .recent-activity .recent-activity__content--item .status {
+  position: relative;
+}
+
 .dashboard .container .dashboard__content-right .recent-activity .recent-activity__content--item .status .waiting {
   color: yellow;
   font-weight: bold;
+}
+
+.dashboard .container .dashboard__content-right .recent-activity .recent-activity__content--item .status label[class^="t-center-"] {
+  text-align: center;
+  color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  padding: 2px;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 9;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.dashboard .container .dashboard__content-right .recent-activity .recent-activity__content--item .status .t-center-sent {
+  background: red;
+}
+
+.dashboard .container .dashboard__content-right .recent-activity .recent-activity__content--item .status .t-center-received {
+  background: #2dbe60;
 }
 
 .dashboard .container .dashboard__content-right .recent-activity .recent-activity__content--item .amount {
@@ -1873,5 +1913,109 @@ body {
   width: 100%;
   color: white;
   padding: 15px 25px;
+}
+
+.transaction-details {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(76, 77, 77, 0.6);
+  z-index: 999;
+}
+
+.transaction-details__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  padding: 2px;
+  -webkit-box-shadow: 20px 20px 60px #7e7e7e,  -20px -20px 60px #aaaaaa;
+          box-shadow: 20px 20px 60px #7e7e7e,  -20px -20px 60px #aaaaaa;
+  border-radius: 10px;
+  min-width: 320px;
+  width: 600px;
+  max-width: 700px;
+  height: 500px;
+}
+
+.transaction-details__content .col-sm-4 {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  position: relative;
+  background-color: #2dbe60;
+  color: white;
+  text-align: center;
+}
+
+.transaction-details__content .col-sm-4 .info {
+  position: absolute;
+  top: 50%;
+  left: 40px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.transaction-details__content .col-sm-4 .total {
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.transaction-details__content .col-sm-4 .date {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.transaction-details__content .col-sm-8 {
+  position: relative;
+  padding: 20px;
+  background-color: white;
+}
+
+.transaction-details__content .col-sm-8 .title {
+  margin: 16px 40px;
+}
+
+.transaction-details__content .col-sm-8 .title h3 {
+  font-size: 22px;
+  font-weight: 400;
+  color: #1E1D1C;
+}
+
+.transaction-details__content .col-sm-8 .title span {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  line-height: 30px;
+  text-align: center;
+}
+
+.transaction-details__content .col-sm-8 .trans-item {
+  margin-top: 16px;
+}
+
+.transaction-details__content .col-sm-8 .detail__content {
+  width: 100%;
+  padding: 40px;
+}
+
+.transaction-details__content .col-sm-8 .detail__content .transaction-item {
+  margin-top: 16px;
+}
+
+.transaction-details__content .col-sm-8 .detail__content .transaction-item h3 {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.transaction-details__content .col-sm-8 .detail__content .transaction-item p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #8E9A9D;
 }
 /*# sourceMappingURL=main.css.map */
