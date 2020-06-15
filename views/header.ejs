@@ -33,12 +33,16 @@
                                     <img src="http://demo.harnishdesign.net/html/payyed/images/logo.png" alt="">
                                 </a>
                             </div>
+                            <% if(currentUser && currentUser.permisstion != 1 ) { %>
                             <a href="/"><button class="btn">My Account</button> </a>
                             <a href="/transfer"><button class="btn">Send</button> </a>
                             <a href="/dashboard"><button class="btn">Dashboard</button> </a>
-                            <a href="/"><button class="btn">Help</button> </a>
+                            <a href="/bank-account"><button class="btn">Bank Accounts</button> </a>
                             <a href="/"><button class="btn">Feature</button> </a>
                             <a href="/"><button class="btn">Page</button> </a>
+                            <% }else if(currentUser && currentUser.permisstion == 1 ){ %>
+                            <a href="/quanli"><button class="btn">Manager</button> </a>
+                            <%} %>
                         </div>
                         <% if(!currentUser) { %>
 

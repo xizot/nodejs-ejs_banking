@@ -1,0 +1,29 @@
+<%- include ('header',{title:'Payyed - Dashboard'}); %>
+<div class="dashboard">
+
+    <div class="container">
+        <div class="dashboard__content row">
+            <div class="col-xs-12 col-md-3 dashboard__content-left ">
+                <%- include('./info-left') %>
+            </div>
+            <div class="col-xs-12 col-md-9  dashboard__content-right">
+                <div class="cards" style="background:white">
+                    <div class="title flex a-center">
+                        <h3 style="background:white; font-size: 18px; color:#333; padding: 20px 20px 0;">
+                            Bank Accounts
+                        </h3>
+                    </div>
+                    <div class="row">
+
+                        <% if(cards.length > 0){ %>
+                        <% cards.forEach(card => {%>
+                        <%- include('./card', {card}) %>
+                        <%}) %>
+                        <% } %>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include ('footer'); %>

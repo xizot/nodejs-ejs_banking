@@ -49,12 +49,13 @@ class AccountInfo extends Model {
         return this.findOne({
             where: {
                 userID: userID,
+                isDefault: true,
             }
         })
     }
 
     async addMoney(from, amount, message, currencyUnit, bankCode) {
-
+        console.log(bankCode);
         const foundFrom = await AccountInfo.getByUserID(from);
 
 
@@ -62,7 +63,7 @@ class AccountInfo extends Model {
             foundFrom.balance = Number(foundFrom.balance) - (Number(amount));
             foundFrom.save();
             this.balance = Number(this.balance) + (Number(amount));
-            await Transfer.addNew(foundFrom.STK, this.STK, amount, message, currencyUnit, bankCode);
+            await Transfer.addNew(foundFrom.userID, this.userID, foundFrom.STK, this.STK, amount, message, currencyUnit, bankCode);
             return this.save();
         }
 
@@ -78,6 +79,18 @@ class AccountInfo extends Model {
         }
     }
 
+    static async setDefault(userID, STK, bankCode) {
+        return this.findOne({
+            where: {
+                STK: STK,
+                userID: userID,
+                bankCode: bankCode,
+            }
+        })
+
+
+    }
+
 }
 
 AccountInfo.init({
@@ -87,6 +100,10 @@ AccountInfo.init({
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
+    },
+    displayName: {
+        type: Sequelize.STRING,
+        allowNull: false,
     },
     balance: {
         //so du tai khoan
@@ -126,6 +143,10 @@ AccountInfo.init({
     userID: {
         type: Sequelize.INTEGER,
         allowNull: false,
+    },
+    isDefault: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
     }
 
 }, {

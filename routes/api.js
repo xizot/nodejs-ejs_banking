@@ -4,11 +4,25 @@ const AccountInfo = require('../services/accountInfo');
 const Transfer = require('../services/transfer');
 router.get('/account/info', async (req, res) => {
     if (req.currentUser) {
-        const found = await AccountInfo.getByUserID(req.currentUser.id);
+        var found = null;
+        if (req.query.stk && req.query.bankCode) {
+            found = await AccountInfo.getBySTKAndBankCode(req.query.stk, req.query.bankCode);
+            return res.json(found);
+        }
+        found = await AccountInfo.getByUserID(req.currentUser.id);
         return res.json(found);
     }
     return res.redirect('/login');
 })
+
+// router.get('/account/info', async (req, res) => {
+//     if (req.currentUser) {
+//         const found = await AccountInfo.getByUserID(req.currentUser.id);
+//         return res.json(found);
+//     }
+//     return res.redirect('/login');
+// })
+
 
 // router.get('/account/find', async (req, res) => {
 

@@ -16,41 +16,7 @@
     <div class="container">
         <div class="dashboard__content row">
             <div class="col-xs-12 col-md-3 dashboard__content-left ">
-                <div class="profile dashboard-profile section">
-                    <div class="image">
-
-                        <img src="./img/profile-thumb.jpg" alt="">
-                        <form action="" enctype="multipart/form-data">
-                            <label for="avatar" class="avatar custom-file-upload"><i class="fas fa-camera"></i></label>
-                            <input type="file" name="avatar" id="avatar">
-                        </form>
-                    </div>
-                    <p class="name"><%- currentUser.displayName%></p>
-                    <div>
-                        <i class="far fa-edit"></i>
-                    </div>
-                </div>
-                <div class="account account-info section">
-                    <i class="far fa-credit-card"></i>
-                    <div class="availabel-balance">
-                        $2956.00
-                    </div>
-                    <p class="tag">Available Balance</p>
-                    <div class="account-info__actions flex j-between a-center">
-                        <a href="">Withdraw</a>
-                        <a href="">Deposit</a>
-                    </div>
-                </div>
-
-
-
-                <div class="needhelp section">
-                    <i class="fas fa-comments"></i>
-                    <h3 class="t-center">Need help?</h3>
-                    <p>Have questions or concerns regrading your account?</p>
-                    <p>Our experts are here to help!.</p>
-                    <a href=""><button class="btn">Chat with Us</button></a>
-                </div>
+                <%- include('./info-left') %>
             </div>
             <div class="col-xs-12 col-md-9  dashboard__content-right">
                 <div class="profile-complete">

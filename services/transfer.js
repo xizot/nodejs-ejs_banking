@@ -6,14 +6,16 @@ const Op = Sequelize.Op;
 
 class Transfer extends Model {
 
-    static async addNew(from, to, amount, message, currencyUnit, bankCode) {
+    static async addNew(fromUser, toUser, fromSTK, toSTK, amount, message, currencyUnit, bankCode) {
         const newTf = {
-            from,
-            to,
+            from: fromSTK,
+            to: toSTK,
             amount,
             message,
             currencyUnit,
             bankCode,
+            fromUser,
+            toUser,
         }
         return this.create(newTf).then(value => value);
     }
@@ -36,11 +38,11 @@ class Transfer extends Model {
 
 Transfer.init({
     //attributes
-    from: {
+    from: { // STK
         type: Sequelize.INTEGER,
         allowNull: false,
     },
-    to: {
+    to: { //STK
         type: Sequelize.INTEGER,
         allowNull: false,
     },
@@ -64,6 +66,14 @@ Transfer.init({
         type: Sequelize.STRING,
         allowNull: false,
         defaultValue: "USD",
+    },
+    fromUser: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+    },
+    toUser: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
     }
 
 }, {

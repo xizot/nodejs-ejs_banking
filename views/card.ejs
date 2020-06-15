@@ -1,57 +1,44 @@
-<div class="card col-xs-4">
+<div class="card col-xs-6">
     <div class=<%-`"card__content ${card.bankCode} "`%>>
         <div class="gutter ">
 
             <div class="card-number">
-                <p><%-card.number%></p>
+                <p><%-card.STK%></p>
             </div>
             <div class="card-date flex a-center">
                 <div class="card-from card-date__item">
                     <p>Valid from</p>
-                    <div class="date"><%-card.beginDate%></div>
+                    <div class="date"><%-new Date(card.beginDate).toLocaleDateString('en-US')%></div>
                 </div>
                 <div class="card-good-thru card-date__item">
                     <p>Good thru</p>
-                    <div class="date"><%-card.endDate%></div>
+                    <div class="date"><%- new Date(card.endDate).toLocaleDateString('en-US')%></div>
                 </div>
             </div>
             <div class="card-info flex a-center">
                 <div class="card-name">
-                    <%-card.name%>
+                    <%-card.displayName%>
                 </div>
                 <div class="type">
                     <p class="napas">napas</p>
                 </div>
             </div>
         </div>
+        <input type="radio" name="isDefault" class="isDefault" id="" style="margin: 20px 150px; cursor: pointer; "
+            <%- card.isDefault?`checked`:''%>>
     </div>
 
 </div>
-<div class="card col-xs-4">
-    <div class="card__content techcombank">
-        <div class="gutter ">
 
-            <div class="card-number">
-                <p>1234 1234 1234 1456</p>
-            </div>
-            <div class="card-date flex a-center">
-                <div class="card-from card-date__item">
-                    <p>Valid from</p>
-                    <div class="date">16/19</div>
-                </div>
-                <div class="card-good-thru card-date__item">
-                    <p>Good thru</p>
-                    <div class="date">16/29</div>
-                </div>
-            </div>
-            <div class="card-info flex a-center">
-                <div class="card-name">
-                    Nguyen van nhat
-                </div>
-                <div class="type">
-                    <p class="visa">visa</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
+<script>
+    $(function () {
+
+        $(document).on('click', '.isDefault', function (e) {
+            e.stopImmediatePropagation();
+            alert('Đã chuyển đổi tài khoản mặc định');
+            console.log('Đã chuyển đổi tài khoản mặc định');
+        }).click();
+
+    });
+</script>
