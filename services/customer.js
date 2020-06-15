@@ -2,6 +2,7 @@ const db = require('./db');
 const Sequelize = require('sequelize');
 const Model = Sequelize.Model;
 const { uuid } = require('uuidv4');
+// can than
 
 class Customer extends Model {
 
