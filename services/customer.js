@@ -2,8 +2,6 @@ const db = require('./db');
 const Sequelize = require('sequelize');
 const Model = Sequelize.Model;
 const { uuid } = require('uuidv4');
-const User = require('./User');
-const Bank = require('./bank');
 
 class Customer extends Model {
 
