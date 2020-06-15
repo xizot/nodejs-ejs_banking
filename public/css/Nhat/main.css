@@ -1689,20 +1689,18 @@ body {
   font-size: 15px;
 }
 
-.card {
-  padding: 40px 20px;
-}
-
 .card__content {
-  padding: 40px;
+  padding: 20px;
 }
 
 .card__content .gutter {
+  max-width: 320px;
   padding: 40px 30px;
   border-radius: 10px;
 }
 
 .card-number {
+  margin-bottom: 20px;
   font-size: 18px;
   color: rgba(255, 255, 255, 0.9);
   font-weight: bolder;
@@ -1763,20 +1761,14 @@ body {
   color: blue;
 }
 
-.techcombank {
+.TECHCOMBANK .gutter {
   background-image: radial-gradient(circle farthest-corner at 10% 20%, #0779de 0%, #14488c 90%);
-}
-
-.techcombank .gutter {
   -webkit-box-shadow: 3px 3px 10px #113d77,  -3px -3px 10px #1753a1;
           box-shadow: 3px 3px 10px #113d77,  -3px -3px 10px #1753a1;
 }
 
-.arg {
+.ARG .gutter {
   background-image: radial-gradient(circle farthest-corner at 50.4% 50.5%, #fb2056 0%, #870223 90%);
-}
-
-.arg .gutter {
   -webkit-box-shadow: 3px 3px 10px #73021e,  -3px -3px 10px #9b0228;
           box-shadow: 3px 3px 10px #73021e,  -3px -3px 10px #9b0228;
 }
