@@ -1,4 +1,6 @@
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <%- include ('header',{title:'Payyed - Activity'}); %>
 
     <div class="container">
@@ -28,39 +30,42 @@
                             <div class="0" id="statusDetails">
                                 <div class="account-info-label">Trạng thái tài khoản
                                 </div>
-                                <div class="account-info-controls">Hoạt động
+                                <div class="account-info-controls"> 
+                                    <%-accountInfo.isActive  == 0 ? " Chưa xác thực": " " %>
+                                    <%-accountInfo.isActive  == 1 ? " Đã xác thực": " " %>
+                                    <%-accountInfo.isActive  == 2 ? " Khóa": " " %>
                                 </div>
                             </div>
                         </div>
                         <div class="account-info-col" id="accountOrCardNameDetails">
                             <div class="account-info-label">Tên chủ tài khoản
-                            </div>
+                            </div>  
                             <div class="account-info-controls">
-                                Trương Huy Hoàng
+                                <%-displayName%>
                             </div>
                         </div>
                         <div class="account-info-col" id="accountNumDetails">
                             <div class="account-info-label">Số tài khoản
                             </div>
-                            <div class="account-info-controls">104868743055
-                            </div>
-                        </div>
-                        <div class="account-info-col" id="accountTypeDetails">
-                            <div class="account-info-label">Loại tài khoản
-                            </div>
-                            <div class="account-info-controls">Tiền gửi thanh toán
-                            </div>
-                        </div>
-                        <div class="account-info-col" id="branchDetails">
-                            <div class="account-info-label">Chi nhánh
-                            </div>
-                            <div class="account-info-controls">CN TP HCM - HOI SO
+                            <div class="account-info-controls"><%-accountInfo.STK%>
                             </div>
                         </div>
                         <div class="account-info-col" id="issueDateDetails">
                             <div class="account-info-label">Ngày mở tài khoản
                             </div>
-                            <div class="account-info-controls">01/08/2018
+                            <div class="account-info-controls"><%-new Date(accountInfo.beginDate).toLocaleDateString("en-US") %>
+                            </div>
+                        </div>
+                        <div class="account-info-col" id="accountNumDetails">
+                            <div class="account-info-label">Ngân hàng
+                            </div>
+                            <div class="account-info-controls"><%-accountInfo.bankCode  ==  "ARG" ? " Agribank": " " %>
+                            </div>
+                        </div>
+                        <div class="account-info-col" id="accountNumDetails">
+                            <div class="account-info-label">Kỳ hạn
+                            </div>
+                            <div class="account-info-controls"><%-accountInfo.term%>
                             </div>
                         </div>
                     </div>
@@ -104,7 +109,7 @@
                         <td><%-new Date(item.date).toLocaleDateString("en-US") %> </td>
                         <td><%-item.from == id ? " Chuyển tiền " : " Nhận tiền "%></td>
                         <td><%-item.message%></td>
-                        <td><%-item.amount%> (Chua cap nhat) </td>
+                        <td><%-item.amount%> </td>
                         <td> <%-accountInfo.balance%></td> 
                     </tr>
                      <% })%>

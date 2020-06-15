@@ -1,116 +1,354 @@
-.demo {
-    width: 200px;
-    height: 200px;
-    border: 1px solid #ddd;
-    position: relative;
+.title-history {
+  background-color: #2dbe60;
+  padding: 15px;
+  border-radius: 10px;
+  color: #fff;
 }
 
-.demo .square {
-    width: 50px;
-    height: 50px;
-    border: 1px solid #ddd;
+.title-green {
+  background-color: #dd2128;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.mdb-select {
+  border: solid 2px #e2e2e2;
+  background: #fff;
+  color: #008fd5;
+  font-size: 14px;
+  height: 33px;
+  width: 100%;
+}
+
+.mar-35 {
+  margin: 35px;
+}
+.mar-100 {
+  margin: 100px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 50px;
+  padding: 10px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.surplus {
+  font-size: 1.235em;
+  font-weight: normal;
+  color: #008fd5;
+}
+
+.main-content {
+  padding: 30px;
+  clear: both;
+}
+
+.accordion-wrapper {
+  border: 2px solid #ccc;
+  padding-bottom: 0.35714em;
+  border-radius: 13px;
+}
+
+.account-info-controls {
+  font-size: 1em;
+  line-height: 1.25em;
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.searchform {
+  background: #f4f4f4;
+  border: 1px solid #d3d3d3;
+  left: 50%;
+  padding: 29px 59px;
+  position: absolute;
+  margin: -22px 0 0 -170px;
+  top: 33px;
+  width: 339px;
+  box-shadow: 0 4px 9px rgba(0, 0, 0, 0.37);
+  border-radius: 10px;
+  position: relative;
+}
+
+.searchform input {
+  background: #fefefe;
+  border: none;
+  font: 12px/12px "HelveticaNeue", Helvetica, Arial, sans-serif;
+  margin-right: 5px;
+  margin-top: 10px;
+  padding: 10px;
+  width: 216px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4) inset,
+    1px 1px 1px rgba(255, 255, 255, 0.75);
+  border-radius: 9px;
+}
+
+.table-searchform {
+  top: 20%;
+  box-shadow: 0 4px 9px rgba(0, 0, 0, 0.37);
+  border-radius: 10px;
+  position: relative;
+}
+.txtCustomer {
+  margin: 15px 0;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+}
+.searchform {
+  background: #f4f4f4;
+  border: 1px solid #d3d3d3;
+  left: 50%;
+  padding: 29px 59px;
+  position: absolute;
+  margin: -22px 0 0 -170px;
+  top: 33px;
+  width: 339px;
+  box-shadow: 0 4px 9px rgba(0, 0, 0, 0.37);
+  border-radius: 10px;
+  position: relative;
+}
+.searchform input {
+  background: #fefefe;
+  border: none;
+  font: 12px/12px "HelveticaNeue", Helvetica, Arial, sans-serif;
+  margin-right: 5px;
+  padding: 10px;
+  width: 216px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4) inset,
+    1px 1px 1px rgba(255, 255, 255, 0.75);
+  border-radius: 9px;
+}
+.table-searchform {
+  top: 20%;
+  box-shadow: 0 4px 9px rgba(0, 0, 0, 0.37);
+  border-radius: 10px;
+  position: relative;
+}
+.btn-acp {
+  margin: 5px;
+  color: #fff;
+  padding: 7px !important;
+}
+.btn-dark {
+  padding: 7px !important;
+  background-color: black;
+}
+.mar-7 {
+  margin: -7px !important;
+}
+
+/* Error nè */
+/* Total Body  */
+#total{
+    width: 320px;
+    height: 533px;
+    margin: 0% 25% 0px 25%;
+}
+
+/* complete head */
+#head{
+    width: 60%;
+    height: 160px;
+    background-color: rgba(65, 202, 65, 0.849);
+    border-top-right-radius: 100%;
+    border-top-left-radius: 100%;
+    z-index: 1;
+}
+
+/* Both eye brow */
+span{
+    width: 2px;
+    height: 10px;
+    margin: 0 3px;
+    background-color: black;
+}
+
+/* Left eye brow */
+#lefts{
+    display: flex;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
+    margin-top: 2%;
+    margin-left: 26px;
+    transform: rotate(160deg);
 }
 
-    .title-history {
-        background-color: #2dbe60;
-        padding: 15px;
-        border-radius: 10px;
-        color: #fff;
-    }
+/* Right eye brow */
+#rights{
+    display: flex;
+    position: absolute;
+    margin-top: 2%;
+    margin-left: 130px;
+    transform: rotate(200deg);
+}
 
-    .title-green {
-        background-color: #dd2128;
-        font-size: 1.2em;
-        font-weight: 600;
-    }
+/* Both eyes */
+.eyes{
+    display: flex;
+    margin-top: 0%;
+}
 
-    .mdb-select {
-        border: solid 2px #e2e2e2;
-        background: #fff;
-        color: #008fd5;
-        font-size: 14px;
-        padding: 8px 45px 8px 15px;
-        height: 50px;
-        width: 100%;
-    }
+/* The Large White position each */
+.eye{
+    width: 70px;
+    height: 40px;
+    background-color: white;
+    border-radius: 100%;
+    margin: 20% 15%;
+    /* z-index: 1; */
+}
 
-    .mar-35 {
-        margin: 35px;
-    }
-    .mar-100 {
-        margin: 100px;
-    }
+/* The Green eye panel each */
+.pupil{
+    margin-left: 8%;
+    background-color: lightgreen;
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+}
 
-    .grid {
-        display: grid;
-        grid-template-columns: auto auto;
-        grid-column-gap: 50px;
-        padding: 10px;
-        font-size: 18px;
-        text-align: center;
+/* The black splot */
+.iris{
+    margin-left: 8%;
+    background-color: black;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%; 
+}
 
+/* The small moving white ball */
+.wh{
+    margin-left: 30%;
+    margin-top: 0%;
+    background-color: white;
+    width: 9px;
+    height: 10px;
+    border-radius: 100%; 
+    animation: watch 5s infinite ease;
+}
+@keyframes watch{
+    0%{margin-left: 30%;margin-top: 0%;
     }
-
-    .surplus {
-        font-size: 1.235em;
-        font-weight: normal;
-        color: #008FD5;
+    50%{margin-left: 50%;margin-top: 12%;
     }
-
-    .main-content {
-        padding: 30px;
-        clear: both;
+    100%{margin-left: 30%;margin-top: 0%;
     }
+}
 
-    .accordion-wrapper {
-        border: 2px solid #CCC;
-        padding-bottom: 0.35714em;
-        border-radius: 13px;
-    }
+/* The nose */
+.nose{
+    background-color: indianred;
+    width: 30px;
+    height: 30px;
+    margin-left: 43%;
+    margin-top: -10%;
+    border-bottom-right-radius: 100%;
+    transform: rotate(225deg)
+}
 
-    .account-info-controls {
-        font-size: 1em;
-        line-height: 1.25em;
-        font-weight: bold;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
+/* The body with white background */
+#body{
+    width: 59.3%;
+    height: 180px;
+    background-color: white;
+    border-bottom-right-radius: 100%;
+    border-bottom-left-radius: 100%;
+    border: 1px solid rgba(65, 202, 65, 0.849);
+}
 
-    .searchform {
-        background: #f4f4f4;
-        border: 1px solid #d3d3d3;
-        left: 50%;
-        padding: 29px 59px;
-        position: absolute;
-        margin: -22px 0 0 -170px;
-        top: 33px;
-        width: 339px;
-        box-shadow: 0 4px 9px rgba(0, 0, 0, .37);
-        border-radius: 10px;
-        position: relative;
-    }
+/* Both hands */
+#hands{
+    display: flex;
+    margin-left: -40%;
+    margin-top: 50%;
+}
 
-    .searchform input {
-        background: #fefefe;
-        border: none;
-        font: 12px/12px 'HelveticaNeue', Helvetica, Arial, sans-serif;
-        margin-right: 5px;
-        margin-top: 10px;
-        padding: 10px;
-        width: 216px;
-        box-shadow: 0 0 4px rgba(0, 0, 0, .4) inset, 1px 1px 1px rgba(255, 255, 255, .75);
-        border-radius: 9px;
-    }
+/* Both hands each */
+.hand{
+    background-color: rgb(206, 40, 206);
+    width: 100px;
+    height: 80px;
+    margin: -76% 20%;
+    border-bottom-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+    border: 1px solid black;
+    z-index: -1;
+}
 
-    .table-searchform {
-        top: 20%;
-        box-shadow: 0 4px 9px rgba(0, 0, 0, .37);
-        border-radius: 10px;
-        position: relative;
-    }
+/* Left Hand */
+#lhand{
+    transform: rotate(50deg);
+}
 
-    /* // no nhan css roi sao sida vl :V. xius chiu kho fix lai nha. quay lại trang quản lí */
+/* Right hand */
+#rhand{
+    transform: rotate(310deg);
+}
+
+/* Both Legs */
+#legs{
+    display: flex;
+    margin-left: 0%;
+    margin-top: 50%;
+}
+
+/* Both legs each */
+.leg{
+    background-color: rgb(235, 95, 235);
+    width: 7px;
+    height: 60px;
+    margin: -110% 14%;
+    z-index: -1;
+}
+
+/* Right leg left ankle */
+#rank1{
+    background-color: rgb(235, 95, 235);
+    width: 5px;
+    height: 20px;
+    margin-top: -97%;
+    margin-left: 12%;
+    transform: rotate(45deg);
+}
+
+/* Left leg right ankle */
+#rank2{
+    background-color: rgb(235, 95, 235);
+    width: 5px;
+    height: 20px;
+    margin-top: -6%;
+    margin-left: 42%;
+    transform: rotate(45deg);
+}
+
+/* Left leg right ankle */
+#lank1{
+    background-color: rgb(235, 95, 235);
+    width: 5px;
+    height: 20px;
+    margin-top: -6.5%;
+    margin-left: 17%;
+    transform: rotate(315deg);
+}
+
+/* Right leg right ankle */
+#lank2{
+    background-color: rgb(235, 95, 235);
+    width: 5px;
+    height: 20px;
+    margin-top: -6.5%;
+    margin-left: 47%;
+    transform: rotate(315deg);
+}
+
+.text-red
+{
+    color:red;
+}
+
+/* End Error */

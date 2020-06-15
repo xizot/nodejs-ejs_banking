@@ -75,6 +75,9 @@ const findCustomerInfo = async id =>{
         stk : accountInfo.STK,
         CMND: customer.identity,
         date:tranferInfo.date,
+        beginDate:accountInfo.beginDate,
+        term: accountInfo.term,
+        bankCode:accountInfo.bankCode,
         message: tranferInfo.message,
         balance:accountInfo.balance,
         LichSuChuyenTien: tranferInfo != null? 1 : 0 ,// 0 chưa chuyển lần nào, 1 đã chuyển haowjc nhận ( tồn tại trong db)

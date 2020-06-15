@@ -1,6 +1,5 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  
 <%- include ('header',{title:'Home - Transfer Money'}); %>
 <form action="" method="post">
     <div class="form-group searchform cf">
@@ -34,13 +33,13 @@
             <%- `<td class="btn btn-sign-up btn-acp btn-dark">Từ chối</td>`%>  
             <%- `<td><select class="mdb-select md-form">
                 <option value="" disabled selected>Choose your option</option>
-                <option value="1">Chưa xác thực</option>
-                <option value="2">Đã xác thực</option>
-                <option value="3">Khóa          </option>
+                <option value="1" ${users.isActive == 0 ? "selected": "dc "}>Chưa xác thực</option>
+                <option value="2" ${users.isActive == 1 ? "selected": "dc "}>Đã xác thực</option>
+                <option value="3" ${users.isActive == 2 ? "selected": "dc "}>Khóa          </option>
               </select>
               </td>`%>
            
-            <%- `<td> <a href="./lichsu"  class="btn btn-sign-up btn-acp mar-7" > Truy cập </a></td>`%>
+            <%- `<td> <a href="./lichsu/${users.id}"  class="btn btn-sign-up btn-acp mar-7" > Truy cập </a></td>`%>
             <%}%>
       
       </tr>
@@ -48,61 +47,7 @@
   </table>
 
     <%- include ('footer'); %>
-<style>
-.txtCustomer {
-    margin: 15px 0;
-    padding: 10px;
-    border-radius: 5px;
-    width: 100%;
-}
-.searchform {
-    background: #f4f4f4;
-    border: 1px solid #d3d3d3;
-    left: 50%;
-    padding: 29px 59px;
-    position: absolute;
-    margin: -22px 0 0 -170px;
-    top: 33px;
-    width: 339px;
-    box-shadow: 0 4px 9px rgba(0, 0, 0, .37);
-    border-radius: 10px;
-    position: relative;
-}
-.searchform input {
-    background: #fefefe;
-    border: none;
-    font: 12px/12px 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    margin-right: 5px;
-    padding: 10px;
-    width: 216px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, .4) inset, 1px 1px 1px rgba(255, 255, 255, .75);
-    border-radius: 9px;
-}
-.table-searchform {
-    top: 20%;
-    box-shadow: 0 4px 9px rgba(0, 0, 0, .37);
-    border-radius: 10px;
-    position: relative;
-}
-.btn-acp
-{
-    margin: 2px;
-    color: #fff;
-    padding: 7px!important;
-}
-.btn-dark {
-    background-color: black;
-}
-.mar-7
-{
-    margin:-7px!important;
-}
-</style>
-<script>
-    // Material Select Initialization
-$(document).ready(function() {
-    $('.mdb-select').materialSelect();
-    });
-</script>
+
+
  
-    <%- include ('footer'); %>
+

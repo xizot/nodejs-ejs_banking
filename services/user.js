@@ -129,6 +129,7 @@ User.init({
     // 2: da bi khoa
     isActive:{
         type: Sequelize.INTEGER,
+        defaultValue:0,
     }
 }, {
     sequelize: db,
