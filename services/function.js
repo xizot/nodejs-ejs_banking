@@ -1,9 +1,9 @@
 const Nexmo = require('nexmo');
 const nodemailer = require("nodemailer");
 const User = require('../services/user');
-process.env.ADMIN_EMAIL = '1760131bot@gmail.com';
-process.env.ADMIN_PASSWORD = 'learnenglish';
-process.env.BASE_URL = 'http://localhost:5000';
+process.env.ADMIN_EMAIL = process.env.ADMIN_EMAIL || '1760131bot@gmail.com';
+process.env.ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'learnenglish';
+process.env.BASE_URL = process.env.BASE_URL || 'http://localhost:5000';
 // async..await is not allowed in global scope, must use a wrapper
 async function sendMail(to, subject, content, html) {
     // Generate test SMTP service account from ethereal.email
@@ -12,8 +12,8 @@ async function sendMail(to, subject, content, html) {
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
-        port: 25,
-        secure: false, // true for 465, false for other ports
+        port: 465,
+        secure: true, // true for 465, false for other ports
         auth: {
             user: process.env.ADMIN_EMAIL, // generated ethereal user
             pass: process.env.ADMIN_PASSWORD, // generated ethereal password
