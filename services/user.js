@@ -69,7 +69,6 @@ class User extends Model {
     static async createUser(user) {
         if (user) {
             return this.create(user).then(async user => {
-                console.log(user);
                 if (user) {
                     await Customer.create({
                         userID: user.id,
@@ -124,6 +123,9 @@ User.init({
     facebookAccessToken: {
         type: Sequelize.STRING
     },
+    token: {
+        type: Sequelize.STRING,
+    }
 }, {
     sequelize: db,
     modelName: 'user'

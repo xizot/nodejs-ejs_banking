@@ -23,6 +23,18 @@ router.post('/', asyncHandler(async function (req, res) {
             req.session.userID = user.id;
             req.session.email = user.email;
 
+            if (!user.email) {
+                return res.redirect('/add-mail')
+
+            }
+
+            if (user.token) {
+                return res.redirect('/active');
+
+            }
+            // if (user.token) {
+            //     return res.redirect('/active');
+            // }
             //tam thoi chua su dung toi
 
             // if (!user.phoneNumber) {

@@ -32,8 +32,7 @@
         <div class="wrapper__right  col-xs-12 col-md-6">
             <div class="modal">
                 <div class="title">
-                    <h3
-                        style="margin: 0  0 20px; font-size: 32px;text-transform: uppercase;color: #333;font-weight: 400;">
+                    <h3 style="margin: 0  0 20px;text-align: center; font-size: 18px;color: #333;font-weight: 400;">
                         Sign Up</h3>
                 </div>
                 <form action="" method="post">
@@ -43,7 +42,7 @@
                             id="txtDisplayName">
                     </div>
                     <div class="form-group">
-                        <label for="txtEmail">Email Address</label>
+                        <label for="txtEmail">Username</label>
                         <input type="text" required placeholder="Enter Your Email , Username, Phone Number"
                             name="txtEmail" id="txtEmail">
                     </div>
@@ -60,7 +59,7 @@
                     <div class="form-group">
                         <% if(errors || errors.length){ %>
                         <% errors.forEach(item=>{%>
-                        <%- `<p class="red">* ${item.msg}</p>`  %>
+                        <%- `<p style="color:red" >* ${item.msg}</p>`  %>
                         <%})%>
                         <%}%>
                     </div>

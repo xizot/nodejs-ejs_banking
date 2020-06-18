@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const User = require('../services/user');
 
+const { sendMail } = require('../services/function');
+function validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 const { check, validationResult, body } = require('express-validator');
 var errors = [];
 router.get('/', function (req, res) {
@@ -14,13 +19,14 @@ router.get('/', function (req, res) {
 })
 
 router.post('/', [
+    body('txtPassword').isLength({ min: 6 }).withMessage('Mật khẩu phải lớn hơn 6 kí tự'),
     body('txtDisplayName').trim(),
     body('txtCfPassword').custom((value, { req }) => {
         if (value != req.body.txtPassword) {
             throw new Error('Xác nhận mật khẩu không đúng');
         }
         return true;
-    })
+    }),
 ], async function (req, res) {
     errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -33,15 +39,41 @@ router.post('/', [
         return res.render('register', { errors });
     }
     else {
-        const newUser = {
-            displayName: req.body.txtDisplayName,
-            email: req.body.txtEmail,
-            password: req.body.txtPassword,
+
+        var email = null;
+        var token = null;
+        if (validateEmail(req.body.txtEmail)) {
+            email = req.body.txtEmail;
         }
 
+        if (email) {
+            token = require('crypto').randomBytes(3).toString('hex').toUpperCase();
+        }
+
+        const newUser = {
+            displayName: req.body.txtDisplayName,
+            username: req.body.txtEmail,
+            password: require('bcrypt').hashSync(req.body.txtPassword, 10),
+            email: email,
+            token: token,
+        }
+        errors = [];
         const reg = await User.createUser(newUser);
-        req.session.userID = reg.id;
+        if (reg) {
+            req.session.userID = reg.id;
+            if (email) {
+                sendMail(email, `Mã kích hoạt ${token}`, `Mã kích hoạt ${token}`);
+                return res.redirect('/active');
+            }
+            else {
+                return res.redirect('/add-mail');
+            }
+        }
+        else {
+            res.redirect('/login');
+        }
         return res.redirect('/');
+
     }
 })
 module.exports = router;
