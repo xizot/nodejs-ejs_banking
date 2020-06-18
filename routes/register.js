@@ -33,6 +33,7 @@ router.post('/', [
         errors = errors.array();
         return res.status(422).render('register', { errors });
     }
+    errors = [];
     const user = await User.findBySomeThing(req.body.txtEmail);
     if (user) {
         errors = [{ msg: 'Tài khoản đã tồn tại' }];
