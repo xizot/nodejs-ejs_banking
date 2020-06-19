@@ -787,9 +787,15 @@ footer .footer .container .row .footer-item > ul li:before {
 
 .modal form {
   width: 100%;
+  color: #222222;
+}
+
+.modal form .form-group label {
+  font-size: 16px;
 }
 
 .modal form .form-group input {
+  height: 45px;
   margin: 15px 0;
   outline: none;
   border: 1px solid rgba(45, 190, 96, 0.4);

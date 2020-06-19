@@ -16,10 +16,10 @@ router.get('/:id', async (req,res)=>{
         { 
             where:{
                 [Op.or]:{
-                    from:{
+                    fromUser:{
                         [Op.eq]:id
                     },
-                    to:{
+                    toUser:{
                         [Op.eq]:id
                     }
                     

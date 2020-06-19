@@ -45,8 +45,14 @@
     }
     form{
         width: 100%;
+        color: #222222;
         .form-group{
+            label{
+                font-size: 16px;
+            }
+
             input{
+                height: 45px;
                 margin: 15px 0;
                 outline: none;
                 border: 1px solid rgba($color:  $main-color, $alpha: .4);

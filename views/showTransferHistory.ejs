@@ -107,7 +107,7 @@
                 <% htrTransfer.forEach(item=>{%>
                     <tr>
                         <td><%-new Date(item.date).toLocaleDateString("en-US") %> </td>
-                        <td><%-item.from == id ? " Chuyển tiền " : " Nhận tiền "%></td>
+                        <td><%-accountInfo.STK == accountInfo.STK ? " Chuyển tiền " : " Nhận tiền "%></td>
                         <td><%-item.message%></td>
                         <td><%-item.amount%> </td>
                         <td> <%-accountInfo.balance%></td> 

@@ -16,8 +16,8 @@ async function sendMail(to, subject, content, html) {
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
-        port: 25,
-        secure: false, // true for 465, false for other ports
+        port: 465,
+        secure: true, // true for 465, false for other ports
         auth: {
             user: process.env.ADMIN_EMAIL, // generated ethereal user
             pass: process.env.ADMIN_PASSWORD, // generated ethereal password
@@ -72,7 +72,7 @@ const findCustomerInfo = async id =>{
     //giờ đơn giản muốn lấy cái nào thì gọi thằng đó thôi. ví du //ấy tên
     rsUser = {
         displayName:user.displayName,
-        stk : accountInfo.STK,
+        STK : accountInfo.STK,
         CMND: customer.identity,
         date:tranferInfo.date,
         beginDate:accountInfo.beginDate,

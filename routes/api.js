@@ -50,9 +50,7 @@ router.post('/account/addMoney', async (req, res) => {
             if (found.userID == req.currentUser.id) {
                 return res.end('-1'); // lỗi gửi tiền cho chính mình
             }
-            if (currencyUnit == "VND") {
-                money = money * (1 / 23000);
-            }
+           
             await found.addMoney(req.currentUser.id, money, message, currencyUnit, bankCode);
             return res.end('1'); // thanh cong
         }
