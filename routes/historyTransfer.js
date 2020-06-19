@@ -31,7 +31,7 @@ router.get('/:id', async (req,res)=>{
    // thong tin tai khoan
     const accountInfo = await AccountInfo.getByUserID(id);
     if(!accountInfo){
-        return res.end('khong ton tai hoac chua cap nhat tai khoan ngan hang');
+        res.redirect('/error');
     }
     //thông tin cá nhân
 

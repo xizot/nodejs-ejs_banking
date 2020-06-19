@@ -44,6 +44,8 @@ app.use('/info', require('./routes/info'));
 app.use('/api', require('./routes/api'));
 app.use('/transfer-success', require('./routes/transfer-success'));
 app.use('/dashboard', require('./routes/dashboard'));
+app.use('/bank-account', require('./routes/bankAccount'));
+
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {

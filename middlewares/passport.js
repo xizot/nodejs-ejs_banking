@@ -5,14 +5,14 @@ const User = require('../services/user');
 const Bluebird = require('bluebird');
 
 
-process.env.FACEBOOK_APP_ID = "292046422188288";
-process.env.FACEBOOK_APP_SECRET = "5d2223d62a62f59e9194dc2bdc70688c";
-process.env.BASE_URL = "http://localhost:5000";
+process.env.FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID || "292046422188288";
+process.env.FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET || "5d2223d62a62f59e9194dc2bdc70688c";
+process.env.BASE_URL = process.env.BASE_URL || "http://localhost:5000";
 
 //google
 
-process.env.GOOGLE_CONSUMER_KEY = "671680862884-m2chbv898tvh7mnfsh10b18rr74bn9ql.apps.googleusercontent.com";
-process.env.GOOGLE_CONSUMER_SECRET = "V9iVj15PbcxeQgze-HqTlmHF";
+process.env.GOOGLE_CONSUMER_KEY = process.env.GOOGLE_CONSUMER_KEY || "671680862884-m2chbv898tvh7mnfsh10b18rr74bn9ql.apps.googleusercontent.com";
+process.env.GOOGLE_CONSUMER_SECRET = process.env.GOOGLE_CONSUMER_SECRET || "V9iVj15PbcxeQgze-HqTlmHF";
 
 
 passport.use(new GoogleStrategy({

@@ -23,6 +23,7 @@ router.post('/', async (req, res) => {
     const bankCode = req.body.beneficiaryBank;
     const txtCardNumber = req.body.txtCardNumber;
     const txtMessage = req.body.txtMessage;
+
     const found = await AccountInfo.getBySTKAndBankCode(txtCardNumber, bankCode);
     if (found) {
         found.addMoney(req.currentUser.id, txtMoney, txtMessage, currencyUnit, bankCode);
