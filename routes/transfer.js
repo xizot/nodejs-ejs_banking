@@ -9,6 +9,12 @@ const errors = [];
 
 
 router.get('/', async (req, res) => {
+
+  
+    if(req.currentUser.isActive == 0)
+    {
+        return res.redirect('/page-confirm');
+    }
     var io = req.app.get('socketio');
     exchangeRates = await exchangeRate.findAll();
     banks = await Bank.findAll();
