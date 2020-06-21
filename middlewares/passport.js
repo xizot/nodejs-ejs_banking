@@ -35,12 +35,13 @@ passport.use(new GoogleStrategy({
                 return found;
             }
 
-            const user = await User.create({
+            const temp = {
                 email: `${profile.id}@google.com`,
                 googleID: profile.id,
                 displayName: profile.displayName,
                 googleAccessToken: accessToken,
-            })
+            }
+            const user = await User.createUser(temp);
             return user;
         }).asCallback(done);
     }
@@ -61,12 +62,15 @@ passport.use(new FacebookStrategy({
                 return found;
             }
 
-            const user = await User.create({
+
+            const temp = {
                 email: `${profile.id}@facebook.com`,
                 displayName: profile.displayName,
                 facebookID: profile.id,
                 facebookAccessToken: accessToken,
-            })
+            }
+            const user = await User.createUser(temp);
+
             return user;
         }).asCallback(done);
     }));
