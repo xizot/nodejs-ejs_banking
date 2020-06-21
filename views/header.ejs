@@ -4,13 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./css/Nhat/main.css">
+  
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.compat.min.css">
     <link rel="stylesheet" href="./vendor/OwlCarousel/dist/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="./vendor/OwlCarousel/dist/assets/owl.theme.default.min.css">
+   
+    <link rel="stylesheet" type="text/css" href="./css/Nhat/main.css">
+    <link rel="stylesheet" type="text/css" href="./css/Hoang/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/Nhat/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/Hoang/style.css">
     <title><%= title || 'Trang Chủ' %></title>
     <style>
         .mt-60 {
@@ -34,20 +39,17 @@
                     <div class="header__content flex j-between a-center">
                         <div class="left flex a-center">
                             <div id="logo" class="logo">
-                                <a href="">
+                                <a href="/">
                                     <img src="http://demo.harnishdesign.net/html/payyed/images/logo.png" alt="">
                                 </a>
                             </div>
-                            <% if(currentUser && currentUser.permisstion != 1 ) { %>
                             <a href="/"><button class="btn">My Account</button> </a>
                             <a href="/transfer"><button class="btn">Send</button> </a>
                             <a href="/dashboard"><button class="btn">Dashboard</button> </a>
-                            <a href="/bank-account"><button class="btn">Bank Accounts</button> </a>
+                            <a href="/"><button class="btn">Help</button> </a>
                             <a href="/"><button class="btn">Feature</button> </a>
                             <a href="/"><button class="btn">Page</button> </a>
-                            <% }else if(currentUser && currentUser.permisstion == 1 ){ %>
-                            <a href="/quanli"><button class="btn">Manager</button> </a>
-                            <%} %>
+                            <a href="/quanli"><button class="btn">Manage</button> </a>
                         </div>
                         <% if(!currentUser) { %>
 

@@ -55,16 +55,25 @@ class AccountInfo extends Model {
     }
 
     async addMoney(from, amount, message, currencyUnit, bankCode) {
-        console.log(bankCode);
+      
         const foundFrom = await AccountInfo.getByUserID(from);
+        var money = amount;
+      
+        if (currencyUnit == "VND") {
+            money = money * (1 / 23000);
+        }
 
-
+        console.log(currencyUnit);
+        
+        console.log(money);
+        
         if (foundFrom) {
-            foundFrom.balance = Number(foundFrom.balance) - (Number(amount));
+            foundFrom.balance = foundFrom.balance - money;
             foundFrom.save();
-            this.balance = Number(this.balance) + (Number(amount));
+            this.balance = Number(this.balance) + (Number(money));
+            this.save();
             await Transfer.addNew(foundFrom.userID, this.userID, foundFrom.STK, this.STK, amount, message, currencyUnit, bankCode);
-            return this.save();
+            return this;
         }
 
     }
