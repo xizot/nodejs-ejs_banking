@@ -15,3 +15,66 @@
 @import './transfer';
 @import './transfer-success';
 @import './transactionDetails';
+
+.loading{
+    position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+    background-color: #34495e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-content{
+        height: 200px;
+        width: 200px;
+        box-sizing: border-box;
+        border-radius: 50%;
+        border-top: 10px solid #e74c3c;
+        position: relative;
+        animation: roll 2s linear infinite;
+        &:before, &::after{
+            content: '';
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            top: -10px;
+            left: 0;
+            box-sizing: border-box;
+            border-radius: 50%;
+        }
+        &:before{
+            border-top: 10px solid #e67e22;
+            transform: rotate(120deg);
+        }
+        &:after{
+            border-top: 10px solid #3498db;
+            transform: rotate(240deg);
+        }
+        span{
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            color: #fff;
+            line-height: 200px;
+            text-align: center;
+            animation: roll2 2s linear infinite;
+        }
+
+    }
+}
+
+@keyframes roll{
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+
+@keyframes roll2{
+    to{
+        transform: rotate(-360deg);
+    }
+}
