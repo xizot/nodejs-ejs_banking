@@ -7,8 +7,6 @@ var io = require('socket.io').listen(http);
 const cookieSession = require('cookie-session');
 const db = require('./services/db');
 const passport = require('./middlewares/passport');
-const Transfer = require('./services/transfer.js');
-const AccountInfo = require('./services/accountInfo.js');
 
 //cookie session
 app.use(cookieSession({
@@ -39,7 +37,8 @@ app.use('/register', require('./routes/register'));
 app.use('/logout', require('./routes/logout'));
 app.use('/update-phone-number', require('./routes/updatePhoneNumber'));
 app.use('/active-phone-number', require('./routes/activePhoneNumber.js'));
-
+app.use('/quanli',require('./routes/staff.js'));
+app.use('/error',require('./routes/error.js'));
 app.use('/transfer', require('./routes/transfer'));
 app.use('/info', require('./routes/info'));
 app.use('/api', require('./routes/api'));
@@ -80,10 +79,14 @@ io.on('connection', (socket) => {
 
 
 
+const Transfer = require('./services/transfer.js');
+const Op = require('sequelize').Op
+app.use('/lichsu',require('./routes/historyTransfer'));
+   
 
 db.sync().then(function () {
     http.listen(PORT, function () {
-        console.log('server listening on port ' + PORT);
+        console.log('server listening on port ' + PORT);    
     });
 }).catch(function (error) {
     console.error(error);

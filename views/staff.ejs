@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  
+<%- include ('header',{title:'Home - Transfer Money'}); %>
+<form action="" method="post">
+    <div class="form-group searchform cf">
+        <label for="txtCustomer">Tìm kiếm thông tin khách hàng</label>
+        <input type="text" class="txtCustomer" required placeholder="Enter Your Email , Username, Phone  "
+            name="txtCustomer" id="txtCustomer">
+        <input type="submit" value="Tìm kiếm ">
+    </div>
+</form>
+<div class="container"></div>
+<table class="table table-searchform container">
+    <thead>
+        <tr>
+            <th scope="col">Display Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Xác thực tài khoản</th>
+            <th scope="col">Tình trạng khách hàng</th>
+            <th scope="col">Lịch sử giao dịch </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <% if(users){%>
+            <%- `<th> ${users.displayName}</th>`%>
+            <%- `<td>${users.email}</td>`%>
+            <%- `<td> ${users.username}</td>`%>
+            <%- `<td> ${users.phoneNumber}</td>`%>
+            <%- `<td class="btn btn-sign-up btn-acp">Xác thực</td>`%>  
+            <%- `<td class="btn btn-sign-up btn-acp btn-dark">Từ chối</td>`%>  
+            <%- `<td><select class="mdb-select md-form">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="1" ${users.isActive == 0 ? "selected": "dc "}>Chưa xác thực</option>
+                <option value="2" ${users.isActive == 1 ? "selected": "dc "}>Đã xác thực</option>
+                <option value="3" ${users.isActive == 2 ? "selected": "dc "}>Khóa          </option>
+              </select>
+              </td>`%>
+           
+            <%- `<td> <a href="./lichsu/${users.id}"  class="btn btn-sign-up btn-acp mar-7" > Truy cập </a></td>`%>
+            <%}%>
+      
+      </tr>
+    </tbody>
+  </table>
+
+    <%- include ('footer'); %>
+
+
+ 
+

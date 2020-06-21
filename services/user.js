@@ -123,8 +123,12 @@ User.init({
     facebookAccessToken: {
         type: Sequelize.STRING
     },
-    token: {
-        type: Sequelize.STRING,
+    // 0: chua xac thuc
+    // 1: da xac thuc
+    // 2: da bi khoa
+    isActive:{
+        type: Sequelize.INTEGER,
+        defaultValue:0,
     }
 }, {
     sequelize: db,
