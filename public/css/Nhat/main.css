@@ -2016,4 +2016,98 @@ body {
   font-weight: 400;
   color: #8E9A9D;
 }
+
+.loading {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: #34495e;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.loading-content {
+  height: 200px;
+  width: 200px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 50%;
+  border-top: 10px solid #e74c3c;
+  position: relative;
+  -webkit-animation: roll 2s linear infinite;
+          animation: roll 2s linear infinite;
+}
+
+.loading-content:before, .loading-content::after {
+  content: '';
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: -10px;
+  left: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 50%;
+}
+
+.loading-content:before {
+  border-top: 10px solid #e67e22;
+  -webkit-transform: rotate(120deg);
+          transform: rotate(120deg);
+}
+
+.loading-content:after {
+  border-top: 10px solid #3498db;
+  -webkit-transform: rotate(240deg);
+          transform: rotate(240deg);
+}
+
+.loading-content span {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  color: #fff;
+  line-height: 200px;
+  text-align: center;
+  -webkit-animation: roll2 2s linear infinite;
+          animation: roll2 2s linear infinite;
+}
+
+@-webkit-keyframes roll {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes roll {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes roll2 {
+  to {
+    -webkit-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+  }
+}
+
+@keyframes roll2 {
+  to {
+    -webkit-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+  }
+}
 /*# sourceMappingURL=main.css.map */

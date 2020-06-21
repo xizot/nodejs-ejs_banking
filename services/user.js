@@ -126,10 +126,13 @@ User.init({
     // 0: chua xac thuc
     // 1: da xac thuc
     // 2: da bi khoa
-    isActive:{
+    isActive: {
         type: Sequelize.INTEGER,
-        defaultValue:0,
-    }
+        defaultValue: 0,
+    },
+    token: {
+        type: Sequelize.STRING
+    },
 }, {
     sequelize: db,
     modelName: 'user'
