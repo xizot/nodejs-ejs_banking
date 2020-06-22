@@ -1,0 +1,37 @@
+<%- include ('header',{title:'Payyed - Home'}); %>
+    <div class="confirm" style="height: 100vh;">
+
+        <div class="modal">
+            <h3 style="margin: 0  0 20px; font-size: 18px;text-align: center;color: #333;font-weight: 400;">
+            Account authentication</h3>
+            <form action="" method="post"  enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="txtName">Name</label>
+                    <input type="text" name="txtName" id="txtName" required>
+                </div>
+                <div class="form-group">
+                    <label for="txtTypeofCard">Type of card</label>
+                    <input type="text" name="txtTypeofCard" id="txtTypeofCard" required>
+                </div>
+                <div class="form-group">
+                    <label for="txtIdcard">ID card</label>
+                    <input type="text" name="txtIdcard" id="txtIdcard" required>
+                </div>
+                <div class="form-group">
+                    <label for="txtIssued">Issued</label>
+                    <input type="text" name="txtIssued" id="txtIssued" required>
+                </div>
+                <div class="form-group">
+                    <label for="avartar" style="display: block;">Confirm picture</label>
+                    <input type="file" class="" id="avatar" name="avatar" >
+                    <!-- <label for="avatar" class="file-custom" style="display:inline-block; border:1px solid #ddd; padding:2px">XXXXXXXXX</label> -->
+                </div>
+                    <button type="" class="btn btn-primary">Set new profile picture</button>
+            </form>
+        </div>
+       
+            
+    </div>
+
+
+<%- include ('footer'); %>

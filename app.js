@@ -47,6 +47,7 @@ app.use('/dashboard', require('./routes/dashboard'));
 app.use('/bank-account', require('./routes/bankAccount'));
 app.use('/add-Mail', require('./routes/addMail'));
 app.use('/active', require('./routes/active'));
+app.use('/page-confirm', require('./routes/page-confirm'));
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',
