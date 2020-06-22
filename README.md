@@ -14,7 +14,10 @@
 
 
 ### Khi bị conflict
+<<<<<<< Updated upstream
     ###### khi bị conflict nếu không biết xử lí thì liên hệ Lead
-    
-    
-demooo
+=======
+    ###### khi bị conflict nếu không biết xử lí thì liên hệ Lead
+
+    asdasdsa
+>>>>>>> Stashed changes
