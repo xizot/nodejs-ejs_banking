@@ -5,6 +5,13 @@
     .wrapper__left{
         background: url(../../img/image-3.jpg) no-repeat center top;
         position: relative;
+        @include rs-xs{
+            display: none;
+        }
+        @include rs-md{
+            display: block;
+        }
+        
         .overlayer{
             position: absolute;
             top: 0;

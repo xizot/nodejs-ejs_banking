@@ -15,6 +15,3 @@
 
 ### Khi bị conflict
     ###### khi bị conflict nếu không biết xử lí thì liên hệ Lead
-    
-    
-demooo
