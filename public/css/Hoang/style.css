@@ -167,7 +167,7 @@
     height: 10px;
     margin: 0 3px;
     background-color: black;
-}
+} */
 
 /* Left eye brow */
 #lefts{
@@ -352,3 +352,11 @@
 }
 
 /* End Error */
+
+/* Chare */
+.recharge
+{
+  color: #fff;
+  margin-left: 5px!important;
+  padding: 12px!important;
+}

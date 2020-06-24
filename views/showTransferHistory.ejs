@@ -9,7 +9,9 @@
         <div class="main-content">
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#">Tài khoản</a></li>
-                <li><a href="#">Thẻ</a></li>
+                <li><a href ="/recharge" class="btn recharge">
+                    <i class="fa fa-credit-card" aria-hidden="true"> Nạp tiền</i>
+                </a></li>
             </ul>
             <div class="mar-35"></div>
             <select class="mdb-select md-form">
@@ -107,7 +109,7 @@
                 <% htrTransfer.forEach(item=>{%>
                     <tr>
                         <td><%-new Date(item.date).toLocaleDateString("en-US") %> </td>
-                        <td><%-accountInfo.STK == accountInfo.STK ? " Chuyển tiền " : " Nhận tiền "%></td>
+                        <td><%-item.from == accountInfo.STK ? " Chuyển tiền " : " Nhận tiền "%></td>
                         <td><%-item.message%></td>
                         <td><%-item.amount%> </td>
                         <td> <%-accountInfo.balance%></td> 
@@ -115,11 +117,9 @@
                      <% })%>
             </tbody>
           </table>
-          <%  }else{ %>
-            <center>
-                <h3>User nay chua tung chuyen tien</h3>
-            </center>
-            <%} %>
+          <%  }else        
+           res.redirect('/error');
+          %>
         </div>
         <div class="mar-100"></div>
 

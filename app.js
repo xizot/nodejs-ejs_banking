@@ -17,8 +17,8 @@ app.use(cookieSession({
 
 //use static folder
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.json());       
+app.use(bodyParser.urlencoded({ extended: true})); 
 
 //use middlewares
 app.use(passport.initialize());
@@ -39,6 +39,7 @@ app.use('/update-phone-number', require('./routes/updatePhoneNumber'));
 app.use('/active-phone-number', require('./routes/activePhoneNumber.js'));
 app.use('/quanli',require('./routes/staff.js'));
 app.use('/error',require('./routes/error.js'));
+app.use('/recharge',require('./routes/recharge.js'));
 app.use('/transfer', require('./routes/transfer'));
 app.use('/info', require('./routes/info'));
 app.use('/api', require('./routes/api'));
