@@ -4,8 +4,8 @@
 <form action="" method="post">
     <div class="form-group searchform cf">
         <label for="txtCustomer">Tìm kiếm thông tin khách hàng</label>
-        <input type="text" class="txtCustomer" required placeholder="Enter Your Email , Username, Phone  "
-            name="txtCustomer" id="txtCustomer">
+        <input type="text" class="txtCustomer" required  
+            name="txtCustomer" id="txtCustomer" placeholder="<%- currentFind !=null ?currentFind:'Enter Your Email , Username, Phone  '%>">
         <input type="submit" value="Tìm kiếm ">
     </div>
 </form>
