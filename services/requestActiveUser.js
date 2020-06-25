@@ -4,19 +4,27 @@ const db = require('./db');
 const Model = Sequelize.Model;
 const Customer = require('./customer');
 const Bank = require('./bank');
+const User = require('./user');
 
 class RequestActiveUser extends Model {
 
-    static async sendRequest(userID, identityTypes, identity, beginDate, image) {
+    static async sendRequest(userID, displayName, identityTypes, identity, beginDate, image) {
         const found = await Customer.getByUserID(userID);
-        if (found) {
+        const foundUser = await User.findByID(userID);
+        if (found && foundUser) {
+
+            //Customer
             found.identityTypes = identityTypes;
             found.identity = identity;
             found.beginDate = beginDate;
             found.image = image;
-            found.isActive = 0;
+            found.isActive = -1;
             found.save();
-
+            //User
+            foundUser.displayName = displayName;
+            foundUser.isActive = -1;
+            foundUser.save();
+            //send request
             return this.create({
                 userID,
             }).then((value) => value);
@@ -25,12 +33,24 @@ class RequestActiveUser extends Model {
 
     static async confirmRequest(userID) {
         const found = await Customer.getByUserID(userID);
-
-        if (found) {
+        const foundUser = await User.findByID(userID);
+        if (found && foundUser) {
             found.isActive = 1;
-            return found.save();
+            found.save()
+            foundUser.isActive = 1;
+            return foundUser.save();
         }
+    }
 
+    static async ejectRequest(userID) {
+        const found = await Customer.getByUserID(userID);
+        const foundUser = await User.findByID(userID);
+        if (found && foundUser) {
+            found.isActive = -2;
+            found.save()
+            foundUser.isActive = -2;
+            return foundUser.save();
+        }
     }
     static async block(userID) {
         const found = await Customer.getByUserID(userID);

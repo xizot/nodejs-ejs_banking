@@ -45,14 +45,15 @@
                                 </a>
                             </div>
 
-                            <% if(currentUser) { %>
+                            <%if(currentUser){%>
+                            <% if(currentUser.permisstion == 0) { %>
                             <a href="/"><button class="btn">My Account</button> </a>
                             <a href="/transfer"><button class="btn">Send</button> </a>
                             <a href="/dashboard"><button class="btn">Dashboard</button> </a>
                             <a href="/"><button class="btn">Help</button> </a>
                             <a href="/"><button class="btn">Feature</button> </a>
                             <a href="/"><button class="btn">Page</button> </a>
-                            <% if(currentUser.permisstion == 1) { %>
+                            <% }if(currentUser.permisstion == 1) { %>
                             <a href="/quanli"><button class="btn">Manage</button> </a>
 
                             <%}}%>

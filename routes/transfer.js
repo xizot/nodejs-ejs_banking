@@ -10,9 +10,8 @@ const errors = [];
 
 router.get('/', async (req, res) => {
 
-  
-    if(req.currentUser.isActive == 0)
-    {
+
+    if (req.currentUser.isActive != 1) {
         return res.redirect('/page-confirm');
     }
     var io = req.app.get('socketio');
