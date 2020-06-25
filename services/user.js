@@ -59,6 +59,10 @@ class User extends Model {
     static async findBySomeThing(key) {
         // find user by username, email, id, phoneNumber
         var found = await this.findByEmail(key) || await this.findByUsername(key) || await this.findByPhoneNumber(key);
+
+        if (!found && Number(key)) {
+            found = await this.findByID(key);
+        }
         return found;
 
     }
