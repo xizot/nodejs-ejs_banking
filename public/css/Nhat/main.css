@@ -2030,6 +2030,38 @@ body {
   color: #8E9A9D;
 }
 
+.user-info {
+  margin-top: 60px;
+  padding: 20px;
+}
+
+.user-info .overflowY {
+  overflow: hidden scroll;
+}
+
+.user-info > div[class^="col-"] {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  padding: 0;
+  max-height: 350px;
+  position: relative;
+}
+
+.user-info > div[class^="col-"] h3.nvn-title {
+  text-align: center;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  background-color: #2dbe60;
+  text-transform: uppercase;
+  padding: 10px 0;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
 .loading {
   position: fixed;
   left: 0px;

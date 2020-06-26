@@ -6,7 +6,6 @@ var currentFind = null;
 var users = null;
 // vi du lay danh sach user
 router.get('/', async (req, res) => {
-    console.log(req.currentUser.permisstion)
 
     if (req.currentUser.permisstion != 1) {
         res.redirect('/error');
@@ -19,9 +18,11 @@ router.post('/', async (req, res) => {
     const currentFind = req.body.txtCustomer || null;
     if (currentFind) {
         const users = await User.findBySomeThing(currentFind);
-        console.log(currentFind);
         return res.render('staff', { users, currentFind })
     }
+    
+    
+    console.log(currentFind);
     return res.end('done');
 })
 
