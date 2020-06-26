@@ -66,7 +66,9 @@ header{
     }
   
 }
-
+.owl-item{
+    // width: 100% !important;
+}
 .slider{
     width: 100%;
     .slider__item{
@@ -74,6 +76,7 @@ header{
        background-color: red;
        z-index: 99;
         // padding:10rem 0;
+        width:100% !important;
         height: 80vh;
         max-height: 100%;
         display: flex;

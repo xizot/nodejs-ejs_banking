@@ -477,6 +477,7 @@ header .container .header__content .btn-sign-up {
   position: relative;
   background-color: red;
   z-index: 99;
+  width: 100% !important;
   height: 80vh;
   max-height: 100%;
   display: -webkit-box;
