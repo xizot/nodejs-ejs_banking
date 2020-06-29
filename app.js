@@ -15,7 +15,7 @@ app.use(cookieSession({
 }))
 
 
-//use static folder
+//use static folder 
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -41,6 +41,7 @@ app.use('/quanli', require('./routes/staff.js'));
 app.use('/error', require('./routes/error.js'));
 // app.use('/recharge',require('./routes/recharge.js'));
 app.use('/transfer', require('./routes/transfer'));
+
 app.use('/info', require('./routes/info'));
 app.use('/api', require('./routes/api'));
 app.use('/transfer-success', require('./routes/transfer-success'));
@@ -83,6 +84,8 @@ io.on('connection', (socket) => {
 
 
 const Transfer = require('./services/transfer.js');
+
+const SavingAccounts = require('./services/savingaccounts.js');
 const Op = require('sequelize').Op
 app.use('/lichsu', require('./routes/historyTransfer'));
 

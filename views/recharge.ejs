@@ -1,0 +1,79 @@
+<%- include ('header',{title:'Home - Transfer Money'}); %>
+
+<div class="transfer">
+    <div class="navigation">
+        <ul class="flex j-center a-center bg-main">
+            <li>
+                <a href="">Recharge</a>
+
+            </li>
+        </ul>
+    </div>
+    <div class="container h-100 ">
+        <div class="modal">
+            <div class="title">
+                <h3>Recharge</h3>
+                <span>Recharge your money on anytime, anywhere in the world.</span>
+            </div>
+            <form action="" method="post">
+                <div class="form-group">
+                    <% if(errors || errors.length){ %>
+                    <% errors.forEach(item=>{%>
+                    <%- `<p>* ${item.msg}</p>`  %>
+                    <%})%>
+                    <%}%>
+                </div>
+                <div class="form-group">
+                    <label for="txtMoney">Card Number</label>
+                    <input type="txtCardNumber" name="txtCardNumber" id="txtCardNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="txtDisplayName">Display Name</label>
+                    <input type="text" name="txtDisplayName" id="txtDisplayName" required>
+                </div>
+                <div class="form-group">
+                    <label for="txtMoney">Money</label>
+                    <input type="text" name="txtMoney" id="txtMoney" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Currency Unit</label>
+                    <select name="currencyUnit" id="currencyUnit">
+                        <%if(exchangeRates){%>
+                    <%exchangeRates.forEach(item=>{%>
+                    <%-`<option value=${item.displayName}>${item.displayName}</option>`%>
+                    <%})%>
+                    <%}%>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Beneficiary Bank</label>
+                    <select name="beneficiaryBank" id="bankCode">
+                        <%if(banks){%>
+                    <%banks.forEach(item=>{%>
+                    <%-`<option value=${item.bankCode}>${item.displayName}</option>`%>
+                    <%})%>
+                    <%}%>
+                    </select>
+                </div>
+               
+                <div class="form-group">
+                    <label for="txtNote">Note</label>
+                    <div>
+
+                        <textarea name="txtNote" id="txtNote" rows="4" required></textarea>
+                    </div>
+
+                </div>
+                <div class="form-action">
+                    <a href=""><button class="btn" id="btnContinue">Continue</button></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="./js/Hoang/recharge.js"></script>
+
+<%- include ('footer'); %>
