@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const AccountInfo = require('../services/accountInfo');
 const Transfer = require('../services/transfer');
+const User = require('../services/user');
+const bcrypt = require('bcrypt');
+
 router.get('/account/info', async (req, res) => {
     if (req.currentUser) {
         var found = null;
@@ -70,5 +73,46 @@ router.get('/transfer/:id', async (req, res) => {
     console.log(found);
 })
 
+
+//[USER] 
+
+router.post('/change-password', async (req, res)=>{
+    const st = req.body.st;
+    const password = req.body.password;
+    const newPassword = req.body.newPassword;
+    const confirmPassword = req.body.confirmPassword;
+
+    if(st){
+        const found = await User.findBySomeThing(st);
+        if(found){
+          
+            if(await User.verifyPassword(password,found.password) || !found.password){
+                if(newPassword === confirmPassword){
+                    found.changePassword(newPassword);
+                    return res.end('1'); // success
+                }   
+                return res.end('-3') // confirm password is not match
+            }
+            return res.end('-2') // password is not match
+        }
+        return res.end('-1'); // user not found
+    }
+})
+
+router.get('/forgot-password', async (req, res)=>{
+    const st = req.query.st;
+    console.log(st);
+    
+
+    if(st){
+      const rs = await User.forgotPassword(st);
+          
+      if(rs){
+          return res.end(JSON.stringify(rs));
+      }
+      return res.end('da xay ra loi')
+    }
+    return res.end('khong hop le')
+})
 
 module.exports = router;
