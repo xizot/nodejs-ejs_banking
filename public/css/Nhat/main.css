@@ -2074,6 +2074,32 @@ body {
   width: 100%;
 }
 
+.alert {
+  height: 100vh;
+  width: 100vw;
+  background-color: #f1f5f6;
+}
+
+.alert .container {
+  height: 100%;
+}
+
+.alert .container .msg {
+  padding: 20px;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.alert .container .msg a {
+  color: #2dbe60;
+}
+
 .loading {
   position: fixed;
   left: 0px;
