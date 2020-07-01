@@ -9,6 +9,18 @@
   font-family: 'Open Sans', sans-serif;
 }
 
+.color-white {
+  color: white;
+}
+
+.bg-main {
+  background-color: #2dbe60;
+}
+
+.bg-black {
+  background-color: #000 !important;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;

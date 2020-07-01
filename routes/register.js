@@ -2,11 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../services/user');
 
-const { sendMail } = require('../services/function');
-function validateEmail(email) {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
+const { sendMail, validateEmail } = require('../services/function');
 const { check, validationResult, body } = require('express-validator');
 var errors = [];
 router.get('/', function (req, res) {

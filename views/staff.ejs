@@ -1,11 +1,12 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  
-<%- include ('header',{title:'Home - Transfer Money'}); %>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<%- include ('header',{title:'Payyed - Staff Management'}); %>
 <form action="" method="post">
     <div class="form-group searchform cf">
         <label for="txtCustomer">Tìm kiếm thông tin khách hàng</label>
-        <input type="text" class="txtCustomer" required  
-            name="txtCustomer" id="txtCustomer" placeholder="Enter Your ID, Email , Username, Phone" value = "<%- currentFind !=null ?currentFind:'' %>">
+        <input type="text" class="txtCustomer" required name="txtCustomer" id="txtCustomer"
+            placeholder="Enter Your ID, Email , Username, Phone" value="<%- currentFind !=null ?currentFind:'' %>">
         <input type="submit" value="Tìm kiếm ">
     </div>
 </form>
@@ -17,16 +18,31 @@
             <div class="col-xs-6 ">
                 <p>Name: Nguyễn Văn A</p>
             </div>
-            <div class="col-xs-6 col-md-4">
+            <div class="col-xs-6">
                 <p>Email: nvnhat.17ck1@gmail.com</p>
-            </div> 
+            </div>
             <div class="col-xs-6">
                 <p>PhoneNumber: Chưa cập nhật</p>
             </div>
-             <div class="col-xs-6">
+            <div class="col-xs-6">
                 <p>Username: Chưa cập nhật</p>
             </div>
-         
+            <div class="col-xs-12 row a-center" style="margin-left: 0;">
+                <div class="col-xs-6" style="padding: 0">
+                    <p>Password: Chưa cập nhật</p>
+                </div>
+                <div class="col-xs-6" style="padding: 0">
+                    <a href="">
+                        <button class="btn color-white ">Hiện</button>
+                    </a>
+                    <a href="">
+                        <button class="btn color-white bg-black">Đổi password</button>
+                    </a>
+                </div>
+
+
+            </div>
+
         </div>
     </div>
     <div class="col-xs-12 col-md-6 overflowY">
@@ -36,13 +52,13 @@
                 <div class="col-xs-6 ">
                     <p>STK: Nguyễn Văn A</p>
                 </div>
-                <div class="col-xs-6 col-md-4">
-                    <p>Số dư: nvnhat.17ck1@gmail.com</p>
-                </div> 
+                <div class="col-xs-6 ">
+                    <p>Số dư: 2000 USD</p>
+                </div>
                 <div class="col-xs-6">
                     <p>Loại tiền tệ: Chưa cập nhật</p>
                 </div>
-                 <div class="col-xs-6">
+                <div class="col-xs-6">
                     <p>Ngày mở thẻ: Chưa cập nhật</p>
                 </div>
                 <div class="col-xs-6">
@@ -54,18 +70,26 @@
                 <div class="col-xs-6">
                     <p>Mặc định: Không</p>
                 </div>
+                <div class="col-xs-6 row a-center" style="margin-left: 0;">
+                    <a href="">
+                        <button class="btn color-white bg-main" style="margin-right:5px;">Nạp tiền</button>
+                    </a>
+                    <a href="">
+                        <button class="btn color-white bg-black">Rút tiền</button>
+                    </a>
+                </div>
             </div>
-            <div class="bank-infors row" style="border:1px solid #ddd;margin-top:10px;">
+            <div class="bank-infors row " style="border:1px solid #ddd;">
                 <div class="col-xs-6 ">
                     <p>STK: Nguyễn Văn A</p>
                 </div>
-                <div class="col-xs-6 col-md-4">
-                    <p>Số dư: nvnhat.17ck1@gmail.com</p>
-                </div> 
+                <div class="col-xs-6 ">
+                    <p>Số dư: 2000 USD</p>
+                </div>
                 <div class="col-xs-6">
                     <p>Loại tiền tệ: Chưa cập nhật</p>
                 </div>
-                 <div class="col-xs-6">
+                <div class="col-xs-6">
                     <p>Ngày mở thẻ: Chưa cập nhật</p>
                 </div>
                 <div class="col-xs-6">
@@ -77,18 +101,26 @@
                 <div class="col-xs-6">
                     <p>Mặc định: Không</p>
                 </div>
+                <div class="col-xs-6 row a-center" style="margin-left: 0;">
+                    <a href="">
+                        <button class="btn color-white bg-main" style="margin-right:5px;">Nạp tiền</button>
+                    </a>
+                    <a href="">
+                        <button class="btn color-white bg-black">Rút tiền</button>
+                    </a>
+                </div>
             </div>
-            <div class="bank-infors row " style="border:1px solid #ddd;margin-top:10px">
+            <div class="bank-infors row " style="border:1px solid #ddd;">
                 <div class="col-xs-6 ">
                     <p>STK: Nguyễn Văn A</p>
                 </div>
-                <div class="col-xs-6 col-md-4">
-                    <p>Số dư: nvnhat.17ck1@gmail.com</p>
-                </div> 
+                <div class="col-xs-6 ">
+                    <p>Số dư: 2000 USD</p>
+                </div>
                 <div class="col-xs-6">
                     <p>Loại tiền tệ: Chưa cập nhật</p>
                 </div>
-                 <div class="col-xs-6">
+                <div class="col-xs-6">
                     <p>Ngày mở thẻ: Chưa cập nhật</p>
                 </div>
                 <div class="col-xs-6">
@@ -99,6 +131,76 @@
                 </div>
                 <div class="col-xs-6">
                     <p>Mặc định: Không</p>
+                </div>
+                <div class="col-xs-6 row a-center" style="margin-left: 0;">
+                    <a href="">
+                        <button class="btn color-white bg-main" style="margin-right:5px;">Nạp tiền</button>
+                    </a>
+                    <a href="">
+                        <button class="btn color-white bg-black">Rút tiền</button>
+                    </a>
+                </div>
+            </div>
+            <div class="bank-infors row " style="border:1px solid #ddd;">
+                <div class="col-xs-6 ">
+                    <p>STK: Nguyễn Văn A</p>
+                </div>
+                <div class="col-xs-6 ">
+                    <p>Số dư: 2000 USD</p>
+                </div>
+                <div class="col-xs-6">
+                    <p>Loại tiền tệ: Chưa cập nhật</p>
+                </div>
+                <div class="col-xs-6">
+                    <p>Ngày mở thẻ: Chưa cập nhật</p>
+                </div>
+                <div class="col-xs-6">
+                    <p>Ngày hết hạn: Chưa cập nhật</p>
+                </div>
+                <div class="col-xs-6">
+                    <p>Trạng thái thẻ: Chưa cập nhật</p>
+                </div>
+                <div class="col-xs-6">
+                    <p>Mặc định: Không</p>
+                </div>
+                <div class="col-xs-6 row a-center" style="margin-left: 0;">
+                    <a href="">
+                        <button class="btn color-white bg-main" style="margin-right:5px;">Nạp tiền</button>
+                    </a>
+                    <a href="">
+                        <button class="btn color-white bg-black">Rút tiền</button>
+                    </a>
+                </div>
+            </div>
+            <div class="bank-infors row " style="border:1px solid #ddd;">
+                <div class="col-xs-6 ">
+                    <p>STK: Nguyễn Văn A</p>
+                </div>
+                <div class="col-xs-6 ">
+                    <p>Số dư: 2000 USD</p>
+                </div>
+                <div class="col-xs-6">
+                    <p>Loại tiền tệ: Chưa cập nhật</p>
+                </div>
+                <div class="col-xs-6">
+                    <p>Ngày mở thẻ: Chưa cập nhật</p>
+                </div>
+                <div class="col-xs-6">
+                    <p>Ngày hết hạn: Chưa cập nhật</p>
+                </div>
+                <div class="col-xs-6">
+                    <p>Trạng thái thẻ: Chưa cập nhật</p>
+                </div>
+                <div class="col-xs-6">
+                    <p>Mặc định: Không</p>
+                </div>
+                <div class="col-xs-6 row a-center" style="margin-left: 0;">
+                    <a href="">
+                        <button class="btn color-white bg-main" style="margin-right:5px;">Nạp tiền</button>
+                    </a>
+                    <a href="">
+                        <button class="btn color-white bg-black">Rút tiền</button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -106,23 +208,23 @@
     <div class="col-xs-12 col-md-6">
         <h3 class="nvn-title">Thông tin sổ tiết kiệm</h3>
         <div class="user-infor__content" style="padding: 0 20px;">
-            <div class="saving row" >
+            <div class="saving row">
                 <div class="col-xs-6 ">
                     <p>TKTK: 1000-5000-5000-1000</p>
                 </div>
                 <div class="col-xs-6 col-md-4">
                     <p>Số tiền gửi: 5000000 USD </p>
-                </div> 
+                </div>
                 <div class="col-xs-6">
                     <p>Kì hạn: 6 tháng</p>
                 </div>
-                 <div class="col-xs-6">
+                <div class="col-xs-6">
                     <p>Đã gửi: 6 ngày</p>
                 </div>
                 <div class="col-xs-6">
                     <p>Lãi suất: 5%</p>
                 </div>
-                
+
                 <div class="col-xs-6">
                     <p>Tới kì hạn: Chưa</p>
                 </div>
@@ -133,32 +235,51 @@
                     <p>Đã tiết kiệm được: 1đ</p>
                 </div>
             </div>
-           
+
         </div>
     </div>
     <div class="col-xs-12 col-md-6 overflowY">
         <h3 class="nvn-title">Lịch sử</h3>
         <div class="user-infor__content" style="padding: 0 20px;">
-           <table class="table">
-               <tr>
-                   <th>Ngày</th>
-                   <th>Từ</th>
-                   <th>Đến</th>
-                   <th>Số tiền</th>
-                   <th>Loại tiền tệ</th>
-                   <th>Lời nhắn</th>
-                   <th>Loại</th>
-               </tr>
-               <tr>
-                <td>20/10/2020</td>
-                <td>1000-1000-1000</td>
-                <td>1111-111-1111-1</td>
-                <td>50000</td>
-                <td>USD</td>
-                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officiis.</td>
-                <td>Chuyển tiền</td>
-            </tr>
-           </table>
+            <div class="transfer-history row" style="border:1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+                <div class="transfer-history-head col-xs-12 row" style="margin-left: 0; margin-right: 0;">
+                    <p class="col-xs-4">Ngày: 20/10/2020</p>
+                    <p class="col-xs-4">Loại: Chuyển tiền</p>
+                    <p class="col-xs-4">Số tiền: 2000 USD</p>
+                </div>
+                <div class="trasnfer-history-bottom col-xs-12 row" style="margin-left: 0;margin-right: 0;">
+                    <p class=" col-xs-4">Từ: 12344567789</p>
+                    <p class=" col-xs-4">Đến: 12344567789</p>
+                    <p class=" col-xs-4">Lời nhắn: Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque,
+                        adipisci. </p>
+                </div>
+            </div>
+            <div class="transfer-history row" style="border:1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+                <div class="transfer-history-head col-xs-12 row" style="margin-left: 0; margin-right: 0;">
+                    <p class="col-xs-4">Ngày: 20/10/2020</p>
+                    <p class="col-xs-4">Loại: Chuyển tiền</p>
+                    <p class="col-xs-4">Số tiền: 2000 USD</p>
+                </div>
+                <div class="trasnfer-history-bottom col-xs-12 row" style="margin-left: 0;margin-right: 0;">
+                    <p class=" col-xs-4">Từ: 12344567789</p>
+                    <p class=" col-xs-4">Đến: 12344567789</p>
+                    <p class=" col-xs-4">Lời nhắn: Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque,
+                        adipisci. </p>
+                </div>
+            </div>
+            <div class="transfer-history row" style="border:1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+                <div class="transfer-history-head col-xs-12 row" style="margin-left: 0; margin-right: 0;">
+                    <p class="col-xs-4">Ngày: 20/10/2020</p>
+                    <p class="col-xs-4">Loại: Chuyển tiền</p>
+                    <p class="col-xs-4">Số tiền: 2000 USD</p>
+                </div>
+                <div class="trasnfer-history-bottom col-xs-12 row" style="margin-left: 0;margin-right: 0;">
+                    <p class=" col-xs-4">Từ: 12344567789</p>
+                    <p class=" col-xs-4">Đến: 12344567789</p>
+                    <p class=" col-xs-4">Lời nhắn: Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque,
+                        adipisci. </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -202,8 +323,4 @@
     </tbody>
   </table> -->
 
-    <%- include ('footer'); %>
-
-
- 
-
+<%- include ('footer'); %>

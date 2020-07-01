@@ -60,8 +60,8 @@ const sendSMS = (to, text) => {
     }, 0)
 }
 
-const findCustomerInfo = async id =>{
-    var rsUser =null;
+const findCustomerInfo = async id => {
+    var rsUser = null;
     // thong tin co ban o trong req. het r
     const user = await User.findByPk(id); // thong tin ve tai khaon
     const customer = await Customer.findByPk(id); // thong tin ve ca nhan
@@ -71,28 +71,31 @@ const findCustomerInfo = async id =>{
 
     //giờ đơn giản muốn lấy cái nào thì gọi thằng đó thôi. ví du //ấy tên
     rsUser = {
-        displayName:user.displayName,
-        STK : accountInfo.STK,
+        displayName: user.displayName,
+        STK: accountInfo.STK,
         CMND: customer.identity,
-        date:tranferInfo.date,
-        beginDate:accountInfo.beginDate,
+        date: tranferInfo.date,
+        beginDate: accountInfo.beginDate,
         term: accountInfo.term,
-        bankCode:accountInfo.bankCode,
+        bankCode: accountInfo.bankCode,
         message: tranferInfo.message,
-        balance:accountInfo.balance,
-        LichSuChuyenTien: tranferInfo != null? 1 : 0 ,// 0 chưa chuyển lần nào, 1 đã chuyển haowjc nhận ( tồn tại trong db)
-        from: tranferInfo != null?tranferInfo.from : -1, //-1 là chưa chuyển tiền, lúc show check điểu kiện là sao 
-        to: tranferInfo != null?tranferInfo.to : -1,
-        amount: tranferInfo != null?tranferInfo.amount : -1,
+        balance: accountInfo.balance,
+        LichSuChuyenTien: tranferInfo != null ? 1 : 0,// 0 chưa chuyển lần nào, 1 đã chuyển haowjc nhận ( tồn tại trong db)
+        from: tranferInfo != null ? tranferInfo.from : -1, //-1 là chưa chuyển tiền, lúc show check điểu kiện là sao 
+        to: tranferInfo != null ? tranferInfo.to : -1,
+        amount: tranferInfo != null ? tranferInfo.amount : -1,
     }
 
     console.log(rsUser);
- 
-    return rsUser; 
- 
+
+    return rsUser;
+
 }
 
 
+const validateEmail = (email) => {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 
-
-module.exports = { sendMail, sendSMS, findCustomerInfo };
+module.exports = { sendMail, sendSMS, findCustomerInfo, validateEmail };
