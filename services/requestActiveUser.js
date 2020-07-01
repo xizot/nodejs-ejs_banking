@@ -60,7 +60,6 @@ class RequestActiveUser extends Model {
             return found.save();
         }
     }
-
 }
 
 RequestActiveUser.init({

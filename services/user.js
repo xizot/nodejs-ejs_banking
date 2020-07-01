@@ -3,7 +3,8 @@ const Sequelize = require('sequelize');
 const db = require('./db');
 const Model = Sequelize.Model;
 const Customer = require('../services/customer');
-
+const crypto = require('crypto');
+const { sendMail } = require('../services/function');
 class User extends Model {
 
     static async setPhoneNumberCode(id, number, code) {
@@ -13,6 +14,23 @@ class User extends Model {
             found.phoneCode = code;
             found.save();
         }
+    }
+
+    async confirmForgotCode(code) {
+        if (this.forgotCode === code) {
+            console.log('okeeee');
+            this.forgotCode = null;
+            return this;
+        }
+        return null;
+    }
+
+    async forgotPassword() {
+        const forgotCode = crypto.randomBytes(3).toString('hex').toUpperCase();
+
+        sendMail(this.email, 'Quên mật khẩu', forgotCode, forgotCode);
+        this.forgotCode = forgotCode;
+        return this.save();
     }
 
     static async activePhoneNumber(id, code) {
@@ -137,6 +155,10 @@ User.init({
     token: {
         type: Sequelize.STRING
     },
+    forgotCode: {
+        type: Sequelize.STRING
+    },
+
 }, {
     sequelize: db,
     modelName: 'user'

@@ -34,6 +34,7 @@ app.set('view engine', 'ejs');
 app.use('/', require('./routes/index'));
 app.use('/login', require('./routes/login'));
 app.use('/register', require('./routes/register'));
+app.use('/forgot-password', require('./routes/forgotPassword'));
 app.use('/logout', require('./routes/logout'));
 app.use('/update-phone-number', require('./routes/updatePhoneNumber'));
 app.use('/active-phone-number', require('./routes/activePhoneNumber.js'));
@@ -49,7 +50,7 @@ app.use('/bank-account', require('./routes/bankAccount'));
 app.use('/add-Mail', require('./routes/addMail'));
 app.use('/active', require('./routes/active'));
 app.use('/page-confirm', require('./routes/page-confirm'));
-app.use('/user-request',require('./routes/userRequest'));
+app.use('/user-request', require('./routes/userRequest'));
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',
