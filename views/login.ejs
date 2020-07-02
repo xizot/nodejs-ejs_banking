@@ -9,6 +9,14 @@
 </head>
 
 <body>
+
+    <div class="loading">
+        <div class="loading-content">
+            <span>...Loading</span>
+
+        </div>
+    </div>
+
     <!-- //header -->
     <div class="wrapper row">
         <div class="wrapper__left  col-xs-12 col-md-6">
@@ -84,5 +92,10 @@
         </div>
     </div>
 </body>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
+<script>
+    $(window).on('load', () => {
+        $('.loading').fadeOut(700);
+    })
+</script>
 </html>

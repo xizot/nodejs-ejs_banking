@@ -31,16 +31,19 @@ router.post('/', upload.single('avatar'), async (req, res) => {
     const avatar = req.file.filename;
 
 
-    const sendRequest = await requestActiveUser.sendRequest(id, name, typeOfcard, Idcard, issued, avatar);
-
-
-    if (sendRequest) {
-        console.log('send thanh cong');
-    }
-    else {
-        console.log('loi ');
+    if(name){
+        const found = await User.findByID(req.currentUser.id);
+        if(found){
+            found.displayName = name;
+            found.save();
+        }
     }
 
+    const sendRequest = await requestActiveUser.sendRequest(id, typeOfcard, Idcard, issued, avatar);
+
+    if(sendRequest){
+        return res.status(200).redirect('/page-confirm');
+    }
 })
 
 module.exports = router;

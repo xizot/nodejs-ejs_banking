@@ -8,7 +8,7 @@ const User = require('./user');
 
 class RequestActiveUser extends Model {
 
-    static async sendRequest(userID, displayName, identityTypes, identity, beginDate, image) {
+    static async sendRequest(userID, identityTypes, identity, beginDate, image) {
         const found = await Customer.getByUserID(userID);
         const foundUser = await User.findByID(userID);
         if (found && foundUser) {
@@ -20,8 +20,9 @@ class RequestActiveUser extends Model {
             found.image = image;
             found.isActive = -1;
             found.save();
+
+            
             //User
-            foundUser.displayName = displayName;
             foundUser.isActive = -1;
             foundUser.save();
             //send request

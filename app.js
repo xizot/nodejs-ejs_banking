@@ -53,6 +53,7 @@ app.use('/active', require('./routes/active'));
 app.use('/page-confirm', require('./routes/page-confirm'));
 app.use('/user-request', require('./routes/userRequest'));
 app.use('/alert', require('./routes/alert/alert'));
+app.use('/staff/api', require('./routes/staff/api'));
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',

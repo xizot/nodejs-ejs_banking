@@ -20,6 +20,24 @@ class Transfer extends Model {
         return this.create(newTf).then(value => value);
     }
 
+
+    // hàm này để lấy thông tin giao dịch của 1 user có phân trang
+    static async getActivityLimit(id,page, limit) {
+        return this.findAll({
+            where: {
+                [Op.or]: [
+                    {
+                        from: id
+                    },
+                    {
+                        to: id
+                    }
+                ]
+            },
+            limit,
+            offset: page * limit,
+        })
+    }
     static async getActivity(id) {
         return this.findAll({
             where: {

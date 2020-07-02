@@ -1,0 +1,12 @@
+.transaction{
+    .filter{
+        &-item{
+            input{
+                height: 35px;
+                border: 1px solid #ddd;
+                padding: 15px 2px;
+                border-radius: 5px solid #ddd;
+            }
+        }
+    }
+}

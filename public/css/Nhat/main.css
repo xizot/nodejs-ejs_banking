@@ -46,6 +46,7 @@
   outline: none;
   border-radius: 4px;
   padding: 8px 10px;
+  min-height: 45px;
   letter-spacing: 1.1px;
   cursor: pointer;
   -webkit-transition: all .1s ease-in;
@@ -2098,6 +2099,13 @@ body {
 
 .alert .container .msg a {
   color: #2dbe60;
+}
+
+.transaction .filter-item input {
+  height: 35px;
+  border: 1px solid #ddd;
+  padding: 15px 2px;
+  border-radius: 5px solid #ddd;
 }
 
 .loading {
