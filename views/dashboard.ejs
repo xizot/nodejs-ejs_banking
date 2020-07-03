@@ -1,20 +1,9 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payyed - DashBoard</title>
-    <link rel="stylesheet" href="./css/Nhat/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
-</head>
-
-<body> -->
 <%- include ('header',{title:'Payyed - Dashboard'}); %>
-<div class="dashboard">
+<div class="dashboard" >
 
     <div class="container">
-        <div class="dashboard__content row">
+        <div class="dashboard__content row pt-50">
             <div class="col-xs-12 col-md-3 dashboard__content-left ">
                 <%- include('./info-left') %>
             </div>
@@ -67,9 +56,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="recent-activity mt-20">
+                <div class="recent-activity mt-10">
                     <div class="recent-activity__content">
-
+                        <div class="filter">
+                            <input type="date" name="" id="filter-from" value="2020-02-02">
+                            <input type="date" name="" id="filter-to" value="2020-02-02">
+                        </div>
                         <div class="heading">
                             <div class="row a-center">
                                 <div class="col-xs-1">
@@ -88,51 +80,56 @@
                             </div>
                         </div>
 
-
-                        <div class="recent-activity__content br-4 ">
-                            <% if(Activity.length > 0){%>
-                            <%Activity.forEach(item=>{%>
-                            <div onclick="showTransactionDetail(<%-item.amount%>,0,<%-item.amount%>,<%-item.from%>,<%-item.to%>,'<%-item.message%>','<%-item.date%>')"
-                                class="recent-activity__content--item row a-center" id=<%- item.id %>
-                                style="cursor:pointer">
+                        <div class="recent-activity__content br-4  " >
+                            <div class="recent-activity__content--item row a-center" style="cursor:pointer; border-bottom: 1px solid #ddd;">
                                 <div class="col-xs-1 date">
-                                    <!-- <%-item.date%> -->
-                                    <div class="day"><%- new Date(item.date).getDate()%></div>
-                                    <div class="month"><%- months[new Date(item.date).getMonth()]%></div>
+                                    <div class="day">14</div>
+                                    <div class="month">APRIL</div>
                                 </div>
                                 <div class="col-xs-7 description">
-                                    <div class="bank"><%-item.bankCode%></div>
+                                    <div class="bank">ARG</div>
                                     <div class="actions">
-                                        <%if(item.from == currentUser.id){%>
                                         Payment Sent
-                                        <%}else{%>
-                                        Payment Received
-                                        <%}%>
                                             </div>
                                         </div>
                                         <div class="col-xs-2 t-center status">
-                                            <label class=<%= item.from == currentUser.id?`t-center-sent` : `t-center-received` %>>
-                                        <%= item.from == currentUser.id?`x` : `✔` %>
+                                            <label class="t-center-received">
+                                                ✔
                                         </label>
                                     </div>
                                     <div class="col-xs-2 amount">
                                         <label for="">
-                                            <%if(item.from == currentUser.id){%>
-                                            -
-                                            <%}else{%>
-                                            +
-                                            <%}%>
-                                                <%-item.amount%>
+                                            +500
                                             <span style="color: gray;">(USD)</span>
                                         </label>
                                     </div>
                                 </div>
-                                <%})%>
-                                <% }%>
+                            </div>
+                            <div class="recent-activity__content--item row a-center" style="cursor:pointer">
+                                <div class="col-xs-1 date">
+                                    <div class="day">14</div>
+                                    <div class="month">APRIL</div>
+                                </div>
+                                <div class="col-xs-7 description">
+                                    <div class="bank">ARG</div>
+                                    <div class="actions">
+                                        Payment Sent
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2 t-center status">
+                                            <label class="t-center-received">
+                                                ✔
+                                        </label>
+                                    </div>
+                                    <div class="col-xs-2 amount">
+                                        <label for="">
+                                            +500
+                                            <span style="color: gray;">(USD)</span>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>

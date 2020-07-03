@@ -12,4 +12,7 @@ router.get('/', async (req, res) => {
     const Activity = await Transfer.getActivity(req.currentUser.id);
     return res.render('dashboard', { Activity, months });
 })
+
+
+
 module.exports = router;

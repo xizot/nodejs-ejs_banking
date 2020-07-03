@@ -1,8 +1,11 @@
-
+.pt-50{
+    padding-top: 50px;
+}
 .br-4{
     border-radius: 4px;
 }
 .dashboard{
+    min-height: 100vh;
     background-color: #ddd;
     .container{
         .dashboard__content{
@@ -215,7 +218,15 @@
                     }
                 }
                 .recent-activity{
-                 
+                    
+                    .filter{
+                        input{
+                            height: 35px;
+                            border: 1px solid #ddd;
+                            border-radius: 5px;
+                            padding: 0 10px;
+                        }
+                    }
                     .heading{
                         padding: 0 24px;
                     }

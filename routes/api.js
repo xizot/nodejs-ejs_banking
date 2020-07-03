@@ -115,4 +115,16 @@ router.get('/forgot-password', async (req, res)=>{
     return res.end('khong hop le')
 })
 
+// [TRANSFER]
+router.get('/transfer/activity', async (req,res)=>{
+
+    const {id, page,limit,fromDate, toDate} = req.body;
+
+    //Date có dạng: MM/dd/yyyy
+   const found = await Transfer.getActivityByDate(1,0,5,"01/01/2012","7/03/2020");
+
+   if(!found) return null;
+
+   return res.json(found);
+})
 module.exports = router;

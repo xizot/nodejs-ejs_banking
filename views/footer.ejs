@@ -22,11 +22,25 @@
 </script>
 <script src="/socket.io/socket.io.js"></script>
 <script>
+    new WOW().init();
+
     var socket = io("http://localhost:5000");
     $(window).on('load', () => {
         $('.loading').fadeOut(500);
     })
+$(function () {
+    $(document).on('click', '#nvn-bar', function(e){
+        e.preventDefault();
+        $(this).toggleClass('active');
 
+    })
+    $(document).on('click', '#nvn-close', function(e){
+        e.preventDefault();
+        $('#nvn-bar').removeClass('active');
+
+    })
+   
+});
 </script>
 
 </html>
