@@ -51,6 +51,24 @@ const showTransactionDetail = (amount, fee, total, from, to, message, date) => {
     `).appendTo('.dashboard');
 }
 
+const fetchData = url=>{
+    const filterFrom = $("#filter-from").val();
+    const filterTo = $("#filter-to").val();
+
+    console.log(filterFrom);
+    console.log(filterTo);
+    
+    // $.get("url", function (data, textStatus, jqXHR) {
+    //         console.log(data);
+            
+    //     },
+    // );
+}
+
+$(function () {
+    fetchData("123");
+});
+
 $(document).on('click', '.close-transactiondt', function (e) {
     $('.transaction-details').fadeOut(500);
 });

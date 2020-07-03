@@ -6,6 +6,42 @@ const Op = Sequelize.Op;
 
 class Transfer extends Model {
 
+
+    // hàm này để lấy lịch sử giao dich theo thời gian nhất định của 1 user
+    static async getActivityByDate(id,page, limit, fromDate, toDate) {
+
+        console.log(fromDate);
+        
+        return this.findAll({
+            where: {
+                [Op.or]: [
+                    {
+                        from: id
+                    },
+                    {
+                        to: id
+                    }
+                ],
+                createdAt:{
+                    [Op.and]:[
+                        {
+                            [Op.gte]: fromDate
+                        },
+                        {
+                            [Op.lte]: toDate
+                        }
+                    ]
+                   
+                }
+                
+               
+               
+            },
+            limit,
+            offset: page * limit,
+        })
+    }
+
     static async addNew(fromUser, toUser, fromSTK, toSTK, amount, message, currencyUnit, bankCode) {
         const newTf = {
             from: fromSTK,

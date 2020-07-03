@@ -6,9 +6,13 @@ const AccountInfo = require('../services/accountInfo');
 
 
 module.exports = async function auth(req, res, next) {
+
+
     const userID = req.session.userID || null;
     res.locals.currentUser = req.user || null;
     req.currentUser = req.user || null;
+
+    
     var accountInfo = null;
 
 

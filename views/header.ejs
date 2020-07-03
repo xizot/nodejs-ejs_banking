@@ -61,6 +61,57 @@
 
                             <%}}%>
                         </div>
+                        <div class="menu-res wow bounceInDown">
+                            <label class="fas fa-bars nvn-bar" id="nvn-bar"></label>
+                            <div class="bars wow fadeInDown ">
+                                <div class="bars-content">
+                                    <label class="fas fa-times nvn-close" id="nvn-close"></label>
+                                    <div class="bars-nav">
+                                        <%if(currentUser){%>
+                                            <% if(currentUser.permisstion == 0) { %>
+                                            <a href="/"><button class="btn">My Account</button> </a>
+                                            <a href="/transfer"><button class="btn">Send</button> </a>
+                                            <a href="/dashboard"><button class="btn">Dashboard</button> </a>
+                                            <a href="/"><button class="btn">Help</button> </a>
+                                            <a href="/"><button class="btn">Feature</button> </a>
+                                            <a href="/"><button class="btn">Page</button> </a>
+                                            <a href="/noti"><button class="btn">Notification</button> </a>
+                
+                                            <% }if(currentUser.permisstion == 1) { %>
+                                            <a href="/quanli"><button class="btn">Manage</button> </a>
+                                            <a href="/noti"><button class="btn">Notification</button> </a>
+                
+                                            <%}}%>
+            
+                                    </div>
+                                    <div class="bars-actions flex j-center a-center">
+                                        <% if(!currentUser) { %>
+        
+                                            <div class="sign-in__sign-up">
+                                                <a href="/login">
+                                                    <button class="btn btn-sign-in">
+                                                        Sign In
+                                                    </button>
+                                                </a>
+                                                <a href="/register">
+                                                    <button class="btn btn-sign-up">
+                                                        Sign Up
+                                                    </button>
+                                                </a>
+                                            </div>
+                                            <% } else{%>
+                    
+                                            <%-`<a class="username" href="/logout">
+                                                <button class="btn">
+                                                ${currentUser.displayName} (Log out)
+                                                </button></a>`%>
+                                            <% }%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+
                         <% if(!currentUser) { %>
 
                         <div class="sign-in__sign-up">
@@ -77,10 +128,10 @@
                         </div>
                         <% } else{%>
 
-                        <%-`<a class="username" href="/logout"><button class="btn">
+                        <%-`<a class="username" href="/logout">
+                            <button class="btn">
                             ${currentUser.displayName} (Log out)
-                        </button>
-                    </a>`%>
+                            </button></a>`%>
                         <% }%>
 
                     </div>
