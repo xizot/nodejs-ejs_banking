@@ -10,6 +10,7 @@ header{
         z-index: 999;
     }
     .container{
+        
       
         .header__content{
           
@@ -23,6 +24,47 @@ header{
               
             }
             .left{
+                width: 100%;
+                ul{
+                    >li{
+                        position: relative;
+                        &:hover >a{
+                            color: $main-color;
+                        }
+                        .drop-down{
+                            display: none;
+                            position: absolute;
+                            bottom: 0;
+                            left: 50%;
+                            transform: translate(-50%,100%);
+                            background-color: white;
+                            border-radius: 5px;
+                            padding: 0 20px;
+                            min-width: max-content;
+                          >li{
+                              cursor: pointer;
+                              a{
+                                  font-size: 14px;
+                                  padding: 10px 0;
+                                  color: #222;
+                                  font-weight: bold;
+                                  display: block;
+                              }
+                              &:hover  a{
+                                color: $main-color;
+                            }
+                          }
+                        }
+
+                        &:hover{
+                            >.drop-down{
+                                display: block;
+                                
+                            }
+                            
+                        }
+                    }
+                }
                   
                 #logo{
                     margin-right: 30px;
@@ -50,21 +92,21 @@ header{
                     }
                     
                 }
-            }
-            .username{
-                @include rs-xs{
-                    display: none;
-                }
-                @include rs-md{
-                    display: block;
-                }
-                .btn{
-                    color: white;
-                    &:hover{
+                .username{
+                    @include rs-xs{
+                        display: none;
+                    }
+                    @include rs-md{
+                        display: block;
+                    }
+                    .btn{
+                        color: white !important;
                         background: linear-gradient(145deg, #29ab56, #30cb67);
+                        transition: all .4s ease-in-out;
                     }
                 }
             }
+           
             .btn-sign-in{
                 color: #FFF;
                 background-color:black;
@@ -76,12 +118,29 @@ header{
         }
     }
     .menu-res{
+        .bars-content{
+
+        }
         @include rs-xs{
             display: flex ;
         }
         @include rs-md{
             display: none;
         }
+        .username{
+            @include rs-xs{
+                display: block;
+            }
+            @include rs-md{
+                display: none;
+            }
+            .btn{
+                color: white;
+                background: linear-gradient(145deg, #29ab56, #30cb67);
+                transition: all .4s ease-in-out;
+            }
+        }
+      
         .fa-bars{
             font-size: 30px;
             padding-right: 10px;
@@ -114,9 +173,34 @@ header{
             line-height: 40px;
 
         }
+        .bars-nav{
+            a{
+                .btn{
+                    display: block !important;
+                    background-color: transparent !important;
+                    color: white !important;
+                    &:hover{
+                        color: $main-color !important;
+                    }
+                }
+            }
+        }
         .bars-actions{
-            .username{
+            .username,.sign-in__sign-up{
                 display: block !important;
+
+                    .btn{
+                        display: block !important;
+                    }
+            }
+            .btn-sign-in{
+                background-color: black !important;
+                color: white !important;
+            }
+            .btn-sign-up{
+                margin-top: 20px;
+                background-color: $main-color !important;
+                color: white !important;
             }
         }
     }
@@ -126,6 +210,14 @@ header{
         }
         @include rs-md{
             display: flex;
+        }
+        .btn-sign-in{
+            background-color: black !important;
+            color: white !important;
+        }
+        .btn-sign-up{
+            background-color: $main-color !important;
+            color: white !important;
         }
     }
     .bars-nav{
@@ -157,12 +249,19 @@ header{
         animation-name: fadeInDown;
         animation-fill-mode: forwards;
         animation-timing-function: ease-in-out;
-        animation-duration: 2s;
+        animation-duration: .6s;
     }
   
     .bars-actions{
+
+       
         .sign-in__sign-up{
-            display: flex;
+            @include rs-xs{
+                display: flex;
+            }
+            @include rs-md{
+                display: none;
+            }
             flex-direction: column;
             a{
                 margin-bottom: 20px;

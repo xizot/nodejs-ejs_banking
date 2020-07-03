@@ -24,14 +24,14 @@ router.post('/', asyncHandler(async function (req, res) {
             req.session.email = user.email;
 
             if (!user.email) return res.redirect('/add-mail')
-
-            if (user.token)  return res.redirect('/active');
-
-            if(user.forgotCode){
+            if (user.forgotCode) {
                 req.session.fgEmail = user.email;
-                
+
                 return res.redirect('/forgot-password');
-            } 
+            }
+            if (user.token) return res.redirect('/active');
+
+
             // if (user.token) {
             //     return res.redirect('/active');
             // }

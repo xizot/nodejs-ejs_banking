@@ -30,20 +30,19 @@ router.post('/', upload.single('avatar'), async (req, res) => {
     const issued = req.body.txtIssued;
     const avatar = req.file.filename;
 
-
-    if(name){
+    if (name) {
         const found = await User.findByID(req.currentUser.id);
-        if(found){
+        if (found) {
             found.displayName = name;
             found.save();
         }
     }
-
     const sendRequest = await requestActiveUser.sendRequest(id, typeOfcard, Idcard, issued, avatar);
 
-    if(sendRequest){
-        return res.status(200).redirect('/page-confirm');
+    if (sendRequest) {
+        return res.redirect('/transfer');
     }
+    return res.end("Đã xảy ra lỗi");
 })
 
 module.exports = router;

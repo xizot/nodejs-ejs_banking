@@ -11,6 +11,24 @@ class RequestActiveUser extends Model {
     static async sendRequest(userID, identityTypes, identity, beginDate, image) {
         const found = await Customer.getByUserID(userID);
         const foundUser = await User.findByID(userID);
+
+        if (!foundUser) return null;
+
+        if (!found) {
+            const newCustomer = await Customer.create({
+                userID,
+                identityTypes,
+                identity,
+                beginDate,
+                image,
+                isActive: -1
+            })
+
+            if (!newCustomer) return null;
+            if (newCustomer) return newCustomer
+
+        }
+
         if (found && foundUser) {
 
             //Customer
@@ -21,7 +39,7 @@ class RequestActiveUser extends Model {
             found.isActive = -1;
             found.save();
 
-            
+
             //User
             foundUser.isActive = -1;
             foundUser.save();
@@ -30,6 +48,7 @@ class RequestActiveUser extends Model {
                 userID,
             }).then((value) => value);
         }
+        return null;
     }
 
     static async confirmRequest(userID) {
