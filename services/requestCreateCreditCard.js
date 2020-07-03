@@ -1,29 +1,34 @@
-const bcrypt = require('bcrypt');
+
 const Sequelize = require('sequelize');
 const db = require('./db');
 const Model = Sequelize.Model;
 const Customer = require('./customer');
-const Bank = require('./bank');
-const User = require('./user');
 const AccountInfor = require('./accountInfo');
 const { randomSTK } = require('./function');
 
 class RequestCreateCreditCard extends Model {
 
-    static async sendRequest(userID, displayName) {
+    static async sendRequest(userID) {
+        const found = await this.findOne({
+            where: {
+                userID,
+            }
+        })
+        if (found) return null; // ddax ton tai
+
         return this.create({
             userID,
             displayName
         }).then(value => value);
     }
 
-    static async confirmRequest(userID, displayName) {
+    static async confirmRequest(userID) {
 
         const STK = randomSTK();
-        return await AccountInfor.create({
+        const rs = await AccountInfor.create({
             STK,
             displayName,
-            balance: 5000,
+            balance: 0,
             currencyUnit: "USD",
             beginDate: new Date().toISOString,
             endDate: new Date(new Date().setFullYear(new Date().getFullYear() + 5)),
@@ -32,21 +37,21 @@ class RequestCreateCreditCard extends Model {
             bankCode: "ARG",
             userID,
             isDefault: false,
-
-
         })
+        // remove request
+        if (rs) {
+            return this.destroy({
+                where: {
+                    userID,
+                }
+            })
+        }
+        return null;
 
     }
 
     static async ejectRequest(userID) {
-        const found = await Customer.getByUserID(userID);
-        const foundUser = await User.findByID(userID);
-        if (found && foundUser) {
-            found.isActive = -2;
-            found.save()
-            foundUser.isActive = -2;
-            return foundUser.save();
-        }
+
     }
     static async block(userID) {
         const found = await Customer.getByUserID(userID);
@@ -64,11 +69,6 @@ RequestCreateCreditCard.init({
         type: Sequelize.INTEGER,
         allowNull: false,
     },
-    displayName: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    }
-
 }, {
     sequelize: db,
     modelName: 'requestcreatecreditcard'
@@ -77,5 +77,5 @@ RequestCreateCreditCard.init({
 
 
 
-module.exports = RequestActiveUser;
+module.exports = RequestCreateCreditCard;
 
