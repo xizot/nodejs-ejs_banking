@@ -621,6 +621,14 @@ header .bars {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-animation-name: fadeInDown;
+          animation-name: fadeInDown;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
 }
 
 header .bars-actions .sign-in__sign-up {
@@ -773,6 +781,38 @@ header .bars-actions .sign-in__sign-up .btn {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: -1;
+}
+
+@-webkit-keyframes fadeInDown {
+  0% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  25% {
+  }
+  50% {
+  }
+  75% {
+  }
+  100% {
+    ransform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  25% {
+  }
+  50% {
+  }
+  75% {
+  }
+  100% {
+    ransform: translateY(0);
+  }
 }
 
 footer {

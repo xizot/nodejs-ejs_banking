@@ -154,7 +154,10 @@ header{
         width: 100vw;
         background-color: rgba($color: #000000, $alpha: .9);
         display: flex;
-      
+        animation-name: fadeInDown;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-in-out;
+        animation-duration: 2s;
     }
   
     .bars-actions{
@@ -288,4 +291,23 @@ header{
     height: 100%;
     background-color: rgba($color: #000000, $alpha: .4);
     z-index:-1;
+}
+
+@keyframes fadeInDown {
+    0%{
+        transform: translateY(-100%);
+    }
+    25%{
+        
+    }
+    50%{
+        
+    }
+    75%{
+        
+    }
+    100%{
+        ransform: translateY(0);
+    }
+
 }
