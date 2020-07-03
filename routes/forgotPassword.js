@@ -4,11 +4,17 @@ const { body, validationResult } = require('express-validator');
 const User = require('../services/user');
 var errors = [];
 
-const bcrypt = require('bcrypt'); 
+const bcrypt = require('bcrypt');
 
 
-router.get('/', (req, res) => {
-    if(req.session.fgEmail)  return res.render('confirmForgotPassword', { errors })
+router.get('/', async (req, res) => {
+    if (req.session.fgEmail) {
+        const found = await User.findByEmail(req.session.fgEmail);
+        if (found) {
+            return res.render('confirmForgotPassword', { errors })
+        }
+        delete req.session.fgEmail;
+    }
     return res.render('forgotPassword', { errors })
 })
 router.post('/', async (req, res) => {
@@ -17,6 +23,11 @@ router.post('/', async (req, res) => {
     let found = null;
     if (req.session.fgEmail) {
         found = await User.findByEmail(req.session.fgEmail);
+        if (!found) {
+            delete req.session.fgEmail;
+            errors = [{ msg: 'Không tìm thấy tài khoản phù hợp với mail bạn vừa nhập' }]
+            return res.redirect('/forgot-password');
+        }
     }
 
     if (txtCode) {
@@ -25,10 +36,10 @@ router.post('/', async (req, res) => {
             errors = [];
             if (await found.confirmForgotCode(txtCode)) {
 
-                const newPassword = bcrypt.hashSync('123456',10);
-                found.password =newPassword;
+                const newPassword = bcrypt.hashSync('123456', 10);
+                found.password = newPassword;
                 found.save();
-                 return res.status(200).redirect('/alert/resetPasswordSuccess');
+                return res.status(200).redirect('/alert/resetPasswordSuccess');
             }
             errors = [{ msg: 'Code không hợp lệ' }];
 
@@ -53,6 +64,6 @@ router.post('/', async (req, res) => {
         errors = [{ msg: 'Không tìm thấy tài khoản phù hợp với mail bạn vừa nhập' }]
         return res.redirect('/forgot-password');
     }
-    
+
 })
 module.exports = router;

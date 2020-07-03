@@ -39,6 +39,8 @@ async function sendMail(to, subject, content, html) {
 
 
 
+
+
 process.env.API_KEY = '09856490';
 process.env.API_SECRET = 'ouK6Au5WEHKxkQec';
 const from = 'Vonage APIs';
@@ -98,4 +100,6 @@ const validateEmail = (email) => {
     return re.test(String(email).toLowerCase());
 }
 
-module.exports = { sendMail, sendSMS, findCustomerInfo, validateEmail };
+const randomSTK = () => new Date().valueOf();
+
+module.exports = { sendMail, sendSMS, findCustomerInfo, validateEmail, randomSTK };

@@ -55,18 +55,18 @@ class AccountInfo extends Model {
     }
 
     async addMoney(from, amount, message, currencyUnit, bankCode) {
-      
+
         const foundFrom = await AccountInfo.getByUserID(from);
         var money = amount;
-      
+
         if (currencyUnit == "VND") {
             money = money * (1 / 23000);
         }
 
         console.log(currencyUnit);
-        
+
         console.log(money);
-        
+
         if (foundFrom) {
             foundFrom.balance = foundFrom.balance - money;
             foundFrom.save();
@@ -116,7 +116,7 @@ AccountInfo.init({
     },
     balance: {
         //so du tai khoan
-        type: Sequelize.STRING,
+        type: Sequelize.DECIMAL,
         allowNull: false,
     },
     currencyUnit: {

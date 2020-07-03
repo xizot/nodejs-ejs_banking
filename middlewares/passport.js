@@ -7,7 +7,6 @@ const Bluebird = require('bluebird');
 
 process.env.FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID || "292046422188288";
 process.env.FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET || "5d2223d62a62f59e9194dc2bdc70688c";
-process.env.BASE_URL = process.env.BASE_URL || "http://localhost:5000";
 
 //google
 

@@ -446,6 +446,53 @@ header .container .header__content #logo a {
   color: #FFF;
 }
 
+header .container .header__content .left {
+  width: 100%;
+}
+
+header .container .header__content .left ul > li {
+  position: relative;
+}
+
+header .container .header__content .left ul > li:hover > a {
+  color: #2dbe60;
+}
+
+header .container .header__content .left ul > li .drop-down {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translate(-50%, 100%);
+          transform: translate(-50%, 100%);
+  background-color: white;
+  border-radius: 5px;
+  padding: 0 20px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
+
+header .container .header__content .left ul > li .drop-down > li {
+  cursor: pointer;
+}
+
+header .container .header__content .left ul > li .drop-down > li a {
+  font-size: 14px;
+  padding: 10px 0;
+  color: #222;
+  font-weight: bold;
+  display: block;
+}
+
+header .container .header__content .left ul > li .drop-down > li:hover a {
+  color: #2dbe60;
+}
+
+header .container .header__content .left ul > li:hover > .drop-down {
+  display: block;
+}
+
 header .container .header__content .left #logo {
   margin-right: 30px;
 }
@@ -478,23 +525,22 @@ header .container .header__content .left a button {
 }
 
 @media only screen and (min-width: 320px) {
-  header .container .header__content .username {
+  header .container .header__content .left .username {
     display: none;
   }
 }
 
 @media only screen and (min-width: 768px) {
-  header .container .header__content .username {
+  header .container .header__content .left .username {
     display: block;
   }
 }
 
-header .container .header__content .username .btn {
-  color: white;
-}
-
-header .container .header__content .username .btn:hover {
+header .container .header__content .left .username .btn {
+  color: white !important;
   background: linear-gradient(145deg, #29ab56, #30cb67);
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
 }
 
 header .container .header__content .btn-sign-in {
@@ -518,6 +564,25 @@ header .container .header__content .btn-sign-up {
   header .menu-res {
     display: none;
   }
+}
+
+@media only screen and (min-width: 320px) {
+  header .menu-res .username {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  header .menu-res .username {
+    display: none;
+  }
+}
+
+header .menu-res .username .btn {
+  color: white;
+  background: linear-gradient(145deg, #29ab56, #30cb67);
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
 }
 
 header .menu-res .fa-bars {
@@ -563,8 +628,33 @@ header .bars-content .fa-times {
   line-height: 40px;
 }
 
-header .bars-content .bars-actions .username {
+header .bars-content .bars-nav a .btn {
   display: block !important;
+  background-color: transparent !important;
+  color: white !important;
+}
+
+header .bars-content .bars-nav a .btn:hover {
+  color: #2dbe60 !important;
+}
+
+header .bars-content .bars-actions .username, header .bars-content .bars-actions .sign-in__sign-up {
+  display: block !important;
+}
+
+header .bars-content .bars-actions .username .btn, header .bars-content .bars-actions .sign-in__sign-up .btn {
+  display: block !important;
+}
+
+header .bars-content .bars-actions .btn-sign-in {
+  background-color: black !important;
+  color: white !important;
+}
+
+header .bars-content .bars-actions .btn-sign-up {
+  margin-top: 20px;
+  background-color: #2dbe60 !important;
+  color: white !important;
 }
 
 @media only screen and (min-width: 320px) {
@@ -579,6 +669,16 @@ header .bars-content .bars-actions .username {
     display: -ms-flexbox;
     display: flex;
   }
+}
+
+header .sign-in__sign-up .btn-sign-in {
+  background-color: black !important;
+  color: white !important;
+}
+
+header .sign-in__sign-up .btn-sign-up {
+  background-color: #2dbe60 !important;
+  color: white !important;
 }
 
 header .bars-nav {
@@ -627,18 +727,29 @@ header .bars {
           animation-fill-mode: forwards;
   -webkit-animation-timing-function: ease-in-out;
           animation-timing-function: ease-in-out;
-  -webkit-animation-duration: 2s;
-          animation-duration: 2s;
+  -webkit-animation-duration: .6s;
+          animation-duration: .6s;
 }
 
 header .bars-actions .sign-in__sign-up {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+@media only screen and (min-width: 320px) {
+  header .bars-actions .sign-in__sign-up {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  header .bars-actions .sign-in__sign-up {
+    display: none;
+  }
 }
 
 header .bars-actions .sign-in__sign-up a {
