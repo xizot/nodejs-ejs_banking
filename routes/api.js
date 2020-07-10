@@ -5,6 +5,16 @@ const Transfer = require('../services/transfer');
 const User = require('../services/user');
 const bcrypt = require('bcrypt');
 
+
+router.get('/current', async (req, res) => {
+    if (req.currentUser) {
+        return res.json(req.currentUser);
+    }
+    return res.json(null);
+
+})
+
+
 router.get('/account/info', async (req, res) => {
     if (req.currentUser) {
         var found = null;
@@ -64,8 +74,6 @@ router.post('/account/addMoney', async (req, res) => {
 
     return res.end('-2'); //Lỗi k cố định
 })
-
-
 
 //get info of transfer id with api
 router.get('/transfer/:id', async (req, res) => {
@@ -132,8 +140,15 @@ router.get('/transfer/activity', async (req,res)=>{
 
 // Liên ngân hàng {TRANSFER}
 router.post('/checkaccountid',async (req,res)=>{
-    const {accountId,bankSecretKey, bankId} = req.body;
-    if(!accountId || !bankSecretKey || !bankId)  return res.json(null);
+    // null: không tồn tại tài khoản đó
+    // 0: thành công, có tồn tại
+    // 1: mã bankId hoặc bannkSecretKey gửi không phù hợp với cái mà Nhật cấp cho tụi t từ trước (cái này tụi t lưu DB)
+    // 2: không đủ dữ liệu
+    const {accountId,bankSecretKey, bankId,clientId,secretKey} = req.body;
+    if(!accountId || !bankSecretKey || !bankId || !clientId || !secretKey)  return res.json(2);
+    
+    if(clientId !== "wibu" || secretKey !== "36dc50f6-65e5-47c5-80ff-f6dbd8cd3dee") return res.json(null);
+
     if(bankSecretKey != "12345" || bankId != "wfb") return res.json(1); 
 
     const found = await AccountInfo.getBySTKOne(accountId);
@@ -144,12 +159,23 @@ router.post('/checkaccountid',async (req,res)=>{
 })
 
 router.post('/transferexternal',async (req,res)=>{
-    const {accountId,bankSecretKey, bankId,money,currency,requestAccountId} = req.body;
-    if(!accountId || !bankSecretKey || !bankId || !money || !currency || !requestAccountId)  return res.json(null);
+
+    //   null: không tồn tại tài khoản đó
+    //0: nhận tiền thành công
+    //1: mã bankId hoặc bannkSecretKey gửi không phù hợp với cái mà Nhật cấp cho tụi t từ trước (cái này tụi t lưu DB)
+    //2: loại tiền không hợp lệ (chỉ nhận USD hoặc VND)
+    //3: có lỗi ngoài lề nào đó, bên Nhật nhận tín hiệu này thì hoãn tiền lại cho tài khoản bên gửi
+    //4: không đủ dữ liệu
+
+    // clientId: bên wfb cung cấp cho bên Nhật cái này để gọi được api bên t
+    // secretKey: bên wfb cung cấp cho nhật cái này để gọi được api bên t
 
 
-    console.log(req.body);
+    const {accountId,bankSecretKey, bankId,money,currency,requestAccountId,clientId,secretKey} = req.body;
+    if(!accountId || !bankSecretKey || !bankId || !money || !currency || !requestAccountId || !clientId || !secretKey)  return res.json(4);
+
     
+   
 
     // kiểm tra hợp lê
     if(bankSecretKey != "12345" || bankId != "wfb") return res.json(1); 
@@ -169,6 +195,8 @@ router.post('/transferexternal',async (req,res)=>{
     // Chuyển tiền thành công
     if(await found.addMoneyExternal(requestAccountId,money,message,currency,bankId)) return res.json(0);
 
+
+    await AccountInfo.minusMoney(to,money,currency,bankId);
     //Đã xảy ra lỗi gì đó
     Transfer.addError(requestAccountId,accountId);
     return res.json(3);

@@ -3,6 +3,12 @@ const router = express.Router();
 const User = require('../services/user');
 const asyncHandler = require('express-async-handler');
 const { check, validationResult, body } = require('express-validator');
+
+const io = require('socket.io-client');
+process.env.BASE_URL = "http://localhost:5000";
+let socket;
+socket = io(process.env.BASE_URL);
+
 var errors = [];
 router.get('/', function (req, res) {
     if (req.currentUser) {
@@ -14,6 +20,7 @@ router.get('/', function (req, res) {
 })
 
 router.post('/', asyncHandler(async function (req, res) {
+
 
     const user = await User.findBySomeThing(req.body.txtEmail);
     if (user) {

@@ -1375,7 +1375,7 @@ footer .footer .container .row .footer-item > ul li:before {
 }
 
 body {
-  background: url("../img/bg-main.jpg") no-repeat top/cover;
+  /* background: url("../img/bg-main.jpg") no-repeat top/cover; */
 }
 
 .over-layer {
@@ -2059,7 +2059,8 @@ body {
   color: rgba(255, 255, 255, 0.9);
   font-weight: bolder;
   letter-spacing: 1.25px;
-  text-shadow: 1px 1px 1px #333, -1px -1px 1px gray;
+  text-shadow: 1px 1px 1px #333,
+ -1px -1px 1px gray;
 }
 
 .card-date {
@@ -2087,7 +2088,8 @@ body {
   color: rgba(255, 255, 255, 0.9);
   font-weight: bolder;
   letter-spacing: 1.25px;
-  text-shadow: 1px 1px 1px #333, -1px -1px 1px gray;
+  text-shadow: 1px 1px 1px #333,
+ -1px -1px 1px gray;
 }
 
 .card-date .card-good-thru {
@@ -2100,7 +2102,8 @@ body {
   letter-spacing: 1.25px;
   font-size: 14px;
   text-transform: uppercase;
-  text-shadow: 1px 1px 1px #333, -1px -1px 1px gray;
+  text-shadow: 1px 1px 1px #333,
+ -1px -1px 1px gray;
 }
 
 .card .type p {
@@ -2117,14 +2120,18 @@ body {
 
 .TECHCOMBANK .gutter {
   background-image: radial-gradient(circle farthest-corner at 10% 20%, #0779de 0%, #14488c 90%);
-  -webkit-box-shadow: 3px 3px 10px #113d77,  -3px -3px 10px #1753a1;
-          box-shadow: 3px 3px 10px #113d77,  -3px -3px 10px #1753a1;
+  -webkit-box-shadow: 3px 3px 10px #113d77, 
+ -3px -3px 10px #1753a1;
+          box-shadow: 3px 3px 10px #113d77, 
+ -3px -3px 10px #1753a1;
 }
 
 .ARG .gutter {
   background-image: radial-gradient(circle farthest-corner at 50.4% 50.5%, #fb2056 0%, #870223 90%);
-  -webkit-box-shadow: 3px 3px 10px #73021e,  -3px -3px 10px #9b0228;
-          box-shadow: 3px 3px 10px #73021e,  -3px -3px 10px #9b0228;
+  -webkit-box-shadow: 3px 3px 10px #73021e, 
+ -3px -3px 10px #9b0228;
+          box-shadow: 3px 3px 10px #73021e, 
+ -3px -3px 10px #9b0228;
 }
 
 .transfer .navigation ul li {
@@ -2278,8 +2285,10 @@ body {
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   padding: 2px;
-  -webkit-box-shadow: 20px 20px 60px #7e7e7e,  -20px -20px 60px #aaaaaa;
-          box-shadow: 20px 20px 60px #7e7e7e,  -20px -20px 60px #aaaaaa;
+  -webkit-box-shadow: 20px 20px 60px #7e7e7e, 
+ -20px -20px 60px #aaaaaa;
+          box-shadow: 20px 20px 60px #7e7e7e, 
+ -20px -20px 60px #aaaaaa;
   border-radius: 10px;
   min-width: 320px;
   width: 600px;
