@@ -4,6 +4,7 @@ const User = require('./user');
 const AccountInfo = require('./accountInfo');
 const Customer = require('./customer');
 const Transfer = require('./transfer');
+const Notification = require('./notification');
 
 process.env.ADMIN_EMAIL = '1760131bot@gmail.com';
 process.env.ADMIN_PASSWORD = 'learnenglish';
@@ -36,9 +37,6 @@ async function sendMail(to, subject, content, html) {
     console.log("Message sent: %s", info.messageId);
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 }
-
-
-
 
 
 process.env.API_KEY = '09856490';
@@ -94,7 +92,6 @@ const findCustomerInfo = async id => {
 
 }
 
-
 const validateEmail = (email) => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
@@ -102,4 +99,63 @@ const validateEmail = (email) => {
 
 const randomSTK = () => new Date().valueOf();
 
-module.exports = { sendMail, sendSMS, findCustomerInfo, validateEmail, randomSTK };
+
+
+// Các chức năng của Nhân viên
+
+// - [ ]  Lấy tất cả thông báo của user ( xác thực tài khoản, yêu cầu mở tài khoản ngân hàng, yêu cầu mở tài khoản tiết kiệm)
+// - [ ]  Xử lí các yêu cầu của user ở trên
+
+// - [ ]  Khóa và xóa user
+const StaffBlockUser = async userID =>{
+    const found = await User.findByPk(userID);
+    if(found){
+        found.isActive = 2;
+        found.save();
+
+        Notification.addPrevent(staffID,value.userID,2).then(value=>{
+            const msg = `Nhân viên ${staffID} đã xóa tài khoản ${value.userID}`;
+            StaffActivity.addStaffActivity(staffID,msg);
+        })
+    }
+    return null;
+}
+
+const StaffDeleteUser = async(staffID, userID)  =>{
+    const found = await User.findByPk(userID);
+    if(found){
+       return User.destroy({
+            where:{
+                id: userID,
+            }
+        }).then(value=>{
+            Notification.addPrevent(staffID,value.userID,-1).then(value=>{
+                const msg = `Nhân viên ${staffID} đã xóa tài khoản ${value.userID}`;
+                StaffActivity.addStaffActivity(staffID,msg);
+            })
+
+            return value;
+        });
+    }
+    return null; // không tồn tại 
+}
+
+// - [x]  Tìm user theo id, sdt, email ,....
+// - [ ]  Hiển thị lịch sử xác thực tài khoản, lịch sử chuyển tiền
+
+// - [ ]  Thêm tiền vào tài khoản cho user
+const StaffRechargeToUser = async (staffID, userID,  STK, amount, currencyInit)=>{
+    const found = await AccountInfo.getInfoBySTKandUserID(userID,STK);
+    if(found){
+        return found.staffRecharge(staffID,currencyInit,amount);
+    }
+    return null;
+}
+// - [ ]  Ghi lại lịch sử staff ( khi xử lí yêu cầu của user, xóa, khóa, thêm tiền,...)
+
+// - [ ]  Reset password cho user
+// - [ ]  Thêm thông tin cho user
+
+
+
+module.exports = { sendMail, sendSMS, findCustomerInfo, validateEmail, randomSTK , StaffBlockUser,StaffDeleteUser,StaffRechargeToUser};

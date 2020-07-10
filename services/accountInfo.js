@@ -3,6 +3,8 @@ const Sequelize = require('sequelize');
 const db = require('./db');
 const Model = Sequelize.Model;
 const Transfer = require('./transfer');
+const Notification = require('./notification');
+const StaffActivity = require('./staffActivityLog');
 // const users = [
 //     {
 //         id: '1',
@@ -21,8 +23,25 @@ const Transfer = require('./transfer');
 
 class AccountInfo extends Model {
 
+
+    static async getInfoBySTKandUserID(userID,STK){
+        return this.findOne({
+            where:{
+                STK,
+                userID,
+            }
+        })
+    }
+
     static async getBySTK(stk) {
         return this.findAll({
+            where: {
+                STK: stk,
+            }
+        })
+    }
+    static async getBySTKOne(stk) {
+        return this.findOne({
             where: {
                 STK: stk,
             }
@@ -63,9 +82,6 @@ class AccountInfo extends Model {
             money = money * (1 / 23000);
         }
 
-        console.log(currencyUnit);
-
-        console.log(money);
 
         if (foundFrom) {
             foundFrom.balance = foundFrom.balance - money;
@@ -75,9 +91,103 @@ class AccountInfo extends Model {
             await Transfer.addNew(foundFrom.userID, this.userID, foundFrom.STK, this.STK, amount, message, currencyUnit, bankCode);
             return this;
         }
-
     }
 
+
+    // hàm này để chuyển tiền khác ngân hàng
+    async addMoneyExternal(from, amount, message, currencyUnit, bankCode){
+
+        var money = amount;
+
+        if (currencyUnit == "VND") {
+            money = money * (1 / 23000);
+        }
+
+        this.balance = Number(this.balance) + (Number(money));
+        this.save();
+
+        await Transfer.addNewExternal(from,this.STK,amount,message,currencyUnit,bankCode);
+        return this;
+    }
+
+    // Hàm này để chuyển tiền cùng ngân hàng
+    static async addMoneyInternal(from,to, amount, message, currencyUnit, bankCode){
+        let money = amount;
+
+        if (currencyUnit == "VND") {
+            money = money * (1 / 23000);
+        }
+
+        const foundFrom = await AccountInfo.getBySTKOne(from);
+        if( Number(foundFrom.balance) < Number(money) ) return 7;
+        if(!foundFrom) return 4;
+
+
+        foundFrom.balance = Number(foundFrom.balance) - Number(money);
+
+        await foundFrom.save()
+
+        const foundTo = await AccountInfo.getBySTKOne(to);
+
+        if(!foundTo){
+            foundFrom.balance = Number(foundFrom.balance) + Number(money);
+            foundFrom.save();
+            return 2;
+        }
+
+        foundTo.balance = Number(foundTo.balance) + Number(money);
+        foundTo.save();
+
+        
+        Transfer.addNewInExternal(from,to,amount,message,currencyUnit,bankCode);  
+
+        return 0
+        // return foundFrom.save().then(async value=>{
+
+        //     const foundTo = await AccountInfo.getBySTKOne(to);
+
+        //     if(!foundTo){
+        //         foundFrom.balance = Number(foundFrom.balance) + Number(money);
+        //         foundFrom.save();
+        //         return 2;
+        //     }
+    
+        //     foundTo.balance = Number(foundTo.balance) + Number(money);
+        //     foundTo.save();
+
+            
+        //      Transfer.addNewInExternal(from,to,amount,message,currencyUnit,bankCode);  
+
+        //     return 0
+        // });
+
+
+       
+
+    }
+    // hàm này để Nhân viên thêm tiền cho User
+    async staffRecharge(staffID,currencyUnit,amount ){
+
+        let money = amount;
+
+        if (currencyUnit == "VND") {
+            money = money * (1 / 23000);
+        }
+
+        this.balance = Number(this.balance) + Number(money);
+        this.save();
+        Notification.addNotifyForStaffRecharge(staffID,this.userID).then(value=>{
+            const msg = `Nhân viên ${staffID} đã nạp tiền cho ${this.userID} số tiền ${amount}`;
+            StaffActivity.addStaffActivity(staffID,msg);
+
+            const tfMsg = `Nhân viên đã nạp tiền vào tài khoản của bạn số tiền ${amount}`;
+            Transfer.staffAddNew(staffID,this.userID,this.STK,amount,tfMsg,currencyUnit);
+            return true;
+        })
+        
+        return null;
+
+    }
 
     static async setActive(id, num) {
         const found = await this.findByPk(id);
@@ -88,12 +198,14 @@ class AccountInfo extends Model {
         }
     }
 
+    // hàm này để set tài khoản giao dịch mặc định
     static async setDefault(userID, STK, bankCode) {
         return this.findOne({
             where: {
                 STK: STK,
                 userID: userID,
                 bankCode: bankCode,
+                isDefault:true,
             }
         })
 
@@ -110,34 +222,32 @@ AccountInfo.init({
         allowNull: false,
         unique: true,
     },
+    // chủ sở hữu
     displayName: {
         type: Sequelize.STRING,
-        allowNull: false,
+    },
+    userID: {
+        type: Sequelize.INTEGER,
     },
     balance: {
         //so du tai khoan
         type: Sequelize.DECIMAL,
-        allowNull: false,
     },
     currencyUnit: {
         // loai tien te : USD / VND
         type: Sequelize.STRING,
-        allowNull: false,
     },
     beginDate: {
         //ngay mo the
         type: Sequelize.DATE,
-        allowNull: false,
     },
     endDate: {
         //ngay het han
         type: Sequelize.DATE,
-        allowNull: false,
     },
     term: {
         // ki han
         type: Sequelize.INTEGER,
-        allowNull: false,
     },
     isActive: {
         type: Sequelize.INTEGER,
@@ -147,11 +257,6 @@ AccountInfo.init({
     // ma ngan hang ARG: agribank / TECHCOMBANK: Techombank
     bankCode: {
         type: Sequelize.STRING,
-        allowNull: false,
-    },
-    userID: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
     },
     isDefault: {
         type: Sequelize.BOOLEAN,

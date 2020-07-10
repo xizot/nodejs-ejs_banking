@@ -3,6 +3,7 @@ const db = require('./db');
 const Model = Sequelize.Model;
 const Op = Sequelize.Op;
 
+const Notification = require('./notification');
 
 class Transfer extends Model {
 
@@ -57,6 +58,60 @@ class Transfer extends Model {
     }
 
 
+    static async addNewExternal(fromSTK, toSTK, amount, message, currencyUnit, bankCode) {
+        const newTf = {
+            from: fromSTK,
+            to: toSTK,
+            amount,
+            message,
+            currencyUnit,
+            bankCode,
+        }
+        return this.create(newTf).then(value => {
+
+            Notification.addNotifyForTransfer(fromSTK,toSTK);
+            return value;
+        });
+    }
+
+    static async addNewInExternal(fromSTK, toSTK, amount, message, currencyUnit, bankCode) {
+        const newTf = {
+            from: fromSTK,
+            to: toSTK,
+            amount,
+            message,
+            currencyUnit,
+            bankCode,
+        }
+        return this.create(newTf).then(value => {
+            Notification.addNotifyForTransfer(fromSTK,toSTK);
+            Notification.addNotifyForReceive(fromSTK,toSTK);
+
+            return value;
+        });
+    }
+
+    static async addError(fromSTK,toSTK){
+        return this.create({
+            from: fromSTK,
+            to: toSTK,
+            message: 'Đã xảy ra lỗi',
+            status:-1,
+        })
+    }
+    static async staffAddNew(staffID, toUser, toSTK, amount, message, currencyUnit) {
+        const newTf = {
+            to: toSTK,
+            amount,
+            message,
+            currencyUnit,
+            fromUser:staffID,
+            toUser,
+        }
+        return this.create(newTf).then(value => value);
+    }
+
+
     // hàm này để lấy thông tin giao dịch của 1 user có phân trang
     static async getActivityLimit(id,page, limit) {
         return this.findAll({
@@ -94,22 +149,18 @@ Transfer.init({
     //attributes
     from: { // STK
         type: Sequelize.INTEGER,
-        allowNull: false,
     },
     to: { //STK
         type: Sequelize.INTEGER,
-        allowNull: false,
     },
     amount: {
         type: Sequelize.DOUBLE,
-        allowNull: false,
     },
     message: {
         type: Sequelize.STRING,
     },
     bankCode: {
         type: Sequelize.STRING,
-        allowNull: false,
     },
     date: {
         type: Sequelize.DATE,
@@ -123,11 +174,13 @@ Transfer.init({
     },
     fromUser: {
         type: Sequelize.INTEGER,
-        allowNull: false,
     },
     toUser: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+    },
+    status:{
+        type: Sequelize.INTEGER,
+        defaultValue:1,
     }
 
 }, {
@@ -135,10 +188,6 @@ Transfer.init({
     modelName: 'transfer',
 })
 
-
-// User.hasOne(Transfer, { foreignKey: 'from', sourceKey: 'id' })
-// User.hasOne(Transfer, { foreignKey: 'to', sourceKey: 'id' })
-// Bank.hasOne(Transfer, { foreignKey: 'bankCode', sourceKey: 'bankCode' })
 
 
 module.exports = Transfer;
