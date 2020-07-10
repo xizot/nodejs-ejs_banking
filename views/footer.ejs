@@ -1,7 +1,7 @@
 </div>
 
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
 <script src="./vendor/OwlCarousel/dist/owl.carousel.min.js"></script>
 <script src="./js/Nhat/main.js"></script>
@@ -24,7 +24,30 @@
 <script>
     new WOW().init();
 
-    var socket = io("https://dack-17ck1.herokuapp.com");
+    var socket = io("http://localhost:5000");
+    // socket.on('connect', () => {
+    //   // or with emit() and custom event names
+     
+    // });
+
+    socket.on('connect', () => {
+            // or with emit() and custom event names
+
+            $.get("api/current",function (data, textStatus, jqXHR) {
+                  if(data){
+                    socket.emit('transfer', data);
+                    socket.on('server-send-client',data=> {
+                      // alert(data);
+                      console.log(data);
+                   });
+                }
+              }
+            );
+              
+    });
+ 
+
+// });
     $(window).on('load', () => {
         $('.loading').fadeOut(500);
     })

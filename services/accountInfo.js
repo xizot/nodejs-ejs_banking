@@ -110,6 +110,21 @@ class AccountInfo extends Model {
         return this;
     }
 
+    static async minusMoney(to, amount, currencyUnit, bankCode){
+        let money = amount;
+
+        if (currencyUnit == "VND") {
+            money = money * (1 / 23000);
+        }
+        const foundTo = await AccountInfo.getBySTKOne(to);
+
+        if(!foundTo) return 3;
+
+        foundTo.balance = Number( foundTo.balance ) + Number(money);
+        await foundTo.save();
+    }
+
+
     // Hàm này để chuyển tiền cùng ngân hàng
     static async addMoneyInternal(from,to, amount, message, currencyUnit, bankCode){
         let money = amount;

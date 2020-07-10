@@ -75,22 +75,26 @@ app.get('/auth/google/callback',
         res.redirect('/');
     });
 const users = [];
+
+
 io.on('connection', (socket) => {
     socket.on("transfer", data => {
-        // io.emit("server-said", data);
-        console.log(data);
-    });
 
-    socket.on('client-send-user', data => {
-        console.log(data);
-    })
+        socket.id = data.id;
+        users.push(socket.id);
+        // socket.emit('server-send-client',`Hế lô id: ${data.id}`);
+
+        socket.broadcast.emit('server-send-client', 'Có 1 đứa mới vào ae');
+
+    });
+  
+  
 
 });
 
 
 
-const Transfer = require('./services/transfer.js');
-const Op = require('sequelize').Op
+
 app.use('/lichsu', require('./routes/historyTransfer'));
 
 
