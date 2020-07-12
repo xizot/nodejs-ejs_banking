@@ -63,7 +63,7 @@ router.post('/account/addMoney', async (req, res) => {
             if (found.userID == req.currentUser.id) {
                 return res.end('-1'); // lỗi gửi tiền cho chính mình
             }
-           
+
             await found.addMoney(req.currentUser.id, money, message, currencyUnit, bankCode);
             return res.end('1'); // thanh cong
         }
@@ -79,26 +79,25 @@ router.post('/account/addMoney', async (req, res) => {
 router.get('/transfer/:id', async (req, res) => {
     const { id } = req.params;
     const found = await Transfer.findByPk(id);
-    console.log(found);
 })
 
 
 //[USER] 
-router.post('/change-password', async (req, res)=>{
+router.post('/change-password', async (req, res) => {
     const st = req.body.st;
     const password = req.body.password;
     const newPassword = req.body.newPassword;
     const confirmPassword = req.body.confirmPassword;
 
-    if(st){
+    if (st) {
         const found = await User.findBySomeThing(st);
-        if(found){
-          
-            if(await User.verifyPassword(password,found.password) || !found.password){
-                if(newPassword === confirmPassword){
+        if (found) {
+
+            if (await User.verifyPassword(password, found.password) || !found.password) {
+                if (newPassword === confirmPassword) {
                     found.changePassword(newPassword);
                     return res.end('1'); // success
-                }   
+                }
                 return res.end('-3') // confirm password is not match
             }
             return res.end('-2') // password is not match
@@ -107,58 +106,57 @@ router.post('/change-password', async (req, res)=>{
     }
 })
 
-router.get('/forgot-password', async (req, res)=>{
+router.get('/forgot-password', async (req, res) => {
     const st = req.query.st;
-    console.log(st);
-    
 
-    if(st){
-      const rs = await User.forgotPassword(st);
-          
-      if(rs){
-          return res.end(JSON.stringify(rs));
-      }
-      return res.end('da xay ra loi')
+
+    if (st) {
+        const rs = await User.forgotPassword(st);
+
+        if (rs) {
+            return res.end(JSON.stringify(rs));
+        }
+        return res.end('da xay ra loi')
     }
     return res.end('khong hop le')
 })
 
 // [TRANSFER]
-router.get('/transfer/activity', async (req,res)=>{
+router.get('/transfer/activity', async (req, res) => {
 
-    const {id, page,limit,fromDate, toDate} = req.body;
+    const { id, page, limit, fromDate, toDate } = req.body;
 
     //Date có dạng: MM/dd/yyyy
-   const found = await Transfer.getActivityByDate(1,0,5,"01/01/2012","7/03/2020");
+    const found = await Transfer.getActivityByDate(1, 0, 5, "01/01/2012", "7/03/2020");
 
-   if(!found) return null;
+    if (!found) return null;
 
-   return res.json(found);
+    return res.json(found);
 })
 
 
 
 // Liên ngân hàng {TRANSFER}
-router.post('/checkaccountid',async (req,res)=>{
+router.post('/checkaccountid', async (req, res) => {
     // null: không tồn tại tài khoản đó
     // 0: thành công, có tồn tại
     // 1: mã bankId hoặc bannkSecretKey gửi không phù hợp với cái mà Nhật cấp cho tụi t từ trước (cái này tụi t lưu DB)
     // 2: không đủ dữ liệu
-    const {accountId,bankSecretKey, bankId,clientId,secretKey} = req.body;
-    if(!accountId || !bankSecretKey || !bankId || !clientId || !secretKey)  return res.json(2);
-    
-    if(clientId !== "wibu" || secretKey !== "36dc50f6-65e5-47c5-80ff-f6dbd8cd3dee") return res.json(null);
+    const { accountId, bankSecretKey, bankId, clientId, secretKey } = req.body;
+    if (!accountId || !bankSecretKey || !bankId || !clientId || !secretKey) return res.json(2);
 
-    if(bankSecretKey != "12345" || bankId != "wfb") return res.json(1); 
+    if (clientId !== "wibu" || secretKey !== "36dc50f6-65e5-47c5-80ff-f6dbd8cd3dee") return res.json(null);
+
+    if (bankSecretKey != "12345" || bankId != "wfb") return res.json(1);
 
     const found = await AccountInfo.getBySTKOne(accountId);
-    if(found) return res.json(0);
-    if(!found) return res.json(null);
-    
+    if (found) return res.json(0);
+    if (!found) return res.json(null);
+
     return res.json(null);
 })
 
-router.post('/transferexternal',async (req,res)=>{
+router.post('/transferexternal', async (req, res) => {
 
     //   null: không tồn tại tài khoản đó
     //0: nhận tiền thành công
@@ -171,34 +169,34 @@ router.post('/transferexternal',async (req,res)=>{
     // secretKey: bên wfb cung cấp cho nhật cái này để gọi được api bên t
 
 
-    const {accountId,bankSecretKey, bankId,money,currency,requestAccountId,clientId,secretKey} = req.body;
-    if(!accountId || !bankSecretKey || !bankId || !money || !currency || !requestAccountId || !clientId || !secretKey)  return res.json(4);
+    const { accountId, bankSecretKey, bankId, money, currency, requestAccountId, clientId, secretKey } = req.body;
+    if (!accountId || !bankSecretKey || !bankId || !money || !currency || !requestAccountId || !clientId || !secretKey) return res.json(4);
 
-    
-   
+
+
 
     // kiểm tra hợp lê
-    if(bankSecretKey != "12345" || bankId != "wfb") return res.json(1); 
+    if (bankSecretKey != "12345" || bankId != "wfb") return res.json(1);
 
     // loại tiền tệ không được chấp nhận
-    if(currency != "VND" && currency != "USD") return res.json(2); 
+    if (currency != "VND" && currency != "USD") return res.json(2);
 
     // tìm tài khoản thụ hưởng
     const found = await AccountInfo.getBySTKOne(accountId);
 
     //nếu không tìm thấy
-    if(!found) return res.json(null);
+    if (!found) return res.json(null);
 
 
     const message = req.body.message || "Đã có 1 người chuyển tiền cho bạn";
 
     // Chuyển tiền thành công
-    if(await found.addMoneyExternal(requestAccountId,money,message,currency,bankId)) return res.json(0);
+    if (await found.addMoneyExternal(requestAccountId, money, message, currency, bankId)) return res.json(0);
 
 
-    await AccountInfo.minusMoney(to,money,currency,bankId);
+    await AccountInfo.minusMoney(accountId, money, currency, bankId);
     //Đã xảy ra lỗi gì đó
-    Transfer.addError(requestAccountId,accountId);
+    Transfer.addError(requestAccountId, accountId);
     return res.json(3);
 })
 
@@ -217,25 +215,25 @@ router.post('/transferinternal', async (req, res) => {
        7: người gửi không đủ tiền
    */
 
-   if(!req.body.from && !req.currentUser) return res.json(null);
-   const from = req.body.from || req.currentUser.id ;
+    if (!req.body.from && !req.currentUser) return res.json(null);
+    const from = req.body.from || req.currentUser.id;
 
-   const {to,bankCode,money,message,currencyUnit} = req.body;
+    const { to, bankCode, money, message, currencyUnit } = req.body;
 
-  
 
-   if(!from || !to || !bankCode || !money || !currencyUnit) return res.json(1);
-   if(bankCode !== "ARG") return res.json(3);
-   if(currencyUnit !== "VND" && currencyUnit !="USD") return res.json(6);
 
-   const found = await AccountInfo.getBySTKOne(to);
-   if(!found) return res.json(2);
+    if (!from || !to || !bankCode || !money || !currencyUnit) return res.json(1);
+    if (bankCode !== "ARG") return res.json(3);
+    if (currencyUnit !== "VND" && currencyUnit != "USD") return res.json(6);
 
-   const rs = await AccountInfo.addMoneyInternal(from,to,money,message,currencyUnit,bankCode).then(value => value);
-   return res.json(rs);
-   
+    const found = await AccountInfo.getBySTKOne(to);
+    if (!found) return res.json(2);
 
-   return res.json(4);
+    const rs = await AccountInfo.addMoneyInternal(from, to, money, message, currencyUnit, bankCode).then(value => value);
+    return res.json(rs);
+
+
+    return res.json(4);
 })
 
 router.post('/transferinternal1', async (req, res) => {

@@ -56,6 +56,22 @@ header{
                           }
                         }
 
+                        .number-noti{
+                            font-size: 10px;
+                            color: white;
+                            position: absolute;
+                            top: 3px;
+                            right: 3px;
+                            border-radius: 50px;
+                            background-color: red;
+                            /* padding: 4px; */
+                            width: 16px;
+                            height: 16px;
+                            line-height: 16px;
+                            text-align: center;
+                            font-weight: bold;
+                            box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.1)
+                        }
                         &:hover{
                             >.drop-down{
                                 display: block;

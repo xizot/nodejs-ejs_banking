@@ -20,9 +20,9 @@ router.post('/', async (req, res) => {
         const users = await User.findBySomeThing(currentFind);
         return res.render('staff', { users, currentFind })
     }
-    
-    
-    console.log(currentFind);
+
+
+    // console.log(currentFind);
     return res.end('done');
 })
 

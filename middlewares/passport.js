@@ -22,7 +22,7 @@ passport.use(new GoogleStrategy({
 },
     function (accessToken, refreshToken, profile, done) {
 
-        console.log(profile.id);
+        // console.log(profile.id);
         User.findOne({
             where: {
                 googleID: profile.id,
@@ -31,7 +31,7 @@ passport.use(new GoogleStrategy({
             if (found) {
                 found.googleAccessToken = accessToken;
 
-                console.log(found);
+                // console.log(found);
                 return found;
             }
 

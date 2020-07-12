@@ -20,7 +20,7 @@ class Customer extends Model {
     static async getByUserID(userID) {
         return this.findOne({
             where: {
-                userID: userID,
+                userID,
             }
         })
     }
