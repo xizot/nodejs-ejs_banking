@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const requestActiveUser = require('../services/requestActiveUser');
+const UserRequest = require('../services/userRequest');
 const User = require('../services/user');
 const Customer = require('../services/customer');
 const { body, validationResult } = require('express-validator');
@@ -20,24 +20,19 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', upload.single('avatar'), async (req, res) => {
-    // const customer = await Customer.getByUserID(req.currentUser.id);
-
+    if (!req.currentUser) return res.redirect('/login');
     // xem về multer package để thêm avatar vào folder ./uploads
+    const { txtName, txtTypeOfcard, txtIdcard, txtIssued, avatar } = req.body;
     const id = req.currentUser.id;
-    const name = req.body.txtName;
-    const typeOfcard = req.body.txtTypeofCard;
-    const Idcard = req.body.txtIdcard;
-    const issued = req.body.txtIssued;
-    const avatar = req.file.filename;
-
-    if (name) {
-        const found = await User.findByID(req.currentUser.id);
+    console.log(req.body);
+    if (txtName) {
+        const found = await User.findByID(id);
         if (found) {
-            found.displayName = name;
+            found.displayName = txtName;
             found.save();
         }
     }
-    const sendRequest = await requestActiveUser.sendRequest(id, typeOfcard, Idcard, issued, avatar);
+    const sendRequest = await UserRequest.verifyAccount(id, txtTypeOfcard, txtIdcard, txtIssued, avatar);
 
     if (sendRequest) {
         return res.redirect('/transfer');

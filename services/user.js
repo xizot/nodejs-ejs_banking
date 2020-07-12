@@ -18,7 +18,7 @@ class User extends Model {
 
     async confirmForgotCode(code) {
         if (this.forgotCode === code) {
-            console.log('okeeee');
+            // console.log('okeeee');
             this.forgotCode = null;
             return this;
         }

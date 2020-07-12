@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(require('./middlewares/auth'));
+app.use(require('./middlewares/staff'));
 
 //set layout
 app.set('socketio', io);
@@ -53,9 +54,12 @@ app.use('/active', require('./routes/active'));
 app.use('/page-confirm', require('./routes/page-confirm'));
 app.use('/user-request', require('./routes/userRequest'));
 app.use('/alert', require('./routes/alert/alert'));
-app.use('/staff/api', require('./routes/staff/api'));
+
+// app.use('/staff', require('./routes/staff/request'));
 app.use('/create-credit-card', require('./routes/createCreditCard'));
+app.use('/staff/api', require('./routes/staff/api'));
 app.use('/staff-action', require('./routes/api/staff-api'));
+app.use('/request', require('./routes/staff/request'));
 
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
@@ -82,13 +86,14 @@ io.on('connection', (socket) => {
 
         socket.id = data.id;
         users.push(socket.id);
+        console.log(data);
         // socket.emit('server-send-client',`Hế lô id: ${data.id}`);
 
         socket.broadcast.emit('server-send-client', 'Có 1 đứa mới vào ae');
 
     });
-  
-  
+
+
 
 });
 

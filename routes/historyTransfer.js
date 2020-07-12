@@ -9,7 +9,7 @@ const User = require('../services/user');
 router.get('/:id', async (req, res) => {
 
     const { id } = req.params;
-    console.log(id);
+    // console.log(id);
     // thông tin chueyẻn khảon
     const htrTransfer = await Transfer.findAll(
         {
@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
             userID: id,
         }
     });
-    console.log(accountInfo)
+    // console.log(accountInfo)
     // if(!accountInfo){
     //     res.redirect('/error');
     // }

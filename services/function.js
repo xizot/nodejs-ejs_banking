@@ -5,6 +5,7 @@ const AccountInfo = require('./accountInfo');
 const Customer = require('./customer');
 const Transfer = require('./transfer');
 const Notification = require('./notification');
+const StaffActivity = require('./staffActivityLog');
 
 process.env.ADMIN_EMAIL = '1760131bot@gmail.com';
 process.env.ADMIN_PASSWORD = 'learnenglish';
@@ -86,7 +87,7 @@ const findCustomerInfo = async id => {
         amount: tranferInfo != null ? tranferInfo.amount : -1,
     }
 
-    console.log(rsUser);
+    // console.log(rsUser);
 
     return rsUser;
 
@@ -107,31 +108,31 @@ const randomSTK = () => new Date().valueOf();
 // - [ ]  Xử lí các yêu cầu của user ở trên
 
 // - [ ]  Khóa và xóa user
-const StaffBlockUser = async userID =>{
+const StaffBlockUser = async userID => {
     const found = await User.findByPk(userID);
-    if(found){
+    if (found) {
         found.isActive = 2;
         found.save();
 
-        Notification.addPrevent(staffID,value.userID,2).then(value=>{
+        Notification.addPrevent(staffID, value.userID, 2).then(value => {
             const msg = `Nhân viên ${staffID} đã xóa tài khoản ${value.userID}`;
-            StaffActivity.addStaffActivity(staffID,msg);
+            StaffActivity.addStaffActivity(staffID, msg);
         })
     }
     return null;
 }
 
-const StaffDeleteUser = async(staffID, userID)  =>{
+const StaffDeleteUser = async (staffID, userID) => {
     const found = await User.findByPk(userID);
-    if(found){
-       return User.destroy({
-            where:{
+    if (found) {
+        return User.destroy({
+            where: {
                 id: userID,
             }
-        }).then(value=>{
-            Notification.addPrevent(staffID,value.userID,-1).then(value=>{
+        }).then(value => {
+            Notification.addPrevent(staffID, value.userID, -1).then(value => {
                 const msg = `Nhân viên ${staffID} đã xóa tài khoản ${value.userID}`;
-                StaffActivity.addStaffActivity(staffID,msg);
+                StaffActivity.addStaffActivity(staffID, msg);
             })
 
             return value;
@@ -144,13 +145,33 @@ const StaffDeleteUser = async(staffID, userID)  =>{
 // - [ ]  Hiển thị lịch sử xác thực tài khoản, lịch sử chuyển tiền
 
 // - [ ]  Thêm tiền vào tài khoản cho user
-const StaffRechargeToUser = async (staffID, userID,  STK, amount, currencyInit)=>{
-    const found = await AccountInfo.getInfoBySTKandUserID(userID,STK);
-    if(found){
-        return found.staffRecharge(staffID,currencyInit,amount);
+const StaffRechargeToUser = async (staffID, userID, STK, amount, currencyInit) => {
+    const found = await AccountInfo.getInfoBySTKandUserID(userID, STK);
+    if (found) {
+        return found.staffRecharge(staffID, currencyInit, amount);
     }
     return null;
 }
+
+// hàm này để tạo thẻ ngân hàng cho 1 user bởi 1 nhân viên
+const CreateNewCreditCard = async userID => {
+    const STK = randomSTK();
+    const beginDate = new Date();
+    const endDate = new Date(beginDate.getFullYear() + 5, beginDate.getMonth() + 1, beginDate.getDate());
+    const term = 10;
+    const isDefault = true;
+    const newCreditCard = await AccountInfo.create({
+        STK,
+        userID,
+        beginDate,
+        endDate,
+        term,
+        isDefault
+    })
+    return newCreditCard;
+
+}
+
 // - [ ]  Ghi lại lịch sử staff ( khi xử lí yêu cầu của user, xóa, khóa, thêm tiền,...)
 
 // - [ ]  Reset password cho user
@@ -158,4 +179,4 @@ const StaffRechargeToUser = async (staffID, userID,  STK, amount, currencyInit)=
 
 
 
-module.exports = { sendMail, sendSMS, findCustomerInfo, validateEmail, randomSTK , StaffBlockUser,StaffDeleteUser,StaffRechargeToUser};
+module.exports = { sendMail, sendSMS, findCustomerInfo, validateEmail, randomSTK, StaffBlockUser, StaffDeleteUser, StaffRechargeToUser, CreateNewCreditCard };

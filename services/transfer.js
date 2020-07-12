@@ -9,10 +9,10 @@ class Transfer extends Model {
 
 
     // hàm này để lấy lịch sử giao dich theo thời gian nhất định của 1 user
-    static async getActivityByDate(id,page, limit, fromDate, toDate) {
+    static async getActivityByDate(id, page, limit, fromDate, toDate) {
 
-        console.log(fromDate);
-        
+        // console.log(fromDate);
+
         return this.findAll({
             where: {
                 [Op.or]: [
@@ -23,8 +23,8 @@ class Transfer extends Model {
                         to: id
                     }
                 ],
-                createdAt:{
-                    [Op.and]:[
+                createdAt: {
+                    [Op.and]: [
                         {
                             [Op.gte]: fromDate
                         },
@@ -32,11 +32,11 @@ class Transfer extends Model {
                             [Op.lte]: toDate
                         }
                     ]
-                   
+
                 }
-                
-               
-               
+
+
+
             },
             limit,
             offset: page * limit,
@@ -69,7 +69,7 @@ class Transfer extends Model {
         }
         return this.create(newTf).then(value => {
 
-            Notification.addNotifyForTransfer(fromSTK,toSTK);
+            Notification.addNotifyForTransfer(fromSTK, toSTK);
             return value;
         });
     }
@@ -84,19 +84,19 @@ class Transfer extends Model {
             bankCode,
         }
         return this.create(newTf).then(value => {
-            Notification.addNotifyForTransfer(fromSTK,toSTK);
-            Notification.addNotifyForReceive(fromSTK,toSTK);
+            Notification.addNotifyForTransfer(fromSTK, toSTK);
+            Notification.addNotifyForReceive(fromSTK, toSTK);
 
             return value;
         });
     }
 
-    static async addError(fromSTK,toSTK){
+    static async addError(fromSTK, toSTK) {
         return this.create({
             from: fromSTK,
             to: toSTK,
             message: 'Đã xảy ra lỗi',
-            status:-1,
+            status: -1,
         })
     }
     static async staffAddNew(staffID, toUser, toSTK, amount, message, currencyUnit) {
@@ -105,7 +105,7 @@ class Transfer extends Model {
             amount,
             message,
             currencyUnit,
-            fromUser:staffID,
+            fromUser: staffID,
             toUser,
         }
         return this.create(newTf).then(value => value);
@@ -113,7 +113,7 @@ class Transfer extends Model {
 
 
     // hàm này để lấy thông tin giao dịch của 1 user có phân trang
-    static async getActivityLimit(id,page, limit) {
+    static async getActivityLimit(id, page, limit) {
         return this.findAll({
             where: {
                 [Op.or]: [
@@ -178,9 +178,9 @@ Transfer.init({
     toUser: {
         type: Sequelize.INTEGER,
     },
-    status:{
+    status: {
         type: Sequelize.INTEGER,
-        defaultValue:1,
+        defaultValue: 1,
     }
 
 }, {

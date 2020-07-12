@@ -1,5 +1,0 @@
-@for $i from 1 to 10 {
-    .nvn-mg-#{$i*10}{
-        margin: #{$i *10}px;
-    }
-}
