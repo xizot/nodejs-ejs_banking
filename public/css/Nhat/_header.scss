@@ -479,6 +479,12 @@ header{
                 height: 224px;
                 width: 262px;
                 padding: 20px;
+                @include rs-xs{
+                    margin: 0 auto;
+                }
+                @include rs-md{
+                    margin: 0;
+                }
                 .gutter{
                     height: 100%;
                     width: 100%;
@@ -539,6 +545,37 @@ header{
         }
     }
    
+}
+.section-4{
+    .container{
+        .section-content{
+            .section-content-left{
+                padding: 20px;
+                .gutter{
+                    background: #4f4f4f;
+                    height: 350px;
+                    background-position: center;
+                    background-size: cover;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    .fa-play{
+                        color: $main-color;
+                        width: 60px;
+                        height: 60px;
+                        border-radius: 50%;
+                        line-height: 60px;
+                        font-size: 16px;
+                        text-align: center;
+                        background-color: white;
+                    }
+                }
+            }
+            .section-content-right{
+                padding: 20px;
+            }
+        }
+    }
 }
 
 @keyframes fadeInDown {

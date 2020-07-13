@@ -1,5 +1,6 @@
 footer{
-    margin-top: 70px;
+    // margin-top: 70px;
+    padding: 4rem 0;
     .get-update{
         background-color: $main-color;
         .container{
@@ -107,5 +108,34 @@ footer{
                 }
             }
         }
+    }
+    .row{
+        .col-xs-6{
+
+            ul{
+                li{
+                    a{
+                        padding-left: 10px;
+                        font-size: 16px;
+                        color: #222;
+                        &:hover {
+                            color: $main-color;
+                        }
+                    }
+                   
+                }
+            }
+        }
+        @include rs-xs{
+            padding: 0 20px;
+        }
+        @include rs-md{
+            padding: 0;
+        }
+    }
+    .top{
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
     }
 }
