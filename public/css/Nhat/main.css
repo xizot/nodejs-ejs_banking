@@ -995,6 +995,18 @@ header .bars-actions .sign-in__sign-up .btn {
   padding: 20px;
 }
 
+@media only screen and (min-width: 320px) {
+  .section-2 .section-content-right .image-item {
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .section-2 .section-content-right .image-item {
+    margin: 0;
+  }
+}
+
 .section-2 .section-content-right .image-item .gutter {
   height: 100%;
   width: 100%;
@@ -1055,6 +1067,41 @@ header .bars-actions .sign-in__sign-up .btn {
   font-size: 18px;
 }
 
+.section-4 .container .section-content .section-content-left {
+  padding: 20px;
+}
+
+.section-4 .container .section-content .section-content-left .gutter {
+  background: #4f4f4f;
+  height: 350px;
+  background-position: center;
+  background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.section-4 .container .section-content .section-content-left .gutter .fa-play {
+  color: #2dbe60;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  line-height: 60px;
+  font-size: 16px;
+  text-align: center;
+  background-color: white;
+}
+
+.section-4 .container .section-content .section-content-right {
+  padding: 20px;
+}
+
 @-webkit-keyframes fadeInDown {
   0% {
     -webkit-transform: translateY(-100%);
@@ -1088,7 +1135,7 @@ header .bars-actions .sign-in__sign-up .btn {
 }
 
 footer {
-  margin-top: 70px;
+  padding: 4rem 0;
 }
 
 footer .get-update {
@@ -1219,6 +1266,34 @@ footer .footer .container .row .footer-item > ul li:before {
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
+}
+
+footer .row .col-xs-6 ul li a {
+  padding-left: 10px;
+  font-size: 16px;
+  color: #222;
+}
+
+footer .row .col-xs-6 ul li a:hover {
+  color: #2dbe60;
+}
+
+@media only screen and (min-width: 320px) {
+  footer .row {
+    padding: 0 20px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  footer .row {
+    padding: 0;
+  }
+}
+
+footer .top {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .modal {
