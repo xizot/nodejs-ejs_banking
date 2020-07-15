@@ -1,4 +1,5 @@
 .transfer{
+    background-color: #f1f5f6;
     .navigation{
         ul{
             
@@ -17,14 +18,14 @@
         }
     }
     .container{
-       
+        min-height: calc(100vh-133px);
         .modal{
-      
-            position: relative !important;
-            top: 20px;
+            margin: 40px 0 0;
+            position: relative;
+            transform: none;
+            top: 0;
             left: 50%;
             transform: translateX(-50%);
-            // max-width: 600px;
             @include rs-sm{
                 max-width: 98%;
             }

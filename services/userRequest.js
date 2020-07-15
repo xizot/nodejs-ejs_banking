@@ -9,17 +9,20 @@ const { randomSTK } = require('./function');
 
 class UserRequest extends Model {
 
-    static async sendRequest(userID) {
-        const found = await this.findOne({
+    static async sendRequest(userID, type) {
+        console.log(userID);
+        console.log(type);
+        const found = await UserRequest.findOne({
             where: {
                 userID,
+                type
             }
         })
         if (found) return null; // ddax ton tai
 
-        return this.create({
+        return UserRequest.create({
             userID,
-            displayName
+            type
         }).then(value => value);
     }
 

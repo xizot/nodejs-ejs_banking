@@ -14,9 +14,9 @@ router.get('/', async (req, res) => {
     const id = req.currentUser.id || null;
     if (!req.currentUser) return null;
 
-    const rs = await sendRequest(req.currentUser.id, 2);
+    const rs = await sendRequest(req.currentUser.id, 3);
     if (rs) {
-        return res.render('alert/alert', { title: 'Payyed - Create Credit', msg: 'Đã gửi yêu cầu tạo tài khoản ngân hàng thành công. Nhân viên sẽ phản hồi lại sau <a href="/">Ấn vào đây để quay lại</a>' });
+        return res.render('alert/alert', { title: 'Payyed - Create Credit', msg: 'Đã gửi yêu cầu tạo tài khoản tiết kiệm thành công. Nhân viên sẽ phản hồi lại sau <a href="/">Ấn vào đây để quay lại</a>' });
     }
 
     return res.render('alert/alert', { title: 'Payyed - Create Credit', msg: 'Đã xảy ra lỗi <a href="/">Ấn vào đây để quay lại</a>' });
