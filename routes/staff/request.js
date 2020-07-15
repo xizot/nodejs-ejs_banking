@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 const StaffActivityLog = require('../../services/staffActivityLog');
+const User = require('../../services/user');
+const Customer = require('../../services/customer');
 const { CreateNewCreditCard } = require('./../../services/function');
 
 // const Transfer = require('../../services/transfer');
 const UserRequest = require('../../services/userRequest');
-const Customer = require('../../services/customer');
 // lấy tất cả yeeu caafu thông báo
 router.get('/', async (req, res) => {
     // 1: Xác thực tài khoản
@@ -77,6 +78,11 @@ router.get('/accept-request/:id', async (req, res) => {
     if (found2) {
         if (found2.type == 1) {
             msg = `Xác thực tài khoản id ${found2.userID}`;
+            const user = await User.findByPk(found2.userID);
+            if (user) {
+                user.isActive = 1;
+                user.save();
+            }
         }
         if (found2.type == 2) {
             console.log('HERE');

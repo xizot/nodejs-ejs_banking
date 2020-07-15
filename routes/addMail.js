@@ -8,7 +8,14 @@ router.get('/', (req, res) => {
     return res.render('addMail', { errors });
 })
 router.post('/', [
-    body('txtEmail').isEmail().withMessage("Invalid email format")
+    body('txtEmail').isEmail().withMessage("Invalid email format"),
+    body('txtEmail').custom(async value => {
+        const found = await User.findByEmail(value);
+        if (found)
+            throw new Error('Email already exists')
+        return true;
+    })
+
 ], async (req, res) => {
     errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -17,6 +24,9 @@ router.post('/', [
     }
     errors = [];
     const email = req.body.txtEmail;
+
+
+
     const found = await User.findByPk(req.currentUser.id);
     if (found) {
         const token = require('crypto').randomBytes(3).toString('hex').toUpperCase();

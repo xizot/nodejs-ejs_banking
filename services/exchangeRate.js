@@ -9,7 +9,7 @@ class ExchangeRate extends Model {
 
 ExchangeRate.init({
     rate: {
-        type: Sequelize.STRING,
+        type: Sequelize.DECIMAL,
     },
     displayName: {
         type: Sequelize.STRING,
