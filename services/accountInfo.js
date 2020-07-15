@@ -5,7 +5,7 @@ const Model = Sequelize.Model;
 const Transfer = require('./transfer');
 const Notification = require('./notification');
 const StaffActivity = require('./staffActivityLog');
-const { DATE } = require('sequelize');
+const ExchangeRate = require('./exchangeRate');
 // const users = [
 //     {
 //         id: '1',
@@ -80,10 +80,19 @@ class AccountInfo extends Model {
         var money = amount;
 
         if (currencyUnit == "VND") {
-            money = money * (1 / 23000);
+            const rate = await ExchangeRate.findOne({
+                where: {
+                    displayName: 'VND',
+                }
+            })
+
+            if (rate) {
+                money = money * rate
+            }
+            else {
+                money = money * (1 / 23000)
+            }
         }
-
-
         if (foundFrom) {
             foundFrom.balance = foundFrom.balance - money;
             foundFrom.save();
@@ -130,18 +139,29 @@ class AccountInfo extends Model {
     static async addMoneyInternal(from, to, amount, message, currencyUnit, bankCode) {
         let money = amount;
 
+
+
         if (currencyUnit == "VND") {
-            money = money * (1 / 23000);
+            const rate = await ExchangeRate.findOne({
+                where: {
+                    displayName: 'VND',
+                }
+            })
+
+            if (rate) {
+                money = Number(money) * Number(rate.rate);
+            }
+            else {
+                money = Number(money) * Number(1 / 23000)
+            }
         }
 
         const foundFrom = await AccountInfo.getBySTKOne(from);
-        if (Number(foundFrom.balance) < Number(money)) return 7;
         if (!foundFrom) return 4;
-
-
+        if (Number(foundFrom.balance) < Number(money)) return 7;
+        await foundFrom.save();
         foundFrom.balance = Number(foundFrom.balance) - Number(money);
-
-        await foundFrom.save()
+        foundFrom.save();
 
         const foundTo = await AccountInfo.getBySTKOne(to);
 
@@ -151,35 +171,14 @@ class AccountInfo extends Model {
             return 2;
         }
 
+
         foundTo.balance = Number(foundTo.balance) + Number(money);
         foundTo.save();
 
 
         Transfer.addNewInExternal(from, to, amount, message, currencyUnit, bankCode);
 
-        return 0
-        // return foundFrom.save().then(async value=>{
-
-        //     const foundTo = await AccountInfo.getBySTKOne(to);
-
-        //     if(!foundTo){
-        //         foundFrom.balance = Number(foundFrom.balance) + Number(money);
-        //         foundFrom.save();
-        //         return 2;
-        //     }
-
-        //     foundTo.balance = Number(foundTo.balance) + Number(money);
-        //     foundTo.save();
-
-
-        //      Transfer.addNewInExternal(from,to,amount,message,currencyUnit,bankCode);  
-
-        //     return 0
-        // });
-
-
-
-
+        return 0;
     }
     // hàm này để Nhân viên thêm tiền cho User
     async staffRecharge(staffID, currencyUnit, amount) {

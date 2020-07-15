@@ -87,13 +87,9 @@ class UserRequest extends Model {
 
             //Customer
             found.identityTypes = identityTypes;
-            found.save();
             found.identity = identity;
-            found.save();
             found.beginDate = beginDate;
-            found.save();
             found.image = image;
-            found.save();
             found.isActive = -1;
             found.save();
 

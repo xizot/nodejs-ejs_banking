@@ -19,39 +19,42 @@ $(function () {
         const stk = $('#txtCardNumber').val();
         const message = $('#txtMessage').val();
 
-
         if (!money || !currencyUnit || !bankCode || !stk || !message) {
             alert('Vui lòng điền đầy đủ thông tin');
             return;
         }
-        var tmp = money;
+
+        let tmp = money;
         if (currencyUnit == "VND") {
-            tmp = money * (1 / 23000);
+            tmp = Number(money) / 23000;
         }
-
-        const newObj = {
-            money: money,
-            currencyUnit: currencyUnit,
-            bankCode: bankCode,
-            stk: stk,
-            message: message,
-        }
-
         $('.error').remove();
+        if (!Number(money) || Number(money) <= 0) {
+            addError('Vui lòng nhập số tiền hợp lệ');
+            return;
+        }
+
         $.get("api/account/info", function (data, textStatus, jqXHR) {
 
             if (!data) {
-                addError('Tài khoản chưa có tài khoản ngân hàng <a href="/">Thêm tài khoản</a>');
+                addError('Bạn chưa có chưa có tài khoản ngân hàng <a href="/">Thêm tài khoản</a>');
             }
-            else if (data.isActive == 0) {
-                addError('Tài khoản đã bị khóa');
-            }
+            // else if (data.isActive == 0) {
+            //     addError('Tài khoản ngân hàng của bạn đã bị khóa');
+            // }
             else if (Number(data.balance) < Number(tmp)) {
                 addError('Số dư tài khoản không đủ');
             }
             else {
-
-                $.post("api/account/addMoney", newObj,
+                const from = data.STK;
+                $.post("api/account/addMoney", {
+                    money: money,
+                    currencyUnit: currencyUnit,
+                    bankCode: bankCode,
+                    stk: stk,
+                    message: message,
+                    from,
+                },
                     function (data, textStatus, jqXHR) {
                         if (data == '-1') {
                             addError('Không thể gửi tiền cho chính mình');
@@ -60,7 +63,7 @@ $(function () {
                             addError('Lỗi không xác định');
                         }
                         if (data == '0') {
-                            addError('Số tài khoản và ngân hàng không hợp lệ');
+                            addError('Số tài khoản thụ hưởng hoặc ngân hàng không hợp lệ');
                         }
                         if (data == '1') {
                             const activity = {
@@ -91,7 +94,7 @@ $(function () {
         //     },
         // );
 
-        socket.emit("transfer", newObj);
+        // socket.emit("transfer", newObj);
     })
 });
 socket.on("server-said", data => {

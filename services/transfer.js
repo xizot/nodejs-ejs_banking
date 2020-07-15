@@ -148,10 +148,10 @@ class Transfer extends Model {
 Transfer.init({
     //attributes
     from: { // STK
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
     },
     to: { //STK
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
     },
     amount: {
         type: Sequelize.DOUBLE,

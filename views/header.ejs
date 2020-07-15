@@ -105,23 +105,23 @@
                                         <a href="/quanli"><button class="btn">Manage</button> </a>
                                     </li>
                                     <li>
-                                        <a href="/noti"><button class="btn">Notification</button> </a>
+                                        <a href="/request"><button class="btn">Notification</button> </a>
                                         <ul class="drop-down">
                                             <%if(staffNotificationCount > 0){%>
                                             <%staffNotification.map((item,index)=>{%>
                                             <% if(item.type == 1){%>
-                                            <%-`<li><a href="">User ${item.userID} yêu cầu xác thực tài khoản </a></li>`%>
+                                            <%-`<li><a href="/request?id=${item.id}">User ${item.userID} yêu cầu xác thực tài khoản </a></li>`%>
                                             <% }%>
 
                                             <% if(item.type == 2){%>
-                                            <%-`<li><a href="">User ${item.userID} yêu cầu mở tài khoản ngân hàng </a></li></li>`%>
+                                            <%-`<li><a href="/request?id=${item.id}">User ${item.userID} yêu cầu mở tài khoản ngân hàng </a></li></li>`%>
                                             <% }%>
 
                                             <% if(item.type == 3){%>
-                                            <%-`<li><a href="">User ${item.userID} yêu cầu mở tài khoản tiết kiệm</a></li>`%>
+                                            <%-`<li><a href="/request?id=${item.id}">User ${item.userID} yêu cầu mở tài khoản tiết kiệm</a></li>`%>
                                             <% }%>
                                             <% if(item.type == 4){%>
-                                            <%-`<li><a href="">User ${item.userID} yêu cầu khóa tài khoản </a></li>`%>
+                                            <%-`<li><a href="/request?id=${item.id}">User ${item.userID} yêu cầu khóa tài khoản </a></li>`%>
                                             <% }%>
 
                                             <% })%>

@@ -78,32 +78,32 @@
     }
   });
 </script>
-<script src="/socket.io/socket.io.js"></script>
+<!-- <script src="/socket.io/socket.io.js"></script> -->
 <script>
   new WOW().init();
 
-  var socket = io("http://localhost:5000");
+  // var socket = io("http://localhost:5000");
   // socket.on('connect', () => {
   //   // or with emit() and custom event names
 
   // });
 
-  socket.on('connect', () => {
-    // or with emit() and custom event names
+  // socket.on('connect', () => {
+  //   // or with emit() and custom event names
 
-    console.log('okeeeê');
-    $.get("api/current", function (data, textStatus, jqXHR) {
-      if (data) {
-        socket.emit('transfer', data);
-        socket.on('server-send-client', data => {
-          // alert(data);
-          console.log(data);
-        });
-      }
-    }
-    );
+  //   console.log('okeeeê');
+  //   $.get("api/current", function (data, textStatus, jqXHR) {
+  //     if (data) {
+  //       socket.emit('transfer', data);
+  //       socket.on('server-send-client', data => {
+  //         // alert(data);
+  //         console.log(data);
+  //       });
+  //     }
+  //   }
+  //   );
 
-  });
+  // });
 
 
   // });

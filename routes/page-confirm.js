@@ -14,6 +14,7 @@ var errors = [];
 
 
 router.get('/', async (req, res) => {
+    if (req.currentUser && req.currentUser.isActive == 1) return res.redirect('/')
     const customer = await Customer.getByUserID(req.currentUser.id);
 
     return res.render('page-confirm', { errors, customer });
@@ -22,9 +23,8 @@ router.get('/', async (req, res) => {
 router.post('/', upload.single('avatar'), async (req, res) => {
     if (!req.currentUser) return res.redirect('/login');
     // xem về multer package để thêm avatar vào folder ./uploads
-    const { txtName, txtTypeOfcard, txtIdcard, txtIssued, avatar } = req.body;
+    const { txtName, txtTypeofCard, txtIdcard, txtIssued, avatar } = req.body;
     const id = req.currentUser.id;
-    console.log(req.body);
     if (txtName) {
         const found = await User.findByID(id);
         if (found) {
@@ -32,7 +32,7 @@ router.post('/', upload.single('avatar'), async (req, res) => {
             found.save();
         }
     }
-    const sendRequest = await UserRequest.verifyAccount(id, txtTypeOfcard, txtIdcard, txtIssued, avatar);
+    const sendRequest = await UserRequest.verifyAccount(id, txtTypeofCard, txtIdcard, txtIssued, avatar);
 
     if (sendRequest) {
         return res.redirect('/transfer');

@@ -7,6 +7,7 @@ var io = require('socket.io').listen(http);
 const cookieSession = require('cookie-session');
 const db = require('./services/db');
 const passport = require('./middlewares/passport');
+const rate = require('./crawler');
 
 //cookie session
 app.use(cookieSession({

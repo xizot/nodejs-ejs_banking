@@ -4,6 +4,7 @@ const AccountInfo = require('../services/accountInfo');
 const Transfer = require('../services/transfer');
 const User = require('../services/user');
 const bcrypt = require('bcrypt');
+const { sendMail } = require('../services/function');
 
 
 router.get('/current', async (req, res) => {
@@ -49,11 +50,7 @@ router.post('/account/addMoney', async (req, res) => {
         return res.end('-3'); // chuưa cập nhật tài khoản
     }
 
-    const stk = req.body.stk;
-    const bankCode = req.body.bankCode;
-    var money = req.body.money;
-    const message = req.body.message;
-    const currencyUnit = req.body.currencyUnit;
+    const { stk, bankCode, money, from, message, currencyUnit } = req.body;
 
 
     if (stk && bankCode) {
@@ -63,8 +60,55 @@ router.post('/account/addMoney', async (req, res) => {
             if (found.userID == req.currentUser.id) {
                 return res.end('-1'); // lỗi gửi tiền cho chính mình
             }
+            await AccountInfo.addMoneyInternal(from, stk, money, message, currencyUnit, bankCode)
 
-            await found.addMoney(req.currentUser.id, money, message, currencyUnit, bankCode);
+
+
+            // lấy thông tin người nhận
+            const ToInfo = await User.findByPk(found.userID);
+            if (ToInfo) {
+                sendMail(ToInfo.email, 'Nhận tiền', `Bạn vừa được nhận tiền thành công:\n
+                    STK gửi: ${from} \n
+                    STK nhận: ${stk} \n
+                    Tiền đã nhận: ${money} ${currencyUnit} \n
+                    Lời nhắn: ${message} \n
+                    Cảm ơn bạn đã tin tưởng,\n
+                    Payyed.
+
+                `, `<h3 style="color:#333; text-transform:uppercase; text-align:center; font-size:30px; font-family:Tahoma,Arial,Helvetica,sans-serif">Bạn vừa được nhận tiền thành công:<h3>
+                <div style="padding:20px;background-color:#f1f5f6; border-radius:10px;margin:30px;font-family:Tahoma,Arial,Helvetica,sans-serif; font-size:14px;color:#333">
+                  <p>STK gửi:<b> ${from} </b></p> 
+                  <p>STK nhận:<b> ${stk}  </b></p>
+                  <p>Tiền đã nhận:<b> ${money} ${currencyUnit} </b></p>
+                  <p>Lời nhắn:<b> ${message}  </b></p>
+                  <p style="margin:20px 0 0">Cảm ơn bạn đã tin tưởng,</p>
+                  <p style="font-size:18px; margin-top:5px">Pa<span style="color:#29ad57; font-weight:bold">yy</span>ed.</p>
+                </div>
+            `)
+
+                sendMail(req.currentUser.email, 'Chuyển tiền', `Bạn vừa chuyển tiền thành công:\n
+                    STK gửi: ${from} \n
+                    STK nhận: ${stk} \n
+                    Tiền đã gửi: ${money} ${currencyUnit} \n
+                    Phí gửi tiền: 0 USD \n
+                    Lời nhắn: ${message} \n
+                    Cảm ơn bạn đã tin tưởng,\n
+                    Payyed.
+
+                `, `<h3 style="color:#333; text-transform:uppercase; text-align:center; font-size:30px; font-family:Tahoma,Arial,Helvetica,sans-serif">Bạn vừa chuyển tiền thành công:<h3>
+                <div style="padding:20px;background-color:#f1f5f6; border-radius:10px;margin:30px;font-family:Tahoma,Arial,Helvetica,sans-serif; font-size:14px;color:#333">
+                  <p>STK gửi:<b> ${from} </b></p> 
+                  <p>STK nhận:<b> ${stk} </b></p>
+                  <p>Tiền đã gửi:<b> ${money} ${currencyUnit}  </b></p>
+                  <p>Phí gửi tiền:<b> 0 USD </b></p>
+                  <p>Lời nhắn:<b> ${message} </b></p>
+                  <p style="margin:20px 0 0">Cảm ơn bạn đã tin tưởng,</p>
+                  <p style="font-size:18px; margin-top:5px; font-weight:bold">Pa<span style="color:#29ad57">yy</span>ed.</p>
+                </div>
+            `)
+
+            }
+
             return res.end('1'); // thanh cong
         }
         else {
@@ -200,7 +244,7 @@ router.post('/transferexternal', async (req, res) => {
     return res.json(3);
 })
 
-//add money with api
+// Chuyển tiền cùng ngân hàng
 router.post('/transferinternal', async (req, res) => {
 
     /*
@@ -219,9 +263,6 @@ router.post('/transferinternal', async (req, res) => {
     const from = req.body.from || req.currentUser.id;
 
     const { to, bankCode, money, message, currencyUnit } = req.body;
-
-
-
     if (!from || !to || !bankCode || !money || !currencyUnit) return res.json(1);
     if (bankCode !== "ARG") return res.json(3);
     if (currencyUnit !== "VND" && currencyUnit != "USD") return res.json(6);
@@ -231,9 +272,6 @@ router.post('/transferinternal', async (req, res) => {
 
     const rs = await AccountInfo.addMoneyInternal(from, to, money, message, currencyUnit, bankCode).then(value => value);
     return res.json(rs);
-
-
-    return res.json(4);
 })
 
 router.post('/transferinternal1', async (req, res) => {

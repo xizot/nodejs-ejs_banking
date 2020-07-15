@@ -29,7 +29,9 @@ router.get('/', (req, res) => {
 
         return res.redirect('/forgot-password');
     }
-    if (req.currentUser && req.currentUser.token) return res.redirect('/active');
+    if (req.currentUser && !req.currentUser.email && req.currentUser.permisstion == 0) return res.redirect('/add-mail');
+
+    if (req.currentUser && req.currentUser.token && req.currentUser.permisstion == 0) return res.redirect('/active');
 
 
 
