@@ -57,11 +57,15 @@ app.use('/user-request', require('./routes/userRequest'));
 app.use('/alert', require('./routes/alert/alert'));
 
 // app.use('/staff', require('./routes/staff/request'));
-app.use('/create-credit-card', require('./routes/createCreditCard'));
 app.use('/staff/api', require('./routes/staff/api'));
 app.use('/staff-action', require('./routes/api/staff-api'));
 app.use('/request', require('./routes/staff/request'));
 
+// user
+app.use('/my-account', require('./routes/user/myaccount'))
+app.use('/user-request', require('./routes/user/request'))
+app.use('/create-credit-card', require('./routes/createCreditCard'));
+app.use('/create-saving-card', require('./routes/createSavingCard'));
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',

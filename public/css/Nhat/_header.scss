@@ -41,7 +41,22 @@ header{
                             border-radius: 5px;
                             padding: 0 20px;
                             min-width: max-content;
+                            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(0, 0, 0, 0.1);
+                            z-index: 9999;
+                            transition: all .4s;
+                            &:after{
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                left: 50%;
+                                transform: translate(-50%,-100%);
+                                border-left: 7px solid transparent;
+                                border-right: 7px solid transparent;
+                                border-top: 7px solid transparent;
+                                border-bottom: 7px solid white;
+                            }
                           >li{
+                     
                               cursor: pointer;
                               a{
                                   font-size: 14px;
@@ -73,6 +88,7 @@ header{
                             box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.1)
                         }
                         &:hover{
+                            transition: all .4s;
                             >.drop-down{
                                 display: block;
                                 
@@ -413,6 +429,7 @@ header{
             font-size: 36px;
             font-weight: bold;
             margin-bottom: 8px;
+            color: #333;
         }
         span{
             display: block;
@@ -438,6 +455,7 @@ header{
             h4{
                 font-size: 20px;
                 margin-bottom: 10px;
+                color: #333;
             }
             p{
                 color: #4f4f4f;
@@ -460,6 +478,7 @@ header{
             font-size: 36px;
             font-weight: bold;
             margin-bottom: 8px;
+            color: #333;
         }
         p{
             font-size: 18px;
@@ -531,6 +550,7 @@ header{
                     width: 100%;
                     height: 35px;
                     line-height: 35px;
+                    color: #333;
                 }
             }
         }
