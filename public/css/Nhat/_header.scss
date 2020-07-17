@@ -32,6 +32,7 @@ header{
                             color: $main-color;
                         }
                         .drop-down{
+                            padding:10px 5px;
                             display: none;
                             position: absolute;
                             bottom: 0;
@@ -39,7 +40,6 @@ header{
                             transform: translate(-50%,100%);
                             background-color: white;
                             border-radius: 5px;
-                            padding: 0 20px;
                             min-width: max-content;
                             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(0, 0, 0, 0.1);
                             z-index: 9999;
@@ -107,6 +107,9 @@ header{
                     &:hover{
                         color: #333;
                     }
+                }
+                .btn.active{
+                    color:$main-color;
                 }
                 a{
                    

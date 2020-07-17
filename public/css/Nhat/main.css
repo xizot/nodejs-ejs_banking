@@ -459,6 +459,7 @@ header .container .header__content .left ul > li:hover > a {
 }
 
 header .container .header__content .left ul > li .drop-down {
+  padding: 10px 5px;
   display: none;
   position: absolute;
   bottom: 0;
@@ -467,7 +468,6 @@ header .container .header__content .left ul > li .drop-down {
           transform: translate(-50%, 100%);
   background-color: white;
   border-radius: 5px;
-  padding: 0 20px;
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
   min-width: max-content;
@@ -544,6 +544,10 @@ header .container .header__content .left .btn {
 
 header .container .header__content .left .btn:hover {
   color: #333;
+}
+
+header .container .header__content .left .btn.active {
+  color: #2dbe60;
 }
 
 header .container .header__content .left a button {
@@ -2401,9 +2405,16 @@ body {
 .transfer .navigation ul li a {
   color: white;
   text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .transfer .navigation ul li:hover {
+  background-color: rgba(2, 39, 15, 0.4);
+}
+
+.transfer .navigation ul .active {
   background-color: rgba(2, 39, 15, 0.4);
 }
 

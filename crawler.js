@@ -12,15 +12,25 @@ var c = new Crawler({
             // $ is Cheerio by default
             //a lean implementation of core jQuery designed specifically for the server
             const rate = $(".text-success")['0'].children[0].data;
+
             if (rate) {
+
                 const found = await ExchangeRate.findOne({
                     where: {
                         displayName: 'USD'
                     }
                 })
-                found.rate = rate;
-                found.save();
+                if (found) {
+                    found.rate = rate;
+                    await found.save();
+                }
 
+                else {
+                    await ExchangeRate.create({
+                        rate: rate,
+                        displayName: 'USD'
+                    })
+                }
 
                 const foundVND = await ExchangeRate.findOne({
                     where: {
@@ -40,38 +50,13 @@ var c = new Crawler({
                     })
 
                 }
-            }
-            else {
-                ExchangeRate.create({
-                    rate,
-                    displayName: 'USD'
-                })
-
-                const foundVND = await ExchangeRate.findOne({
-                    where: {
-                        displayName: 'VND'
-                    }
-                })
-
-                if (foundVND) {
-
-                    foundVND.rate = 1 / rate;
-                    foundVND.save();
-                }
-                else {
-                    ExchangeRate.create({
-                        rate: 1 / rate,
-                        displayName: 'VND'
-                    })
-
-                }
-
             }
 
         }
         done();
     }
 });
+c.queue('https://transferwise.com/gb/currency-converter/usd-to-vnd-rate');
 
 setInterval(() => {
     c.queue('https://transferwise.com/gb/currency-converter/usd-to-vnd-rate');
