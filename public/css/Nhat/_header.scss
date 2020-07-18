@@ -501,6 +501,7 @@ header{
                 height: 224px;
                 width: 262px;
                 padding: 20px;
+                
                 @include rs-xs{
                     margin: 0 auto;
                 }
@@ -512,7 +513,21 @@ header{
                     width: 100%;
                     background-color: #4f4f4f;
                     border-radius: 5px;
+                   
                 }
+                .img-1 {
+                    background: url('./../../img/anyone-freelancer.jpg') no-repeat center/cover;
+                }
+                .img-2 {
+                    background: url('./../../img/anyone-online-shopping.jpg') no-repeat center/cover;
+                }
+                .img-3 {
+                    background: url('./../../img/anyone-online-sellers.jpg') no-repeat center/cover;
+                }
+                .img-4 {
+                    background: url('./../../img/anyone-affiliate-marketing.jpg') no-repeat center/cover;
+                }
+
             }
         }
     }
@@ -592,6 +607,9 @@ header{
                         text-align: center;
                         background-color: white;
                     }
+                }
+                .img-5 {
+                    background: url('./../../img/how-work.jpg') no-repeat center/cover !important;
                 }
             }
             .section-content-right{

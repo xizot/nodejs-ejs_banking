@@ -1044,6 +1044,22 @@ header .bars-actions .sign-in__sign-up .btn {
   border-radius: 5px;
 }
 
+.section-2 .section-content-right .image-item .img-1 {
+  background: url("./../../img/anyone-freelancer.jpg") no-repeat center/cover;
+}
+
+.section-2 .section-content-right .image-item .img-2 {
+  background: url("./../../img/anyone-online-shopping.jpg") no-repeat center/cover;
+}
+
+.section-2 .section-content-right .image-item .img-3 {
+  background: url("./../../img/anyone-online-sellers.jpg") no-repeat center/cover;
+}
+
+.section-2 .section-content-right .image-item .img-4 {
+  background: url("./../../img/anyone-affiliate-marketing.jpg") no-repeat center/cover;
+}
+
 .section-3 .section-content .section-content-item {
   padding: 20px;
 }
@@ -1127,6 +1143,10 @@ header .bars-actions .sign-in__sign-up .btn {
   font-size: 16px;
   text-align: center;
   background-color: white;
+}
+
+.section-4 .container .section-content .section-content-left .img-5 {
+  background: url("./../../img/how-work.jpg") no-repeat center/cover !important;
 }
 
 .section-4 .container .section-content .section-content-right {
