@@ -1,5 +1,5 @@
 
-var socket = io("http://localhost:5000");
+// var socket = io("http://localhost:5000");
 
 const addError = content => {
     $(`
@@ -97,7 +97,7 @@ $(function () {
         // socket.emit("transfer", newObj);
     })
 });
-socket.on("server-said", data => {
-    //demo
-    $('#txtCardNumber').val(data);
-});
+// socket.on("server-said", data => {
+//     //demo
+//     $('#txtCardNumber').val(data);
+// });
