@@ -157,15 +157,11 @@ const StaffRechargeToUser = async (staffID, userID, STK, amount, currencyInit) =
 const CreateNewCreditCard = async userID => {
     const STK = randomSTK();
     const beginDate = new Date();
-    const endDate = new Date(beginDate.getFullYear() + 5, beginDate.getMonth() + 1, beginDate.getDate());
-    const term = 10;
     const isDefault = true;
     const newCreditCard = await AccountInfo.create({
         STK,
         userID,
         beginDate,
-        endDate,
-        term,
         isDefault
     })
     return newCreditCard;

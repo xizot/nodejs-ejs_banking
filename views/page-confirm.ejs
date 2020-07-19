@@ -6,7 +6,7 @@
     <%- include('notification',{msg:' Cảm ơn bạn đã cập nhật thông tin. Nhân viên sẽ kiểm tra và phản hồi lại sau'})%>
     <%}else if(currentUser.isActive == -2){%>
     <%- include('notification',{msg:'Thông tin bạn cung cấp không hợp lệ vui lòng cung cấp lại'})%>
-    <div class="modal" style="top: 185px;transform: translateX(-50%);">
+    <div class="modal" style="top: 225px;transform: translateX(-50%);">
 
         <h3 style="margin: 0  0 20px; font-size: 18px;text-align: center;color: #333;font-weight: 400;">
             Verify Account</h3>
@@ -53,7 +53,7 @@
         </div>
 <%}else{%>
                 <%- include('notification',{msg:' Vui lòng xác minh thông tin của bạn'})%>
-                <div class="modal" style="top: 185px;transform: translateX(-50%);">
+                <div class="modal" style="top: 225px;transform: translateX(-50%);">
 
                     <h3 style="margin: 0  0 20px; font-size: 18px;text-align: center;color: #333;font-weight: 400;">
                         Verify Account</h3>
@@ -104,3 +104,9 @@
 
 
                         <%- include ('footer'); %>
+
+                        <script>
+                            $(function () {
+                                $('footer').css('display', 'none');
+                            });
+                        </script>

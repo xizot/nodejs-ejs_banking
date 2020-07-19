@@ -10,15 +10,13 @@ const { randomSTK } = require('./function');
 class UserRequest extends Model {
 
     static async sendRequest(userID, type) {
-        console.log(userID);
-        console.log(type);
         const found = await UserRequest.findOne({
             where: {
                 userID,
                 type
             }
         })
-        if (found) return null; // ddax ton tai
+        if (found) return 1; // ddax ton tai
 
         return UserRequest.create({
             userID,

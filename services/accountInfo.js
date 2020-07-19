@@ -259,14 +259,6 @@ AccountInfo.init({
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
     },
-    endDate: {
-        //ngay het han
-        type: Sequelize.DATE,
-    },
-    term: {
-        // ki han
-        type: Sequelize.INTEGER,
-    },
     isActive: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
