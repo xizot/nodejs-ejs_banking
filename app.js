@@ -60,6 +60,7 @@ app.use('/alert', require('./routes/alert/alert'));
 app.use('/staff/api', require('./routes/staff/api'));
 app.use('/staff-action', require('./routes/api/staff-api'));
 app.use('/request', require('./routes/staff/request'));
+app.use('/add-money', require('./routes/staffAddMoney'));
 
 // user
 app.use('/my-account', require('./routes/user/myaccount'))

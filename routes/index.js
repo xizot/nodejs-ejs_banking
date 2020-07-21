@@ -35,8 +35,7 @@ router.get('/', (req, res) => {
 
 
 
-
-    return res.render('index');
+    return req.currentUser.permisstion == 0 ? res.render('index') : res.render('staff-index');
 })
 
 module.exports = router;

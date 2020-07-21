@@ -5,6 +5,7 @@ const Transfer = require('../services/transfer');
 const User = require('../services/user');
 const bcrypt = require('bcrypt');
 const { sendMail } = require('../services/function');
+const { findInfoOffCustomer } = require('../services/staffFunction');
 
 
 router.get('/current', async (req, res) => {
@@ -254,6 +255,21 @@ router.post('/transferinternal1', async (req, res) => {
     return res.json(req.body);
 
 })
+
+
+//STAFF
+
+
+// tìm kiếm thông tin của 1 user by keyword( id, username, email, phonenumber, stk) ->  trả về thông tin user
+router.post('/customer-search', async (req, res) => {
+    const { st } = req.body;
+    return res.json(await findInfoOffCustomer(st));
+})
+// lấy lịch sử giao dịch 1 user by keyword( id, username, email, phonenumber, stk)
+// thêm tiền cho customer -> search -> add
+// get tất cả customer
+// 
+
 
 
 

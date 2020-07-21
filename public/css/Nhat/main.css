@@ -2841,7 +2841,6 @@ body {
 
 .staff {
   max-height: 100vh;
-  overflow: hidden;
 }
 
 .staff header {
@@ -2974,7 +2973,7 @@ body {
 }
 
 .staff main .staff-option .right .search-square {
-  margin: 100px 0px 150px;
+  margin: 100px 0px;
 }
 
 .staff main .staff-option .right .search-square input {
@@ -2999,7 +2998,7 @@ body {
   background-color: #f1f5f6;
   border-radius: 4px;
   padding: 20px;
-  height: 450px;
+  height: 400px;
 }
 
 .staff main .staff-option .right .result-square-left {
@@ -3032,14 +3031,14 @@ body {
   outline: none;
   border: 1px solid #ddd;
   border-radius: 4px;
-  width: 500px;
+  width: calc(100% - 120px);
   padding: 0 15px;
   font-size: 15px;
 }
 
 .staff main .staff-option .right .result-square-left_item button {
   height: 45px;
-  width: 500px;
+  width: calc(100% - 120px);
   margin-left: 120px;
   color: white;
 }
