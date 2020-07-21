@@ -29,18 +29,6 @@ router.get('/account/info', async (req, res) => {
     return res.redirect('/login');
 })
 
-// router.get('/account/info', async (req, res) => {
-//     if (req.currentUser) {
-//         const found = await AccountInfo.getByUserID(req.currentUser.id);
-//         return res.json(found);
-//     }
-//     return res.redirect('/login');
-// })
-
-
-// router.get('/account/find', async (req, res) => {
-
-// })
 
 //add money with api
 router.post('/account/addMoney', async (req, res) => {
@@ -152,11 +140,8 @@ router.post('/change-password', async (req, res) => {
 
 router.get('/forgot-password', async (req, res) => {
     const st = req.query.st;
-
-
     if (st) {
         const rs = await User.forgotPassword(st);
-
         if (rs) {
             return res.end(JSON.stringify(rs));
         }
@@ -164,21 +149,14 @@ router.get('/forgot-password', async (req, res) => {
     }
     return res.end('khong hop le')
 })
-
 // [TRANSFER]
 router.get('/transfer/activity', async (req, res) => {
-
     const { id, page, limit, fromDate, toDate } = req.body;
-
     //Date có dạng: MM/dd/yyyy
     const found = await Transfer.getActivityByDate(1, 0, 5, "01/01/2012", "7/03/2020");
-
     if (!found) return null;
-
     return res.json(found);
 })
-
-
 
 // Liên ngân hàng {TRANSFER}
 router.post('/checkaccountid', async (req, res) => {
@@ -199,7 +177,6 @@ router.post('/checkaccountid', async (req, res) => {
 
     return res.json(null);
 })
-
 router.post('/transferexternal', async (req, res) => {
 
     //   null: không tồn tại tài khoản đó
@@ -243,7 +220,6 @@ router.post('/transferexternal', async (req, res) => {
     Transfer.addError(requestAccountId, accountId);
     return res.json(3);
 })
-
 // Chuyển tiền cùng ngân hàng
 router.post('/transferinternal', async (req, res) => {
 
@@ -273,7 +249,6 @@ router.post('/transferinternal', async (req, res) => {
     const rs = await AccountInfo.addMoneyInternal(from, to, money, message, currencyUnit, bankCode).then(value => value);
     return res.json(rs);
 })
-
 router.post('/transferinternal1', async (req, res) => {
 
     return res.json(req.body);
