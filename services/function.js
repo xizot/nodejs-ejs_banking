@@ -154,7 +154,8 @@ const StaffRechargeToUser = async (staffID, userID, STK, amount, currencyInit) =
 }
 
 // hàm này để tạo thẻ ngân hàng cho 1 user bởi 1 nhân viên
-const CreateNewCreditCard = async userID => {
+const CreateNewCreditCard = async (userID, displayName) => {
+
     const STK = randomSTK();
     const beginDate = new Date();
     const isDefault = true;
@@ -162,7 +163,8 @@ const CreateNewCreditCard = async userID => {
         STK,
         userID,
         beginDate,
-        isDefault
+        isDefault,
+        displayName,
     })
     return newCreditCard;
 

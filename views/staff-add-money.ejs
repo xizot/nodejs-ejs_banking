@@ -131,16 +131,16 @@
                     </div>
                 </div>
                 <div class="col-xs-8 right">
-
                     <div class="option-content add-money">
                         <h3 class="title">
                             ADD MONEY FOR CUSTOMER
                         </h3>
                         <div class="search-square">
-                            <input type="search" name="" id="">
-                            <button type="submit" class="btn">
+                            <input type="search" name="" id="txtSearch">
+                            <button type="submit" class="btn btn-search">
                                 <i class="fas fa-search"></i>
                             </button>
+
                         </div>
                         <div class="result-square row">
                             <div class="result-square-left  col-xs-6">
@@ -150,7 +150,10 @@
                                 </div>
                                 <div class="result-square-left_item flex">
                                     <label for="txtCurrencyUnit">Currency Unit</label>
-                                    <input type="text" id="txtCurrencyUnit">
+                                    <select name="txtCurrencyUnit" id="txtCurrencyUnit">
+                                        <option value="USD">USD</option>
+                                        <option value="VND">VND</option>
+                                    </select>
                                 </div>
                                 <div class="result-square-left_item flex">
                                     <label for="txtMessage">Message</label>
@@ -167,18 +170,18 @@
                                         <div class="gutter ">
 
                                             <div class="card-number">
-                                                <p>1234 4555 1123 1478</p>
+
                                             </div>
                                             <div class="card-date flex a-center">
                                                 <div class="card-from card-date__item">
                                                     <p>Valid from</p>
                                                     <div class="date">
-                                                        20/10/2010
+
                                                     </div>
                                                 </div>
                                                 <div class="card-info flex a-center">
                                                     <div class="card-name">
-                                                        NGUYEN VAN NHAT
+
                                                     </div>
                                                     <div class="type">
                                                         <p class="napas">napas</p>
@@ -198,3 +201,89 @@
 </body>
 
 </html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+
+
+    const addText = (txt, selector, rm) => {
+        $(rm).remove();
+        $(txt).appendTo(selector)
+    }
+
+    $('.btn-search').click(function (e) {
+        $('.txtNumberx').remove();
+        $('.txtDatex').remove();
+
+        $('#txtAmount').text('');
+        $('#txtCurrencyUnit').text('');
+        $('#txtSearch').text('');
+        $('#txtMessage').text('');
+        if ($('.error')) $('.error').remove();
+
+        if (!$('#txtSearch').val() || $('#txtSearch').val().length <= 0) alert('Vui Lòng Điền Thông Tin Cần Tìm')
+
+        if ($('#txtSearch').val() && $('#txtSearch').val().length > 0) {
+            $.post("/api/customer-search", { st: $('#txtSearch').val() },
+                function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    if (!data) $(`<p class="error" >Không tìm thấy tài khoản phù hợp </p>`).appendTo('.search-square');
+                    else {
+                        const stk = data.STK.match(/.{1,4}/g).join(' ');
+                        const date = new Date(data.beginDate).toISOString().slice(0, 10);
+                        addText(`<p class="txtNumberx">${stk}</p>`, '.card-number', '.txtNumberx');
+                        addText(`<span class="txtDatex">${date}</span>`, '.date', '.txtDatex');
+                        addText(`<span class="txtNamex">${data.displayName}</span>`, '.card-name', '.txtNamex');
+                    }
+                },
+            );
+        }
+    })
+
+    $(function () {
+        $('.btn-add-money').click(async function (e) {
+            e.preventDefault();
+
+            const money = $('#txtAmount').val();
+            const currencyUnit = $('#txtCurrencyUnit').val();
+            const stk = $('#txtSearch').val();
+            const message = $('#txtMessage').val();
+
+            if (!money || !currencyUnit || !stk || !message) {
+                alert('Vui lòng điền đầy đủ thông tin');
+                return;
+            }
+
+            let tmp = money;
+            if (currencyUnit == "VND") {
+                tmp = Number(money) / 23000;
+            }
+
+            if (!Number(money) || Number(money) <= 0) {
+                alert('Vui lòng nhập số tiền hợp lệ');
+                return;
+            }
+            $.post("api/account/addMoney", {
+                money: money,
+                currencyUnit: currencyUnit,
+                bankCode: 'ARG',
+                stk: stk,
+                message: message,
+                from: 'Admin',
+            },
+                function (data, textStatus, jqXHR) {
+
+                    if (data == '1') {
+                        const activity = {
+                            stk,
+                            money,
+                            currencyUnit
+                        }
+                        localStorage.setItem('activityTransfer', JSON.stringify(activity));
+                        $(location).attr('href', '/add-money');
+                    }
+                },
+            );
+        })
+    });
+</script>

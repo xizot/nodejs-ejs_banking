@@ -2335,7 +2335,8 @@ body {
 }
 
 .card__content .gutter {
-  max-width: 320px;
+  height: 171px;
+  width: 320px;
   padding: 40px 30px 20px;
   border-radius: 10px;
   background-image: radial-gradient(circle farthest-corner at 50.4% 50.5%, #fb2056 0%, #870223 90%);
@@ -2381,6 +2382,10 @@ body {
   text-shadow: 1px 1px 1px #333, -1px -1px 1px gray;
 }
 
+.card-date__item .date span {
+  font-size: 14px;
+}
+
 .card-name {
   color: rgba(255, 255, 255, 0.9);
   font-weight: bolder;
@@ -2395,7 +2400,8 @@ body {
   background-color: white;
   font-size: 16px;
   font-weight: bolder;
-  margin-left: 10px;
+  margin-left: 50px;
+  border-radius: 2px;
 }
 
 .card .type .napas, .card .type .visa {
@@ -2914,7 +2920,7 @@ body {
 }
 
 .staff main .staff-option .left .staff-dashboard {
-  margin-top: 40px;
+  margin-top: 0px;
   padding: 12px 25px;
 }
 
@@ -2931,7 +2937,7 @@ body {
 }
 
 .staff main .staff-option .left .cate {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .staff main .staff-option .left .cate h4.title {
@@ -2994,6 +3000,13 @@ body {
   margin-left: 20px;
 }
 
+.staff main .staff-option .right .search-square p {
+  padding: 10px 15px 0px;
+  font-size: 14px;
+  margin-top: 5px;
+  color: red;
+}
+
 .staff main .staff-option .right .result-square {
   background-color: #f1f5f6;
   border-radius: 4px;
@@ -3027,6 +3040,16 @@ body {
 }
 
 .staff main .staff-option .right .result-square-left_item input {
+  height: 45px;
+  outline: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: calc(100% - 120px);
+  padding: 0 15px;
+  font-size: 15px;
+}
+
+.staff main .staff-option .right .result-square-left_item #txtCurrencyUnit {
   height: 45px;
   outline: none;
   border: 1px solid #ddd;

@@ -17,8 +17,10 @@ $(function () {
     $(document).on('click', '#accept-request', function (e) {
         e.preventDefault();
         let id = $('#accept-request').attr('data-id');
-        $.get("../request/accept-request/" + id,
+        $.get("/request/accept-request/" + id,
             function (data, textStatus, jqXHR) {
+                console.log(data);
+
                 if (data > 0) {
                     $(`#rq${id}`).remove();
                     alert('Thành công');

@@ -72,7 +72,6 @@
                     text-transform: uppercase;
                     color:white;
                 }
-                
             }
             .left{
                 width: 250px;
@@ -80,7 +79,7 @@
                 background-color: $main-color;
                 min-height: 100vh;
                 .staff-dashboard{
-                    margin-top: 40px;
+                    margin-top: 0px;
                     padding: 12px 25px;
                     a{
                         color: white;
@@ -93,7 +92,7 @@
                     }
                 }
                 .cate{
-                    margin-top: 40px;
+                    margin-top: 20px;
                    
                     h4.title{
                         color: #4f4f4f;
@@ -150,6 +149,13 @@
                         color: white;
                         margin-left: 20px;
                     }
+                    p{
+                        padding: 10px 15px 0px;
+                        font-size: 14px;
+                        margin-top: 5px;
+                        color: red;
+                      
+                    }
                 }
                 .result-square{
                     background-color: #f1f5f6;
@@ -171,6 +177,15 @@
                                 color: #333;
                             }
                             input{
+                                height: 45px;
+                                outline: none;
+                                border: 1px solid #ddd;
+                                border-radius: 4px;
+                                width:calc(100% - 120px);
+                                padding: 0 15px;
+                                font-size: 15px;
+                            }
+                            #txtCurrencyUnit{
                                 height: 45px;
                                 outline: none;
                                 border: 1px solid #ddd;

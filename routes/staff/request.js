@@ -85,9 +85,11 @@ router.get('/accept-request/:id', async (req, res) => {
             }
         }
         if (found2.type == 2) {
-            console.log('HERE');
+            console.log("=====================================================================");
+            const user = await User.findByPk(found2.userID);
             msg = `Mở tài khoản ngân hàng cho id ${found2.userID}`;
-            await CreateNewCreditCard(found2.userID);
+            if (user)
+                await CreateNewCreditCard(found2.userID, user.displayName);
         }
         if (found2.type == 3) {
             msg = `Mở tài khoản tiết kiệm cho id ${found2.userID}`;

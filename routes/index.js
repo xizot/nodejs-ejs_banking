@@ -33,9 +33,10 @@ router.get('/', (req, res) => {
 
     if (req.currentUser && req.currentUser.token && req.currentUser.permisstion == 0) return res.redirect('/active');
 
-
-
-    return req.currentUser.permisstion == 0 ? res.render('index') : res.render('staff-index');
+    if (req.currentUser) {
+        return req.currentUser.permisstion == 0 ? res.render('index') : res.render('staff-index');
+    }
+    return res.render('index');
 })
 
 module.exports = router;
