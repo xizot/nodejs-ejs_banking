@@ -3,9 +3,10 @@ const router = express.Router();
 const AccountInfo = require('../services/accountInfo');
 const Transfer = require('../services/transfer');
 const User = require('../services/user');
+const StaffActivityLog = require('../services/staffActivityLog')
 const bcrypt = require('bcrypt');
 const { sendMail } = require('../services/function');
-const { findInfoOffCustomer } = require('../services/staffFunction');
+const { findInfoOffCustomer, findActivityStaff, countActivityStaff } = require('../services/staffFunction');
 
 
 router.get('/current', async (req, res) => {
@@ -33,24 +34,22 @@ router.get('/account/info', async (req, res) => {
 
 //add money with api
 router.post('/account/addMoney', async (req, res) => {
-    const accountInfo = await AccountInfo.getByUserID(req.currentUser.id);
-
-    if (!accountInfo) {
-        return res.end('-3'); // chuưa cập nhật tài khoản
-    }
-
     const { stk, bankCode, money, from, message, currencyUnit } = req.body;
+    if (from != "ADMIN") {
 
+        const accountInfo = await AccountInfo.getByUserID(req.currentUser.id);
 
+        if (!accountInfo) {
+            return res.end('-3'); // chuưa cập nhật tài khoản
+        }
+    }
     if (stk && bankCode) {
         const found = await AccountInfo.getBySTKAndBankCode(stk, bankCode);
-
         if (found) {
-            if (found.userID == req.currentUser.id) {
-                return res.end('-1'); // lỗi gửi tiền cho chính mình
-            }
+            // if (found.userID == req.currentUser.id) {
+            //     return res.end('-1'); // lỗi gửi tiền cho chính mình
+            // }
             await AccountInfo.addMoneyInternal(from, stk, money, message, currencyUnit, bankCode)
-
 
 
             // lấy thông tin người nhận
@@ -75,7 +74,9 @@ router.post('/account/addMoney', async (req, res) => {
                 </div>
             `)
 
-                sendMail(req.currentUser.email, 'Chuyển tiền', `Bạn vừa chuyển tiền thành công:\n
+                if (from != "ADMIN") {
+
+                    sendMail(req.currentUser.email, 'Chuyển tiền', `Bạn vừa chuyển tiền thành công:\n
                     STK gửi: ${from} \n
                     STK nhận: ${stk} \n
                     Tiền đã gửi: ${money} ${currencyUnit} \n
@@ -95,9 +96,13 @@ router.post('/account/addMoney', async (req, res) => {
                   <p style="font-size:18px; margin-top:5px; font-weight:bold">Pa<span style="color:#29ad57">yy</span>ed.</p>
                 </div>
             `)
+                }
 
             }
-
+            const newActivity = await StaffActivityLog.create({
+                staffID: req.currentUser.id,
+                message: `Đã nạp tiền cho tài khoản ${stk} số tiền ${money} ${currencyUnit}`,
+            })
             return res.end('1'); // thanh cong
         }
         else {
@@ -269,7 +274,21 @@ router.post('/customer-search', async (req, res) => {
 // thêm tiền cho customer -> search -> add
 // get tất cả customer
 // 
+router.get('/get-activity', async (req, res) => {
+    // if (!req.currentUser) return null
+    const numpage = req.query.numpage || 1;
+    const limit = 10;
+    const found = await findActivityStaff(6, numpage, limit);
 
+    return res.json(found);
+})
+router.get('/count-activity', async (req, res) => {
+
+    if (!req.currentUser) return res.json(0);
+    const count = await countActivityStaff(req.currentUser.id);
+
+    return res.json(count);
+})
 
 
 

@@ -108,7 +108,7 @@ class UserRequest extends Model {
             })
 
             //send request
-            return UserRequest.create({
+            return await UserRequest.create({
                 userID,
                 type: 1,
             }).then((value) => value);

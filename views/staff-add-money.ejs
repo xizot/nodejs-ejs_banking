@@ -13,9 +13,11 @@
     <div class="staff">
         <header>
             <div class="flex navigation j-between a-center">
-                <div class="logo">
-                    <i class="fas fa-university"></i>
-                    Payyed
+                <div class="logo flex  a-center">
+                    <i class="fas fa-university" style="font-size: 25px;"></i>
+                    <a href="/"
+                        style="color: #333;font-weight: 600;font-size: 26px;font-style: italic; margin-left: 10px;">Pa<span
+                            style="color: #2dbe60;">yy</span>ed</a>
                 </div>
                 <div class="right">
                     <ul class="flex a-center">
@@ -24,12 +26,15 @@
                                 <i class="far fa-bell"></i>
                                 <label class="number-of-noti">1</label>
                             </a>
+                            <ul class="drop-down">
+
+                            </ul>
                         </li>
                         <li>
                             <a href=""><i class="far fa-comment-alt"></i></a>
                         </li>
                         <li>
-                            <a href=""><i class="fas fa-cog"></i></a>
+                            <a href="/logout"><i class="fas fa-power-off"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -55,8 +60,8 @@
                             WORK SPACE
                         </h4>
                         <ul>
-                            <li>
-                                <a href="">
+                            <li class="active">
+                                <a href="/add-money">
                                     <i class="fas fa-hand-holding-usd"></i>
                                     Add money
                                 </a>
@@ -68,9 +73,9 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="/staff-activity">
                                     <i class="fas fa-university"></i>
-                                    Bank
+                                    Activity
                                 </a>
                             </li>
 
@@ -205,6 +210,34 @@
 
 <script>
 
+    $.get("/staff/api/all-notification",
+        function (data, textStatus, jqXHR) {
+            $('.drop-down').empty();
+            if (data.length > 0) {
+                data.forEach(element => {
+                    let msg = `User ${element.userID} yêu cầu khóa tài khoản`;
+                    if (element.type == 1) {
+                        msg = `User ${element.userID} xác thực tài khoản`;
+
+                    }
+                    if (element.type == 2) {
+                        msg = `User ${element.userID} yêu cầu mở tài khoản thanh toán`;
+
+                    }
+                    if (element.type == 3) {
+                        msg = `User ${element.userID} yêu cầu mở tài khoản tiết kiệm`;
+
+                    }
+
+                    $(` <li data-x="${msg}"">
+                                    <a href="/request?id=${element.id}">${msg.slice(0, 15)}...</a>
+                                </li>`).appendTo('.drop-down');
+                });
+
+            }
+        },
+    );
+
 
     const addText = (txt, selector, rm) => {
         $(rm).remove();
@@ -216,7 +249,6 @@
         $('.txtDatex').remove();
 
         $('#txtAmount').text('');
-        $('#txtCurrencyUnit').text('');
         $('#txtSearch').text('');
         $('#txtMessage').text('');
         if ($('.error')) $('.error').remove();
@@ -233,7 +265,7 @@
                         const date = new Date(data.beginDate).toISOString().slice(0, 10);
                         addText(`<p class="txtNumberx">${stk}</p>`, '.card-number', '.txtNumberx');
                         addText(`<span class="txtDatex">${date}</span>`, '.date', '.txtDatex');
-                        addText(`<span class="txtNamex">${data.displayName}</span>`, '.card-name', '.txtNamex');
+                        addText(`<span class="txtNamex">${data.displayName.toLowerCase()}</span>`, '.card-name', '.txtNamex');
                     }
                 },
             );
@@ -264,16 +296,17 @@
                 return;
             }
             $.post("api/account/addMoney", {
-                money: money,
+                money: tmp,
                 currencyUnit: currencyUnit,
                 bankCode: 'ARG',
                 stk: stk,
                 message: message,
-                from: 'Admin',
+                from: 'ADMIN',
             },
                 function (data, textStatus, jqXHR) {
 
                     if (data == '1') {
+                        alert('Nạp tiền thành công');
                         const activity = {
                             stk,
                             money,

@@ -61,6 +61,7 @@ app.use('/staff/api', require('./routes/staff/api'));
 app.use('/staff-action', require('./routes/api/staff-api'));
 app.use('/request', require('./routes/staff/request'));
 app.use('/add-money', require('./routes/staffAddMoney'));
+app.use('/staff-activity', require('./routes/staffActivity'));
 
 // user
 app.use('/my-account', require('./routes/user/myaccount'))

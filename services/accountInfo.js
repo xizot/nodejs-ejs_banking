@@ -155,13 +155,15 @@ class AccountInfo extends Model {
                 money = Number(money) * Number(1 / 23000)
             }
         }
+        if (from != "ADMIN") {
+            const foundFrom = await AccountInfo.getBySTKOne(from);
+            if (!foundFrom) return 4;
+            if (Number(foundFrom.balance) < Number(money)) return 7;
+            await foundFrom.save();
+            foundFrom.balance = Number(foundFrom.balance) - Number(money);
+            foundFrom.save();
 
-        const foundFrom = await AccountInfo.getBySTKOne(from);
-        if (!foundFrom) return 4;
-        if (Number(foundFrom.balance) < Number(money)) return 7;
-        await foundFrom.save();
-        foundFrom.balance = Number(foundFrom.balance) - Number(money);
-        foundFrom.save();
+        }
 
         const foundTo = await AccountInfo.getBySTKOne(to);
 
