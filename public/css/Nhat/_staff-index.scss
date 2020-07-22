@@ -27,6 +27,7 @@
                         }
                     }
                     .noti{
+                        position: relative;
                         a{
                             position: relative;
                             .number-of-noti{
@@ -43,6 +44,66 @@
                                 font-size: 10px;
                             }
                         }
+                        .drop-down{
+                            display: none;
+                            position: absolute;
+                            width: 170px;
+                            /* padding: 10px; */
+                            background: white;
+                            border: 1px solid #ddd;
+                            border-radius: 4px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            li{
+                             
+                                white-space: nowrap;
+                                width: 100%;
+                                position: relative;
+                                a{
+                                    display: block;
+                                    padding: 10px 20px;
+                                    color: #333;
+                                    font-size: 14px;
+                                }
+                                        &::after{
+                                            position: absolute;
+                                            content: attr(data-x);
+                                            display: none;
+                                            left: 0;
+                                            top: 50%;
+                                            transform: translate(-110%,-50%);
+                                            font-size: 12px;
+                                            background: white;
+                                            border-radius: 2px;
+                                            padding: 3px 4px;
+                                            border: 1px solid #ddd;
+                                        }
+                                        &::before{
+                                            position: absolute;
+                                            content: '';
+                                            display: block;
+                                            left: -18px;
+                                            border-style: solid;
+                                            border-width: 6px;
+                                            border-color: transparent transparent transparent #ddd;
+                                            top: 50%;
+                                            transform: translateY(-50%);
+                                            display: none;
+                                        }
+                               
+                            }
+                            li:hover{
+                                background-color: $main-color;
+                                &::after{
+                                    display: block;
+                                } &::before{
+                                    display: block;
+                                }
+                            }
+                        }
+                        &:hover .drop-down{
+                            display: block;
+                        }
                         
                     }
                 }
@@ -56,7 +117,7 @@
                 font-size: 17px;
             }
             .personal-info{
-                padding: 0 20px;
+                padding: 0 25px;
                 img{
                     width: 40px;
                     height: 40px;
@@ -67,7 +128,7 @@
                 }
                 p{
                     font-size: 15px;
-                    margin: 10px 0;
+                    margin: 15px 0 10px;
                     font-weight: bold;
                     text-transform: uppercase;
                     color:white;
@@ -91,8 +152,11 @@
                         background-color: rgba($color: red, $alpha: .5);
                     }
                 }
+                .active{
+                    background-color: rgba($color: red, $alpha: .5);
+                }
                 .cate{
-                    margin-top: 20px;
+                    margin-top: 25px;
                    
                     h4.title{
                         color: #4f4f4f;
@@ -113,6 +177,9 @@
                             &:hover{
                                 background-color: rgba($color: red, $alpha: .5);
                             }
+                        }
+                        .active{
+                            background-color: rgba($color: red, $alpha: .5);
                         }
                     }
                 }
@@ -211,5 +278,52 @@
                 }
             }
         }
+    }
+}
+
+.activity{
+    position: relative;
+    
+    .pagination{
+        position: absolute;
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+        ;
+        ul{
+            li{
+                height: 40px;
+                width: 40px;
+                background-color: white;
+                border: 1px solid $main-color;
+                font-size: 14px;
+                font-weight: bold;
+                line-height: 40px;
+                text-align: center;
+                border-radius: 4px;
+                margin-right: 10px;
+                 cursor: pointer;
+                 transition: all .6s;
+                &:hover{
+                    background-color: $main-color;
+                    color: white;
+                }
+          
+    
+            }
+            .active{
+                background-color: $main-color;
+                color: white;
+            }
+        }
+    }
+}
+
+.activity-item{
+    border-bottom: 1px solid #ddd;
+    padding: 5px;  color:#333 ;
+    &-head{
+        padding: 10px 5px;
+        font-weight: bolder;
     }
 }

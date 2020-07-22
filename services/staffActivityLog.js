@@ -4,7 +4,7 @@ const Model = Sequelize.Model;
 
 class StaffActivityLog extends Model {
     // hàm này để thêm 1 log của nhân viên 
-    static async addStaffActivity(staffID, message){
+    static async addStaffActivity(staffID, message) {
         return this.create({
             staffID,
             message,
@@ -12,11 +12,16 @@ class StaffActivityLog extends Model {
     }
 
     //  hàm này để lấy toàn bộ lịch sử hoạt động của staff
-    static async getAllActivity(staffID){
+    static async getAllActivity(staffID, numpage, limit) {
+
+        let offset = 0 + (numpage - 1) * limit
         return this.findAll({
-            where:{
-            staffID,
-            }
+            offset: offset,
+            limit: limit,
+            where: {
+                staffID,
+            },
+            order: [['date', 'DESC']]
         })
     }
 }
@@ -26,7 +31,7 @@ StaffActivityLog.init({
     staffID: {
         type: Sequelize.INTEGER,
     },
-    message:{
+    message: {
         type: Sequelize.STRING,
     },
     date: {

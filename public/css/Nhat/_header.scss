@@ -44,6 +44,7 @@ header{
                             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(0, 0, 0, 0.1);
                             z-index: 9999;
                             transition: all .4s;
+                           
                             &:after{
                                 content: '';
                                 position: absolute;
@@ -55,9 +56,9 @@ header{
                                 border-top: 7px solid transparent;
                                 border-bottom: 7px solid white;
                             }
-                          >li{
-                     
-                              cursor: pointer;
+                            >li{
+                                padding: 0 15px !important;
+                                cursor: pointer;
                               a{
                                   font-size: 14px;
                                   padding: 10px 0;
@@ -636,4 +637,8 @@ header{
         ransform: translateY(0);
     }
 
+}
+
+header .container .header__content .left ul > li .drop-down > li {
+    padding: 0 15px !important;
 }

@@ -34,12 +34,6 @@ router.get('/add-activity', async (req, res) => {
 })
 
 
-// router.get('/', async (req, res) => {
-
-
-
-
-// })
 
 
 module.exports = router;

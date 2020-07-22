@@ -492,6 +492,7 @@ header .container .header__content .left ul > li .drop-down:after {
 }
 
 header .container .header__content .left ul > li .drop-down > li {
+  padding: 0 15px !important;
   cursor: pointer;
 }
 
@@ -1183,6 +1184,10 @@ header .bars-actions .sign-in__sign-up .btn {
   100% {
     ransform: translateY(0);
   }
+}
+
+header .container .header__content .left ul > li .drop-down > li {
+  padding: 0 15px !important;
 }
 
 footer {
@@ -2868,6 +2873,10 @@ body {
   color: #333;
 }
 
+.staff header .navigation .right ul .noti {
+  position: relative;
+}
+
 .staff header .navigation .right ul .noti a {
   position: relative;
 }
@@ -2886,13 +2895,84 @@ body {
   font-size: 10px;
 }
 
+.staff header .navigation .right ul .noti .drop-down {
+  display: none;
+  position: absolute;
+  width: 170px;
+  /* padding: 10px; */
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.staff header .navigation .right ul .noti .drop-down li {
+  white-space: nowrap;
+  width: 100%;
+  position: relative;
+}
+
+.staff header .navigation .right ul .noti .drop-down li a {
+  display: block;
+  padding: 10px 20px;
+  color: #333;
+  font-size: 14px;
+}
+
+.staff header .navigation .right ul .noti .drop-down li::after {
+  position: absolute;
+  content: attr(data-x);
+  display: none;
+  left: 0;
+  top: 50%;
+  -webkit-transform: translate(-110%, -50%);
+          transform: translate(-110%, -50%);
+  font-size: 12px;
+  background: white;
+  border-radius: 2px;
+  padding: 3px 4px;
+  border: 1px solid #ddd;
+}
+
+.staff header .navigation .right ul .noti .drop-down li::before {
+  position: absolute;
+  content: '';
+  display: block;
+  left: -18px;
+  border-style: solid;
+  border-width: 6px;
+  border-color: transparent transparent transparent #ddd;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  display: none;
+}
+
+.staff header .navigation .right ul .noti .drop-down li:hover {
+  background-color: #2dbe60;
+}
+
+.staff header .navigation .right ul .noti .drop-down li:hover::after {
+  display: block;
+}
+
+.staff header .navigation .right ul .noti .drop-down li:hover::before {
+  display: block;
+}
+
+.staff header .navigation .right ul .noti:hover .drop-down {
+  display: block;
+}
+
 .staff main .staff-option i {
   width: 25px;
   font-size: 17px;
 }
 
 .staff main .staff-option .personal-info {
-  padding: 0 20px;
+  padding: 0 25px;
 }
 
 .staff main .staff-option .personal-info img {
@@ -2906,7 +2986,7 @@ body {
 
 .staff main .staff-option .personal-info p {
   font-size: 15px;
-  margin: 10px 0;
+  margin: 15px 0 10px;
   font-weight: bold;
   text-transform: uppercase;
   color: white;
@@ -2936,8 +3016,12 @@ body {
   background-color: rgba(255, 0, 0, 0.5);
 }
 
+.staff main .staff-option .left .active {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
 .staff main .staff-option .left .cate {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .staff main .staff-option .left .cate h4.title {
@@ -2959,6 +3043,10 @@ body {
 }
 
 .staff main .staff-option .left .cate ul li:hover {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+.staff main .staff-option .left .cate ul .active {
   background-color: rgba(255, 0, 0, 0.5);
 }
 
@@ -3080,6 +3168,59 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.activity {
+  position: relative;
+}
+
+.activity .pagination {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.activity .pagination ul li {
+  height: 40px;
+  width: 40px;
+  background-color: white;
+  border: 1px solid #2dbe60;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+  -webkit-transition: all .6s;
+  transition: all .6s;
+}
+
+.activity .pagination ul li:hover {
+  background-color: #2dbe60;
+  color: white;
+}
+
+.activity .pagination ul .active {
+  background-color: #2dbe60;
+  color: white;
+}
+
+.activity-item {
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  color: #333;
+}
+
+.activity-item-head {
+  padding: 10px 5px;
+  font-weight: bolder;
+}
+
+header .container .header__content .left ul > li .drop-down > li {
+  padding: 0 15px;
 }
 
 .loading {
