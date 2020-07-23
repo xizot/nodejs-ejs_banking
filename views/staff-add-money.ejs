@@ -286,17 +286,12 @@
                 return;
             }
 
-            let tmp = money;
-            if (currencyUnit == "VND") {
-                tmp = Number(money) / 23000;
-            }
-
             if (!Number(money) || Number(money) <= 0) {
                 alert('Vui lòng nhập số tiền hợp lệ');
                 return;
             }
             $.post("api/account/addMoney", {
-                money: tmp,
+                money,
                 currencyUnit: currencyUnit,
                 bankCode: 'ARG',
                 stk: stk,

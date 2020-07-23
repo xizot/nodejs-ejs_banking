@@ -101,7 +101,7 @@ router.post('/account/addMoney', async (req, res) => {
             }
             const newActivity = await StaffActivityLog.create({
                 staffID: req.currentUser.id,
-                message: `Đã nạp tiền cho tài khoản ${stk} số tiền ${money} ${currencyUnit}`,
+                message: `Đã nạp tiền cho số tài khoản ${stk} số tiền ${money} ${currencyUnit}`,
             })
             return res.end('1'); // thanh cong
         }
@@ -118,6 +118,17 @@ router.get('/transfer/:id', async (req, res) => {
     const { id } = req.params;
     const found = await Transfer.findByPk(id);
 })
+
+router.get('/get-all-transfer', async (req, res) => {
+    const { stk, page, fromDate, toDate } = req.body
+    const limit = 10;
+
+    if (!stk || !page || !fromDate || !toDate) return res.json(null);
+
+    const found = await Transfer.getActivityByDate(stk, page, limit, fromDate, toDate);
+    return res.json(found)
+})
+
 
 
 //[USER] 
@@ -172,15 +183,11 @@ router.post('/checkaccountid', async (req, res) => {
     // 2: không đủ dữ liệu
     const { accountId, bankSecretKey, bankId, clientId, secretKey } = req.body;
     if (!accountId || !bankSecretKey || !bankId || !clientId || !secretKey) return res.json(2);
-
     if (clientId !== "wibu" || secretKey !== "36dc50f6-65e5-47c5-80ff-f6dbd8cd3dee") return res.json(null);
-
     if (bankSecretKey != "12345" || bankId != "wfb") return res.json(1);
-
     const found = await AccountInfo.getBySTKOne(accountId);
     if (found) return res.json(0);
     if (!found) return res.json(null);
-
     return res.json(null);
 })
 router.post('/transferexternal', async (req, res) => {
@@ -191,36 +198,21 @@ router.post('/transferexternal', async (req, res) => {
     //2: loại tiền không hợp lệ (chỉ nhận USD hoặc VND)
     //3: có lỗi ngoài lề nào đó, bên Nhật nhận tín hiệu này thì hoãn tiền lại cho tài khoản bên gửi
     //4: không đủ dữ liệu
-
     // clientId: bên wfb cung cấp cho bên Nhật cái này để gọi được api bên t
     // secretKey: bên wfb cung cấp cho nhật cái này để gọi được api bên t
-
-
     const { accountId, bankSecretKey, bankId, money, currency, requestAccountId, clientId, secretKey } = req.body;
     if (!accountId || !bankSecretKey || !bankId || !money || !currency || !requestAccountId || !clientId || !secretKey) return res.json(4);
-
-
-
-
     // kiểm tra hợp lê
     if (bankSecretKey != "12345" || bankId != "wfb") return res.json(1);
-
     // loại tiền tệ không được chấp nhận
     if (currency != "VND" && currency != "USD") return res.json(2);
-
     // tìm tài khoản thụ hưởng
     const found = await AccountInfo.getBySTKOne(accountId);
-
     //nếu không tìm thấy
     if (!found) return res.json(null);
-
-
     const message = req.body.message || "Đã có 1 người chuyển tiền cho bạn";
-
     // Chuyển tiền thành công
     if (await found.addMoneyExternal(requestAccountId, money, message, currency, bankId)) return res.json(0);
-
-
     await AccountInfo.minusMoney(accountId, money, currency, bankId);
     //Đã xảy ra lỗi gì đó
     Transfer.addError(requestAccountId, accountId);
@@ -228,7 +220,6 @@ router.post('/transferexternal', async (req, res) => {
 })
 // Chuyển tiền cùng ngân hàng
 router.post('/transferinternal', async (req, res) => {
-
     /*
        null: không thành công
        0: thành công
@@ -240,7 +231,6 @@ router.post('/transferinternal', async (req, res) => {
        6: Loại tiền không hợp lệ
        7: người gửi không đủ tiền
    */
-
     if (!req.body.from && !req.currentUser) return res.json(null);
     const from = req.body.from || req.currentUser.id;
 
@@ -256,41 +246,25 @@ router.post('/transferinternal', async (req, res) => {
     return res.json(rs);
 })
 router.post('/transferinternal1', async (req, res) => {
-
     return res.json(req.body);
-
 })
 
-
 //STAFF
-
-
 // tìm kiếm thông tin của 1 user by keyword( id, username, email, phonenumber, stk) ->  trả về thông tin user
 router.post('/customer-search', async (req, res) => {
     const { st } = req.body;
     return res.json(await findInfoOffCustomer(st));
 })
-// lấy lịch sử giao dịch 1 user by keyword( id, username, email, phonenumber, stk)
-// thêm tiền cho customer -> search -> add
-// get tất cả customer
-// 
 router.get('/get-activity', async (req, res) => {
     // if (!req.currentUser) return null
     const numpage = req.query.numpage || 1;
     const limit = 10;
-    const found = await findActivityStaff(6, numpage, limit);
-
+    const found = await findActivityStaff(req.currentUser.id, numpage, limit);
     return res.json(found);
 })
 router.get('/count-activity', async (req, res) => {
-
     if (!req.currentUser) return res.json(0);
     const count = await countActivityStaff(req.currentUser.id);
-
     return res.json(count);
 })
-
-
-
-
 module.exports = router;

@@ -12,8 +12,11 @@
                     li{
                         font-weight: 600;
                         padding: 18px 35px;
-                        color: #4f4f4f;
+                        
                         cursor: pointer;
+                        a{color: #4f4f4f;
+
+                        }
                         &:hover{
                             background-color: rgba($color: $main-color, $alpha:0.1);
                         }

@@ -9,18 +9,27 @@ class Transfer extends Model {
 
 
     // hàm này để lấy lịch sử giao dich theo thời gian nhất định của 1 user
-    static async getActivityByDate(id, page, limit, fromDate, toDate) {
+    static async getActivityByDate(stk, page, limit, fromDate, toDate) {
 
-        // console.log(fromDate);
+        let arr = fromDate.split('/');
+        arr[1] = Number(arr[1]) + 1;
+        fromDate = arr.join('/');
+        fromDate = new Date(fromDate);
+
+        let arr2 = toDate.split('/');
+        arr2[1] = Number(arr2[1]) + 1;
+        toDate = arr2.join('/');
+        toDate = new Date(toDate);
+
 
         return this.findAll({
             where: {
                 [Op.or]: [
                     {
-                        from: id
+                        from: stk
                     },
                     {
-                        to: id
+                        to: stk
                     }
                 ],
                 createdAt: {
@@ -35,11 +44,9 @@ class Transfer extends Model {
 
                 }
 
-
-
             },
             limit,
-            offset: page * limit,
+            offset: (1 - page) * limit,
         })
     }
 

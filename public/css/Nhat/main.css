@@ -2768,8 +2768,11 @@ body {
 .my-account .my-account__content .option ul li {
   font-weight: 600;
   padding: 18px 35px;
-  color: #4f4f4f;
   cursor: pointer;
+}
+
+.my-account .my-account__content .option ul li a {
+  color: #4f4f4f;
 }
 
 .my-account .my-account__content .option ul li:hover {
