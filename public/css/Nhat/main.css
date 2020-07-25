@@ -2788,6 +2788,7 @@ body {
 }
 
 .my-account .my-account__content .my-account-content {
+  min-height: calc(100vh - 85px);
   padding: 0;
   background-color: #f1f5f6;
 }
@@ -2851,6 +2852,13 @@ body {
 
 .my-account .my-account__content .my-account-content .personal-details-content .info-item input:focus {
   border-bottom: 2px solid #2dbe60;
+}
+
+.my-account .my-account__content .my-account-content .personal-details-content .info-item .btn-update {
+  display: block;
+  margin-left: auto;
+  width: 200px;
+  color: white;
 }
 
 .staff {

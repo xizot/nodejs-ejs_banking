@@ -51,7 +51,7 @@ class User extends Model {
         return user;
     }
     static async findByID(id) {
-        return User.findByPk(id);
+        return await User.findByPk(id);
     };
     static async findByEmail(email) {
         return User.findOne({
@@ -157,6 +157,12 @@ User.init({
     },
     forgotCode: {
         type: Sequelize.STRING
+    },
+    dob:{
+        type:Sequelize.DATE,
+    },
+    address:{
+        type:Sequelize.STRING,
     },
 
 }, {

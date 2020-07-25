@@ -51,28 +51,14 @@
                         <label for="DateOfBirth">Date of Birth</label>
                     </div>
                     <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtAddress1" value="231 Thủ Đức, TP.HCM">
-                        <label for="txtAddress1">Address 1</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
                         <input type="text" id="txtPhone" value="02899995555">
                         <label for="txtPhone">Mobile Phone</label>
                     </div>
                     <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtPhone" value="02899995555">
-                        <label for="txtPhone">Mobile Phone</label>
+                       
                     </div>
                     <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtPhone" value="02899995555">
-                        <label for="txtPhone">Mobile Phone</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtPhone" value="02899995555">
-                        <label for="txtPhone">Mobile Phone</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtPhone" value="02899995555">
-                        <label for="txtPhone">Mobile Phone</label>
+                        <button class="btn btn-update">Update</button>
                     </div>
                 </div>
 
@@ -91,5 +77,36 @@
 
         $('.navigation-bar').css('background-color', 'rgba(45, 190, 96, 0.5)')
         $('.navigation-bar .btn').css('background-color', 'transparent')
+
+
+        $('.btn-update').click(function(e){
+
+            const newObj = {
+                displayName:$(txtFullname).val(),
+                email:$(txtEmail).val(),
+                username:$(txtUsername).val(),
+                address:$(txtAddress).val(),
+                dob:$(DateOfBirth).val(),
+                phoneNumber:$(txtPhone).val(),
+            }
+            $.post("/api/update-info", newObj,
+                function (data, textStatus, jqXHR) {
+                    console.log(data)
+                    if(!data){
+                        alert('Chưa đăng nhập');
+                        $(location).attr('href', '/login');
+                    }
+                    if(data == 3)
+                    {
+                        alert('Tài khoản không tồn tại');
+                        $(location).attr('href', '/logout');
+                    }
+                    if(data && data != 3){
+                        alert('Update thành công')
+                    }
+                },
+            );
+            alert('oke')
+        })
     });
 </script>
