@@ -5,6 +5,7 @@ const Transfer = require('../services/transfer');
 const User = require('../services/user');
 const StaffActivityLog = require('../services/staffActivityLog')
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const { sendMail } = require('../services/function');
 const { findInfoOffCustomer, findActivityStaff, countActivityStaff } = require('../services/staffFunction');
 
@@ -14,7 +15,6 @@ router.get('/current', async (req, res) => {
         return res.json(req.currentUser);
     }
     return res.json(null);
-
 })
 
 
@@ -50,8 +50,6 @@ router.post('/account/addMoney', async (req, res) => {
             //     return res.end('-1'); // lỗi gửi tiền cho chính mình
             // }
             await AccountInfo.addMoneyInternal(from, stk, money, message, currencyUnit, bankCode)
-
-
             // lấy thông tin người nhận
             const ToInfo = await User.findByPk(found.userID);
             if (ToInfo) {
@@ -167,20 +165,45 @@ router.get('/forgot-password', async (req, res) => {
     return res.end('khong hop le')
 })
 
-router.post('/update-info',async (req,res)=>{
+router.post('/update-info', async (req, res) => {
 
-    if(!req.currentUser) return null;
-    const { displayName, email,username,address,dob,phoneNumber} = req.body;
+    if (!req.currentUser) return null;
+    const { displayName, email, username, address, dob, phoneNumber } = req.body;
     const found = await User.findByPk(req.currentUser.id);;
-    if(!found) return 3; // khong tim thay
+    if (!found) return 3; // khong tim thay
+
+
+    if (await User.checkDEmail(req.currentUser.id, email)) return res.json(4)
+    if (await User.checkDUsername(req.currentUser.id, username)) return res.json(5)
+
     found.displayName = displayName;
     found.email = email;
     found.username = username;
     found.address = address;
-    found.dob = dob,
+    found.dob = dob;
     found.phoneNumber = phoneNumber;
     await found.save();
     return res.json(found);
+})
+
+router.get('/resend-code-register', async (req, res) => {
+    const token = crypto.randomBytes(3).toString('hex').toUpperCase();
+    const found = await User.findByPk(req.currentUser.id);
+    if (!found) return res.json(null);
+    found.token = token;
+    found.save();
+    sendMail(req.currentUser.email, 'Mã kích hoạt', token, token);
+    return res.json(1)
+})
+
+router.get('/resend-code-forgotpassword', async (req, res) => {
+    const code = crypto.randomBytes(3).toString('hex').toUpperCase();
+    const found = await User.findByPk(req.currentUser.id);
+    if (!found) return res.json(null);
+    found.forgotCode = code;
+    found.save();
+    sendMail(req.currentUser.email, 'Quên mật khẩu', code, code);
+    return res.json(1)
 })
 // [TRANSFER]
 router.get('/transfer/activity', async (req, res) => {

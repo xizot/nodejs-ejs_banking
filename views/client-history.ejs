@@ -27,54 +27,25 @@
             </h3>
             <div class="personal-details">
                 <h4 class="sub-title">
-                    PERSONAL DETAILS
+                    TRANSACTIONs
                 </h4>
-                <div class="personal-details-content row">
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtFullname" value="Nguyen Van Nhat">
-                        <label for="fullname">Full name</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="email" id="txtEmail" placeholder="John@yahoo.com.vn">
-                        <label for="txtEmail">Email</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtUsername" value="xizot" placeholder="xizot">
-                        <label for="txtUsername">Username</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtAddress" placeholder="231 Thủ Đức, TP.HCM">
-                        <label for="txtAddress">Address</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="date" id="DateOfBirth" value="2020-01-01">
-                        <label for="DateOfBirth">Date of Birth</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtAddress1" value="231 Thủ Đức, TP.HCM">
-                        <label for="txtAddress1">Address 1</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtPhone" value="02899995555">
-                        <label for="txtPhone">Mobile Phone</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtPhone" value="02899995555">
-                        <label for="txtPhone">Mobile Phone</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtPhone" value="02899995555">
-                        <label for="txtPhone">Mobile Phone</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtPhone" value="02899995555">
-                        <label for="txtPhone">Mobile Phone</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtPhone" value="02899995555">
-                        <label for="txtPhone">Mobile Phone</label>
+
+                <div class="transaction">
+                    <div class="filter flex a-center">
+                        <div class="from date-ft">
+                            <label for="date-from"></label>
+                            <input type="date" name="" id="date-from" value="2020-07-01">
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-angle-right"></i>
+                        </div>
+                        <div class="to date date-ft">
+                            <label for="date-to"></label>
+                            <input type="date" name="" id="date-to" value="2020-08-01">
+                        </div>
                     </div>
                 </div>
+
 
             </div>
         </div>
@@ -91,5 +62,8 @@
 
         $('.navigation-bar').css('background-color', 'rgba(45, 190, 96, 0.5)')
         $('.navigation-bar .btn').css('background-color', 'transparent')
+
+        $('#date-from').val()
+        $('#date-to').val()
     });
 </script>

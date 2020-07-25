@@ -209,6 +209,7 @@
                         font-size: 15px;
                         
                     }
+                    
                     button{
                         border-radius: 999999px;
                         height: 45px;
@@ -251,6 +252,9 @@
                                 width:calc(100% - 120px);
                                 padding: 0 15px;
                                 font-size: 15px;
+                            }
+                            #txtMessage{
+                                height: 90px;
                             }
                             #txtCurrencyUnit{
                                 height: 45px;

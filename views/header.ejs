@@ -75,13 +75,8 @@
                                     <li>
                                         <a href="/transfer"><button class="btn">Transfer</button> </a>
                                     </li>
-                                    <li>
-                                        <a href="/dashboard"><button class="btn">Dashboard</button> </a>
-                                    </li>
-                                    <li>
-                                        <a href="/"><button class="btn">Help</button> </a>
-
-                                    </li>
+                                    
+                                  
                                     <li>
                                         <a href="/"><button class="btn">Feature</button> </a>
 
@@ -102,7 +97,9 @@
                                             <!-- <%}%> -->
                                         </ul>
                                     </li>
-
+                                    <li>
+                                        <a href="/"><button class="btn">Help</button> </a>
+                                    </li>
                                     <% }if(currentUser.permisstion == 1) { %>
                                     <li>
                                         <a href="/quanli"><button class="btn">Manage</button> </a>
@@ -177,14 +174,12 @@
                                                         </a>
                                                         <a href="/transfer"><button class="btn">Transfer</button>
                                                         </a>
-                                                        <a href="/dashboard"><button class="btn">Dashboard</button> </a>
-                                                        <a href="/"><button class="btn">Help</button> </a>
-                                                        <a href="/"><button class="btn">Feature</button> </a>
+                                                        class="btn">Feature</button> </a>
                                                         <a href="/"><button class="btn">Page</button> </a>
                                                         <a href="/noti"><button class="btn">Notification</button> </a>
-
-                                                        <% }if(currentUser.permisstion == 1) { %>
-                                                        <a href="/quanli"><button class="btn">Manage</button>
+                                                        <a href="/"><button class="btn">Help</button> </a>
+                                                        <a href="/"><button <% }if(currentUser.permisstion == 1) { %> <a
+                                                                href="/quanli"><button class="btn">Manage</button>
                                                         </a>
                                                         <a href="/noti"><button class="btn">Notification</button> </a>
 
