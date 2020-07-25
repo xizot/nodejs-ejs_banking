@@ -166,6 +166,22 @@ router.get('/forgot-password', async (req, res) => {
     }
     return res.end('khong hop le')
 })
+
+router.post('/update-info',async (req,res)=>{
+
+    if(!req.currentUser) return null;
+    const { displayName, email,username,address,dob,phoneNumber} = req.body;
+    const found = await User.findByPk(req.currentUser.id);;
+    if(!found) return 3; // khong tim thay
+    found.displayName = displayName;
+    found.email = email;
+    found.username = username;
+    found.address = address;
+    found.dob = dob,
+    found.phoneNumber = phoneNumber;
+    await found.save();
+    return res.json(found);
+})
 // [TRANSFER]
 router.get('/transfer/activity', async (req, res) => {
     const { id, page, limit, fromDate, toDate } = req.body;
