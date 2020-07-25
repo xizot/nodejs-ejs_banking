@@ -535,10 +535,6 @@ header .container .header__content .left ul > li:hover > .drop-down {
   display: block;
 }
 
-header .container .header__content .left #logo {
-  margin-right: 30px;
-}
-
 header .container .header__content .left .btn {
   background-color: white;
 }
@@ -552,7 +548,6 @@ header .container .header__content .left .btn.active {
 }
 
 header .container .header__content .left a button {
-  margin-right: 10px;
   font-size: 14px;
   font-weight: bolder;
   color: #333;
@@ -2342,6 +2337,7 @@ body {
 .card__content .gutter {
   height: 171px;
   width: 320px;
+  max-width: 350px;
   padding: 40px 30px 20px;
   border-radius: 10px;
   background-image: radial-gradient(circle farthest-corner at 50.4% 50.5%, #fb2056 0%, #870223 90%);
@@ -2405,7 +2401,7 @@ body {
   background-color: white;
   font-size: 16px;
   font-weight: bolder;
-  margin-left: 50px;
+  margin-left: 20px;
   border-radius: 2px;
 }
 
@@ -2727,11 +2723,24 @@ body {
   color: #2dbe60;
 }
 
-.transaction .filter-item input {
+.transaction {
+  margin-top: 10px;
+}
+
+.transaction .filter .date-ft {
+  margin-right: 20px;
+}
+
+.transaction .filter .date-ft input {
   height: 35px;
   border: 1px solid #ddd;
-  padding: 15px 2px;
-  border-radius: 5px solid #ddd;
+  padding: 15px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.transaction .filter .icon {
+  margin-right: 20px;
 }
 
 .request .container .row h3 {
@@ -3146,6 +3155,10 @@ body {
   width: calc(100% - 120px);
   padding: 0 15px;
   font-size: 15px;
+}
+
+.staff main .staff-option .right .result-square-left_item #txtMessage {
+  height: 90px;
 }
 
 .staff main .staff-option .right .result-square-left_item #txtCurrencyUnit {

@@ -5,8 +5,36 @@ const Model = Sequelize.Model;
 const Customer = require('../services/customer');
 const crypto = require('crypto');
 const { sendMail } = require('../services/function');
+
 class User extends Model {
 
+
+    static async checkDEmail(id, email) {
+        const foundEmail = await User.findAll({
+            where: {
+                id: {
+                    [Sequelize.Op.not]: id
+                },
+                email,
+            }
+        })
+        if (foundEmail.length > 0) return true;
+        return false;
+    }
+
+    static async checkDUsername(id, username) {
+        const foundUsername = await User.findAll({
+            where: {
+                id: {
+                    [Sequelize.Op.not]: id
+                },
+                username,
+            }
+        })
+
+        if (foundUsername.length > 0) return true;
+        return false;
+    }
     static async setPhoneNumberCode(id, number, code) {
         const found = await this.findByID(id);
         if (found) {
@@ -158,11 +186,11 @@ User.init({
     forgotCode: {
         type: Sequelize.STRING
     },
-    dob:{
-        type:Sequelize.DATE,
+    dob: {
+        type: Sequelize.DATE,
     },
-    address:{
-        type:Sequelize.STRING,
+    address: {
+        type: Sequelize.STRING,
     },
 
 }, {

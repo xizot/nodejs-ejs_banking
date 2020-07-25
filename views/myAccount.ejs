@@ -31,7 +31,7 @@
                 </h4>
                 <div class="personal-details-content row">
                     <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtFullname" value="Nguyen Van Nhat">
+                        <input type="text" id="txtFullname" value="">
                         <label for="fullname">Full name</label>
                     </div>
                     <div class="col-xs-6 fullname info-item">
@@ -43,7 +43,7 @@
                         <label for="txtUsername">Username</label>
                     </div>
                     <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtAddress" placeholder="231 Thủ Đức, TP.HCM">
+                        <input type="text" id="txtAddress" placeholder="">
                         <label for="txtAddress">Address</label>
                     </div>
                     <div class="col-xs-6 fullname info-item">
@@ -55,7 +55,7 @@
                         <label for="txtPhone">Mobile Phone</label>
                     </div>
                     <div class="col-xs-6 fullname info-item">
-                       
+
                     </div>
                     <div class="col-xs-6 fullname info-item">
                         <button class="btn btn-update">Update</button>
@@ -69,6 +69,21 @@
 <%- include('./footer')%>
 <script>
     $(function () {
+
+        $.get("/api/current",
+            function (data, textStatus, jqXHR) {
+                if (data) {
+                    $('#txtFullname').val(data.displayName)
+                    $('#txtEmail').val(data.email)
+                    $('#txtUsername').val(data.username)
+                    $('#txtAddress').val(data.address)
+                    $('#DateOfBirth').val(new Date(data.dob).toISOString().slice(0, 10) || new Date().toISOString().slice(0, 10))
+                    $('#txtPhone').val(data.phoneNumber)
+                }
+            },
+        );
+
+
         $('footer').css('display', 'none');
         $('.option ul li').click(function (e) {
             $('.option ul li').removeClass('active')
@@ -79,34 +94,63 @@
         $('.navigation-bar .btn').css('background-color', 'transparent')
 
 
-        $('.btn-update').click(function(e){
+        $('.btn-update').click(function (e) {
 
             const newObj = {
-                displayName:$(txtFullname).val(),
-                email:$(txtEmail).val(),
-                username:$(txtUsername).val(),
-                address:$(txtAddress).val(),
-                dob:$(DateOfBirth).val(),
-                phoneNumber:$(txtPhone).val(),
+                displayName: $(txtFullname).val(),
+                email: $(txtEmail).val(),
+                username: $(txtUsername).val(),
+                address: $(txtAddress).val() || null,
+                dob: $(DateOfBirth).val(),
+                phoneNumber: $(txtPhone).val() || null,
             }
             $.post("/api/update-info", newObj,
                 function (data, textStatus, jqXHR) {
-                    console.log(data)
-                    if(!data){
+                    if (!data) {
                         alert('Chưa đăng nhập');
                         $(location).attr('href', '/login');
                     }
-                    if(data == 3)
-                    {
+                    else if (data == 3) {
                         alert('Tài khoản không tồn tại');
                         $(location).attr('href', '/logout');
                     }
-                    if(data && data != 3){
+                    else if (data == 4) {
+                        alert('Email đã tồn tại ở tài khoản khác');
+
+                        $.get("/api/current",
+                            function (data, textStatus, jqXHR) {
+                                if (data) {
+                                    $('#txtFullname').val(data.displayName)
+                                    $('#txtEmail').val(data.email)
+                                    $('#txtUsername').val(data.username)
+                                    $('#txtAddress').val(data.address)
+                                    $('#DateOfBirth').val(new Date(data.dob).toISOString().slice(0, 10) || new Date().toISOString().slice(0, 10))
+                                    $('#txtPhone').val(data.phoneNumber)
+                                }
+                            },
+                        );
+                    }
+                    else if (data == 5) {
+                        alert('Username đã tồn tại ở tài khoản khác');
+                        $.get("/api/current",
+                            function (data, textStatus, jqXHR) {
+                                if (data) {
+                                    $('#txtFullname').val(data.displayName)
+                                    $('#txtEmail').val(data.email)
+                                    $('#txtUsername').val(data.username)
+                                    $('#txtAddress').val(data.address)
+                                    $('#DateOfBirth').val(new Date(data.dob).toISOString().slice(0, 10) || new Date().toISOString().slice(0, 10))
+                                    $('#txtPhone').val(data.phoneNumber)
+                                }
+                            },
+                        );
+                    }
+                    else {
                         alert('Update thành công')
+                        $(location).attr('href', '/my-account');
                     }
                 },
             );
-            alert('oke')
         })
     });
 </script>
