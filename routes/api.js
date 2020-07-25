@@ -306,4 +306,16 @@ router.get('/count-activity', async (req, res) => {
     const count = await countActivityStaff(req.currentUser.id);
     return res.json(count);
 })
+
+// [ACCOUNT]
+router.get('/account/infor', async (req, res) => {
+    if (!req.currentUser.id) return null;
+    const found = await AccountInfo.findAll({
+        where: {
+            userID: req.currentUser.id
+        }
+    })
+
+    return res.json(found);
+})
 module.exports = router;

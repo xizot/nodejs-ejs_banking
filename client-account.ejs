@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./public/css/Nhat/main.css">
+    <title>Payyed - Activity Logs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="my-account" style="height: calc(100vh - 85px);">
+        <div class="my-account__content row">
+            <div class="col-xs-2 option">
+                <ul>
+                    <li class="flex">
+                        <i class="far fa-file-alt"></i>
+                        <a href="/my-account">Applications</a>
+                    </li>
+                    <li class="flex">
+                        <i class="fas fa-layer-group"></i>
+                        <a href="/">Account</a>
+                    </li>
+                    <li class="flex">
+                        <i class="fas fa-comments-dollar"></i>
+                        <a href="/transfer">Transfer</a>
+                    </li>
+                    <li class="flex">
+                        <i class="fas fa-history"></i>
+                        <a href="/history">History</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-10 my-account-content">
+                <h3 class="title">
+                    Account
+                </h3>
+                <div class="personal-details">
+                    <h4 class="sub-title">
+                        Credit Cards
+                    </h4>
+
+                    <div class="accounts">
+                        <div class="list-card row">
+                            <div class="list-card-item col-xs-12 col-md-4">
+                                <div class="card ">
+                                    <div class="title">Pa<span>yy</span>ed</div>
+
+                                    <div class="stk">1000 2999 2229 3</div>
+                                    <div class="date flex a-center">
+                                        <div class="tt">
+                                            Valid<br>date :
+                                        </div>
+                                        <div class="sh">
+                                            20/20/2020
+                                        </div>
+
+                                    </div>
+                                    <div class="flex a-center j-between">
+                                        <h3 class="name">Nguyen Van Nhat</h3>
+                                        <div class="napas">
+                                            NAPAS
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="actions">
+                                    <input type="radio" name="setDefault" id="" onclick="setDefault(1000299922293)">
+                                </div>
+                            </div>
+                            <div class="list-card-item col-xs-12 col-md-4">
+                                <div class="card ">
+                                    <div class="title">Pa<span>yy</span>ed</div>
+
+                                    <div class="stk">1000 2999 2229 3</div>
+                                    <div class="date flex a-center">
+                                        <div class="tt">
+                                            Valid<br>date :
+                                        </div>
+                                        <div class="sh">
+                                            20/20/2020
+                                        </div>
+
+                                    </div>
+                                    <div class="flex a-center j-between">
+                                        <h3 class="name">Nguyen Van Nhat</h3>
+                                        <div class="napas">
+                                            NAPAS
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="actions">
+                                    <input type="radio" name="setDefault" id="" onclick="setDefault(1000299922293)">
+                                </div>
+                            </div>
+                            <div class="list-card-item col-xs-12 col-md-4">
+                                <div class="card ">
+                                    <div class="title">Pa<span>yy</span>ed</div>
+
+                                    <div class="stk">1000 2999 2229 3</div>
+                                    <div class="date flex a-center">
+                                        <div class="tt">
+                                            Valid<br>date :
+                                        </div>
+                                        <div class="sh">
+                                            20/20/2020
+                                        </div>
+
+                                    </div>
+                                    <div class="flex a-center j-between">
+                                        <h3 class="name">Nguyen Van Nhat</h3>
+                                        <div class="napas">
+                                            NAPAS
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="actions">
+                                    <input type="radio" name="setDefault" id="" onclick="setDefault(1000299922293)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+    $(function () {
+        $.get("/account/infor",
+            function (data, textStatus, jqXHR) {
+                console.log(data);
+            },
+        );
+    });
+    function setDefault(stk) {
+        alert(stk)
+    }
+</script>

@@ -65,6 +65,7 @@ app.use('/staff-activity', require('./routes/staffActivity'));
 
 // user
 app.use('/my-account', require('./routes/user/myaccount'))
+app.use('/accounts', require('./routes/account'))
 app.use('/history', require('./routes/history'))
 app.use('/user-request', require('./routes/user/request'))
 app.use('/create-credit-card', require('./routes/createCreditCard'));
