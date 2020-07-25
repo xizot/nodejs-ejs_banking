@@ -1,0 +1,79 @@
+.list-card{
+    background: linear-gradient(145deg, #30cb67, #29ab56);
+    padding: 10px ;
+    &-item{
+        padding: 10px;
+        .card{
+            padding: 20px 25px;
+            border-radius: 10px;
+            background: linear-gradient(145deg, #30cb67, #29ab56);
+            box-shadow:  24px 24px 36px #1a6e38, 
+                         -24px -24px 36px #40ff88;
+
+            .title{
+                font-weight: bold;
+                font-size: 18px;
+                span{
+                    color: #29ab56;
+                    text-shadow:  24px 24px 36px #1a6e38, 
+                    -24px -24px 36px #40ff88;
+                }
+            }
+            .stk{
+                margin: 10px 0;
+                font-size: 20px;
+                // text-align: center;
+                font-weight: bold;
+                letter-spacing: 1px;
+                color:  #fff;
+                
+                text-shadow: 30px 30px 59px #7d7d7d, 
+                -30px -30px 59px #ffffff;
+            }
+            .date{
+               
+                font-weight: lighter;
+                .tt{
+                    font-size: 12px;
+                    
+                }
+                .sh{
+                    padding-left: 15px;
+                    font-size: 18px;
+                    color: white;
+                    text-shadow: 30px 30px 59px #7d7d7d, 
+                -30px -30px 59px #ffffff;
+                }
+            }
+            .name{
+                color: white;
+                margin-top: 10px;
+                font-size: 18px;
+                text-transform: uppercase;
+                text-shadow: 30px 30px 59px #7d7d7d, 
+                -30px -30px 59px #ffffff;
+                
+            }
+            .napas{
+                margin-top: 10px;
+                background-color: white;
+                padding: 5px 8px;
+                color: #09486d;
+                font-weight: bolder;
+                border-right: 2px;
+                font-size: 14px;
+                
+            }
+        }
+        .actions{
+            input{
+                cursor: pointer;
+                width: 16px;
+                height: 16px;
+                text-align: center;
+                display: block;
+                margin: 20px auto 0;
+            }
+        }
+    }
+}

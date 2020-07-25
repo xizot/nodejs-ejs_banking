@@ -3243,6 +3243,84 @@ body {
   font-weight: bolder;
 }
 
+.list-card {
+  background: linear-gradient(145deg, #30cb67, #29ab56);
+  padding: 10px;
+}
+
+.list-card-item {
+  padding: 10px;
+}
+
+.list-card-item .card {
+  padding: 20px 25px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #30cb67, #29ab56);
+  -webkit-box-shadow: 24px 24px 36px #1a6e38,  -24px -24px 36px #40ff88;
+          box-shadow: 24px 24px 36px #1a6e38,  -24px -24px 36px #40ff88;
+}
+
+.list-card-item .card .title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.list-card-item .card .title span {
+  color: #29ab56;
+  text-shadow: 24px 24px 36px #1a6e38,  -24px -24px 36px #40ff88;
+}
+
+.list-card-item .card .stk {
+  margin: 10px 0;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 30px 30px 59px #7d7d7d,  -30px -30px 59px #ffffff;
+}
+
+.list-card-item .card .date {
+  font-weight: lighter;
+}
+
+.list-card-item .card .date .tt {
+  font-size: 12px;
+}
+
+.list-card-item .card .date .sh {
+  padding-left: 15px;
+  font-size: 18px;
+  color: white;
+  text-shadow: 30px 30px 59px #7d7d7d,  -30px -30px 59px #ffffff;
+}
+
+.list-card-item .card .name {
+  color: white;
+  margin-top: 10px;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-shadow: 30px 30px 59px #7d7d7d,  -30px -30px 59px #ffffff;
+}
+
+.list-card-item .card .napas {
+  margin-top: 10px;
+  background-color: white;
+  padding: 5px 8px;
+  color: #09486d;
+  font-weight: bolder;
+  border-right: 2px;
+  font-size: 14px;
+}
+
+.list-card-item .actions input {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  display: block;
+  margin: 20px auto 0;
+}
+
 header .container .header__content .left ul > li .drop-down > li {
   padding: 0 15px;
 }

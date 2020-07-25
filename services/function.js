@@ -158,7 +158,7 @@ const CreateNewCreditCard = async (userID, displayName) => {
 
     const STK = randomSTK();
     const beginDate = new Date();
-    const isDefault = true;
+    const isDefault = false;
     const newCreditCard = await AccountInfo.create({
         STK,
         userID,
