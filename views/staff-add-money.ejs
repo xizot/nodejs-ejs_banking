@@ -140,12 +140,36 @@
                         <h3 class="title">
                             ADD MONEY FOR CUSTOMER
                         </h3>
-                        <div class="search-square">
-                            <input type="search" name="" id="txtSearch">
-                            <button type="submit" class="btn btn-search">
-                                <i class="fas fa-search"></i>
-                            </button>
+                        <div class="search-square flex j-between a-center">
+                            <div>
+                                <input type="search" name="" id="txtSearch">
+                                <button type="submit" class="btn btn-search">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <div class="list-account">
+                                <ul class="list-account-item">
+                                    <li>
+                                        12312321321312
+                                    </li>
+                                    <li>
+                                        12312321321312
+                                    </li>
+                                    <li>
+                                        12312321321312
+                                    </li>
+                                    <li>
+                                        12312321321312
+                                    </li>
+                                    <li>
+                                        12312321321312
+                                    </li>
+                                    <li>
+                                        12312321321312
+                                    </li>
 
+                                </ul>
+                            </div>
                         </div>
                         <div class="result-square row">
                             <div class="result-square-left  col-xs-6">
@@ -209,6 +233,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
+
+    $(function () {
+        $.get("/api/get-all",
+            function (data, textStatus, jqXHR) {
+                $('.list-account-item').empty();
+                if (data) {
+                    data.forEach(element => {
+                        $(`<li>${element.STK}</li>`).appendTo('.list-account-item');
+                    });
+                }
+            },
+        );
+    });
 
     $.get("/staff/api/all-notification",
         function (data, textStatus, jqXHR) {

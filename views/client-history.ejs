@@ -9,7 +9,7 @@
                 </li>
                 <li class="flex">
                     <i class="fas fa-layer-group"></i>
-                    <a href="/">Account</a>
+                    <a href="/accounts">Account</a>
                 </li>
                 <li class="flex">
                     <i class="fas fa-comments-dollar"></i>
@@ -43,9 +43,22 @@
                             <label for="date-to"></label>
                             <input type="date" name="" id="date-to" value="2020-08-01">
                         </div>
+                        <div class="actions">
+                            <button class="btn btn-filter">Filter</button>
+                        </div>
                     </div>
                 </div>
+                <div class="history">
+                    <div class="row title">
+                        <div class="col-xs-1 t-center">Date</div>
+                        <div class="col-xs-8">Description</div>
+                        <div class="col-xs-1 t-center">Status</div>
+                        <div class="col-xs-2 t-center">Amount</div>
+                    </div>
+                    <div class="history-item">
 
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -65,5 +78,29 @@
 
         $('#date-from').val()
         $('#date-to').val()
+
+
+        $('.btn-filter').click(function (e) {
+            const fromDate = $('#date-from').val();
+            const toDate = $('#date-to').val();
+            console.log(fromDate);
+            console.log(toDate);
+            $.post("/api/transfer/activity", { fromDate: fromDate, toDate: toDate },
+                function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    $('.history-item').empty();
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            $(` <div class="transaction-item row">
+                            <div class="col-xs-1 date t-center">${element.date}</div>
+                            <div class="col-xs-8 des">${element.des}</div>
+                            <div class="col-xs-1 status t-center"><i class="fas fa-check-circle"></i></div>
+                            <div class="col-xs-2 amount t-center">${element.amount} ${element.currencyUnit}</div>
+                        </div>`).appendTo(`.history-item`);
+                        });
+                    }
+                },
+            );
+        })
     });
 </script>

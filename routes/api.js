@@ -39,10 +39,13 @@ router.post('/account/addMoney', async (req, res) => {
 
         const accountInfo = await AccountInfo.getByUserID(req.currentUser.id);
 
+        console.log(accountInfo);
         if (!accountInfo) {
             return res.end('-3'); // chuưa cập nhật tài khoản
         }
     }
+
+
     if (stk && bankCode) {
         const found = await AccountInfo.getBySTKAndBankCode(stk, bankCode);
         if (found) {
@@ -128,7 +131,6 @@ router.get('/get-all-transfer', async (req, res) => {
 })
 
 
-
 //[USER] 
 router.post('/change-password', async (req, res) => {
     const st = req.body.st;
@@ -182,6 +184,13 @@ router.post('/update-info', async (req, res) => {
     found.address = address;
     found.dob = dob;
     found.phoneNumber = phoneNumber;
+    await AccountInfo.update({
+        displayName: displayName
+    }, {
+        where: {
+            userID: req.currentUser.id
+        }
+    })
     await found.save();
     return res.json(found);
 })
@@ -206,11 +215,18 @@ router.get('/resend-code-forgotpassword', async (req, res) => {
     return res.json(1)
 })
 // [TRANSFER]
-router.get('/transfer/activity', async (req, res) => {
-    const { id, page, limit, fromDate, toDate } = req.body;
+router.post('/transfer/activity', async (req, res) => {
+    const { fromDate, toDate } = req.body;
+    const userID = req.currentUser.id;
+    const page = req.body.page || 1;
+    const limit = 7;
+
+    const foundAccount = await AccountInfo.getByUserID(userID);
+    if (!foundAccount) return res.json(2) // chuaw set mac dinh hoac chua co tai khoan
+
     //Date có dạng: MM/dd/yyyy
-    const found = await Transfer.getActivityByDate(1, 0, 5, "01/01/2012", "7/03/2020");
-    if (!found) return null;
+    const found = await Transfer.getActivityByDate(foundAccount.STK, page, limit, fromDate, toDate);
+    if (!found) return res.json(null);
     return res.json(found);
 })
 
@@ -313,9 +329,43 @@ router.get('/account/infor', async (req, res) => {
     const found = await AccountInfo.findAll({
         where: {
             userID: req.currentUser.id
-        }
+        },
+        order: [['createdAt', 'DESC']]
     })
 
     return res.json(found);
+})
+
+router.post('/set-default', async (req, res) => {
+    const { stk, userID } = req.body;
+
+    console.log(stk, userID);
+
+    await AccountInfo.update({
+        isDefault: false
+    }, {
+        where: {
+            userID,
+        }
+    })
+
+    const rs = await AccountInfo.update({
+        isDefault: true
+    }, {
+        where: {
+            STK: stk,
+            userID
+        }
+    })
+
+    return res.json(rs)
+
+})
+
+router.get('/get-all', async (req, res) => {
+
+    const found = await AccountInfo.findAll();
+    return res.json(found)
+
 })
 module.exports = router;

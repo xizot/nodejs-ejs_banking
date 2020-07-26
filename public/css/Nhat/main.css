@@ -712,14 +712,21 @@ header .bars-content .bars-actions .btn-sign-up {
   }
 }
 
+header .sign-in__sign-up button {
+  padding: 5px 25px;
+}
+
 header .sign-in__sign-up .btn-sign-in {
   background-color: black !important;
   color: white !important;
+  margin-right: 10px;
 }
 
 header .sign-in__sign-up .btn-sign-up {
   background-color: #2dbe60 !important;
   color: white !important;
+  -webkit-box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1), -2px -2px 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1), -2px -2px 10px rgba(0, 0, 0, 0.1);
 }
 
 header .bars-nav {
@@ -1661,10 +1668,6 @@ footer .top {
   color: #2dbe60;
 }
 
-body {
-  background: url("../img/bg-main.jpg") no-repeat top/cover;
-}
-
 .over-layer {
   top: 0;
   left: 0;
@@ -2348,7 +2351,7 @@ body {
 .card-number {
   margin-bottom: 20px;
   font-size: 18px;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(250, 250, 250, 0.8);
   font-weight: bolder;
   letter-spacing: 1.25px;
   text-shadow: 1px 1px 1px #333, -1px -1px 1px gray;
@@ -2377,7 +2380,7 @@ body {
 }
 
 .card-date__item .date {
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(250, 250, 250, 0.8);
   font-weight: bolder;
   letter-spacing: 1.25px;
   text-shadow: 1px 1px 1px #333, -1px -1px 1px gray;
@@ -2388,7 +2391,7 @@ body {
 }
 
 .card-name {
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(250, 250, 250, 0.8);
   font-weight: bolder;
   letter-spacing: 1.25px;
   font-size: 14px;
@@ -2809,14 +2812,14 @@ body {
   margin: 25px 40px;
 }
 
-.my-account .my-account__content .my-account-content .personal-details {
+.personal-details {
   margin: 40px;
   background-color: white;
   border-radius: 5px;
   padding: 5px 20px 20px;
 }
 
-.my-account .my-account__content .my-account-content .personal-details h4.sub-title {
+.personal-details h4.sub-title {
   font-size: 15px;
   color: #2dbe60;
   font-weight: bolder;
@@ -2826,14 +2829,14 @@ body {
   margin-right: -20px;
 }
 
-.my-account .my-account__content .my-account-content .personal-details-content .info-item {
+.personal-details-content .info-item {
   padding: 0 20px 0 0;
   position: relative;
   height: 45px;
   margin: 20px 0;
 }
 
-.my-account .my-account__content .my-account-content .personal-details-content .info-item label {
+.personal-details-content .info-item label {
   display: none;
   font-size: 12px;
   position: absolute;
@@ -2842,7 +2845,7 @@ body {
   color: #2dbe60;
 }
 
-.my-account .my-account__content .my-account-content .personal-details-content .info-item input {
+.personal-details-content .info-item input {
   display: block;
   border: none;
   border-bottom: 1px solid rgba(117, 117, 117, 0.7);
@@ -2855,15 +2858,15 @@ body {
   color: #333;
 }
 
-.my-account .my-account__content .my-account-content .personal-details-content .info-item input:focus ~ label {
+.personal-details-content .info-item input:focus ~ label {
   display: block;
 }
 
-.my-account .my-account__content .my-account-content .personal-details-content .info-item input:focus {
+.personal-details-content .info-item input:focus {
   border-bottom: 2px solid #2dbe60;
 }
 
-.my-account .my-account__content .my-account-content .personal-details-content .info-item .btn-update {
+.personal-details-content .info-item .btn-update {
   display: block;
   margin-left: auto;
   width: 200px;
@@ -3033,11 +3036,11 @@ body {
 }
 
 .staff main .staff-option .left .staff-dashboard:hover {
-  background-color: rgba(255, 0, 0, 0.5);
+  background-color: #1b1c25;
 }
 
 .staff main .staff-option .left .active {
-  background-color: rgba(255, 0, 0, 0.5);
+  background-color: #1b1c25;
 }
 
 .staff main .staff-option .left .cate {
@@ -3052,6 +3055,10 @@ body {
   font-weight: bold;
 }
 
+.staff main .staff-option .left .cate ul {
+  margin-top: 10px;
+}
+
 .staff main .staff-option .left .cate ul li {
   padding: 12px 25px;
 }
@@ -3063,11 +3070,11 @@ body {
 }
 
 .staff main .staff-option .left .cate ul li:hover {
-  background-color: rgba(255, 0, 0, 0.5);
+  background-color: #1b1c25;
 }
 
 .staff main .staff-option .left .cate ul .active {
-  background-color: rgba(255, 0, 0, 0.5);
+  background-color: #1b1c25;
 }
 
 .staff main .staff-option .right {
@@ -3084,10 +3091,6 @@ body {
   color: #333;
   text-align: center;
   margin: 40px 0;
-}
-
-.staff main .staff-option .right .search-square {
-  margin: 100px 0px;
 }
 
 .staff main .staff-option .right .search-square input {
@@ -3113,6 +3116,35 @@ body {
   font-size: 14px;
   margin-top: 5px;
   color: red;
+}
+
+.staff main .staff-option .right .list-account {
+  height: 200px;
+  margin: 10px;
+  overflow: auto;
+}
+
+.staff main .staff-option .right .list-account ul {
+  background-color: #ddd;
+  padding: 20px 40px;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.staff main .staff-option .right .list-account ul li {
+  padding: 10px 2px;
 }
 
 .staff main .staff-option .right .result-square {
@@ -3256,18 +3288,21 @@ body {
   padding: 20px 25px;
   border-radius: 10px;
   background: linear-gradient(145deg, #30cb67, #29ab56);
-  -webkit-box-shadow: 24px 24px 36px #1a6e38,  -24px -24px 36px #40ff88;
-          box-shadow: 24px 24px 36px #1a6e38,  -24px -24px 36px #40ff88;
+  -webkit-box-shadow: 24px 24px 36px #1a6e38,  inset  -24px -24px 36px #40ff88;
+          box-shadow: 24px 24px 36px #1a6e38,  inset  -24px -24px 36px #40ff88;
 }
 
 .list-card-item .card .title {
   font-weight: bold;
   font-size: 18px;
+  background-color: white;
+  padding: 2px 6px;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .list-card-item .card .title span {
-  color: #29ab56;
-  text-shadow: 24px 24px 36px #1a6e38,  -24px -24px 36px #40ff88;
+  color: green;
 }
 
 .list-card-item .card .stk {
@@ -3275,35 +3310,35 @@ body {
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 1px;
-  color: #fff;
-  text-shadow: 30px 30px 59px #7d7d7d,  -30px -30px 59px #ffffff;
+  color: #f3f2fa;
+  text-shadow: 30px 30px 59px rgba(0, 0, 0, 0.3), -30px -30px 59px rgba(0, 0, 0, 0.3);
 }
 
 .list-card-item .card .date {
+  margin: 10px 0 5px;
   font-weight: lighter;
 }
 
 .list-card-item .card .date .tt {
   font-size: 12px;
+  color: #4f4f4f;
 }
 
 .list-card-item .card .date .sh {
   padding-left: 15px;
   font-size: 18px;
-  color: white;
-  text-shadow: 30px 30px 59px #7d7d7d,  -30px -30px 59px #ffffff;
+  color: #f3f2fa;
+  text-shadow: 30px 30px 59px rgba(0, 0, 0, 0.3), -30px -30px 59px rgba(0, 0, 0, 0.3);
 }
 
 .list-card-item .card .name {
-  color: white;
-  margin-top: 10px;
+  color: #f3f2fa;
   font-size: 18px;
   text-transform: uppercase;
-  text-shadow: 30px 30px 59px #7d7d7d,  -30px -30px 59px #ffffff;
+  text-shadow: 30px 30px 59px rgba(0, 0, 0, 0.3), -30px -30px 59px rgba(0, 0, 0, 0.3);
 }
 
 .list-card-item .card .napas {
-  margin-top: 10px;
   background-color: white;
   padding: 5px 8px;
   color: #09486d;
@@ -3319,6 +3354,233 @@ body {
   text-align: center;
   display: block;
   margin: 20px auto 0;
+}
+
+.history .title {
+  background-color: #ddd;
+  padding: 10px 0;
+  margin-top: 20px;
+}
+
+.history .transaction-item {
+  padding: 10px 0;
+  color: #333;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.history .transaction-item .date {
+  font-size: 20px;
+}
+
+.history .transaction-item .status {
+  color: #2dbe60;
+}
+
+.history .transaction-item .amount {
+  font-size: 18px;
+}
+
+.history .transaction-item:hover {
+  background-color: #ddd;
+}
+
+.contact {
+  background-color: #f1f5f6;
+  min-height: 100vh;
+}
+
+.contact .nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 48px 0;
+  background-color: #2b343c;
+}
+
+.contact .nav .router {
+  color: rgba(250, 250, 250, 0.8);
+  font-size: 12px;
+}
+
+.contact .nav .router a {
+  color: rgba(250, 250, 250, 0.8);
+}
+
+.contact .nav .router i {
+  padding: 0 10px;
+}
+
+.contact .nav h3 {
+  color: white;
+  font-weight: normal;
+  font-size: 30px;
+  margin: 0;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.contact .we .container {
+  margin-top: 10px;
+}
+
+.contact .we .container ul li {
+  padding: 20px;
+}
+
+.contact .we .container ul li .gutter {
+  background-color: white;
+  height: 243px;
+  text-align: center;
+  border-radius: 5px;
+  -webkit-box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1), -10px -10px 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1), -10px -10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact .we .container ul li .gutter .content {
+  padding: 30px 40px;
+}
+
+.contact .we .container ul li .gutter .icon i {
+  font-size: 50px;
+  color: #2dbe60;
+}
+
+.contact .we .container ul li .gutter .title {
+  color: #1e1d1c;
+  font-size: 20px;
+  margin: 15px 0 20px;
+  font-weight: bolder;
+}
+
+.contact .we .container ul li .gutter span {
+  color: #3f88c6;
+}
+
+.contact .get {
+  margin-top: 40px;
+}
+
+.contact .get h3 {
+  font-size: 40px;
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+}
+
+.contact .get p {
+  text-align: center;
+  font-size: 14px;
+  color: #4c4d4d;
+  margin: 10px 0 30px;
+}
+
+.contact .get ul li i {
+  font-size: 25px;
+  margin-right: 20px;
+}
+
+.contact .awe {
+  margin-top: 40px;
+  padding: 68px 0;
+  background: url("../../img/image-2.jpg") no-repeat center/cover;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.contact .awe h3 {
+  font-size: 40px;
+  text-align: center;
+  color: white;
+  font-weight: bolder;
+}
+
+.contact .awe p {
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  margin: 10px 0 30px;
+}
+
+.contact .awe a {
+  text-align: center;
+  display: block;
+}
+
+.contact .awe a button {
+  color: white;
+}
+
+.search {
+  margin-top: 40px;
+  padding: 40px;
+}
+
+.search .search-by {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 40px;
+}
+
+.search .search-by .col-xs-6 {
+  cursor: pointer;
+}
+
+.search .search-by .col-xs-6 h3 {
+  font-size: 16px;
+  font-weight: 300;
+  text-align: center;
+  padding: 5px 0;
+}
+
+.search .search-by .active {
+  background-color: #2dbe60;
+  color: white;
+}
+
+.search .search-box {
+  height: 40px;
+  position: relative;
+  display: none;
+  background: transparent;
+}
+
+.search .search-box input {
+  border-radius: 999px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  border-radius: 999px;
+  background-color: white;
+  outline: none;
+  border: 1px solid #ddd;
+  padding: 15px 40px 15px 20px;
+}
+
+.search .search-box button {
+  position: absolute;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+
+.search .search-box.active {
+  display: block;
 }
 
 header .container .header__content .left ul > li .drop-down > li {

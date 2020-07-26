@@ -10,19 +10,7 @@ class Transfer extends Model {
 
     // hàm này để lấy lịch sử giao dich theo thời gian nhất định của 1 user
     static async getActivityByDate(stk, page, limit, fromDate, toDate) {
-
-        let arr = fromDate.split('/');
-        arr[1] = Number(arr[1]) + 1;
-        fromDate = arr.join('/');
-        fromDate = new Date(fromDate);
-
-        let arr2 = toDate.split('/');
-        arr2[1] = Number(arr2[1]) + 1;
-        toDate = arr2.join('/');
-        toDate = new Date(toDate);
-
-
-        return this.findAll({
+        const found = await this.findAll({
             where: {
                 [Op.or]: [
                     {
@@ -47,7 +35,20 @@ class Transfer extends Model {
             },
             limit,
             offset: (1 - page) * limit,
+            order: [['createdAt', 'DESC']]
         })
+
+        if (found.length <= 0) return found;
+        const rs = found.map((item) => {
+            return {
+                date: new Date(item.createdAt).toISOString().slice(5, 10),
+                des: item.from === stk ? 'Đã gửi tiền cho ' + item.to : 'Đã nhận tiền từ ' + item.from,
+                amount: item.from === stk ? '-' + item.amount : '+' + item.amount,
+                currencyUnit: item.currencyUnit,
+
+            }
+        })
+        return (rs);
     }
 
     static async addNew(fromUser, toUser, fromSTK, toSTK, amount, message, currencyUnit, bankCode) {
