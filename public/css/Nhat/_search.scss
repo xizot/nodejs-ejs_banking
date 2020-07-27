@@ -106,7 +106,9 @@
         }
         .cards{
             .list-card{
-                background:#ddd;
+                background:transparent;
+                margin-left: -40px;
+                margin-right: -40px;
                 &-item{
                     padding: 10px 40px;
                     .card{
@@ -143,6 +145,18 @@
         }
         .col-xs-8.right{
             margin-left: 250px;
+            .title{
+                font-size:18px;
+            }
+            .card{
+                .title{
+                    font-size:20px;
+                }
+                .cards-rs{
+                    margin-left: -40px;
+                    margin-right: -40px;
+                }
+            }
         }
     }
 }

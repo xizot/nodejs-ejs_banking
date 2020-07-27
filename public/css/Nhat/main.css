@@ -3386,6 +3386,15 @@ footer .top {
   background-color: #ddd;
 }
 
+.transaction .filter .actions button {
+  min-height: 35px;
+  color: white;
+}
+
+.icon {
+  text-align: center;
+}
+
 .contact {
   background-color: #f1f5f6;
   min-height: 100vh;
@@ -3639,7 +3648,9 @@ footer .top {
 }
 
 .rs .staff-search-rs .cards .list-card {
-  background: #ddd;
+  background: transparent;
+  margin-left: -40px;
+  margin-right: -40px;
 }
 
 .rs .staff-search-rs .cards .list-card-item {
@@ -3680,6 +3691,19 @@ footer .top {
 
 .staff .staff-option .col-xs-8.right {
   margin-left: 250px;
+}
+
+.staff .staff-option .col-xs-8.right .title {
+  font-size: 18px;
+}
+
+.staff .staff-option .col-xs-8.right .card .title {
+  font-size: 20px;
+}
+
+.staff .staff-option .col-xs-8.right .card .cards-rs {
+  margin-left: -40px;
+  margin-right: -40px;
 }
 
 main {
