@@ -3583,6 +3583,109 @@ footer .top {
   display: block;
 }
 
+.rs .staff-search-rs {
+  background-color: #ddd;
+}
+
+.rs .staff-search-rs .personal-details-content .col-xs-6 input {
+  padding: 10px 5px 4px;
+  max-height: 40px;
+}
+
+.rs .staff-search-rs .personal-details-content .col-xs-6 label {
+  top: -10px;
+}
+
+.rs .staff-search-rs .personal-details-content .col-xs-12 button {
+  width: 120px;
+}
+
+.rs .staff-search-rs .personal-details-content .col-xs-12 .btn-delete {
+  background-color: red;
+  color: white;
+}
+
+.rs .staff-search-rs .personal-details-content .col-xs-12 .btn-block {
+  background-color: black;
+  color: white;
+}
+
+.rs .staff-search-rs .personal-details-content .col-xs-12 .option {
+  width: 100%;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.rs .staff-search-rs .personal-details-content .col-xs-12 .option .col-xs-2 {
+  width: 100px;
+  border-right: 1px solid #fff;
+  color: #333;
+  text-align: center;
+  font-weight: bold;
+}
+
+.rs .staff-search-rs .personal-details-content .col-xs-12 .option .col-xs-10 {
+  padding-left: 20px;
+}
+
+.rs .staff-search-rs .personal-details-content .col-xs-12 .option .col-xs-10 .btn-block {
+  margin-left: 20px;
+}
+
+.rs .staff-search-rs .personal-details-content .btn-update {
+  width: 120px;
+  margin-left: auto;
+  color: white;
+}
+
+.rs .staff-search-rs .cards .list-card {
+  background: #ddd;
+}
+
+.rs .staff-search-rs .cards .list-card-item {
+  padding: 10px 40px;
+}
+
+.rs .staff-search-rs .cards .list-card-item .card {
+  cursor: pointer;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+}
+
+.rs .staff-search-rs .cards .list-card-item .card .title {
+  margin: 20px 0;
+}
+
+.rs .staff-search-rs .cards .list-card-item .card:hover {
+  -webkit-transform: translateY(-10px);
+          transform: translateY(-10px);
+}
+
+.staff header {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 70px;
+  z-index: 9999;
+  background-color: white;
+}
+
+.staff .staff-option .col-xs-4.left {
+  position: fixed;
+  left: 0;
+  top: 70px;
+  z-index: 99;
+}
+
+.staff .staff-option .col-xs-8.right {
+  margin-left: 250px;
+}
+
+main {
+  margin-top: 70px;
+}
+
 header .container .header__content .left ul > li .drop-down > li {
   padding: 0 15px;
 }
