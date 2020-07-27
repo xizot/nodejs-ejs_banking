@@ -70,6 +70,7 @@ app.use('/history', require('./routes/history'))
 app.use('/user-request', require('./routes/user/request'))
 app.use('/create-credit-card', require('./routes/createCreditCard'));
 app.use('/create-saving-card', require('./routes/createSavingCard'));
+app.use('/contact', require('./routes/contact'));
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',

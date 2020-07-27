@@ -1,172 +1,161 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('./header', {title:'Payyed - Accounts'})%>
+<div class="staff ">
+    <header>
+        <div class="flex navigation j-between a-center">
+            <div class="logo flex  a-center">
+                <i class="fas fa-university" style="font-size: 25px;"></i>
+                <a href="/"
+                    style="color: #333;font-weight: 600;font-size: 26px;font-style: italic; margin-left: 10px;">Pa<span
+                        style="color: #2dbe60;">yy</span>ed</a>
+            </div>
+            <div class="right">
+                <ul class="flex a-center">
+                    <li class="noti">
+                        <a href="">
+                            <i class="far fa-bell"></i>
+                            <label class="number-of-noti">1</label>
+                        </a>
+                        <ul class="drop-down">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/Nhat/main.css">
-    <title>Payyed - Account</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-</head>
-
-<body>
-    <div class="staff ">
-        <header>
-            <div class="flex navigation j-between a-center">
-                <div class="logo flex  a-center">
-                    <i class="fas fa-university" style="font-size: 25px;"></i>
-                    <a href="/"
-                        style="color: #333;font-weight: 600;font-size: 26px;font-style: italic; margin-left: 10px;">Pa<span
-                            style="color: #2dbe60;">yy</span>ed</a>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href=""><i class="far fa-comment-alt"></i></a>
+                    </li>
+                    <li>
+                        <a href="/logout"><i class="fas fa-power-off"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="row staff-option">
+            <div class="col-xs-4 left">
+                <div class="personal-info">
+                    <img src="./img/dog.png" alt=" ">
+                    <p>Nguyen Van Nhat</p>
                 </div>
-                <div class="right">
-                    <ul class="flex a-center">
-                        <li class="noti">
-                            <a href="">
-                                <i class="far fa-bell"></i>
-                                <label class="number-of-noti">1</label>
-                            </a>
-                            <ul class="drop-down">
 
-                            </ul>
+                <div class="staff-dashboard">
+                    <a href="">
+                        <i class="fas fa-border-all"></i>
+                        Dashboard
+                    </a>
+                </div>
+
+                <div class="cate">
+                    <h4 class="title">
+                        WORK SPACE
+                    </h4>
+                    <ul>
+                        <li>
+                            <a href="/add-money">
+                                <i class="fas fa-hand-holding-usd"></i>
+                                Add money
+                            </a>
                         </li>
                         <li>
-                            <a href=""><i class="far fa-comment-alt"></i></a>
+                            <a href="">
+                                <i class="fas fa-search"></i>
+                                Search
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="/staff-activity">
+                                <i class="fas fa-university"></i>
+                                Activity
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="cate">
+                    <h4 class="title">
+                        LISTS
+                    </h4>
+                    <ul>
+                        <li>
+                            <a href="">
+                                <i class="far fa-user"></i>
+                                Customers
+                            </a>
                         </li>
                         <li>
-                            <a href="/logout"><i class="fas fa-power-off"></i></a>
+                            <a href="">
+                                <i class="far fa-user"></i>
+                                Supplier
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="cate">
+                    <h4 class="title">
+                        Manager
+                    </h4>
+                    <ul>
+                        <li>
+                            <a href="">
+                                <i class="far fa-user"></i>
+                                Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="far fa-user"></i>
+                                Connection
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fas fa-user-friends"></i>
+                                My Team
+                            </a>
+
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fas fa-user-friends"></i>
+                                My Clients
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
-        </header>
-        <main>
-            <div class="row staff-option">
-                <div class="col-xs-4 left">
-                    <div class="personal-info">
-                        <img src="./img/dog.png" alt=" ">
-                        <p>Nguyen Van Nhat</p>
-                    </div>
-
-                    <div class="staff-dashboard">
-                        <a href="">
-                            <i class="fas fa-border-all"></i>
-                            Dashboard
-                        </a>
-                    </div>
-
-                    <div class="cate">
-                        <h4 class="title">
-                            WORK SPACE
-                        </h4>
-                        <ul>
-                            <li>
-                                <a href="/add-money">
-                                    <i class="fas fa-hand-holding-usd"></i>
-                                    Add money
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <i class="fas fa-search"></i>
-                                    Search
-                                </a>
-                            </li>
-                            <li class="active">
-                                <a href="/staff-activity">
-                                    <i class="fas fa-university"></i>
-                                    Activity
-                                </a>
-                            </li>
-
-                        </ul>
-                    </div>
-
-                    <div class="cate">
-                        <h4 class="title">
-                            LISTS
-                        </h4>
-                        <ul>
-                            <li>
-                                <a href="">
-                                    <i class="far fa-user"></i>
-                                    Customers
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <i class="far fa-user"></i>
-                                    Supplier
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="cate">
-                        <h4 class="title">
-                            Manager
-                        </h4>
-                        <ul>
-                            <li>
-                                <a href="">
-                                    <i class="far fa-user"></i>
-                                    Profile
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <i class="far fa-user"></i>
-                                    Connection
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <i class="fas fa-user-friends"></i>
-                                    My Team
-                                </a>
-
-                            </li>
-                            <li>
-                                <a href="">
-                                    <i class="fas fa-user-friends"></i>
-                                    My Clients
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xs-8 right activity" style="padding: 10px; min-height: 600px;">
-                    <div class="option-content ">
-                        <h3 class="title">
-                            ACTIVITY LOGS
-                        </h3>
-                        <!-- <div class="search-square">
+            <div class="col-xs-8 right activity" style="padding: 10px; min-height: 600px;">
+                <div class="option-content ">
+                    <h3 class="title">
+                        ACTIVITY LOGS
+                    </h3>
+                    <!-- <div class="search-square">
                             <input type="search" name="" id="txtSearch">
                             <button type="submit" class="btn btn-search">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div> -->
-                        <div class="result-square " style="width: 100%;padding: 0;height: 100%;">
-                            <div class="activity-item row activity-item-head">
-                                <div class="col-xs-1 t-center">Num</div>
-                                <div class="col-xs-1 t-center">Staff ID</div>
-                                <div class="col-xs-8">Content</div>
-                                <div class="col-xs-2 t-center">Date</div>
-                            </div>
-                            <ul class="activity-lists">
-
-                            </ul>
+                    <div class="result-square " style="width: 100%;padding: 0;height: 100%;">
+                        <div class="activity-item row activity-item-head">
+                            <div class="col-xs-1 t-center">Num</div>
+                            <div class="col-xs-1 t-center">Staff ID</div>
+                            <div class="col-xs-8">Content</div>
+                            <div class="col-xs-2 t-center">Date</div>
                         </div>
-                    </div>
-
-                    <div class="pagination ">
-                        <ul class="flex j-center a-center pag-list">
+                        <ul class="activity-lists">
 
                         </ul>
                     </div>
                 </div>
-        </main>
-    </div>
+
+                <div class="pagination ">
+                    <ul class="flex j-center a-center pag-list">
+
+                    </ul>
+                </div>
+            </div>
+    </main>
+</div>
 </body>
 
 </html>

@@ -1,0 +1,27 @@
+.history{
+    .title{
+        background-color: #ddd;
+        padding: 10px 0;
+        margin-top: 20px;
+    }
+            .transaction-item{
+                padding: 10px 0;
+                color: #333;
+                align-items: center;
+                .date{
+                    font-size: 20px;
+                }
+                .des{
+                    
+                }
+                .status{
+                    color: $main-color;
+                }
+                .amount{
+                    font-size: 18px;
+                }
+                &:hover{
+                    background-color: #ddd;
+                }
+            }
+}

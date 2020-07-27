@@ -149,11 +149,13 @@
                         }
                     }
                     &:hover{
-                        background-color: rgba($color: red, $alpha: .5);
+                        background-color: rgba($color: #1b1c25, $alpha: 1);
+                       
                     }
                 }
                 .active{
-                    background-color: rgba($color: red, $alpha: .5);
+                    background-color: rgba($color: #1b1c25, $alpha: 1);
+                               
                 }
                 .cate{
                     margin-top: 25px;
@@ -166,6 +168,7 @@
                         font-weight: bold;
                     }
                     ul{
+                        margin-top: 10px;
                         li{
                             padding: 12px 25px;
                             a{
@@ -175,11 +178,11 @@
                             }
 
                             &:hover{
-                                background-color: rgba($color: red, $alpha: .5);
+                                background-color: rgba($color: #1b1c25, $alpha: 1);
                             }
                         }
                         .active{
-                            background-color: rgba($color: red, $alpha: .5);
+                            background-color: rgba($color: #1b1c25, $alpha: 1);
                         }
                     }
                 }
@@ -198,7 +201,6 @@
                     margin: 40px 0;
                 }
                 .search-square{
-                    margin: 100px 0px;
                     input{
                         height: 45px;
                         border-radius: 999999px;
@@ -223,6 +225,23 @@
                         margin-top: 5px;
                         color: red;
                       
+                    }
+                }
+                .list-account{
+                    height: 200px;
+                    margin: 10px;
+                    overflow: auto;
+                    ul{
+                        background-color: #ddd;
+                        padding: 20px 40px;
+                        border-radius: 5px;
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+                        align-items: center;
+                        li{
+                            padding: 10px 2px;
+                        }
                     }
                 }
                 .result-square{
