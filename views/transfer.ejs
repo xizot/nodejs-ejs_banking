@@ -1,6 +1,30 @@
 <%- include ('header',{title:'Home - Transfer Money'}); %>
 
 <div class="transfer">
+    <div class="pop-up">
+        <div class="modal">
+            <form action="">
+                <div class="title">
+                    <h3 style="text-align: center;color: #333;">Xác Thực</h3>
+                    <i class="far fa-times-circle close"></i>
+                </div>
+                <div class="from-group">
+                    <label for="">Password</label>
+                    <input type="password" id="txtPassword">
+                </div>
+                <div class="from-group ">
+                    <label for="">Code</label>
+                    <div class="flex a-center j-between">
+                        <input type="text" id="txtCode">
+                        <button class="btn-sendCode">Send Code</button>
+                    </div>
+                </div>
+                <div class="form-action">
+                    <button class="btn btn-confirm">Confirm</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="navigation">
         <ul class="flex j-center a-center bg-main">
             <li class="active">
@@ -79,6 +103,50 @@
                     <script>
                         $(function () {
                             $('footer').css('display', 'none');
-
                         });
+
+                        $(document).on('click', '.btn-confirm', function (e) {
+                            e.preventDefault();
+                            alert($('#txtPassword').val())
+                            alert($('#txtCode').val())
+                        });
+                        $(document).on('click', '.pop-up', function (e) {
+                            $(this).fadeOut(500);
+                        });
+                        $(document).on('click', '.modal', function (e) {
+                            e.stopPropagation();
+                        });
+                        $(document).on('click', '.close', function (e) {
+                            $('.pop-up').fadeOut(500);
+                        });
+                        $(document).on('click', '.btn-sendCode', function (e) {
+                            e.preventDefault();
+                            const found = $(this).attr('class').split(' ')
+
+                            if (found.length != 1) {
+
+                            }
+                            else {
+                                alert('da gui');
+                                let i = 10;
+                                $(this).addClass('active');
+                                function setTime() {
+                                    i--;
+                                    $('.btn-sendCode').text(`Wait (${i})`)
+                                    if (i == 0) {
+                                        $('.btn-sendCode').removeClass('active');
+                                        clearTimeout();
+                                        $('.btn-sendCode').text(`Send Code`);
+                                    }
+                                    else {
+                                        setTimeout(() => {
+                                            setTime()
+                                        }, 1000)
+                                    }
+                                }
+                                setTime();
+                            }
+                        });
+
+
                     </script>

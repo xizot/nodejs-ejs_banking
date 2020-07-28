@@ -2412,6 +2412,66 @@ footer .top {
   color: blue;
 }
 
+.pop-up {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 999999999;
+  background-color: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.pop-up .modal .title {
+  position: relative;
+}
+
+.pop-up .modal .title .fa-times-circle {
+  position: absolute;
+  right: 0;
+  top: 0px;
+  font-size: 24px;
+  color: red;
+  cursor: pointer;
+}
+
+.pop-up .modal .from-group label {
+  display: block;
+  margin: 15px 0 5px;
+}
+
+.pop-up .modal .from-group input {
+  height: 35px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px 4px;
+  width: 100%;
+  outline: none;
+}
+
+.pop-up .modal .from-group div input {
+  width: calc(100% - 100px);
+}
+
+.pop-up .modal .from-group div button {
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+  background-color: black;
+  color: white;
+  width: 80px;
+  cursor: pointer;
+}
+
+.pop-up .modal .btn-confirm {
+  min-height: 35px;
+  height: 35px;
+  color: white;
+  width: 100%;
+  margin-top: 25px;
+}
+
 .transfer {
   background-color: #f1f5f6;
 }
