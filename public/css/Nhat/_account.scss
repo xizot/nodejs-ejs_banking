@@ -1,5 +1,5 @@
 .list-card{
-    background: linear-gradient(145deg, #30cb67, #29ab56);
+    background: white;
     padding: 10px ;
     &-item{
         padding: 10px;
@@ -9,6 +9,10 @@
             background: linear-gradient(145deg, #30cb67, #29ab56);
             box-shadow:  24px 24px 36px #1a6e38, 
             inset  -24px -24px 36px #40ff88;
+            transition: all .3s ease-in;
+            &:hover{
+                transform: translateY(-10px);
+            }
 
             .title{
                 font-weight: bold;

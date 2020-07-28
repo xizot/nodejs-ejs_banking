@@ -15,7 +15,6 @@ router.get('/:id', async (req, res) => {
     if (req.currentUser && req.currentUser.token && req.currentUser.permisstion == 0) return res.redirect('/active');
 
     const { id } = req.params;
-    // console.log(id);
     // thông tin chueyẻn khảon
     const htrTransfer = await Transfer.findAll(
         {

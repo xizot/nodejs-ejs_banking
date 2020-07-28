@@ -1,27 +1,27 @@
 const express = require('express');
 const router = express.Router();
 
-const io = require('socket.io-client');
-process.env.BASE_URL = "http://localhost:5000";
+// const io = require('socket.io-client');
+// process.env.BASE_URL = "http://localhost:5000";
+
+// if(req.currentUser){
+//     let socket = io("http://localhost:5000");
+
+//     console.log(req.currentUser);
+
+//     socket.on('connect', () => {
+//         // or with emit() and custom event names
+//           socket.emit('transfer', {id:"2132132"});
+//           socket.on('server-send-client',data=> {
+//             console.log(data);
+//         });
+//     });
+// }
 
 
 
 router.get('/', (req, res) => {
 
-
-    // if(req.currentUser){
-    //     let socket = io("http://localhost:5000");
-
-    //     console.log(req.currentUser);
-
-    //     socket.on('connect', () => {
-    //         // or with emit() and custom event names
-    //           socket.emit('transfer', {id:"2132132"});
-    //           socket.on('server-send-client',data=> {
-    //             console.log(data);
-    //         });
-    //     });
-    // }
 
 
     if (req.currentUser && req.currentUser.forgotCode) {

@@ -107,15 +107,15 @@
         .cards{
             .list-card{
                 background:transparent;
-                margin-left: -40px;
-                margin-right: -40px;
+                margin-left: -10px;
+                margin-right: -10px;
                 &-item{
-                    padding: 10px 40px;
+                    padding: 10px;
                     .card{
                         cursor: pointer;
-                        transition: all .3s ease-in-out;
+                        transition: all .3s ease-in-out;                  
                         .title{
-                            margin: 20px 0;
+                            margin:20px 0;
                         }
                         &:hover{
                           transform: translateY(-10px);

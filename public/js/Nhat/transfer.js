@@ -1,5 +1,5 @@
 
-// var socket = io("http://localhost:5000");
+var socket = io("http://localhost:5000");
 
 const addError = content => {
     $(`
@@ -66,11 +66,13 @@ $(function () {
                             addError('Số tài khoản thụ hưởng hoặc ngân hàng không hợp lệ');
                         }
                         if (data == '1') {
+
                             const activity = {
                                 stk,
                                 money,
                                 currencyUnit
                             }
+                            socket.emit('transfer', activity)
                             localStorage.setItem('activityTransfer', JSON.stringify(activity));
                             $(location).attr('href', '/transfer-success');
                         }

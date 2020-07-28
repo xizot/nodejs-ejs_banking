@@ -31,6 +31,36 @@
                     }
 
                 }
+                .available{
+                    margin-top: 40px;
+                    background-color: rgba(45, 190, 96, 0.5);
+                    padding: 40px 0px;
+                    text-align: center;
+                    i{
+                        display: block;
+                        font-size: 40px;
+                        color: #f1f5f6;
+                    }
+                    h3{
+                        margin: 20px 0;
+                        font-size: 26px;
+                        text-align: center;
+                        color:#1e1d1c;
+                    }
+                    label{
+                        color:#f1f5f6;
+                        font-size: 20px;
+
+                    }
+                    .money{
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        width: 100%;
+                        /* width: 98%; */
+                        padding: 0 10px;
+                    }
+                }
             }
             .my-account-content{
                 // padding:25px 40px;
