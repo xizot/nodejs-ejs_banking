@@ -13,7 +13,6 @@ router.get('/', async (req, res) => {
     if (req.currentUser && req.currentUser.token && req.currentUser.permisstion == 0) return res.redirect('/active');
 
     info = await AccountInfo.getByUserID(req.currentUser.id);
-    console.log(info);
     return res.render('info', { info });
 })
 

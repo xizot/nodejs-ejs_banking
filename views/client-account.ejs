@@ -20,6 +20,13 @@
                     <a href="/history">History</a>
                 </li>
             </ul>
+            <div class="available">
+                <i class="fas fa-credit-card"></i>
+                <h3 class="money">
+                    <span>$</span> <span class="money-avail">0</span>
+                </h3>
+                <label>Available Balance</label>
+            </div>
         </div>
         <div class="col-xs-10 my-account-content">
             <h3 class="title">
@@ -120,9 +127,18 @@
 </div>
 <%- include ('footer'); %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/Nhat/myaccount.js"></script>
 <script>
 
     $(function () {
+        $.get("/api/get-account-default",
+            function (data, textStatus, jqXHR) {
+                if (data) {
+                    $('.money-avail').text(data.balance);
+                }
+            },
+        );
         $.get("api/account/infor",
             function (data, textStatus, jqXHR) {
                 $('.list-card').empty()
@@ -168,7 +184,14 @@
         $.post("/api/set-default", { stk: stk, userID: userID },
             function (data, textStatus, jqXHR) {
                 if (data) {
-                    alert('Chuyển tài khoản thanh toán mặc định thành công')
+                    alert('Chuyển tài khoản thanh toán mặc định thành công');
+                    $.get("/api/get-account-default",
+                        function (data, textStatus, jqXHR) {
+                            if (data) {
+                                $('.money-avail').text(data.balance);
+                            }
+                        },
+                    );
                 }
             },
         );

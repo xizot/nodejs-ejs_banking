@@ -2799,6 +2799,40 @@ footer .top {
   color: #2dbe60;
 }
 
+.my-account .my-account__content .option .available {
+  margin-top: 40px;
+  background-color: rgba(45, 190, 96, 0.5);
+  padding: 40px 0px;
+  text-align: center;
+}
+
+.my-account .my-account__content .option .available i {
+  display: block;
+  font-size: 40px;
+  color: #f1f5f6;
+}
+
+.my-account .my-account__content .option .available h3 {
+  margin: 20px 0;
+  font-size: 26px;
+  text-align: center;
+  color: #1e1d1c;
+}
+
+.my-account .my-account__content .option .available label {
+  color: #f1f5f6;
+  font-size: 20px;
+}
+
+.my-account .my-account__content .option .available .money {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  /* width: 98%; */
+  padding: 0 10px;
+}
+
 .my-account .my-account__content .my-account-content {
   min-height: calc(100vh - 85px);
   padding: 0;
@@ -3276,7 +3310,7 @@ footer .top {
 }
 
 .list-card {
-  background: linear-gradient(145deg, #30cb67, #29ab56);
+  background: white;
   padding: 10px;
 }
 
@@ -3290,6 +3324,13 @@ footer .top {
   background: linear-gradient(145deg, #30cb67, #29ab56);
   -webkit-box-shadow: 24px 24px 36px #1a6e38,  inset  -24px -24px 36px #40ff88;
           box-shadow: 24px 24px 36px #1a6e38,  inset  -24px -24px 36px #40ff88;
+  -webkit-transition: all .3s ease-in;
+  transition: all .3s ease-in;
+}
+
+.list-card-item .card:hover {
+  -webkit-transform: translateY(-10px);
+          transform: translateY(-10px);
 }
 
 .list-card-item .card .title {
@@ -3649,12 +3690,12 @@ footer .top {
 
 .rs .staff-search-rs .cards .list-card {
   background: transparent;
-  margin-left: -40px;
-  margin-right: -40px;
+  margin-left: -10px;
+  margin-right: -10px;
 }
 
 .rs .staff-search-rs .cards .list-card-item {
-  padding: 10px 40px;
+  padding: 10px;
 }
 
 .rs .staff-search-rs .cards .list-card-item .card {

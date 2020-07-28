@@ -30,7 +30,6 @@ router.get('/', async (req, res) => {
         }
 
     }
-    console.log(data);
     return res.render('request', { found, data, id, content });
 })
 
@@ -85,7 +84,6 @@ router.get('/accept-request/:id', async (req, res) => {
             }
         }
         if (found2.type == 2) {
-            console.log("=====================================================================");
             const user = await User.findByPk(found2.userID);
             msg = `Mở tài khoản ngân hàng cho id ${found2.userID}`;
             if (user)

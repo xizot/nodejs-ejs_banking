@@ -39,7 +39,6 @@ router.post('/account/addMoney', async (req, res) => {
 
         const accountInfo = await AccountInfo.getByUserID(req.currentUser.id);
 
-        console.log(accountInfo);
         if (!accountInfo) {
             return res.end('-3'); // chuưa cập nhật tài khoản
         }
@@ -339,8 +338,6 @@ router.get('/account/infor', async (req, res) => {
 router.post('/set-default', async (req, res) => {
     const { stk, userID } = req.body;
 
-    console.log(stk, userID);
-
     await AccountInfo.update({
         isDefault: false
     }, {
@@ -360,6 +357,13 @@ router.post('/set-default', async (req, res) => {
 
     return res.json(rs)
 
+})
+
+
+router.get('/get-account-default', async (req, res) => {
+    if (!req.currentUser.id) return res.json(null);
+    const found = await AccountInfo.getByUserID(req.currentUser.id);
+    return res.json(found);
 })
 
 router.get('/get-all', async (req, res) => {
