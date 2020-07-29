@@ -34,7 +34,7 @@ class Transfer extends Model {
 
             },
             limit,
-            offset: (1 - page) * limit,
+            offset: (page - 1) * limit,
             order: [['createdAt', 'DESC']]
         })
 
@@ -49,6 +49,34 @@ class Transfer extends Model {
             }
         })
         return (rs);
+    }
+    static async countActivity(stk, fromDate, toDate) {
+        const count = await this.count({
+            where: {
+                [Op.or]: [
+                    {
+                        from: stk
+                    },
+                    {
+                        to: stk
+                    }
+                ],
+                createdAt: {
+                    [Op.and]: [
+                        {
+                            [Op.gte]: fromDate
+                        },
+                        {
+                            [Op.lte]: toDate
+                        }
+                    ]
+
+                }
+            },
+
+        })
+        return (Math.floor(count / 7) + (count % 7 > 0 ? 1 : 0));
+
     }
 
     static async addNew(fromUser, toUser, fromSTK, toSTK, amount, message, currencyUnit, bankCode) {

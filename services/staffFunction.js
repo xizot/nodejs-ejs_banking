@@ -7,7 +7,8 @@
 
 const User = require('./user');
 const AccountInfo = require('./accountInfo');
-const Activity = require('./staffActivityLog')
+const Activity = require('./staffActivityLog');
+const Transfer = require('./transfer');
 
 const findInfoOffCustomer = async key => {
 
@@ -29,5 +30,8 @@ const countActivityStaff = async (staffID) => {
 
     return (Math.floor(count / 10) + (count % 10 > 0 ? 1 : 0));
 }
+
+
+
 
 module.exports = { findInfoOffCustomer, findActivityStaff, countActivityStaff }
