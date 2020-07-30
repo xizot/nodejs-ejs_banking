@@ -4,6 +4,7 @@ const Model = Sequelize.Model;
 const Op = Sequelize.Op;
 
 const Notification = require('./notification');
+const AccountInfo = require('./accountInfo');
 
 class Transfer extends Model {
 
@@ -110,7 +111,7 @@ class Transfer extends Model {
         });
     }
 
-    static async addNewInExternal(fromSTK, toSTK, amount, message, currencyUnit, bankCode) {
+    static async addNewInExternal(fromSTK, toSTK, amount, message, currencyUnit, bankCode, fromUser, toUser) {
         const newTf = {
             from: fromSTK,
             to: toSTK,
@@ -119,9 +120,8 @@ class Transfer extends Model {
             currencyUnit,
             bankCode,
         }
-        return this.create(newTf).then(value => {
-            Notification.addNotifyForTransfer(fromSTK, toSTK);
-            Notification.addNotifyForReceive(fromSTK, toSTK);
+        return this.create(newTf).then(async value => {
+            await Notification.addNotifyForTransfer(fromSTK, toSTK, fromUser, toUser);
 
             return value;
         });

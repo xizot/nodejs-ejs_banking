@@ -3,7 +3,8 @@ const router = express.Router();
 const AccountInfo = require('../services/accountInfo');
 const Transfer = require('../services/transfer');
 const User = require('../services/user');
-const StaffActivityLog = require('../services/staffActivityLog')
+const StaffActivityLog = require('../services/staffActivityLog');
+const Notifications = require('../services/notification');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const { sendMail } = require('../services/function');
@@ -45,16 +46,17 @@ router.post('/account/addMoney', async (req, res) => {
     }
     if (stk && bankCode) {
 
-        const dup = await AccountInfo.getByUserID(req.currentUser.id);
+        if (from != "ADMIN") {
+            const dup = await AccountInfo.getByUserID(req.currentUser.id);
 
-        if (dup && dup.STK == stk) {
-            return res.end('-1')
+            if (dup && dup.STK == stk) {
+                return res.end('-1')
+            }
         }
-
         const found = await AccountInfo.getBySTKAndBankCode(stk, bankCode);
         if (found) {
 
-            await AccountInfo.addMoneyInternal(from, stk, money, message, currencyUnit, bankCode)
+            await AccountInfo.addMoneyInternal(from, stk, money, message, currencyUnit, bankCode, req.currentUser.id)
             // lấy thông tin người nhận
             const ToInfo = await User.findByPk(found.userID);
             if (ToInfo) {
@@ -393,5 +395,58 @@ router.get('/sendcode-verification', async (req, res) => {
     const code = crypto.randomBytes(3).toString('hex').toUpperCase();
     sendMail(req.currentUser.email, 'Mã xác thực', code, code);
     return res.json(code);
+})
+
+
+
+// [NOTIFICATION]
+
+router.get('/notification', async (req, res) => {
+    if (!req.currentUser) return res.json(null); // chua dang nhap
+    const userID = req.currentUser.id;
+    const found = await Notifications.getNotification(userID);
+    console.log(found);
+
+    let rs = [];
+    if (found.length > 0) {
+        found.map(item => {
+            if (item.type == 1 && item.toUser == userID) {
+                rs.push({
+                    id: item.id,
+                    type: item.type,
+                    msg: `Tài khoản ${item.to} của bạn vừa nhận được tiền từ ${item.from}`,
+                    seen: item.seen
+                })
+            } else if (item.type == 1 && item.fromUser == userID) {
+                rs.push({
+                    id: item.id,
+                    type: item.type,
+                    msg: `Bạn đã chuyển tiền cho ${item.to}`,
+                    seen: item.seen
+                })
+            }
+        })
+    }
+    return res.json(rs);
+})
+
+router.get('/count-notification', async (req, res) => {
+    if (!req.currentUser) return res.json(null); // chua dang nhap
+    const userID = req.currentUser.id;
+    const count = await Notifications.countNotification(userID);
+
+    if (!count) return res.json(0);
+
+    return res.json(count);
+})
+
+
+router.post('/seen-notification', async (req, res) => {
+
+    if (!req.currentUser) return res.json(null);
+
+    const { id } = req.body;
+    Notifications.seenNotification(id, req.currentUser.id);
+    return res.json(1);
 })
 module.exports = router;

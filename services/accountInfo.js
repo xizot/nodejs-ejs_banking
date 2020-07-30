@@ -6,21 +6,6 @@ const Transfer = require('./transfer');
 const Notification = require('./notification');
 const StaffActivity = require('./staffActivityLog');
 const ExchangeRate = require('./exchangeRate');
-// const users = [
-//     {
-//         id: '1',
-//         email: '1760131',
-//         password: '$2b$10$SDLblW5wg5PqJAqq.vR.s.0aCJfHMwkjGc.o4MLnzeE2N3TlEGGDW',
-//         displayName: 'Nguyen Van Nhat'
-//     },
-//     {
-//         id: '1',
-//         email: '1760057',
-//         password: '$2b$10$sTrBCRx1QYd857GcTz.3supgeGZPIei1d2GinrSIQUGv05q.eTvfS',
-//         displayName: 'Minh Hau Pham Thi'
-//     },
-
-// ]
 
 class AccountInfo extends Model {
 
@@ -35,7 +20,7 @@ class AccountInfo extends Model {
     }
 
     static async getBySTK(stk) {
-        return this.findAll({
+        return this.findOne({
             where: {
                 STK: stk,
             }
@@ -136,11 +121,8 @@ class AccountInfo extends Model {
 
 
     // Hàm này để chuyển tiền cùng ngân hàng
-    static async addMoneyInternal(from, to, amount, message, currencyUnit, bankCode) {
+    static async addMoneyInternal(from, to, amount, message, currencyUnit, bankCode, fromUser) {
         let money = amount;
-
-
-
         if (currencyUnit == "VND") {
             const rate = await ExchangeRate.findOne({
                 where: {
@@ -158,7 +140,7 @@ class AccountInfo extends Model {
 
         let foundFrom = null;
         if (from != "ADMIN") {
-            foundFrom = await AccountInfo.getBySTKOne(from);
+            foundFrom = await this.getBySTKOne(from);
             if (!foundFrom) return 4;
             if (Number(foundFrom.balance) < Number(money)) return 7;
             await foundFrom.save();
@@ -180,7 +162,7 @@ class AccountInfo extends Model {
         foundTo.save();
 
 
-        Transfer.addNewInExternal(from, to, amount, message, currencyUnit, bankCode);
+        Transfer.addNewInExternal(from, to, amount, message, currencyUnit, bankCode, fromUser, foundTo.userID);
 
         return 0;
     }

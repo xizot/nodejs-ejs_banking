@@ -15,8 +15,9 @@ class Notification extends Model {
 
     // tìm thông báo báo cho user
 
+
     // hàm này để thêm block/delete 1 user
-    static async addPrevent(fromUser,toUser, type){
+    static async addPrevent(fromUser, toUser, type) {
         return this.create({
             fromUser,
             toUser,
@@ -26,49 +27,72 @@ class Notification extends Model {
     }
 
     // hàm này để thêm 1 thông báo chuyển tiển
-    static async addNotifyForTransfer(from,to){
+    static async addNotifyForTransfer(from, to, fromUserID, toUserID) {
         return this.create({
             from,
             to,
-            type:1,
+            fromUser: fromUserID,
+            toUser: toUserID,
+            type: 1,
         }).then(value => value);
     }
 
-    static async addNotifyForReceive(from,to){
-
+    static async addNotifyForReceive(from, to, fromUserID, toUserID) {
         return this.create({
             from,
             to,
-            type:2,
+            fromUser: fromUserID,
+            toUser: toUserID,
+            type: 2,
         }).then(value => value);
     }
 
     // hàm này để thêm 1 thông báo chuyển tiển khi staff thêm cho user
-    static async addNotifyForStaffRecharge(from,to){
+    static async addNotifyForStaffRecharge(from, to) {
         return this.create({
             from,
             to,
-            type:5,
+            type: 5,
         }).then(value => value);
     }
 
-     // hàm này để lấy thông báo cho 1 user
-    static async getNotification(find){
-            return this.findAll({
-                where:{
-                    [Op.or]:[
-                        {
-                            from:find
-                        },
-                        {
-                            to: find
-                        }
-                    ]
-                },
-                order:[
-                    ['date','DESC']
+    // hàm này để lấy thông báo cho 1 user
+    static async getNotification(find) {
+        return this.findAll({
+            where: {
+                [Op.or]: [
+                    {
+                        fromUser: find
+                    },
+                    {
+                        toUser: find
+                    }
                 ]
-            })
+            },
+            order: [
+                ['date', 'DESC']
+            ]
+        })
+    }
+
+    // Lấy số lượng thông báo chưa đọc
+    static async countNotification(find) {
+        return this.count({
+            where: {
+                [Op.or]: [
+                    {
+                        fromUser: find
+                    },
+                    {
+                        toUser: find
+                    }
+                ],
+                seen: 0,
+            },
+            order: [
+                ['date', 'DESC']
+            ]
+        })
     }
 
     // // hàm này để lấy thông báo cho nhân viên
@@ -83,17 +107,43 @@ class Notification extends Model {
     //     })
     // }
 
-    // hhàm này để seen 1 thông báo
-    static async seenNotification(id){
-        const found = await this.findByPk({
-            where:{
-                id,
-            }
-        })
 
-        if(found){
-            found.seen = true;
-            return found.save();
+    // Người gửi đã xem seen: 2
+    // Người nhận đã xem seen: 3
+    // cả 2 đã xem: seen 1
+    // chưa ai xem seen: 0
+
+    // hhàm này để seen 1 thông báo
+    static async seenNotification(id, userID) {
+        const found = await Notification.findByPk(id)
+
+
+        if (found) {
+
+            if (found.fromUser == "ADMIN") {
+                found.seen = 1;
+                return found.save();
+            }
+            if (found.fromUser == userID) {
+                if (found.seen == 0) {
+                    found.seen = 2;
+                }
+                else {
+                    found.seen = 1;
+                }
+                return found.save();
+            }
+
+            if (found.toUser == userID) {
+
+                if (found.seen == 0) {
+                    found.seen = 3;
+                }
+                else {
+                    found.seen = 1;
+                }
+                return found.save();
+            }
         }
 
         return null;
@@ -103,11 +153,17 @@ class Notification extends Model {
 
 Notification.init({
     //attributes
-    from: { 
+    from: {
         type: Sequelize.STRING,
     },
-    to: { 
+    to: {
         type: Sequelize.STRING,
+    },
+    fromUser: {
+        type: Sequelize.INTEGER,
+    },
+    toUser: {
+        type: Sequelize.INTEGER,
     },
     type: {
         type: Sequelize.INTEGER,
@@ -118,9 +174,9 @@ Notification.init({
         allowNull: false,
         defaultValue: Sequelize.NOW(),
     },
-    seen:{
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+    seen: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
     }
 }, {
     sequelize: db,
