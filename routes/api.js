@@ -43,14 +43,17 @@ router.post('/account/addMoney', async (req, res) => {
             return res.end('-3'); // chuưa cập nhật tài khoản
         }
     }
-
-
     if (stk && bankCode) {
+
+        const dup = await AccountInfo.getByUserID(req.currentUser.id);
+
+        if (dup && dup.STK == stk) {
+            return res.end('-1')
+        }
+
         const found = await AccountInfo.getBySTKAndBankCode(stk, bankCode);
         if (found) {
-            // if (found.userID == req.currentUser.id) {
-            //     return res.end('-1'); // lỗi gửi tiền cho chính mình
-            // }
+
             await AccountInfo.addMoneyInternal(from, stk, money, message, currencyUnit, bankCode)
             // lấy thông tin người nhận
             const ToInfo = await User.findByPk(found.userID);
@@ -220,15 +223,23 @@ router.post('/transfer/activity', async (req, res) => {
     const page = req.body.page || 1;
     const limit = 7;
 
+
     const foundAccount = await AccountInfo.getByUserID(userID);
     if (!foundAccount) return res.json(2) // chuaw set mac dinh hoac chua co tai khoan
 
-    //Date có dạng: MM/dd/yyyy
     const found = await Transfer.getActivityByDate(foundAccount.STK, page, limit, fromDate, toDate);
     if (!found) return res.json(null);
     return res.json(found);
 })
+router.post('/transfer-count-activity', async (req, res) => {
+    if (!req.currentUser) return res.json(0);
 
+    const { fromDate, toDate } = req.body;
+    const foundAccount = await AccountInfo.getByUserID(req.currentUser.id);
+    if (!foundAccount) return res.json(2) // chuaw set mac dinh hoac chua co tai khoan
+    const count = await Transfer.countActivity(foundAccount.STK, fromDate, toDate);
+    return res.json(count);
+})
 // Liên ngân hàng {TRANSFER}
 router.post('/checkaccountid', async (req, res) => {
     // null: không tồn tại tài khoản đó
@@ -334,7 +345,6 @@ router.get('/account/infor', async (req, res) => {
 
     return res.json(found);
 })
-
 router.post('/set-default', async (req, res) => {
     const { stk, userID } = req.body;
 
@@ -358,18 +368,30 @@ router.post('/set-default', async (req, res) => {
     return res.json(rs)
 
 })
-
-
 router.get('/get-account-default', async (req, res) => {
     if (!req.currentUser.id) return res.json(null);
     const found = await AccountInfo.getByUserID(req.currentUser.id);
     return res.json(found);
 })
-
 router.get('/get-all', async (req, res) => {
-
     const found = await AccountInfo.findAll();
     return res.json(found)
+})
 
+//security
+router.post('/two-step-verification', async (req, res) => {
+    const { password } = req.body;
+    const found = await User.findByPk(req.currentUser.id);
+    if (await User.verifyPassword(password, found.password)) {
+        return res.json(1);
+    }
+    return res.json(null)
+})
+
+router.get('/sendcode-verification', async (req, res) => {
+
+    const code = crypto.randomBytes(3).toString('hex').toUpperCase();
+    sendMail(req.currentUser.email, 'Mã xác thực', code, code);
+    return res.json(code);
 })
 module.exports = router;

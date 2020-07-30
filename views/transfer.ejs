@@ -1,7 +1,7 @@
 <%- include ('header',{title:'Home - Transfer Money'}); %>
 
 <div class="transfer">
-    <div class="pop-up">
+    <div class="pop-up" style="display: none;">
         <div class="modal">
             <form action="">
                 <div class="title">
@@ -107,8 +107,101 @@
 
                         $(document).on('click', '.btn-confirm', function (e) {
                             e.preventDefault();
-                            alert($('#txtPassword').val())
-                            alert($('#txtCode').val())
+                            $('.error').remove()
+                            const password = $('#txtPassword').val()
+                            const code = $('#txtCode').val()
+                            if (!password || !code) {
+                                $(`<p class="error" style="color:red;font-size:14px; margin-top: 10px">* Vui lòng điền đầy đủ thông tin</p>`).appendTo(`.modal form`);
+                            }
+                            else {
+                                $.post("api/two-step-verification", { password },
+                                    function (data, textStatus, jqXHR) {
+                                        if (!data) {
+                                            $(`<p class="error" style="color:red;font-size:14px; margin-top: 10px">* Mật khẩu không hợp lệ</p>`).appendTo(`.modal form`);
+                                        }
+                                        else {
+                                            if (code != localStorage.code) {
+                                                $(`<p class="error" style="color:red;font-size:14px; margin-top: 10px">* Code không hợp lệ</p>`).appendTo(`.modal form`);
+                                            }
+                                            else {
+                                                localStorage.removeItem('code');
+                                                const money = $('#txtMoney').val();
+                                                const currencyUnit = $('#currencyUnit').val();
+                                                const bankCode = $('#bankCode').val();
+                                                const stk = $('#txtCardNumber').val();
+                                                const message = $('#txtMessage').val();
+
+                                                if (!money || !currencyUnit || !bankCode || !stk || !message) {
+                                                    alert('Vui lòng điền đầy đủ thông tin');
+                                                    return;
+                                                }
+
+                                                let tmp = money;
+                                                if (currencyUnit == "VND") {
+                                                    tmp = Number(money) / 23000;
+                                                }
+                                                $('.error').remove();
+                                                if (!Number(money) || Number(money) <= 0) {
+                                                    addError('Vui lòng nhập số tiền hợp lệ');
+                                                    return;
+                                                }
+
+                                                $.get("api/account/info", function (data, textStatus, jqXHR) {
+
+                                                    if (!data) {
+                                                        addError('Bạn chưa có chưa có tài khoản ngân hàng <a href="/">Thêm tài khoản</a>');
+                                                    }
+                                                    // else if (data.isActive == 0) {
+                                                    //     addError('Tài khoản ngân hàng của bạn đã bị khóa');
+                                                    // }
+                                                    else if (Number(data.balance) < Number(tmp)) {
+                                                        addError('Số dư tài khoản không đủ');
+                                                    }
+                                                    else {
+                                                        const from = data.STK;
+                                                        $.post("api/account/addMoney", {
+                                                            money: money,
+                                                            currencyUnit: currencyUnit,
+                                                            bankCode: bankCode,
+                                                            stk: stk,
+                                                            message: message,
+                                                            from,
+                                                        },
+                                                            function (data, textStatus, jqXHR) {
+                                                                if (data == '-1') {
+                                                                    addError('Không thể gửi tiền cho chính mình');
+                                                                }
+                                                                if (data == '-2') {
+                                                                    addError('Lỗi không xác định');
+                                                                }
+                                                                if (data == '0') {
+                                                                    addError('Số tài khoản thụ hưởng hoặc ngân hàng không hợp lệ');
+                                                                }
+                                                                if (data == '1') {
+
+                                                                    const activity = {
+                                                                        stk,
+                                                                        money,
+                                                                        currencyUnit
+                                                                    }
+                                                                    socket.emit('transfer', activity)
+                                                                    localStorage.setItem('activityTransfer', JSON.stringify(activity));
+                                                                    $(location).attr('href', '/transfer-success');
+                                                                }
+                                                            },
+                                                        );
+                                                        // console.log('Số dư tài khoản đủ');
+                                                    }
+                                                    return;
+                                                },
+                                                );
+
+                                            }
+                                        }
+                                    },
+                                );
+                            }
+
                         });
                         $(document).on('click', '.pop-up', function (e) {
                             $(this).fadeOut(500);
@@ -127,7 +220,13 @@
 
                             }
                             else {
-                                alert('da gui');
+                                $.get("api/sendcode-verification",
+                                    function (data, textStatus, jqXHR) {
+                                        if (data) {
+                                            localStorage.setItem("code", data);
+                                        }
+                                    },
+                                );
                                 let i = 10;
                                 $(this).addClass('active');
                                 function setTime() {

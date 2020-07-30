@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="history">
+                <div class="history" style="position: relative; padding-bottom: 50px;height: 470px">
                     <div class="row title">
                         <div class="col-xs-1 t-center">Date</div>
                         <div class="col-xs-8">Description</div>
@@ -64,6 +64,13 @@
                     </div>
                     <div class="history-item">
 
+                    </div>
+                    <div class="pagination " style="bottom: 0;">
+                        <ul class="flex j-center a-center pag-list">
+                            <li class="pag-num  active" value="1">
+                                1
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
@@ -78,6 +85,74 @@
 
 <script>
     $(function () {
+
+
+        const frmDate = $('#date-from').val();
+        const tDate = $('#date-to').val();
+        $.post("/api/transfer-count-activity", { fromDate: frmDate, toDate: tDate },
+            function (data, textStatus, jqXHR) {
+                if (data) {
+                    $('.pag-list').empty();
+                    if (data) {
+                        for (let i = 0; i < data; i++) {
+                            $(` <li class="pag-num ${i == 0 ? " active" : ""}" value="${i + 1}">
+                                ${i + 1}
+                                </li>`).appendTo('.pag-list')
+                        }
+                    }
+
+                }
+            },
+        );
+
+        $(document).on('click', '.pag-num', function (e) {
+            $('.pag-num').removeClass('active');
+            $(this).addClass('active');
+            const page = $(this).attr('value')
+
+
+            const fromDate = $('#date-from').val();
+            const toDate = $('#date-to').val();
+
+            $.post("/api/transfer/activity", { fromDate: fromDate, toDate: toDate, page: page },
+                function (data, textStatus, jqXHR) {
+                    $('.history-item').empty();
+                    if (data.length > 0) {
+                        data.forEach(element => {
+                            $(` <div class="transaction-item row">
+                            <div class="col-xs-1 date t-center">${element.date}</div>
+                            <div class="col-xs-8 des">${element.des}</div>
+                            <div class="col-xs-1 status t-center"><i class="fas fa-check-circle"></i></div>
+                            <div class="col-xs-2 amount t-center">${element.amount} ${element.currencyUnit}</div>
+                        </div>`).appendTo(`.history-item`);
+                        });
+                    }
+                },
+            );
+
+
+
+
+
+        })
+
+
+        $.post("/api/transfer/activity", { fromDate: frmDate, toDate: tDate },
+            function (data, textStatus, jqXHR) {
+                $('.history-item').empty();
+                if (data.length > 0) {
+                    data.forEach(element => {
+                        $(` <div class="transaction-item row">
+                            <div class="col-xs-1 date t-center">${element.date}</div>
+                            <div class="col-xs-8 des">${element.des}</div>
+                            <div class="col-xs-1 status t-center"><i class="fas fa-check-circle"></i></div>
+                            <div class="col-xs-2 amount t-center">${element.amount} ${element.currencyUnit}</div>
+                        </div>`).appendTo(`.history-item`);
+                    });
+                }
+            },
+        );
+
         $.get("/api/get-account-default",
             function (data, textStatus, jqXHR) {
                 if (data) {
@@ -103,11 +178,26 @@
         $('.btn-filter').click(function (e) {
             const fromDate = $('#date-from').val();
             const toDate = $('#date-to').val();
-            console.log(fromDate);
-            console.log(toDate);
+
+            $.post("/api/transfer-count-activity", { fromDate: fromDate, toDate: toDate },
+                function (data, textStatus, jqXHR) {
+                    $('.pag-list').empty();
+                    if (data) {
+                        if (data) {
+                            for (let i = 0; i < data; i++) {
+                                $(` <li class="pag-num ${i == 0 ? " active" : ""}" value="${i + 1}">
+                                ${i + 1}
+                                </li>`).appendTo('.pag-list')
+                            }
+                        }
+                    }
+
+                },
+            );
+
+
             $.post("/api/transfer/activity", { fromDate: fromDate, toDate: toDate },
                 function (data, textStatus, jqXHR) {
-                    console.log(data);
                     $('.history-item').empty();
                     if (data.length > 0) {
                         data.forEach(element => {

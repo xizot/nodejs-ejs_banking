@@ -3324,7 +3324,7 @@ footer .top {
   position: relative;
 }
 
-.activity .pagination {
+.pagination {
   position: absolute;
   left: 50%;
   bottom: 20px;
@@ -3332,7 +3332,7 @@ footer .top {
           transform: translateX(-50%);
 }
 
-.activity .pagination ul li {
+.pagination ul li {
   height: 40px;
   width: 40px;
   background-color: white;
@@ -3348,12 +3348,12 @@ footer .top {
   transition: all .6s;
 }
 
-.activity .pagination ul li:hover {
+.pagination ul li:hover {
   background-color: #2dbe60;
   color: white;
 }
 
-.activity .pagination ul .active {
+.pagination ul .active {
   background-color: #2dbe60;
   color: white;
 }
