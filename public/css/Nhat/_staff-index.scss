@@ -349,21 +349,23 @@
                         justify-content: center;
                         &_item{
                             margin: 10px 0;
-                            text-align: center;
-                            
+                            .btn-add-money{
+                                width: 350px;
+                                margin: 0;
+                            }
                             label{
                                
                                 font-size: 14px;
                                 color: #333;
-
+                                margin-bottom: 5px;
                                 @include rs-xs{
                                     display: block;
-                                    margin-bottom: 5px;
+                                    
                                 }
                                 @include rs-md{
                                     display: inline-block;
                                     width: 120px;
-                                    margin-bottom: 0;
+                                   
                                 }
                             }
                             input{
