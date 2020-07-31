@@ -1,0 +1,93 @@
+<%- include('./../staff-structure/header')%>
+<div class="user">
+    <div class="navs-bar">
+        <div>
+            <a href="/">Home / </a>
+            <span>
+                User
+            </span>
+        </div>
+    </div>
+    <div class="user-content user-item-content">
+        <h3 class="title" style="text-align: left;border-bottom: 1px solid #ddd;padding-bottom: 20px;">USER
+        </h3>
+        <div class="table user-item">
+            <div class="table-gutter">
+                <div class="table-item row  a-center">
+                    <div class=" col-xs-2  ">USER ID</div>
+                    <div class=" col-xs-10 " id="userID">1</div>
+                </div>
+                <div class="table-item row  a-center">
+                    <div class=" col-xs-2  ">FULL NAME</div>
+                    <div class=" col-xs-10 " id="fullName">Nguyen Van Nhat</div>
+                </div>
+                <div class="table-item row  a-center">
+                    <div class=" col-xs-2  ">DATE OF BIRTH</div>
+                    <div class=" col-xs-10" id="dob">2020-18-08</div>
+                </div>
+                <div class="table-item row  a-center">
+                    <div class=" col-xs-2 " id="email">EMAIL</div>
+                    <div class=" col-xs-10 ">1</div>
+                </div>
+                <div class="table-item row  a-center">
+                    <div class=" col-xs-2  ">ADDRESS</div>
+                    <div class=" col-xs-10 " id="address">1</div>
+                </div>
+                <div class="table-item row  a-center">
+                    <div class=" col-xs-2  ">PHONE NUMBER</div>
+                    <div class=" col-xs-10 " id="phoneNumber">0859800980</div>
+                </div>
+                <div class="table-item row  a-center">
+                    <div class=" col-xs-2  ">IMAGE</div>
+                    <div class=" col-xs-10 " id="user-img">
+                        <img src="./src/img/b2.jpg" alt=""
+                            style="height: 38px; width: 50px;margin-top: 2px; cursor: pointer;">
+                    </div>
+                </div>
+                <div class="table-item row  a-center">
+                    <div class=" col-xs-2  ">CARD NUMBER</div>
+                    <div class=" col-xs-10 " id="phoneNumber">100012345678</div>
+                </div>
+
+                <div class="table-item row  a-center">
+                    <div class=" col-xs-2  ">VERIFY</div>
+                    <div class=" col-xs-10 flex a-center" id="Verify">
+                        <span>
+                            Verify
+                        </span>
+                        <button class="btn btn-user-item" style="background-color: #1999ff;">
+                            UnVerify
+                        </button>
+                    </div>
+                </div>
+                <div class="table-item row  a-center">
+                    <div class=" col-xs-2  ">BLOCK</div>
+                    <div class=" col-xs-10 flex a-center" id="Verify">
+                        <span>
+                            Block
+                        </span>
+                        <button class="btn btn-user-item" style="background-color: #dc3545;">
+                            UnBlock
+                        </button>
+                    </div>
+                </div>
+                <div class="table-item row  a-center">
+                    <div class=" col-xs-2  ">DATE CREATED</div>
+                    <div class=" col-xs-10 " id="phoneNumber">20/10/2002</div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row j-between" style="margin: 10px 0;">
+            <button class="btn btn-user-item" style="background-color: #dc3545;">
+                Delete
+            </button>
+            <a href="/user?id=1&edit=true">
+                <button class="btn btn-user-item" style="background-color: #1999ff;">
+                    Edit
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<%- include('./../staff-structure/footer')%>

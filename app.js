@@ -71,6 +71,8 @@ app.use('/user-request', require('./routes/user/request'))
 app.use('/create-credit-card', require('./routes/createCreditCard'));
 app.use('/create-saving-card', require('./routes/createSavingCard'));
 app.use('/contact', require('./routes/contact'));
+// STAFF HERE
+app.use('/user', require('./routes/staff/user'));
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',
@@ -88,6 +90,9 @@ app.get('/auth/google/callback',
         // Successful authentication, redirect home.
         res.redirect('/');
     });
+
+
+
 const users = [];
 
 

@@ -1,0 +1,34 @@
+</div>
+</main>
+</div>
+
+
+</body>
+
+</html>
+<script src="./vendor/jquery.min.js"></script>
+<script>
+    $(window).on('load', () => {
+        $('.loading').fadeOut(200);
+    })
+    $(function () {
+        if (window.location.pathname == "/") {
+            $('.cateDashboard').addClass('active');
+        }
+        else if (window.location.pathname == "/add-money") {
+            $('.cateAddMoney').addClass('active');
+        }
+        else if (window.location.pathname == "/user") {
+            $('.cateCustomers').addClass('active');
+        }
+        else if (window.location.pathname == "/search") {
+            $('.cateSearch').addClass('active');
+        }
+        else if (window.location.pathname == "/staff-activity") {
+            $('.cateActivity').addClass('active');
+        }
+        else if (window.location.pathname == "/support") {
+            $('.cateSupplier').addClass('active');
+        }
+    });
+</script>

@@ -34,7 +34,7 @@ router.get('/', (req, res) => {
     if (req.currentUser && req.currentUser.token && req.currentUser.permisstion == 0) return res.redirect('/active');
 
     if (req.currentUser) {
-        return req.currentUser.permisstion == 0 ? res.render('index') : res.render('staff-index');
+        return req.currentUser.permisstion == 0 ? res.render('index') : res.render('./staff-views/index');
     }
     return res.render('index');
 })

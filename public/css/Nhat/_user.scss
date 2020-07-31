@@ -4,8 +4,7 @@ $m-color:#34495e;
 
 .user{
     position: relative;
-    height: 100vh;
-    min-width: max-content;
+    height: 100%;
     background-color: #e9ecef;
 
     @include rs-xs{
@@ -44,6 +43,7 @@ $m-color:#34495e;
     }
      .pagination ul li.active{
         background-color: #00b297;
+      
     }
 
     &-content{

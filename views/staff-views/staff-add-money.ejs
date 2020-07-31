@@ -1,0 +1,232 @@
+<%- include('./../staff-structure/header')%>
+
+<div class="user">
+    <div class="navs-bar">
+        <div>
+            <a href="/">Home / </a>
+            <span>
+                Add Money
+            </span>
+        </div>
+    </div>
+    <div class="user-content" style="height: 790px;">
+        <h3 class="title"
+            style="text-align: left;border-bottom: 1px solid #ddd;padding-bottom: 20px;margin-bottom: 20px;">
+            ADD MONEY
+        </h3>
+
+        <div class="table" style="border: none;">
+            <div class="search-square flex j-between a-center">
+                <div>
+                    <div>
+
+                        <input type="search" name="" id="txtSearch">
+                        <button type="submit" class="btn btn-search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="errors">
+                    </div>
+                </div>
+                <div class="list-account">
+                    <ul class="list-account-item">
+                    </ul>
+                </div>
+            </div>
+            <div class="result-square row">
+                <div class="result-square-left  col-xs-6">
+                    <div class="result-square-left_item flex a-center">
+                        <label for="txtAmount">Amount</label>
+                        <input type="text" id="txtAmount">
+                    </div>
+                    <div class="result-square-left_item flex a-center">
+                        <label for="txtCurrencyUnit">Currency Unit</label>
+                        <select name="txtCurrencyUnit" id="txtCurrencyUnit">
+                            <option value="USD">USD</option>
+                            <option value="VND">VND</option>
+                        </select>
+                    </div>
+                    <div class="result-square-left_item flex a-center">
+                        <label for="txtMessage">Message</label>
+                        <input type="text" id="txtMessage">
+                    </div>
+                    <div class="result-square-left_item">
+                        <button type="submit" class="btn btn-add-money">ADD MONEY</button>
+                    </div>
+
+                </div>
+                <div class="result-square-right  col-xs-6">
+                    <div class="card" style="display: none;">
+                        <div class="card__content">
+                            <div class="gutter ">
+
+                                <div class="card-number">
+
+                                </div>
+                                <div class="card-date flex a-center">
+                                    <div class="card-from card-date__item">
+                                        <p>Valid from</p>
+                                        <div class="date">
+
+                                        </div>
+                                    </div>
+                                    <div class="card-info flex a-center">
+                                        <div class="card-name">
+
+                                        </div>
+                                        <div class="type">
+                                            <p class="napas">napas</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<%- include('./../staff-structure/footer')%>
+
+</html>
+<script src="./vendor/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io("http://localhost:5000")
+
+    const fillToSearch = stk => {
+        $('#txtSearch').val(stk)
+    }
+
+    $(function () {
+
+        $.get("/api/get-all",
+            function (data, textStatus, jqXHR) {
+                $('.list-account-item').empty();
+                if (data) {
+                    data.forEach(element => {
+                        $(`<li onclick="fillToSearch(${element.STK})">${element.STK}</li>`).appendTo('.list-account-item');
+                    });
+                }
+            },
+        );
+    });
+
+    $.get("/staff/api/all-notification",
+        function (data, textStatus, jqXHR) {
+            $('.drop-down').empty();
+            if (data.length > 0) {
+                data.forEach(element => {
+                    let msg = `User ${element.userID} yêu cầu khóa tài khoản`;
+                    if (element.type == 1) {
+                        msg = `User ${element.userID} xác thực tài khoản`;
+
+                    }
+                    if (element.type == 2) {
+                        msg = `User ${element.userID} yêu cầu mở tài khoản thanh toán`;
+
+                    }
+                    if (element.type == 3) {
+                        msg = `User ${element.userID} yêu cầu mở tài khoản tiết kiệm`;
+
+                    }
+
+                    $(` <li data-x="${msg}"">
+                                    <a href="/request?id=${element.id}">${msg.slice(0, 15)}...</a>
+                                </li>`).appendTo('.drop-down');
+                });
+
+            }
+        },
+    );
+
+
+    const addText = (txt, selector, rm) => {
+        $(rm).remove();
+        $(txt).appendTo(selector)
+    }
+
+    $('.btn-search').click(function (e) {
+        $('.card').fadeOut(200);
+        $('.txtNumberx').remove();
+        $('.txtDatex').remove();
+
+        $('#txtAmount').text('');
+        $('#txtSearch').text('');
+        $('#txtMessage').text('');
+        if ($('.errors')) $('.errors').empty();
+
+        if (!$('#txtSearch').val() || $('#txtSearch').val().length <= 0) alert('Vui Lòng Điền Thông Tin Cần Tìm')
+
+        if ($('#txtSearch').val() && $('#txtSearch').val().length > 0) {
+
+            $.post("/api/customer-search", { st: $('#txtSearch').val() },
+                function (data, textStatus, jqXHR) {
+
+                    if (!data) $(`<p class="error" >Không tìm thấy tài khoản phù hợp </p>`).appendTo('.errors');
+                    else {
+                        $('.card').fadeIn(200);
+                        const stk = data.STK.match(/.{1,4}/g).join(' ');
+                        const date = new Date(data.beginDate).toISOString().slice(0, 10);
+                        addText(`<p class="txtNumberx">${stk}</p>`, '.card-number', '.txtNumberx');
+                        addText(`<span class="txtDatex">${date}</span>`, '.date', '.txtDatex');
+                        addText(`<span class="txtNamex">${data.displayName.toLowerCase()}</span>`, '.card-name', '.txtNamex');
+                    }
+                },
+            );
+        }
+    })
+
+    $(function () {
+        $('.btn-add-money').click(async function (e) {
+            e.preventDefault();
+
+            const money = $('#txtAmount').val();
+            const currencyUnit = $('#txtCurrencyUnit').val();
+            const stk = $('#txtSearch').val();
+            const message = $('#txtMessage').val();
+
+            if (!money || !currencyUnit || !stk || !message) {
+                alert('Vui lòng điền đầy đủ thông tin');
+                return;
+            }
+
+            if (!Number(money) || Number(money) <= 0) {
+                alert('Vui lòng nhập số tiền hợp lệ');
+                return;
+            }
+            $.post("api/account/addMoney", {
+                money,
+                currencyUnit: currencyUnit,
+                bankCode: 'ARG',
+                stk: stk,
+                message: message,
+                from: 'ADMIN',
+            },
+                function (data, textStatus, jqXHR) {
+
+                    console.log(data);
+
+                    if (data == '1') {
+                        alert('Nạp tiền thành công');
+                        const activity = {
+                            stk,
+                            money,
+                            currencyUnit
+                        }
+                        socket.emit('transfer', activity)
+                        localStorage.setItem('activityTransfer', JSON.stringify(activity));
+                        $(location).attr('href', '/add-money');
+                    }
+                },
+            );
+        })
+    });
+</script>
