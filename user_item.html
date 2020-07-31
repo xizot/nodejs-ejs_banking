@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1</title>
+    <title>Payyed - User Item</title>
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css">
@@ -13,7 +13,7 @@
 
 <body>
 
-    <div class="staff ">
+    <div class="staff " style="overflow-y: scroll;">
         <header>
             <div class="flex navigation j-between a-center">
                 <div class="logo flex  a-center">
@@ -131,70 +131,86 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="user-content">
+                        <div class="user-content user-item-content">
                             <h3 class="title"
-                                style="text-align: left;border-bottom: 1px solid #ddd;padding-bottom: 20px;margin-bottom: 20px;">
-                                USER
+                                style="text-align: left;border-bottom: 1px solid #ddd;padding-bottom: 20px;">USER
                             </h3>
-                            <div class="user-search flex a-center j-end" style="margin-bottom: 20px;">
-                                <input type="search" name="" id=""
-                                    style="height: 35px;padding: 0 15px;border: 1px solid #868e96;outline: none;">
-                                <button
-                                    style="height: 35px;padding: 0 10px;background-color:#868e96;color: white;border: none;outline: none;cursor: pointer;">Search</button>
-                            </div>
-                            <div class="table">
-
+                            <div class="table user-item">
                                 <div class="table-gutter">
-                                    <div class="table-header row a-center ">
-                                        <div class="col-xs-1 t-center">NO</div>
-                                        <div class=" col-xs-2 t-center">USER ID</div>
-                                        <div class=" col-xs-7">FULL NAME</div>
-                                        <div class=" col-xs-2 t-center">VERIFY</div>
+                                    <div class="table-item row  a-center">
+                                        <div class=" col-xs-2  ">USER ID</div>
+                                        <div class=" col-xs-10 " id="userID">1</div>
                                     </div>
                                     <div class="table-item row  a-center">
-                                        <div class=" col-xs-1 t-center">1</div>
-                                        <div class=" col-xs-2 t-center"><a href="./user_item.html">1</a></div>
-                                        <div class=" col-xs-7">Nguyễn Văn Nhật</div>
-                                        <div class=" col-xs-2 t-center">No</div>
+                                        <div class=" col-xs-2  ">FULL NAME</div>
+                                        <div class=" col-xs-10 " id="fullName">Nguyen Van Nhat</div>
                                     </div>
-                                    <div class="table-item row ">
-                                        <div class=" col-xs-1 t-center">1</div>
-                                        <div class=" col-xs-2 t-center"><a href="./user_item.html">1</a></div>
-                                        <div class=" col-xs-7">Nguyễn Văn Nhật</div>
-                                        <div class=" col-xs-2 t-center">No</div>
+                                    <div class="table-item row  a-center">
+                                        <div class=" col-xs-2  ">DATE OF BIRTH</div>
+                                        <div class=" col-xs-10" id="dob">2020-18-08</div>
                                     </div>
-                                    <div class="table-item row ">
-                                        <div class=" col-xs-1 t-center">1</div>
-                                        <div class=" col-xs-2 t-center"><a href="./user_item.html">1</a></div>
-                                        <div class=" col-xs-7">Nguyễn Văn Nhật</div>
-                                        <div class=" col-xs-2 t-center">No</div>
+                                    <div class="table-item row  a-center">
+                                        <div class=" col-xs-2 " id="email">EMAIL</div>
+                                        <div class=" col-xs-10 ">1</div>
                                     </div>
-                                    <div class="table-item row ">
-                                        <div class=" col-xs-1 t-center">1</div>
-                                        <div class=" col-xs-2 t-center"><a href="./user_item.html">1</a></div>
-                                        <div class=" col-xs-7">Nguyễn Văn Nhật</div>
-                                        <div class=" col-xs-2 t-center">No</div>
+                                    <div class="table-item row  a-center">
+                                        <div class=" col-xs-2  ">ADDRESS</div>
+                                        <div class=" col-xs-10 " id="address">1</div>
                                     </div>
-                                    <div class="table-item row ">
-                                        <div class=" col-xs-1 t-center">1</div>
-                                        <div class=" col-xs-2 t-center"><a href="./user_item.html">1</a></div>
-                                        <div class=" col-xs-7">Nguyễn Văn Nhật</div>
-                                        <div class=" col-xs-2 t-center">No</div>
+                                    <div class="table-item row  a-center">
+                                        <div class=" col-xs-2  ">PHONE NUMBER</div>
+                                        <div class=" col-xs-10 " id="phoneNumber">0859800980</div>
                                     </div>
-                                    <div class="table-item row ">
-                                        <div class=" col-xs-1 t-center">1</div>
-                                        <div class=" col-xs-2 t-center"><a href="./user_item.html">1</a></div>
-                                        <div class=" col-xs-7">Nguyễn Văn Nhật</div>
-                                        <div class=" col-xs-2 t-center">No</div>
+                                    <div class="table-item row  a-center">
+                                        <div class=" col-xs-2  ">IMAGE</div>
+                                        <div class=" col-xs-10 " id="user-img">
+                                            <img src="./src/img/b2.jpg" alt=""
+                                                style="height: 38px; width: 50px;margin-top: 2px; cursor: pointer;">
+                                        </div>
+                                    </div>
+                                    <div class="table-item row  a-center">
+                                        <div class=" col-xs-2  ">CARD NUMBER</div>
+                                        <div class=" col-xs-10 " id="phoneNumber">100012345678</div>
                                     </div>
 
+                                    <div class="table-item row  a-center">
+                                        <div class=" col-xs-2  ">VERIFY</div>
+                                        <div class=" col-xs-10 flex a-center" id="Verify">
+                                            <span>
+                                                Verify
+                                            </span>
+                                            <button class="btn btn-user-item" style="background-color: #1999ff;">
+                                                UNVERIFY
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="table-item row  a-center">
+                                        <div class=" col-xs-2  ">BLOCK</div>
+                                        <div class=" col-xs-10 flex a-center" id="Verify">
+                                            <span>
+                                                Block
+                                            </span>
+                                            <button class="btn btn-user-item" style="background-color: #dc3545;">
+                                                UNBLOCK
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="table-item row  a-center">
+                                        <div class=" col-xs-2  ">DATE CREATED</div>
+                                        <div class=" col-xs-10 " id="phoneNumber">20/10/2002</div>
+                                    </div>
                                 </div>
+
                             </div>
-                            <div class="pagination " style="bottom: 13px;">
-                                <ul class="flex j-center a-center pag-list">
-                                    <li class="pag-num active">1</li>
-                                    <li class="pag-num ">2</li>
-                                </ul>
+                            <div class="row j-between" style="margin: 10px 0;">
+                                <button class="btn btn-user-item" style="background-color: #dc3545;">
+                                    Delete
+                                </button>
+                                <a href="./user_item_edit.html">
+                                    <button class="btn btn-user-item" style="background-color: #1999ff;">
+                                        Edit
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>
