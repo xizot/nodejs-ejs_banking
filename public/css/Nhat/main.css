@@ -3410,18 +3410,22 @@ footer .top {
 
 .staff main .staff-option .right .result-square-left_item {
   margin: 10px 0;
-  text-align: center;
+}
+
+.staff main .staff-option .right .result-square-left_item .btn-add-money {
+  width: 350px;
+  margin: 0;
 }
 
 .staff main .staff-option .right .result-square-left_item label {
   font-size: 14px;
   color: #333;
+  margin-bottom: 5px;
 }
 
 @media only screen and (min-width: 320px) {
   .staff main .staff-option .right .result-square-left_item label {
     display: block;
-    margin-bottom: 5px;
   }
 }
 
@@ -3429,7 +3433,6 @@ footer .top {
   .staff main .staff-option .right .result-square-left_item label {
     display: inline-block;
     width: 120px;
-    margin-bottom: 0;
   }
 }
 
