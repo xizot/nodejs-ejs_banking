@@ -3006,6 +3006,7 @@ footer .top {
 
 .staff {
   height: 100vh;
+  background-color: #e9ecef;
 }
 
 @media only screen and (min-width: 320px) {
@@ -3134,6 +3135,7 @@ footer .top {
 
 .staff main .staff-option {
   height: 100vh;
+  background-color: #e9ecef;
 }
 
 .staff main .staff-option i {
@@ -3289,6 +3291,10 @@ footer .top {
 
 .staff main .staff-option .left .cate ul .active {
   background-color: #00b297;
+}
+
+.staff main .staff-option .left .cate ul .active a {
+  color: white;
 }
 
 .staff main .staff-option .right {
@@ -3979,10 +3985,7 @@ main {
 
 .user {
   position: relative;
-  height: 100vh;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
+  height: 100%;
   background-color: #e9ecef;
 }
 
@@ -4072,6 +4075,74 @@ main {
 
 .user-content .table .table-item a {
   color: #3498db;
+}
+
+.user-item {
+  height: auto;
+}
+
+.user-item .table-gutter .table-item {
+  color: #868BA1;
+}
+
+.user-item .table-gutter .table-item .col-xs-2 {
+  padding: 0 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-right: 1px solid #ddd;
+}
+
+.user-item .table-gutter .table-item .col-xs-10 {
+  padding: 0 20px;
+}
+
+.user-item .table-gutter .table-item .col-xs-10 span {
+  display: block;
+  width: 60px;
+}
+
+.user-content.user-item-content {
+  height: auto;
+  border-radius: 5px;
+}
+
+.btn-user-item {
+  height: 35px;
+  min-width: 120px;
+  text-transform: capitalize;
+  min-height: unset;
+  color: white;
+  font-weight: 400;
+}
+
+.user-item-edit .table-gutter {
+  padding: 20px;
+}
+
+.user-item-edit .table-gutter-item .col-xs-6 {
+  padding: 10px 15px;
+}
+
+.user-item-edit .table-gutter-item .col-xs-6 .gt label {
+  display: block;
+  margin: 20px 0 10px;
+  color: #868BA1;
+  font-size: 14px;
+}
+
+.user-item-edit .table-gutter-item .col-xs-6 .gt input {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #ddd;
+  padding: 0 15px;
+}
+
+#user-img img:hover {
+  -webkit-transform: scale(10);
+          transform: scale(10);
+  border-radius: 2px;
 }
 
 header .container .header__content .left ul > li .drop-down > li {

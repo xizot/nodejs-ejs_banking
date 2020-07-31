@@ -1,0 +1,147 @@
+<%- include('./../staff-structure/header')%>
+
+
+<div class="user">
+    <div class="navs-bar">
+        <div>
+            <a href="/">Home / </a>
+            <span>
+                Activity
+            </span>
+        </div>
+    </div>
+    <div class="user-content" style="height: 680px;">
+        <h3 class="title"
+            style="text-align: left;border-bottom: 1px solid #ddd;padding-bottom: 20px;margin-bottom: 20px;">
+            ACTIVITY
+        </h3>
+        <div class="user-search flex a-center j-end" style="margin-bottom: 20px;">
+            <input type="search" name="" id=""
+                style="height: 35px;padding: 0 15px;border: 1px solid #868e96;outline: none;">
+            <button
+                style="height: 35px;padding: 0 10px;background-color:#868e96;color: white;border: none;outline: none;cursor: pointer;">Search</button>
+        </div>
+        <div class="table">
+            <div class="result-square " style="width: 100%;padding: 0;height: 100%;">
+                <div class="activity-item row activity-item-head">
+                    <div class="col-xs-1 t-center">Num</div>
+                    <div class="col-xs-1 t-center">Staff ID</div>
+                    <div class="col-xs-8">Content</div>
+                    <div class="col-xs-2 t-center">Date</div>
+                </div>
+                <ul class="activity-lists">
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <ul class="flex j-center a-center pag-list">
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<%- include('./../staff-structure/footer')%>
+
+<script>
+
+
+
+    $(function () {
+
+        $.get("/staff/api/all-notification",
+            function (data, textStatus, jqXHR) {
+                $('.drop-down').empty();
+                if (data.length > 0) {
+                    data.forEach(element => {
+                        let msg = `User ${element.userID} yêu cầu khóa tài khoản`;
+                        if (element.type == 1) {
+                            msg = `User ${element.userID} xác thực tài khoản`;
+
+                        }
+                        if (element.type == 2) {
+                            msg = `User ${element.userID} yêu cầu mở tài khoản thanh toán`;
+
+                        }
+                        if (element.type == 3) {
+                            msg = `User ${element.userID} yêu cầu mở tài khoản tiết kiệm`;
+
+                        }
+
+                        $(` <li data-x="${msg}"">
+                                    <a href="/request?id=${element.id}">${msg.slice(0, 15)}...</a>
+                                </li>`).appendTo('.drop-down');
+                    });
+
+                }
+            },
+        );
+
+
+        $.get("/api/get-activity",
+            function (data, textStatus, jqXHR) {
+                $('.activity-lists').empty();
+                if (data) {
+                    data.forEach((element, index) => {
+                        $(`
+                        <li>
+                            <div class="activity-item row">
+                                <div class="col-xs-1 t-center">${index + 1}</div>
+                                <div class="col-xs-1 t-center">${element.staffID}</div>
+                                <div class="col-xs-8">${element.message}</div>
+                                <div class="col-xs-2 t-center">${new Date(element.date).toISOString().slice(0, 10)}</div>
+                            </div>
+                        </li>`).appendTo('.activity-lists');
+                    });
+                }
+            },
+        );
+        $.get("/api/count-activity",
+            function (data, textStatus, jqXHR) {
+                console.log(data);
+                $('.pag-list').empty();
+                if (data) {
+                    for (let i = 0; i < data; i++) {
+                        $(` <li class="pag-num ${i == 0 ? " active" : ""}" value="${i + 1}">
+                            ${i + 1}
+                            </li>`).appendTo('.pag-list')
+                    }
+                }
+            },
+        );
+
+        $(document).on('click', '.pag-num', function (e) {
+            $('.pag-num').removeClass('active');
+            $(this).addClass('active');
+            const numpage = $(this).attr('value')
+            $.get("/api/get-activity?numpage=" + numpage,
+                function (data, textStatus, jqXHR) {
+
+                    $('.activity-lists').empty();
+                    if (data) {
+                        data.forEach((element, index) => {
+                            $(`
+                        <li>
+                            <div class="activity-item row">
+                                <div class="col-xs-1 t-center">${index + 1}</div>
+                                <div class="col-xs-1 t-center">${element.staffID}</div>
+                                <div class="col-xs-8">${element.message}</div>
+                                <div class="col-xs-2 t-center">${new Date(element.date).toISOString().slice(0, 10)}</div>
+                            </div>
+                        </li>`).appendTo('.activity-lists');
+                        });
+                    }
+                },
+            );
+        })
+    });
+
+    const addText = (txt, selector, rm) => {
+        $(rm).remove();
+        $(txt).appendTo(selector)
+    }
+</script>

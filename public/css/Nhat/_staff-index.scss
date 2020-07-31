@@ -16,6 +16,7 @@
 }
 .staff{
     height: 100vh;
+    background-color: #e9ecef;
     @include rs-xs{
         overflow:scroll hidden;
 
@@ -133,7 +134,7 @@
     main{
         .staff-option{
             height: 100vh;
-           
+            background-color: #e9ecef;
            
             i{
                 width: 15px;
@@ -259,6 +260,9 @@
                         }
                         .active{
                             background-color: #00b297;
+                            a{
+                                color: white;
+                            }
                         }
                     }
                 }
