@@ -56,8 +56,10 @@ router.post('/account/addMoney', async (req, res) => {
         const found = await AccountInfo.getBySTKAndBankCode(stk, bankCode);
         if (found) {
 
-            await AccountInfo.addMoneyInternal(from, stk, money, message, currencyUnit, bankCode, req.currentUser.id)
+            const rs = await AccountInfo.addMoneyInternal(from, stk, money, message, currencyUnit, bankCode, req.currentUser.id)
             // lấy thông tin người nhận
+            if (rs == 8) return res.json(8)
+
             const ToInfo = await User.findByPk(found.userID);
             if (ToInfo) {
                 sendMail(ToInfo.email, 'Nhận tiền', `Bạn vừa được nhận tiền thành công:\n
@@ -65,6 +67,7 @@ router.post('/account/addMoney', async (req, res) => {
                     STK nhận: ${stk} \n
                     Tiền đã nhận: ${money} ${currencyUnit} \n
                     Lời nhắn: ${message} \n
+                    Số dư: ${found.balance + money}\n
                     Cảm ơn bạn đã tin tưởng,\n
                     Payyed.
 
@@ -74,19 +77,21 @@ router.post('/account/addMoney', async (req, res) => {
                   <p>STK nhận:<b> ${stk}  </b></p>
                   <p>Tiền đã nhận:<b> ${money} ${currencyUnit} </b></p>
                   <p>Lời nhắn:<b> ${message}  </b></p>
+                  <p>Số dư:<b> ${found.balance + money}  </b></p>
                   <p style="margin:20px 0 0">Cảm ơn bạn đã tin tưởng,</p>
                   <p style="font-size:18px; margin-top:5px">Pa<span style="color:#29ad57; font-weight:bold">yy</span>ed.</p>
                 </div>
             `)
 
                 if (from != "ADMIN") {
-
+                    const accountInfo = await AccountInfo.getByUserID(req.currentUser.id);
                     sendMail(req.currentUser.email, 'Chuyển tiền', `Bạn vừa chuyển tiền thành công:\n
                     STK gửi: ${from} \n
                     STK nhận: ${stk} \n
                     Tiền đã gửi: ${money} ${currencyUnit} \n
                     Phí gửi tiền: 0 USD \n
                     Lời nhắn: ${message} \n
+                    Số dư: ${accountInfo.balance} \n
                     Cảm ơn bạn đã tin tưởng,\n
                     Payyed.
 
@@ -97,6 +102,7 @@ router.post('/account/addMoney', async (req, res) => {
                   <p>Tiền đã gửi:<b> ${money} ${currencyUnit}  </b></p>
                   <p>Phí gửi tiền:<b> 0 USD </b></p>
                   <p>Lời nhắn:<b> ${message} </b></p>
+                  <p>Số dư:<b> ${accountInfo.balance} </b></p>
                   <p style="margin:20px 0 0">Cảm ơn bạn đã tin tưởng,</p>
                   <p style="font-size:18px; margin-top:5px; font-weight:bold">Pa<span style="color:#29ad57">yy</span>ed.</p>
                 </div>
@@ -336,8 +342,37 @@ router.get('/count-activity', async (req, res) => {
 })
 
 // [ACCOUNT]
+
+router.get('/account-get-limit', async (req, res) => {
+    if (!req.currentUser) return res.json(null);
+    const found = await AccountInfo.findOne({
+        where: {
+            userID: req.currentUser.id
+        }
+    })
+    if (!found) return res.json(null);
+    return res.json(found.limit);
+})
+router.post('/account-change-limit', async (req, res) => {
+    if (!req.currentUser) return res.json(null);
+
+    const { limit } = req.body;
+    if (!limit) res.json(null);
+
+    const found = await AccountInfo.update({
+        limit
+    }, {
+        where: {
+            userID: req.currentUser.id
+        }
+    })
+    if (!found) return res.json(null);
+    return res.json(1);
+})
+
+
 router.get('/account/infor', async (req, res) => {
-    if (!req.currentUser.id) return null;
+    if (!req.currentUser) return null;
     const found = await AccountInfo.findAll({
         where: {
             userID: req.currentUser.id
@@ -393,7 +428,7 @@ router.post('/two-step-verification', async (req, res) => {
 router.get('/sendcode-verification', async (req, res) => {
 
     const code = crypto.randomBytes(3).toString('hex').toUpperCase();
-    sendMail(req.currentUser.email, 'Mã xác thực', code, code);
+    sendMail(req.currentUser.email, 'Mã xác thực chuyển tiền', code, code);
     return res.json(code);
 })
 

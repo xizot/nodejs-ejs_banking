@@ -71,6 +71,7 @@ app.use('/user-request', require('./routes/user/request'))
 app.use('/create-credit-card', require('./routes/createCreditCard'));
 app.use('/create-saving-card', require('./routes/createSavingCard'));
 app.use('/contact', require('./routes/contact'));
+app.use('/change-limit', require('./routes/changeLimit'));
 // STAFF HERE
 app.use('/user', require('./routes/staff/user'));
 

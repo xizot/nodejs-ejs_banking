@@ -177,6 +177,9 @@
                                                                 if (data == '0') {
                                                                     addError('Số tài khoản thụ hưởng hoặc ngân hàng không hợp lệ');
                                                                 }
+                                                                if (data == 8) {
+                                                                    addError('Số tiền gửi vượt giới hạn <a href="/change-limit">Thay đổi</>');
+                                                                }
                                                                 if (data == '1') {
 
                                                                     const activity = {

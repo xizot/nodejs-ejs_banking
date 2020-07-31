@@ -86,7 +86,14 @@ class Notification extends Model {
                                 fromUser: find
                             },
                             {
-                                seen: 3
+                                [Op.or]: [
+                                    {
+                                        seen: 3
+                                    }, {
+                                        seen: 0
+                                    }
+                                ]
+
                             }
                         ]
                     },
@@ -96,13 +103,16 @@ class Notification extends Model {
                                 toUser: find
                             },
                             {
-                                seen: 2
+                                [Op.or]: [
+                                    {
+                                        seen: 2
+                                    }, {
+                                        seen: 0
+                                    }
+                                ]
                             }
                         ]
                     },
-                    {
-                        seen: 0,
-                    }
                 ],
 
             },

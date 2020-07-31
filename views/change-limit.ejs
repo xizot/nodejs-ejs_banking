@@ -1,0 +1,139 @@
+<%- include('./header', {title:'Payyed - Change Limit'})%>
+<div class="my-account" style="height: calc(100vh - 85px);">
+    <div class="my-account__content row">
+        <div class="col-xs-2 option" style="padding: 10px 0 0 ;">
+            <ul>
+                <li class="flex">
+                    <i class="far fa-file-alt"></i>
+                    <a href="/my-account">Applications</a>
+                </li>
+                <li class="flex">
+                    <i class="fas fa-layer-group"></i>
+                    <a href="/accounts">Account</a>
+                </li>
+                <li class="flex">
+                    <i class="fas fa-comments-dollar"></i>
+                    <a href="/transfer">Transfer</a>
+                </li>
+                <li class="flex">
+                    <i class="fas fa-history"></i>
+                    <a href="/history">History</a>
+                </li>
+                <li class="flex">
+                    <i class="fas fa-ban"></i>
+                    <a href="/change-limit">Limit Blance</a>
+                </li>
+
+            </ul>
+            <div class="available">
+                <i class="fas fa-credit-card"></i>
+                <h3 class="money">
+                    <span>$</span> <span class="money-avail">0</span>
+                </h3>
+                <label>Available Balance</label>
+            </div>
+        </div>
+        <div class="col-xs-10 my-account-content">
+            <h3 class="title">
+                Limit Balance
+            </h3>
+            <div class="personal-details"
+                style="height: 393px; display: flex; justify-content: center; text-align: center; flex-direction: column">
+                <div class="current-limit">
+                    <label for="">Current Limit</label>
+                    <h3 class="limit-now" style="color: red; font-size: 24px;">$ 5000</h3>
+                </div>
+                <h3 style="margin-top: 30px;">Else</h3>
+                <ul class="list-limit row j-center">
+                    <li class="col-xs-2">
+                        <div class="gutter list-limit-item">
+                            $ 1000
+                        </div>
+                    </li>
+                    <li class="col-xs-2">
+                        <div class="gutter list-limit-item">
+                            $ 2000
+                        </div>
+                    </li>
+                    <li class="col-xs-2">
+                        <div class="gutter list-limit-item">
+                            $ 5000
+                        </div>
+                    </li>
+                    <li class="col-xs-2">
+                        <div class="gutter list-limit-item">
+                            $ 10000
+                        </div>
+                    </li>
+                    <li class="col-xs-2">
+                        <div class="gutter list-limit-item">
+                            $ 20000
+                        </div>
+                    </li>
+                    <li class="col-xs-2">
+                        <div class="gutter list-limit-item">
+                            $ 50000
+                        </div>
+                    </li>
+                </ul>
+                <button class="btn-change-limit">Change</button>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('./footer')%>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/Nhat/myaccount.js">
+</script>
+<script>
+
+    $(function () {
+
+        $.get("/api/get-account-default",
+            function (data, textStatus, jqXHR) {
+                if (data) {
+                    $('.money-avail').text(data.balance);
+                }
+            },
+        );
+
+        $('.list-limit-item').click(function () {
+            $('.list-limit-item').removeClass('active')
+            $(this).addClass('active')
+            $('.btn-change-limit').addClass('active')
+        })
+
+        // get current limit
+        $.get("/api/account-get-limit",
+            function (data, textStatus, jqXHR) {
+                if (data) {
+                    $('.limit-now').text(`$ ${data}`);
+                }
+            },
+        );
+        // change limit
+        $('.btn-change-limit').click(function () {
+            if ($(this).attr('class').split(' ').length > 1) {
+                const limit = $('.list-limit-item.active').text().trim().slice(1);
+                if (limit) {
+                    $.post("/api/account-change-limit", { limit: limit },
+                        function (data, textStatus, jqXHR) {
+                            if (data) {
+                                alert('Đã đặt lại mức chuyển tiền');
+                                $('.limit-now').text(`$ ${limit}`)
+                            }
+                        },
+                    );
+                }
+                else {
+                    alert('Đã xảy ra lỗi')
+                }
+            }
+        })
+    });
+
+
+    $('footer').css('display', 'none');
+
+
+</script>
