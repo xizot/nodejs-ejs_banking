@@ -82,14 +82,9 @@
                                     <li>
                                         <a href="/noti"><button class="btn">Notification</button> </a>
                                         <ul class="drop-down user-noti">
-                                            <!-- <%if(staffNotificationCount > 0){%> -->
-                                            <%staffNotification.map((item,index)=>{%>
-                                            <!-- <% if(item.type == 1){%> -->
-                                            <%-`User ${item.userID} đã gửi yêu cầu xác thực tài khoản`%>
-                                            <!-- <% }%> -->
-                                            <% })%>
-                                            <!-- <%}%> -->
+                                            
                                         </ul>
+                                        <div class="number-noti"></div>
                                     </li>
                                     <li>
                                         <a href="/about"><button class="btn">About</button> </a>
@@ -98,117 +93,125 @@
                                         <a href="/contact"><button class="btn">Contact</button> </a>
                                     </li>
                                     <% }if(currentUser.permisstion == 1) { %>
-                                    <li>
-                                        <a href="/quanli"><button class="btn">Manage</button> </a>
-                                    </li>
-                                    <li>
-                                        <a href="/request"><button class="btn">Notification</button> </a>
-                                        <ul class="drop-down">
-                                            <%if(staffNotificationCount > 0){%>
-                                            <%staffNotification.map((item,index)=>{%>
-                                            <% if(item.type == 1){%>
-                                            <%-`<li><a href="/request?id=${item.id}">User ${item.userID} yêu cầu xác thực tài khoản </a></li>`%>
-                                            <% }%>
+                                            <li>
+                                                <a href="/quanli"><button class="btn">Manage</button> </a>
+                                            </li>
+                                            <li>
+                                                <a href="/request"><button class="btn">Notification</button> </a>
+                                                <ul class="drop-down">
+                                                    <%if(staffNotificationCount > 0){%>
+                                                    <%staffNotification.map((item,index)=>{%>
+                                                    <% if(item.type == 1){%>
+                                                    <%-`<li><a href="/request?id=${item.id}">User ${item.userID} yêu cầu xác thực tài khoản </a></li>`%>
+                                                    <% }%>
 
-                                            <% if(item.type == 2){%>
-                                            <%-`<li><a href="/request?id=${item.id}">User ${item.userID} yêu cầu mở tài khoản ngân hàng </a></li></li>`%>
-                                            <% }%>
+                                                    <% if(item.type == 2){%>
+                                                    <%-`<li><a href="/request?id=${item.id}">User ${item.userID} yêu cầu mở tài khoản ngân hàng </a></li></li>`%>
+                                                    <% }%>
 
-                                            <% if(item.type == 3){%>
-                                            <%-`<li><a href="/request?id=${item.id}">User ${item.userID} yêu cầu mở tài khoản tiết kiệm</a></li>`%>
-                                            <% }%>
-                                            <% if(item.type == 4){%>
-                                            <%-`<li><a href="/request?id=${item.id}">User ${item.userID} yêu cầu khóa tài khoản </a></li>`%>
-                                            <% }%>
+                                                    <% if(item.type == 3){%>
+                                                    <%-`<li><a href="/request?id=${item.id}">User ${item.userID} yêu cầu mở tài khoản tiết kiệm</a></li>`%>
+                                                    <% }%>
+                                                    <% if(item.type == 4){%>
+                                                    <%-`<li><a href="/request?id=${item.id}">User ${item.userID} yêu cầu khóa tài khoản </a></li>`%>
+                                                    <% }%>
 
-                                            <% })%>
-                                            <%}%>
+                                                    <% })%>
+                                                    <%}%>
                                         </ul>
 
                                         <div class="number-noti">
                                             <%if(staffNotificationCount >0){%>
-                                            <%-staffNotificationCount%>
-                                            <%}%>
+                                                    <%-staffNotificationCount%>
+                                                    <%}%>
                                         </div>
 
                                     </li>
 
                                     <%} %>
 
-                                        </ul>
-                                        <%}%>
+                                                </ul>
+                                                <%}%>
                             </div>
 
                             <% if(!currentUser) { %>
-                                        <div class="sign-in__sign-up">
-                                            <a href="/login">
-                                                <button class="btn btn-sign-in">
-                                                    Sign In
-                                                </button>
-                                            </a>
-                                            <a href="/register">
-                                                <button class="btn btn-sign-up">
-                                                    Sign Up
-                                                </button>
-                                            </a>
-                                        </div>
-                                        <% } else{%>
+                                                <div class="sign-in__sign-up">
+                                                    <a href="/login">
+                                                        <button class="btn btn-sign-in">
+                                                            Sign In
+                                                        </button>
+                                                    </a>
+                                                    <a href="/register">
+                                                        <button class="btn btn-sign-up">
+                                                            Sign Up
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                                <% } else{%>
 
-                                        <%-`<a class="username" href="/logout">
+                                                <%-`<a class="username" href="/logout">
                             <button class="btn">
                             ${currentUser.displayName} (Log out)
                             </button></a>`%>
-                                        <% }%>
-                                        <div class="menu-res wow bounceInDown">
-                                            <label class="fas fa-bars nvn-bar" id="nvn-bar"></label>
-                                            <div class="bars wow fadeInDown ">
-                                                <div class="bars-content">
-                                                    <label class="fas fa-times nvn-close" id="nvn-close"></label>
-                                                    <div class="bars-nav">
-                                                        <%if(currentUser){%>
-                                                        <% if(currentUser.permisstion == 0) { %>
-                                                        <a href="/my-account"><button class="btn">My Account</button>
-                                                        </a>
-                                                        <a href="/transfer"><button class="btn">Transfer</button>
-                                                        </a>
+                                                <% }%>
+                                                <div class="menu-res wow bounceInDown">
+                                                    <label class="fas fa-bars nvn-bar" id="nvn-bar"></label>
+                                                    <div class="bars wow fadeInDown ">
+                                                        <div class="bars-content">
+                                                            <label class="fas fa-times nvn-close"
+                                                                id="nvn-close"></label>
+                                                            <div class="bars-nav">
+                                                                <%if(currentUser){%>
+                                                                <% if(currentUser.permisstion == 0) { %>
+                                                                <a href="/my-account"><button class="btn">My
+                                                                        Account</button>
+                                                                </a>
+                                                                <a href="/transfer"><button
+                                                                        class="btn">Transfer</button>
+                                                                </a>
 
-                                                        <a href="/accounts"><button class="btn">Account</button> </a>
-                                                        <a href="/noti"><button class="btn">Notification</button> </a>
-                                                        <a href="/"><button class="btn">Help</button> </a>
-                                                        <a href="/"><button <% }if(currentUser.permisstion == 1) { %> <a
-                                                                href="/quanli"><button class="btn">Manage</button>
-                                                        </a>
-                                                        <a href="/noti"><button class="btn">Notification</button> </a>
+                                                                <a href="/accounts"><button class="btn">Account</button>
+                                                                </a>
+                                                                <a href="/noti"><button
+                                                                        class="btn">Notification</button> </a>
+                                                                <a href="/"><button class="btn">Help</button> </a>
+                                                                <a href="/"><button
+                                                                        <% }if(currentUser.permisstion == 1) { %> <a
+                                                                        href="/quanli"><button
+                                                                            class="btn">Manage</button>
+                                                                </a>
+                                                                <a href="/noti"><button
+                                                                        class="btn">Notification</button> </a>
 
-                                                        <%}}%>
+                                                                <%}}%>
 
-                                                    </div>
-                                                    <div class="bars-actions flex j-center a-center">
-                                                        <% if(!currentUser) { %>
+                                                            </div>
+                                                            <div class="bars-actions flex j-center a-center">
+                                                                <% if(!currentUser) { %>
 
-                                                        <div class="sign-in__sign-up flex">
-                                                            <a href="/login">
-                                                                <button class="btn btn-sign-in">
-                                                                    Sign In
-                                                                </button>
-                                                            </a>
-                                                            <a href="/register">
-                                                                <button class="btn btn-sign-up">
-                                                                    Sign Up
-                                                                </button>
-                                                            </a>
-                                                        </div>
-                                                        <% } else{%>
+                                                                <div class="sign-in__sign-up flex">
+                                                                    <a href="/login">
+                                                                        <button class="btn btn-sign-in">
+                                                                            Sign In
+                                                                        </button>
+                                                                    </a>
+                                                                    <a href="/register">
+                                                                        <button class="btn btn-sign-up">
+                                                                            Sign Up
+                                                                        </button>
+                                                                    </a>
+                                                                </div>
+                                                                <% } else{%>
 
-                                                        <%-`<a class="username" href="/logout">
+                                                                <%-`<a class="username" href="/logout">
                                                 <button class="btn">
                                                 ${currentUser.displayName} (Log out)
                                                 </button></a>`%>
-                                                        <% }%>
+                                                                <% }%>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
                             </div>
                         </div>
                     </div>

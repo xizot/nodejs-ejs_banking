@@ -1,9 +1,29 @@
 @import './variables';
 
-
+.navigation-bar{
+  line-height: 48px;
+    height: 48px;
+    background-color: #dee2e6;
+    min-width: max-content;
+    padding: 0 20px;
+    font-size: 14px;
+    a{
+        color: #adb5bd;
+    }
+    span{
+        color: #494949;
+    }
+}
 .staff{
-    max-height: 100vh;
-    // overflow: hidden;
+    height: 100vh;
+    @include rs-xs{
+        overflow:scroll hidden;
+
+    }
+    @include rs-md{
+        overflow:hidden hidden;
+
+    }
     header{
         padding: 20px;
         height: 60px;
@@ -112,83 +132,147 @@
     }
     main{
         .staff-option{
+            height: 100vh;
+           
+           
             i{
-                width: 25px;
+                width: 15px;
                 font-size: 17px;
             }
             .personal-info{
-                padding: 0 25px;
-                img{
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 100%;
-                    background-color: white;
-                    border-radius: 1px solid #ddd;
-                    display: block;
+                font-size: 9px;
+                margin: 0 15px 10px;
+                font-weight: bold;
+                text-transform: uppercase;
+                color:#adb5bd;
+                @include rs-xs{
+                    display: none;
                 }
-                p{
-                    font-size: 15px;
-                    margin: 15px 0 10px;
-                    font-weight: bold;
-                    text-transform: uppercase;
-                    color:white;
+                @include rs-md{
+                    display: block;
                 }
             }
             .left{
-                width: 250px;
-                padding: 30px 0;
-                background-color: $main-color;
-                min-height: 100vh;
+                // width: 210px;
+                height: 100vh;
+                background-color: #1D2939;
+                padding: 30px 10px;
+                @include rs-xs{
+                    width: 60px;
+                }
+                @include rs-md{
+                    width: 210px;
+                }
                 .staff-dashboard{
                     margin-top: 0px;
-                    padding: 12px 25px;
+                    padding: 10px 15px;
+                    font-size: 12px;
                     a{
-                        color: white;
+                        display: block;
+                        width: 100%;
+                        color: #adb5bd;
                         i{
-                            color: white;
+                            color: #adb5bd;
+                            font-size: 10px;
+                        }
+                        @include rs-xs{
+                            p{
+                                display: none;
+                            }
+                        }
+                        @include rs-md{
+                            p{
+                                display: inline;
+                            }
                         }
                     }
                     &:hover{
-                        background-color: rgba($color: #1b1c25, $alpha: 1);
+                        background-color: #18222f;
                        
                     }
                 }
                 .active{
-                    background-color: rgba($color: #1b1c25, $alpha: 1);
-                               
+                    background-color: #00b297;
+                    &:hover{
+                         background-color: #00b297 !important;
+                    }
                 }
                 .cate{
-                    margin-top: 25px;
-                   
-                    h4.title{
-                        color: #4f4f4f;
-                        padding: 0 25px;
-                        text-transform: uppercase;
-                        font-size: 15px;
-                        font-weight: bold;
-                    }
                     ul{
-                        margin-top: 10px;
                         li{
-                            padding: 12px 25px;
+                            padding: 10px 15px;
+                            border-radius: 2px;
                             a{
-                                color:white;
+                                color:#adb5bd;
                                 cursor: pointer;
-                                font-size: 14px;
+                                font-size: 12px;
+                                display: block;
+                                width: 100%;
+                                @include rs-xs{
+                                    p{
+                                        display: none;
+                                    }
+                                }
+                                @include rs-md{
+                                    p{
+                                        display: inline;
+                                    }
+                                }
+                               
                             }
 
+                            i{
+                                font-size: 10px;
+                                position: relative;
+                                &::after{
+                                    content: attr(data-name);
+                                    position: absolute;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    min-width: max-content !important;
+                                    width: 70px;
+                                    color: #494949;
+                                    background-color: white;
+                                    padding: 5px;
+                                    border-radius: 2px;
+                                    font-weight: 500;
+                                    margin-left: 20px;
+                                    display: none;
+                                    text-align: center;
+                                    border: 1px solid #ddd;
+                                }
+                            }
                             &:hover{
-                                background-color: rgba($color: #1b1c25, $alpha: 1);
+                                background-color: #18222f;
+
+                                @include rs-xs{
+                                    i::after{
+                                        display: unset;
+                                    }
+                                }
+                                @include rs-md{
+                                    i::after{
+                                        display: none;
+                                    }
+                                }
                             }
                         }
                         .active{
-                            background-color: rgba($color: #1b1c25, $alpha: 1);
+                            background-color: #00b297;
                         }
                     }
                 }
             }
             .right{
-                width: calc(100% - 250px);
+                @include rs-xs{
+                    width: calc(100% - 80px);
+                }
+                @include rs-md{
+                    width: calc(100% - 230px);
+                }
+                
+                
+                margin: 0 auto;
                 .add-money{
                     width: 85%;
                     margin: 0 auto;
@@ -202,10 +286,10 @@
                 }
                 .search-square{
                     input{
-                        height: 45px;
+                        height: 35px;
                         border-radius: 999999px;
                         outline: none;
-                        border: 1px solid $main-color;
+                        border: 1px solid #1D2939;
                         width: 400px;
                         padding: 0 15px;
                         font-size: 15px;
@@ -214,10 +298,11 @@
                     
                     button{
                         border-radius: 999999px;
-                        height: 45px;
+                        height: 35px;
                         width: 100px;
                         color: white;
                         margin-left: 20px;
+                        background-color: #1D2939;
                     }
                     p{
                         padding: 10px 15px 0px;
@@ -231,9 +316,12 @@
                     height: 200px;
                     margin: 10px;
                     overflow: auto;
+                    background-color: #1D2939;
+                    border-radius: 5px;
+                    width: 200px;
                     ul{
-                        background-color: #ddd;
-                        padding: 20px 40px;
+                    
+                        padding: 20px;
                         border-radius: 5px;
                         display: flex;
                         justify-content: center;
@@ -241,6 +329,8 @@
                         align-items: center;
                         li{
                             padding: 10px 2px;
+                            color: white;
+                            font-size: 12px;
                         }
                     }
                 }
@@ -289,6 +379,7 @@
                                 width:calc(100% - 120px);
                                 margin-left: 120px;
                                 color: white;
+                                background-color: #1D2939;
                             }
                         }
                     }
@@ -314,7 +405,6 @@
     left: 50%;
     bottom: 20px;
     transform: translateX(-50%);
-    ;
     ul{
         li{
             height: 40px;
@@ -345,8 +435,30 @@
 .activity-item{
     border-bottom: 1px solid #ddd;
     padding: 5px;  color:#333 ;
+    font-size: 14px;
     &-head{
         padding: 10px 5px;
         font-weight: bolder;
     }
+}
+.staff .pagination ul li:hover{
+    background-color: #1D2939;
+    border-color:#1D2939 ;
+}
+.staff .pagination ul li{
+    border-color: #00b297;
+}
+.staff .pagination ul li.active{
+    background-color: #00b297;
+}
+.staff .staff-option .col-xs-8.right {
+
+    @include rs-xs{
+        margin-left: 60px !important;
+    }
+    @include rs-md{
+     margin-left: 210px !important;
+    }
+    
+   
 }

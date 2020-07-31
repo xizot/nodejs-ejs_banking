@@ -60,10 +60,32 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
 <script src="./vendor/OwlCarousel/dist/owl.carousel.min.js"></script>
 <script src="./js/Nhat/main.js"></script>
-
+<script src="/socket.io/socket.io.js"></script>
 
 <script>
+  var socket = io("http://localhost:5000");
+  socket.on('server-send-client', data => {
+    $.get("/api/count-notification",
+      function (data, textStatus, jqXHR) {
+        console.log(data);
+        if (data && data > 0) {
+          $('.number-noti').fadeIn(200);
+          $('.number-noti').text(data)
+        }
+      }
+    );
+    $.get("/api/notification",
+      function (data, textStatus, jqXHR) {
+        $('.user-noti').empty();
 
+        if (data.length > 0) {
+          data.map(item => {
+            $(`<li class="${!item.seen ? 'not-seen' : ''}" ><a href="${item.type == 1 ? '/history' : ''}" onclick="seenNotification(${item.id})">${item.msg}</a></li>`).appendTo('.user-noti');
+          })
+        }
+      }
+    );
+  });
   const seenNotification = (id) => {
     $.post("/api/seen-notification", { id: id },
       function (data, textStatus, jqXHR) {
@@ -76,23 +98,23 @@
   $.get("/api/count-notification",
     function (data, textStatus, jqXHR) {
       console.log(data);
+      if (data && data > 0) {
+        $('.number-noti').fadeIn(200);
+        $('.number-noti').text(data)
+      }
     }
   );
   $.get("/api/notification",
     function (data, textStatus, jqXHR) {
-      console.log(data);
+      $('.user-noti').empty();
 
       if (data.length > 0) {
         data.map(item => {
-          $(`<li ><a href="" onclick="seenNotification(${item.id})">${item.msg}</a></li>`).appendTo('.user-noti');
+          $(`<li class="${!item.seen ? 'not-seen' : ''}" ><a href="${item.type == 1 ? '/history' : ''}" onclick="seenNotification(${item.id})">${item.msg}</a></li>`).appendTo('.user-noti');
         })
       }
     }
   );
-
-
-
-
 
   new WOW().init();
   $(document).ready(function () {

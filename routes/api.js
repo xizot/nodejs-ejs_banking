@@ -405,8 +405,6 @@ router.get('/notification', async (req, res) => {
     if (!req.currentUser) return res.json(null); // chua dang nhap
     const userID = req.currentUser.id;
     const found = await Notifications.getNotification(userID);
-    console.log(found);
-
     let rs = [];
     if (found.length > 0) {
         found.map(item => {
@@ -415,7 +413,7 @@ router.get('/notification', async (req, res) => {
                     id: item.id,
                     type: item.type,
                     msg: `Tài khoản ${item.to} của bạn vừa nhận được tiền từ ${item.from}`,
-                    seen: item.seen
+                    seen: item.seen == 0 ? false : item.seen == 1 ? true : item.seen == 3 ? true : false,
                 })
             } else if (item.type == 1 && item.fromUser == userID) {
                 rs.push({

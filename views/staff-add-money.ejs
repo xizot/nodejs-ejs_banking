@@ -142,49 +142,35 @@
                         </h3>
                         <div class="search-square flex j-between a-center">
                             <div>
-                                <input type="search" name="" id="txtSearch">
-                                <button type="submit" class="btn btn-search">
-                                    <i class="fas fa-search"></i>
-                                </button>
+                                <div>
+
+                                    <input type="search" name="" id="txtSearch">
+                                    <button type="submit" class="btn btn-search">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                                <div class="errors">
+                                </div>
                             </div>
                             <div class="list-account">
                                 <ul class="list-account-item">
-                                    <li>
-                                        12312321321312
-                                    </li>
-                                    <li>
-                                        12312321321312
-                                    </li>
-                                    <li>
-                                        12312321321312
-                                    </li>
-                                    <li>
-                                        12312321321312
-                                    </li>
-                                    <li>
-                                        12312321321312
-                                    </li>
-                                    <li>
-                                        12312321321312
-                                    </li>
-
                                 </ul>
                             </div>
                         </div>
                         <div class="result-square row">
                             <div class="result-square-left  col-xs-6">
-                                <div class="result-square-left_item flex">
+                                <div class="result-square-left_item flex a-center">
                                     <label for="txtAmount">Amount</label>
                                     <input type="text" id="txtAmount">
                                 </div>
-                                <div class="result-square-left_item flex">
+                                <div class="result-square-left_item flex a-center">
                                     <label for="txtCurrencyUnit">Currency Unit</label>
                                     <select name="txtCurrencyUnit" id="txtCurrencyUnit">
                                         <option value="USD">USD</option>
                                         <option value="VND">VND</option>
                                     </select>
                                 </div>
-                                <div class="result-square-left_item flex">
+                                <div class="result-square-left_item flex a-center">
                                     <label for="txtMessage">Message</label>
                                     <input type="text" id="txtMessage">
                                 </div>
@@ -194,7 +180,7 @@
 
                             </div>
                             <div class="result-square-right  col-xs-6">
-                                <div class="card">
+                                <div class="card" style="display: none;">
                                     <div class="card__content">
                                         <div class="gutter ">
 
@@ -231,16 +217,22 @@
 
 </html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<script src="/socket.io/socket.io.js"></script>
 <script>
+    var socket = io("http://localhost:5000")
+
+    const fillToSearch = stk => {
+        $('#txtSearch').val(stk)
+    }
 
     $(function () {
+
         $.get("/api/get-all",
             function (data, textStatus, jqXHR) {
                 $('.list-account-item').empty();
                 if (data) {
                     data.forEach(element => {
-                        $(`<li>${element.STK}</li>`).appendTo('.list-account-item');
+                        $(`<li onclick="fillToSearch(${element.STK})">${element.STK}</li>`).appendTo('.list-account-item');
                     });
                 }
             },
@@ -282,22 +274,25 @@
     }
 
     $('.btn-search').click(function (e) {
+        $('.card').fadeOut(200);
         $('.txtNumberx').remove();
         $('.txtDatex').remove();
 
         $('#txtAmount').text('');
         $('#txtSearch').text('');
         $('#txtMessage').text('');
-        if ($('.error')) $('.error').remove();
+        if ($('.errors')) $('.errors').empty();
 
         if (!$('#txtSearch').val() || $('#txtSearch').val().length <= 0) alert('Vui Lòng Điền Thông Tin Cần Tìm')
 
         if ($('#txtSearch').val() && $('#txtSearch').val().length > 0) {
+
             $.post("/api/customer-search", { st: $('#txtSearch').val() },
                 function (data, textStatus, jqXHR) {
-                    console.log(data);
-                    if (!data) $(`<p class="error" >Không tìm thấy tài khoản phù hợp </p>`).appendTo('.search-square');
+
+                    if (!data) $(`<p class="error" >Không tìm thấy tài khoản phù hợp </p>`).appendTo('.errors');
                     else {
+                        $('.card').fadeIn(200);
                         const stk = data.STK.match(/.{1,4}/g).join(' ');
                         const date = new Date(data.beginDate).toISOString().slice(0, 10);
                         addText(`<p class="txtNumberx">${stk}</p>`, '.card-number', '.txtNumberx');
@@ -346,6 +341,7 @@
                             money,
                             currencyUnit
                         }
+                        socket.emit('transfer', activity)
                         localStorage.setItem('activityTransfer', JSON.stringify(activity));
                         $(location).attr('href', '/add-money');
                     }

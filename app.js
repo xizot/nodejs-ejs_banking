@@ -93,7 +93,9 @@ const users = [];
 
 io.on('connection', (socket) => {
     socket.on("transfer", data => {
+        console.log('=========================================================');
         console.log(data);
+        console.log('=========================================================');
 
         socket.id = data.id;
         users.push(socket.id);

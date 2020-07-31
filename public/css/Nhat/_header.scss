@@ -10,11 +10,7 @@ header{
         z-index: 999;
     }
     .container{
-        
-      
         .header__content{
-          
-          
             padding: 20px 0;
             #logo{
                 a{
@@ -40,7 +36,8 @@ header{
                             transform: translate(-50%,100%);
                             background-color: white;
                             border-radius: 5px;
-                            min-width: max-content;
+                            min-width: 250px;
+                            width: max-content;
                             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(0, 0, 0, 0.1);
                             z-index: 9999;
                             transition: all .4s;
@@ -69,18 +66,19 @@ header{
                               &:hover  a{
                                 color: $main-color;
                             }
+                           
                           }
                         }
 
                         .number-noti{
+                            display: none;
                             font-size: 10px;
                             color: white;
                             position: absolute;
-                            top: 3px;
+                            top: 6px;
                             right: 3px;
                             border-radius: 50px;
-                            background-color: red;
-                            /* padding: 4px; */
+                            background-color: #DF0A15;
                             width: 16px;
                             height: 16px;
                             line-height: 16px;
@@ -92,9 +90,7 @@ header{
                             transition: all .4s;
                             >.drop-down{
                                 display: block;
-                                
                             }
-                            
                         }
                     }
                 }
@@ -634,11 +630,25 @@ header{
         
     }
     100%{
-        ransform: translateY(0);
+        transform: translateY(0);
     }
 
 }
 
 header .container .header__content .left ul > li .drop-down > li {
     padding: 0 15px !important;
+    margin-bottom: 2px;
+   
+}
+header .container .header__content .left ul > li .drop-down > li a {
+    font-size: 12px !important;
+    font-weight: lighter;
+    color:#333 !important;
+}
+
+header .container .header__content .left ul > li .drop-down > li a:hover {
+   color:$main-color;
+}
+.not-seen{
+    background-color: rgba($color:$main-color, $alpha: .4);
 }

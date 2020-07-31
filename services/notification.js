@@ -81,13 +81,30 @@ class Notification extends Model {
             where: {
                 [Op.or]: [
                     {
-                        fromUser: find
+                        [Op.and]: [
+                            {
+                                fromUser: find
+                            },
+                            {
+                                seen: 3
+                            }
+                        ]
                     },
                     {
-                        toUser: find
+                        [Op.and]: [
+                            {
+                                toUser: find
+                            },
+                            {
+                                seen: 2
+                            }
+                        ]
+                    },
+                    {
+                        seen: 0,
                     }
                 ],
-                seen: 0,
+
             },
             order: [
                 ['date', 'DESC']
@@ -116,11 +133,9 @@ class Notification extends Model {
     // hhàm này để seen 1 thông báo
     static async seenNotification(id, userID) {
         const found = await Notification.findByPk(id)
-
-
         if (found) {
 
-            if (found.fromUser == "ADMIN") {
+            if (found.from == "ADMIN") {
                 found.seen = 1;
                 return found.save();
             }
