@@ -107,7 +107,7 @@
   $.get("/api/notification",
     function (data, textStatus, jqXHR) {
       $('.user-noti').empty();
-
+      console.log(data);
       if (data && data.length > 0) {
         data.map(item => {
           $(`<li class="${!item.seen ? 'not-seen' : ''}" ><a href="${item.type == 1 ? '/history' : ''}" onclick="seenNotification(${item.id})">${item.msg}</a></li>`).appendTo('.user-noti');

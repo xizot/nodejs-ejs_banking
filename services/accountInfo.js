@@ -142,10 +142,11 @@ class AccountInfo extends Model {
         if (from != "ADMIN") {
             foundFrom = await this.getBySTKOne(from);
             if (!foundFrom) return 4;
+            if (Number(money) > foundFrom.limit) return 8;
             if (Number(foundFrom.balance) < Number(money)) return 7;
             await foundFrom.save();
             foundFrom.balance = Number(foundFrom.balance) - Number(money);
-            foundFrom.save();
+            await foundFrom.save();
 
         }
 
@@ -153,13 +154,13 @@ class AccountInfo extends Model {
 
         if (!foundTo && foundFrom) {
             foundFrom.balance = Number(foundFrom.balance) + Number(money);
-            foundFrom.save();
+            await foundFrom.save();
             return 2;
         }
 
 
         foundTo.balance = Number(foundTo.balance) + Number(money);
-        foundTo.save();
+        await foundTo.save();
 
 
         Transfer.addNewInExternal(from, to, amount, message, currencyUnit, bankCode, fromUser, foundTo.userID);
@@ -253,6 +254,10 @@ AccountInfo.init({
     bankCode: {
         type: Sequelize.STRING,
         defaultValue: 'ARG'
+    },
+    limit: {
+        type: Sequelize.DECIMAL,
+        defaultValue: 5000,
     },
     isDefault: {
         type: Sequelize.BOOLEAN,
