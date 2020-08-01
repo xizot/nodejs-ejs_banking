@@ -8,7 +8,17 @@ const { sendMail } = require('../services/function');
 
 class User extends Model {
 
+    static async countClient() {
+        const count = await this.count({
+            where: {
+                permisstion: {
+                    [Sequelize.Op.ne]: 1
+                }
+            }
+        })
+        return (Math.floor(count / 6) + (count % 6 > 0 ? 1 : 0))
 
+    }
     static async checkDEmail(id, email) {
         const foundEmail = await User.findAll({
             where: {

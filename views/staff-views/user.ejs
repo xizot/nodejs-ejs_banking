@@ -21,13 +21,13 @@
         </div>
         <div class="table">
 
+            <div class="table-header row a-center ">
+                <div class="col-xs-1 t-center">NO</div>
+                <div class=" col-xs-2 t-center">USER ID</div>
+                <div class=" col-xs-7">FULL NAME</div>
+                <div class=" col-xs-2 t-center">VERIFY</div>
+            </div>
             <div class="table-gutter">
-                <div class="table-header row a-center ">
-                    <div class="col-xs-1 t-center">NO</div>
-                    <div class=" col-xs-2 t-center">USER ID</div>
-                    <div class=" col-xs-7">FULL NAME</div>
-                    <div class=" col-xs-2 t-center">VERIFY</div>
-                </div>
                 <div class="table-item row  a-center">
                     <div class=" col-xs-1 t-center">1</div>
                     <div class=" col-xs-2 t-center"><a href="./user?id=1">1</a></div>
@@ -76,3 +76,64 @@
     </div>
 </div>
 <%- include('./../staff-structure/footer')%>
+<script>
+    $(function () {
+        $.get("/api/get-client",
+            function (data, textStatus, jqXHR) {
+                $('.table-gutter').empty();
+                $('.pag-list').empty()
+
+                if (data && data.length > 0) {
+                    data.map((item, index) => {
+                        $(`
+                        <div class="table-item row  a-center">
+                    <div class=" col-xs-1 t-center">${index}</div>
+                    <div class=" col-xs-2 t-center"><a href="./user?id=${item.id}">${item.id}</a></div>
+                    <div class=" col-xs-7">${item.displayName}</div>
+                    <div class=" col-xs-2 t-center">${item.isActive == 1 ? 'Yes' : 'No'}</div>
+                        </div>
+                        `).appendTo('.table-gutter');
+                    })
+
+                }
+            },
+        );
+        $.get("/api/count-client",
+            function (data, textStatus, jqXHR) {
+                console.log(data);
+                $('.pag-list').empty();
+                if (data) {
+                    for (let i = 0; i < data; i++) {
+                        $(` <li class="pag-num ${i == 0 ? " active" : ""}" value="${i + 1}">
+                            ${i + 1}
+                            </li>`).appendTo('.pag-list')
+                    }
+                }
+            },
+        );
+        $(document).on('click', '.pag-num', function (e) {
+            $('.pag-num').removeClass('active');
+            $(this).addClass('active');
+            const numpage = $(this).attr('value')
+            $.get("/api/get-client?page=" + numpage,
+                function (data, textStatus, jqXHR) {
+                    $('.table-gutter').empty();
+                    if (data && data.length > 0) {
+                        data.map((item, index) => {
+                            $(`
+                        <div class="table-item row  a-center">
+                    <div class=" col-xs-1 t-center">${index}</div>
+                    <div class=" col-xs-2 t-center"><a href="./user?id=${item.id}">${item.id}</a></div>
+                    <div class=" col-xs-7">${item.displayName}</div>
+                    <div class=" col-xs-2 t-center">${item.isActive == 1 ? 'Yes' : 'No'}</div>
+                        </div>
+                        `).appendTo('.table-gutter');
+                        })
+
+                    }
+                },
+            );
+        })
+
+    });
+</script>
