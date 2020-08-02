@@ -83,6 +83,66 @@
     function cancel() {
         $(location).attr('href', '/user');
     }
+
+    function save(id) {
+        const displayName = $('#fullName').val();
+        const userID = id;
+        const email = $('#email').val();
+        const phoneNumber = $('#phoneNumber').val();
+        const dob = $('#dob').val();
+        const address = $('#address').val();
+        const password = $('#newPassword').val();
+        const rePassword = $('#rePassword').val();
+
+        if (!displayName || displayName.length <= 0) {
+            alert('Vui lòng nhập tên');
+            $('#fullname').focus();
+        }
+        else if (!email || email.length <= 0) {
+            alert('Vui lòng nhập email');
+            $('#email').focus();
+        }
+        else if (!phoneNumber || phoneNumber.length <= 0) {
+            alert('Vui lòng nhập số điện thoại');
+            $('#phoneNumber').focus();
+        }
+        else if (!dob || dob.length <= 0) {
+            alert('Vui lòng chojn ngày sinh');
+            $('#dob').focus();
+        }
+        else if (!address || address.length <= 0) {
+            alert('Vui lòng nhập địa chỉ');
+            $('#address').focus();
+        }
+        else if (password.length > 0 && rePassword != password) {
+            alert('Mật khẩu xác thực không trùng khớp');
+            $('#rePassword').focus();
+        }
+
+        else {
+            $.post("/api/update-client", { displayName, email, phoneNumber, userID, address, password },
+                function (data, textStatus, jqXHR) {
+                    if (data) {
+                        alert('Cập nhật thành công');
+
+                    }
+                    else {
+                        alert('Đã xảy ra lỗi');
+                        $(location).attr('href', '/user?id=2&edit=true');
+                    }
+                },
+            );
+        }
+        console.log(displayName);
+        console.log(userID);
+        console.log(email);
+        console.log(phoneNumber);
+        console.log(dob);
+        console.log(address);
+        console.log(password);
+        console.log(rePassword);
+    }
+
     $(function () {
 
         const addValue = (txt, sel) => {

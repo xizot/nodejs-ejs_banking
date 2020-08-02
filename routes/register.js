@@ -24,6 +24,7 @@ router.post('/', [
         return true;
     }),
 ], async function (req, res) {
+
     errors = validationResult(req);
     if (!errors.isEmpty()) {
         errors = errors.array();
@@ -41,12 +42,8 @@ router.post('/', [
         var token = null;
         if (validateEmail(req.body.txtEmail)) {
             email = req.body.txtEmail;
-        }
-
-        if (email) {
             token = require('crypto').randomBytes(3).toString('hex').toUpperCase();
         }
-
         const newUser = {
             displayName: req.body.txtDisplayName,
             username: req.body.txtEmail,

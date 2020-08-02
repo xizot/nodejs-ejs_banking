@@ -176,7 +176,7 @@
         );
     }
     function un_block(id) {
-        $.post("/api/verify-client", { id: id },
+        $.post("/api/unblock-client", { id: id },
             function (data, textStatus, jqXHR) {
                 if (data == 1) {
                     alert('unblock successfully.');

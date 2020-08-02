@@ -1,103 +1,95 @@
 <%- include ('header',{title:'Payyed - Verify Account'}); %>
 
 <div class="verify-account request">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-md-4">
-                <h3 class="title">
-                    List request
-                </h3>
-                <ul>
-                    <% if(found.length >0){ %>
-                    <%    found.map(item=>{ %>
+    <div class="row">
+        <div class="col-xs-12 col-md-4">
+            <h3 class="title">
+                List request
+            </h3>
+            <ul>
+                <% if(found.length >0){ %>
+                <%    found.map(item=>{ %>
 
-                    <%if(item.type == 1){%>
-                    <%- ` <li id='rq${item.id}'>User ${item.userID} yêu cầu xác thực
+                <%if(item.type == 1){%>
+                <%- ` <li id='rq${item.id}'>User ${item.userID} yêu cầu xác thực
                         tài khoản</li>` %>
-                    <%}%>
+                <%}%>
                     <%if(item.type == 2){%>
-                    <%- ` <li id='rq${item.id}'>User ${item.userID} yêu cầu mở tài khoản ngân hàng</li>` %>
-                    <%}%>
+                <%- ` <li id='rq${item.id}'>User ${item.userID} yêu cầu mở tài khoản ngân hàng</li>` %>
+                <%}%>
                      <%if(item.type == 3){%>
-                    <%- ` <li id='rq${item.id}'>User ${item.userID} yêu cầu mở tài khoản tiết kiệm</li>` %>
-                    <%}%>
+                <%- ` <li id='rq${item.id}'>User ${item.userID} yêu cầu mở tài khoản tiết kiệm</li>` %>
+                <%}%>
                     <%if(item.type == 4){%>
-                    <%- ` <li id='rq${item.id}'>User ${item.userID} yêu cầu khóa tài khoản</li>` %>
-                    <%}%>
+                <%- ` <li id='rq${item.id}'>User ${item.userID} yêu cầu khóa tài khoản</li>` %>
+                <%}%>
 
                     <%})} %>
-                </ul>
-
-            </div>
-            <div class="col-xs-12 col-md-8">
-                <h3 class="title">
-                    Content
-                </h3>
-                <div class="content">
-                    <% if(data){ %>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6 mt-10">
-                            Name: Nguyen Van Nhat
-                        </div>
-                        <div class="col-xs-12 col-md-6 mt-10">
-                            <% if(data.identityTypes ==1){%>
-                            Type Of Identity:CMND
-                            <%}%>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-md-8">
+            <h3 class="title">
+                Content
+            </h3>
+            <div class="content">
+                <% if(data){ %>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6 mt-10">
+                        Name: Nguyen Van Nhat
+                    </div>
+                    <div class="col-xs-12 col-md-6 mt-10">
+                        <% if(data.identityTypes ==1){%>
+                        Type Of Identity:CMND
+                        <%}%>
                             <%if(data.identityTypes ==2){%>
-                            Type Of Identity:CCCD
-                            <%}%>
+                        Type Of Identity:CCCD
+                        <%}%>
                             <%if(data.identityTypes ==3){%>
-                            Type Of Identity:Passport
-                            <%}%>
+                        Type Of Identity:Passport
+                        <%}%>
                           
                         </div>
                         <div class="col-xs-12 col-md-6 mt-10">
                             <%-`Number of identity: ${data.identity}`%>
-                        </div>
-                        <div class="col-xs-12 col-md-6 mt-10">
-                            <%-` Issued: ${new Date(data.beginDate).toISOString().slice(0, 10)}`%>
-                        </div>
-                        <div class="col-xs-12 mt-10" style="height: 300px;">
-                            <label for="" style="display: block;">Image:</label>
-                            <img src="../img/image-1.jpg" class="mt-10" alt="" style="height: 250px;">
-                        </div>
                     </div>
-                    <div class="action mt-20">
+                    <div class="col-xs-12 col-md-6 mt-10">
+                        <%-` Issued: ${new Date(data.beginDate).toISOString().slice(0, 10)}`%>
+                    </div>
+                    <div class="col-xs-12 mt-10" style="height: 300px;">
+                        <label for="" style="display: block;">Image:</label>
+                        <img src="../img/image-1.jpg" class="mt-10" alt="" style="height: 250px;">
+                    </div>
+                </div>
+                <div class="action mt-20">
 
-                        <a href=""><button class="btn" id="accept-request" style="color:white"
-                                data-id="<%- id?id:''%>">Chấp
-                                nhận</button></a>
-                        <a href=""><button class="btn" style="background-color: black;color:white">Từ chôi</button></a>
-                    </div>
-                    <%}%>
+                    <a href=""><button class="btn" id="accept-request" style="color:white" data-id="<%- id?id:''%>">Chấp
+                            nhận</button></a>
+                    <a href=""><button class="btn" style="background-color: black;color:white">Từ chôi</button></a>
+                </div>
+                <%}%>
                     <% if(content &&content.type != 1){ %>
-                    <div class="row">
-                        <% if(content.type == 2){ %>
-                        <h4 class="title">Mở tài khoản ngân hàng</h4>
-                        <%}%>
+                <div class="row">
+                    <% if(content.type == 2){ %>
+                    <h4 class="title">Mở tài khoản ngân hàng</h4>
+                    <%}%>
                             <% if(content.type == 3){ %>
-                        <h4 class="title">Mở tài khoản tiết kiệm</h4>
-                        <%}%>
+                    <h4 class="title">Mở tài khoản tiết kiệm</h4>
+                    <%}%>
                             <% if(content.type == 4){ %>
-                        <h4 class="title">Khóa tài khoản</h4>
-                        <%}%>
+                    <h4 class="title">Khóa tài khoản</h4>
+                    <%}%>
                         </div>
                         <div class="action mt-20">
     
                             <a href=""><button class="btn" id="accept-request" style="color:white"
                                     data-id="<%- id?id:''%>">Chấp
-                        nhận</button></a>
-                        <a href=""><button class="btn" style="background-color: black;color:white">Từ chôi</button></a>
-                    </div>
-                    <%}%>
-                        </div>
-                    </div>
+                    nhận</button></a>
+                    <a href=""><button class="btn" style="background-color: black;color:white">Từ chôi</button></a>
                 </div>
+                <%}%>
             </div>
-        </div>
-
+         </div>
     </div>
-
     </body>
     <script src="./vendor/jquery.min.js"></script>
     <script>

@@ -9,6 +9,7 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const { sendMail } = require('../services/function');
 const { findInfoOffCustomer, findActivityStaff, countActivityStaff } = require('../services/staffFunction');
+const UserRequest = require('../services/userRequest');
 
 
 router.get('/current', async (req, res) => {
@@ -490,16 +491,12 @@ router.get('/get-client', async (req, res) => {
     // if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
     const page = req.query.page || 1;
     const limit = 6;
-    const listUser = await User.findAll({
-        limit,
-        offset: (page - 1) * limit,
-        order: [['id', 'ASC']]
-    })
+    const listUser = await User.getClient(page, limit)
     return res.json(listUser);
 })
 router.get('/get-client-info', async (req, res) => {
     if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
-    const id = req.query.id || 1;
+    const id = req.query.id;
     const user = await User.findByPk(id);
     return res.json(user);
 })
@@ -613,11 +610,101 @@ router.post('/delete-client', async (req, res) => {
 
     return res.json(1);
 })
-router.get('/get-client-info', async (req, res) => {
+router.post('/update-client', async (req, res) => {
+    if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
+
+    const { userID, displayName, phoneNumber, email, dob, address, password } = req.body;
+
+    if (password) {
+        const rs = await User.update({
+            displayName,
+            email,
+            phoneNumber,
+            dob,
+            address,
+            password: bcrypt.hashSync(password, 10),
+        }, {
+            where: {
+                id: userID
+            }
+        })
+
+        await StaffActivityLog.create({
+            staffID: req.currentUser.id,
+            message: `Đã cập nhật tài khoản ${userID}`,
+        })
+
+        sendMail(email, 'Tài khoản được nhân viên cập nhật', 'Nhân viên đã cập nhật tài khoản của bạn', 'Nhân viên đã cập nhật tài khoản của bạn')
+        return res.json(rs);
+    }
+    if (!password) {
+        const rs = await User.update({
+            displayName,
+            email,
+            phoneNumber,
+            dob,
+            address,
+        }, {
+            where: {
+                id: userID
+            }
+        })
+
+        await StaffActivityLog.create({
+            staffID: req.currentUser.id,
+            message: `Đã cập nhật tài khoản ${userID}`,
+        })
+
+        sendMail(email, 'Tài khoản được nhân viên cập nhật', 'Nhân viên đã cập nhật tài khoản của bạn', 'Nhân viên đã cập nhật tài khoản của bạn')
+        //gui thong bao qua mail cho user
+
+        return res.json(rs);
+    }
+
+    return res.json(null);
+
+})
+
+router.post('/search-client', async (req, res) => {
+    if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
+
+    const { st } = req.body;
+    const found = await User.findClient(st);
+    return res.json(found);
+
+})
+
+// request
+router.get('/count-client', async (req, res) => {
     // if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
-    const id = req.query.id || 1;
-    const user = await User.findByPk(id);
-    return res.json(user);
+    const page = req.query.page || 1;
+    const limit = 6;
+    const listUser = await User.countClient()
+    if (!listUser) return res.json(0);
+    return res.json(listUser);
+})
+router.get('/get-request', async (req, res) => {
+    if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
+    const page = req.query.page || 1;
+    const limit = 6;
+    const listRequest = await UserRequest.findAll({
+        order: [['createdAt', 'DESC']],
+        limit,
+        offset: (page - 1) * limit,
+    })
+    return res.json(listRequest);
+})
+
+router.get('/count-request', async (req, res) => {
+    if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
+    const rs = await UserRequest.findAndCountAll();
+    return res.json((Math.floor(rs.count / 6) + (rs.count % 6 > 0 ? 1 : 0)))
+})
+
+router.get('/count-all-request', async (req, res) => {
+    if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
+    const rs = await UserRequest.findAndCountAll();
+    return res.json(rs.count)
 })
 router.post('/seen-notification', async (req, res) => {
     if (!req.currentUser) return res.json(null);

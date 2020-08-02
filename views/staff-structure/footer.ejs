@@ -7,11 +7,63 @@
 
 </html>
 <script src="./vendor/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
 <script>
     $(window).on('load', () => {
         $('.loading').fadeOut(200);
     })
+
+
+    function getNoti() {
+        $.get("/staff/api/all-notification",
+            function (data, textStatus, jqXHR) {
+                $('.drop-down').empty();
+                if (data.length > 0) {
+                    data.forEach(element => {
+                        let msg = `User ${element.userID} yêu cầu khóa tài khoản`;
+                        if (element.type == 1) {
+                            msg = `User ${element.userID} xác thực tài khoản`;
+
+                        }
+                        if (element.type == 2) {
+                            msg = `User ${element.userID} yêu cầu mở tài khoản thanh toán`;
+
+                        }
+                        if (element.type == 3) {
+                            msg = `User ${element.userID} yêu cầu mở tài khoản tiết kiệm`;
+
+                        }
+
+                        $(` <li data-x="${msg}"">
+                                    <a href="/request?id=${element.id}">${msg.slice(0, 15)}...</a>
+                                </li>`).appendTo('.drop-down');
+                    });
+
+                }
+            },
+        );
+        $.get("/api/count-all-request",
+            function (data, textStatus, jqXHR) {
+                if (data && data > 0) {
+                    $('.number-of-noti').text(data)
+                }
+            },
+        );
+    }
+
     $(function () {
+
+        getNoti();
+        var socket = io("http://localhost:5000");
+        socket.on('update-noti', data => {
+            if (data) {
+                console.log(data);
+                getNoti();
+            }
+        })
+
+
+
         if (window.location.pathname == "/") {
             $('.cateDashboard').addClass('active');
         }
@@ -29,6 +81,9 @@
         }
         else if (window.location.pathname == "/support") {
             $('.cateSupplier').addClass('active');
+        }
+        else if (window.location.pathname == "/request") {
+            $('.cateRequest').addClass('active');
         }
     });
 </script>
