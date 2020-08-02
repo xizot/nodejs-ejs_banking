@@ -145,7 +145,7 @@ class Notification extends Model {
         const found = await Notification.findByPk(id)
         if (found) {
 
-            if (found.from == "ADMIN") {
+            if (found.from == "ADMIN" || (!found.fromUser && !found.toUser)) {
                 found.seen = 1;
                 return found.save();
             }

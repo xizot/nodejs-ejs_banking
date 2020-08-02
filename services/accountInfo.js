@@ -92,10 +92,20 @@ class AccountInfo extends Model {
     // hàm này để chuyển tiền khác ngân hàng
     async addMoneyExternal(from, amount, message, currencyUnit, bankCode) {
 
-        var money = amount;
-
+        let money = amount;
         if (currencyUnit == "VND") {
-            money = money * (1 / 23000);
+            const rate = await ExchangeRate.findOne({
+                where: {
+                    displayName: 'VND',
+                }
+            })
+
+            if (rate) {
+                money = Number(money) * Number(rate.rate);
+            }
+            else {
+                money = Number(money) * Number(1 / 23000)
+            }
         }
 
         this.balance = Number(this.balance) + (Number(money));
@@ -107,9 +117,19 @@ class AccountInfo extends Model {
 
     static async minusMoney(to, amount, currencyUnit, bankCode) {
         let money = amount;
-
         if (currencyUnit == "VND") {
-            money = money * (1 / 23000);
+            const rate = await ExchangeRate.findOne({
+                where: {
+                    displayName: 'VND',
+                }
+            })
+
+            if (rate) {
+                money = Number(money) * Number(rate.rate);
+            }
+            else {
+                money = Number(money) * Number(1 / 23000)
+            }
         }
         const foundTo = await AccountInfo.getBySTKOne(to);
 
@@ -173,7 +193,18 @@ class AccountInfo extends Model {
         let money = amount;
 
         if (currencyUnit == "VND") {
-            money = money * (1 / 23000);
+            const rate = await ExchangeRate.findOne({
+                where: {
+                    displayName: 'VND',
+                }
+            })
+
+            if (rate) {
+                money = Number(money) * Number(rate.rate);
+            }
+            else {
+                money = Number(money) * Number(1 / 23000)
+            }
         }
 
         this.balance = Number(this.balance) + Number(money);

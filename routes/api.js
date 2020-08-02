@@ -185,8 +185,8 @@ router.post('/update-info', async (req, res) => {
     if (!found) return 3; // khong tim thay
 
 
-    if (await User.checkDEmail(req.currentUser.id, email)) return res.json(4)
-    if (await User.checkDUsername(req.currentUser.id, username)) return res.json(5)
+    if (await User.checkDEmail(req.currentUser.id, email)) return res.json(4) // email da ton tai
+    if (await User.checkDUsername(req.currentUser.id, username)) return res.json(5) // username da ton tai
 
     found.displayName = displayName;
     found.email = email;
@@ -263,7 +263,7 @@ router.post('/checkaccountid', async (req, res) => {
     if (!found) return res.json(null);
     return res.json(null);
 })
-router.post('/transferexternal', async (req, res) => {
+router.post('/listen-external', async (req, res) => {
 
     //   null: không tồn tại tài khoản đó
     //0: nhận tiền thành công
@@ -271,10 +271,13 @@ router.post('/transferexternal', async (req, res) => {
     //2: loại tiền không hợp lệ (chỉ nhận USD hoặc VND)
     //3: có lỗi ngoài lề nào đó, bên Nhật nhận tín hiệu này thì hoãn tiền lại cho tài khoản bên gửi
     //4: không đủ dữ liệu
+    //5: không đúnng clientID
     // clientId: bên wfb cung cấp cho bên Nhật cái này để gọi được api bên t
     // secretKey: bên wfb cung cấp cho nhật cái này để gọi được api bên t
-    const { accountId, bankSecretKey, bankId, money, currency, requestAccountId, clientId, secretKey } = req.body;
-    if (!accountId || !bankSecretKey || !bankId || !money || !currency || !requestAccountId || !clientId || !secretKey) return res.json(4);
+    const { clientid, secretkey } = req.headers;
+    if (!clientid || !secretkey || clientid != "wibu" || secretkey != "0263baf607bec5531849") return res.json(5);
+    const { accountId, bankSecretKey, bankId, money, currency, requestAccountId } = req.body;
+    if (!accountId || !bankSecretKey || !bankId || !money || !currency || !requestAccountId) return res.json(4);
     // kiểm tra hợp lê
     if (bankSecretKey != "12345" || bankId != "wfb") return res.json(1);
     // loại tiền tệ không được chấp nhận
@@ -283,7 +286,7 @@ router.post('/transferexternal', async (req, res) => {
     const found = await AccountInfo.getBySTKOne(accountId);
     //nếu không tìm thấy
     if (!found) return res.json(null);
-    const message = req.body.message || "Đã có 1 người chuyển tiền cho bạn";
+    const message = req.body.message || "Đã có 1 người khác ngân hàng chuyển tiền cho bạn";
     // Chuyển tiền thành công
     if (await found.addMoneyExternal(requestAccountId, money, message, currency, bankId)) return res.json(0);
     await AccountInfo.minusMoney(accountId, money, currency, bankId);
@@ -474,10 +477,150 @@ router.get('/count-notification', async (req, res) => {
 })
 
 
+//staff
+router.get('/count-client', async (req, res) => {
+    // if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
+    const page = req.query.page || 1;
+    const limit = 6;
+    const listUser = await User.countClient()
+    if (!listUser) return res.json(0);
+    return res.json(listUser);
+})
+router.get('/get-client', async (req, res) => {
+    // if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
+    const page = req.query.page || 1;
+    const limit = 6;
+    const listUser = await User.findAll({
+        limit,
+        offset: (page - 1) * limit,
+        order: [['id', 'ASC']]
+    })
+    return res.json(listUser);
+})
+router.get('/get-client-info', async (req, res) => {
+    if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
+    const id = req.query.id || 1;
+    const user = await User.findByPk(id);
+    return res.json(user);
+})
+router.post('/verify-client', async (req, res) => {
+    if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
+    const id = req.body.id;
+
+    if (!id) return res.json(null)
+    const user = await User.findByPk(id);
+    if (!user) return res.json(null)
+    // theem staff activity
+
+    user.isActive = 1;
+    await user.save();
+
+    await StaffActivityLog.create({
+        staffID: req.currentUser.id,
+        message: `Đã xác thực tài khoản ${id}`,
+    })
+
+    sendMail(user.email, 'Tài khoản đã được xác thực', 'Nhân viên đã xác thực tài khoản của bạn', 'Nhân viên đã xác thực tài khoản của bạn')
+    //gui thong bao qua mail cho user
+
+    return res.json(1);
+})
+
+router.post('/block-client', async (req, res) => {
+    if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
+    const id = req.body.id;
+
+    if (!id) return res.json(null)
+    const user = await User.findByPk(id);
+    if (!user) return res.json(null)
+
+    user.isActive = 5;
+    await user.save();
+
+    await StaffActivityLog.create({
+        staffID: 1 || req.currentUser.id,
+        message: `Đã khóa tài khoản ${id}`,
+    })
+
+    sendMail(user.email, 'Tài khoản đã bị khóa', 'Nhân viên đã khóa tài khoản của bạn', 'Nhân viên đã khóa tài khoản của bạn')
+    //gui thong bao qua mail cho user
+
+    return res.json(1);
+})
+
+router.post('/unverify-client', async (req, res) => {
+    if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
+    const id = req.body.id;
+
+    if (!id) return res.json(null)
+    const user = await User.findByPk(id);
+    if (!user) return res.json(null)
+    // theem staff activity
+
+    user.isActive = 0;
+    await user.save();
+
+    await StaffActivityLog.create({
+        staffID: req.currentUser.id,
+        message: `Đã hủy xác thực tài khoản ${id}`,
+    })
+
+    sendMail(user.email, 'Tài khoản đã bị hủy xác thực', 'Nhân viên đã hủy thực tài khoản của bạn', 'Nhân viên đã hủy xác thực tài khoản của bạn')
+    //gui thong bao qua mail cho user
+
+    return res.json(1);
+})
+
+router.post('/unblock-client', async (req, res) => {
+    if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
+    const id = req.body.id;
+
+    if (!id) return res.json(null)
+    const user = await User.findByPk(id);
+    if (!user) return res.json(null)
+
+    user.isActive = 0;
+    await user.save();
+
+    await StaffActivityLog.create({
+        staffID: req.currentUser.id,
+        message: `Đã mở khóa tài khoản ${id}`,
+    })
+
+    sendMail(user.email, 'Tài khoản đã được mở khóa', 'Nhân viên đã mở khóa tài khoản của bạn', 'Nhân viên đã mở khóa tài khoản của bạn')
+    //gui thong bao qua mail cho user
+
+    return res.json(1);
+})
+router.post('/delete-client', async (req, res) => {
+    if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
+    const id = req.body.id;
+
+    if (!id) return res.json(null)
+    const user = await User.destroy({
+        where: {
+            id: id,
+        }
+    });
+
+    await StaffActivityLog.create({
+        staffID: req.currentUser.id,
+        message: `Đã xóa tài khoản ${id}`,
+    })
+
+    sendMail(user.email, 'Tài khoản đã xóa khỏi hệ thống', 'Nhân viên đã xóa tài khoản của bạn', 'Nhân viên đã xóa tài khoản của bạn')
+    //gui thong bao qua mail cho user
+
+    return res.json(1);
+})
+router.get('/get-client-info', async (req, res) => {
+    // if (!req.currentUser || req.currentUser.permisstion != 1) return res.json(null);
+    const id = req.query.id || 1;
+    const user = await User.findByPk(id);
+    return res.json(user);
+})
 router.post('/seen-notification', async (req, res) => {
-
     if (!req.currentUser) return res.json(null);
-
     const { id } = req.body;
     Notifications.seenNotification(id, req.currentUser.id);
     return res.json(1);

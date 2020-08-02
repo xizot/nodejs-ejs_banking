@@ -17,13 +17,13 @@
                     <div class="col-xs-6">
                         <div class="gt">
                             <label for="">User ID: <span class="red">*</span></label>
-                            <input type="text" disabled>
+                            <input type="text" disabled id="userID">
                         </div>
                     </div>
                     <div class="col-xs-6">
                         <div class="gt">
                             <label for="">Full name: <span class="red">*</span></label>
-                            <input type="text">
+                            <input type="text" id="fullName">
                         </div>
                     </div>
                 </div>
@@ -31,13 +31,13 @@
                     <div class="col-xs-6">
                         <div class="gt">
                             <label for="">Phone number: <span class="red">*</span></label>
-                            <input type="text">
+                            <input type="text" id="phoneNumber">
                         </div>
                     </div>
                     <div class="col-xs-6">
                         <div class="gt">
                             <label for="">Email: <span class="red">*</span></label>
-                            <input type="text">
+                            <input type="email" id="email">
                         </div>
                     </div>
                 </div>
@@ -45,13 +45,13 @@
                     <div class="col-xs-6">
                         <div class="gt">
                             <label for="">Date Of Birth: <span class="red">*</span></label>
-                            <input type="text">
+                            <input type="date" id="dob">
                         </div>
                     </div>
                     <div class="col-xs-6">
                         <div class="gt">
-                            <label for="">Address Number: <span class="red">*</span></label>
-                            <input type="text">
+                            <label for="">Address Number:</label>
+                            <input type="text" id="address">
                         </div>
                     </div>
                 </div>
@@ -59,20 +59,18 @@
                     <div class="col-xs-6">
                         <div class="gt">
                             <label for="">Password: <span class="red">*</span></label>
-                            <input type="text">
+                            <input type="password" id="newPassword" autocomplete="off">
                         </div>
                     </div>
                     <div class="col-xs-6">
                         <div class="gt">
                             <label for="">Re-Password: <span class="red">*</span></label>
-                            <input type="text">
+                            <input type="password" id="rePassword" autocomplete="off">
                         </div>
                     </div>
                 </div>
-                <div class="table-gutter-item row j-end" style="padding: 0 20px;">
-                    <button class="btn btn-user-item" style="background-color: #1999ff;">Save</button>
-                    <button class="btn btn-user-item"
-                        style="background-color: #868e96;margin-left: 10px;">Cancel</button>
+                <div class="table-gutter-item row j-end user-edit-btm" style="padding: 0 20px;">
+
                 </div>
             </div>
 
@@ -80,3 +78,40 @@
     </div>
 </div>
 <%- include('./../staff-structure/footer')%>
+
+<script>
+    function cancel() {
+        $(location).attr('href', '/user');
+    }
+    $(function () {
+
+        const addValue = (txt, sel) => {
+            $(sel).val(txt);
+        }
+
+
+
+        $.get("/api/get-client-info" + location.search,
+            function (data, textStatus, jqXHR) {
+                $('.user-edit-btm').empty()
+                $('#userID').val('')
+                $('#fullName').val('')
+                $('#email').val('')
+                $('#phoneNumber').val('')
+                $('#dob').val('')
+                $('#address').val('')
+                if (data) {
+                    addValue(data.id, '#userID')
+                    addValue(data.displayName, '#fullName')
+                    addValue(data.email, '#email')
+                    addValue(data.phoneNumber, '#phoneNumber')
+                    addValue(new Date(data.dob).toISOString().slice(0, 10), '#dob')
+                    addValue(data.address, '#address')
+                    $(`   <button class="btn btn-user-item" style="background-color: #1999ff;"  onclick="save(${data.id})">Save</button>
+                    <button class="btn btn-user-item" style="background-color: #868e96;margin-left: 10px;"
+                        onclick="cancel()">Cancel</button>`).appendTo(`.user-edit-btm`);
+                }
+            },
+        );
+    });
+</script>

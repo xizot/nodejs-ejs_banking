@@ -15,79 +15,214 @@
             <div class="table-gutter">
                 <div class="table-item row  a-center">
                     <div class=" col-xs-2  ">USER ID</div>
-                    <div class=" col-xs-10 " id="userID">1</div>
+                    <div class=" col-xs-10 " id="userID"></div>
                 </div>
                 <div class="table-item row  a-center">
                     <div class=" col-xs-2  ">FULL NAME</div>
-                    <div class=" col-xs-10 " id="fullName">Nguyen Van Nhat</div>
+                    <div class=" col-xs-10 " id="fullName"></div>
                 </div>
                 <div class="table-item row  a-center">
                     <div class=" col-xs-2  ">DATE OF BIRTH</div>
-                    <div class=" col-xs-10" id="dob">2020-18-08</div>
+                    <div class=" col-xs-10" id="dob"></div>
                 </div>
                 <div class="table-item row  a-center">
-                    <div class=" col-xs-2 " id="email">EMAIL</div>
-                    <div class=" col-xs-10 ">1</div>
+                    <div class=" col-xs-2 ">EMAIL</div>
+                    <div class=" col-xs-10 " id="email"></div>
                 </div>
                 <div class="table-item row  a-center">
                     <div class=" col-xs-2  ">ADDRESS</div>
-                    <div class=" col-xs-10 " id="address">1</div>
+                    <div class=" col-xs-10 " id="address"></div>
                 </div>
                 <div class="table-item row  a-center">
                     <div class=" col-xs-2  ">PHONE NUMBER</div>
-                    <div class=" col-xs-10 " id="phoneNumber">0859800980</div>
-                </div>
-                <div class="table-item row  a-center">
-                    <div class=" col-xs-2  ">IMAGE</div>
-                    <div class=" col-xs-10 " id="user-img">
-                        <img src="./src/img/b2.jpg" alt=""
-                            style="height: 38px; width: 50px;margin-top: 2px; cursor: pointer;">
-                    </div>
-                </div>
-                <div class="table-item row  a-center">
-                    <div class=" col-xs-2  ">CARD NUMBER</div>
-                    <div class=" col-xs-10 " id="phoneNumber">100012345678</div>
+                    <div class=" col-xs-10 " id="phoneNumber"></div>
                 </div>
 
                 <div class="table-item row  a-center">
                     <div class=" col-xs-2  ">VERIFY</div>
-                    <div class=" col-xs-10 flex a-center" id="Verify">
-                        <span>
-                            Verify
-                        </span>
-                        <button class="btn btn-user-item" style="background-color: #1999ff;">
-                            UnVerify
-                        </button>
+                    <div class=" col-xs-10 flex a-center" id="verify">
+
                     </div>
                 </div>
                 <div class="table-item row  a-center">
                     <div class=" col-xs-2  ">BLOCK</div>
-                    <div class=" col-xs-10 flex a-center" id="Verify">
-                        <span>
-                            Block
-                        </span>
-                        <button class="btn btn-user-item" style="background-color: #dc3545;">
-                            UnBlock
-                        </button>
+                    <div class=" col-xs-10 flex a-center" id="block">
+
                     </div>
                 </div>
                 <div class="table-item row  a-center">
                     <div class=" col-xs-2  ">DATE CREATED</div>
-                    <div class=" col-xs-10 " id="phoneNumber">20/10/2002</div>
+                    <div class=" col-xs-10 " id="dateCreated"></div>
                 </div>
             </div>
 
         </div>
-        <div class="row j-between" style="margin: 10px 0;">
-            <button class="btn btn-user-item" style="background-color: #dc3545;">
-                Delete
-            </button>
-            <a href="/user?id=1&edit=true">
-                <button class="btn btn-user-item" style="background-color: #1999ff;">
-                    Edit
-                </button>
-            </a>
+        <div class="row j-between user-btm" style="margin: 10px 0;">
+
         </div>
     </div>
 </div>
 <%- include('./../staff-structure/footer')%>
+<script>
+
+    const addTxt = (txt, sel) => {
+        $(sel).text(txt);
+    }
+    function getData() {
+        $.get("/api/get-client-info" + location.search,
+            function (data, textStatus, jqXHR) {
+                $('#userID').text('');
+                $('#fullName').text('');
+                $('#email').text('');
+                $('#phoneNumber').text('');
+                $('#dob').text('');
+                $('#dateCreated').text('');
+                $('#address').text('');
+                $('#block').empty();
+                $('#verify').empty();
+                $('.user-btm').empty();
+
+                if (data) {
+                    addTxt(data.id, '#userID')
+                    addTxt(data.displayName, '#fullName')
+                    addTxt(data.email, '#email')
+                    addTxt(data.phoneNumber, '#phoneNumber')
+                    addTxt(new Date(data.dob).toISOString().slice(0, 10), '#dob')
+                    addTxt(data.createdAt, '#dateCreated')
+                    addTxt(data.address, '#address')
+                    addTxt(data.address, '#address')
+
+
+                    if (data.isActive == 5) {
+                        $(`<span>
+                            Blocked
+                        </span>
+                        <button class="btn btn-user-item" style="background-color: #dc3545;"  onClick="un_block(${data.id})">
+                            UnBlock
+                        </button>`).appendTo(`#block`);
+
+                        $(` <span>
+                            Not Verify
+                        </span>`).appendTo(`#verify`);
+
+                    }
+                    else if (data.isActive == 0) {
+                        $(`<span>
+                            Not Block
+                        </span>
+                        <button class="btn btn-user-item" style="background-color: #dc3545;"  onClick="block(${data.id})">
+                            Block
+                        </button>`).appendTo(`#block`);
+
+                        $(`<span>
+                            Not Verify
+                        </span>
+                        <button class="btn btn-user-item" style="background-color: #1999ff;"  onClick = "verify(${data.id})">
+                            Verify
+                        </button>`).appendTo(`#verify`);
+                    }
+                    else if (data.isActive == 1) {
+                        $(`<span>
+                            Not Block
+                        </span>
+                        <button class="btn btn-user-item" style="background-color: #dc3545;"  onClick="block(${data.id})">
+                            Block
+                        </button>`).appendTo(`#block`);
+
+                        $(`<span>
+                             Verified
+                        </span>
+                        <button class="btn btn-user-item" style="background-color: #1999ff;"  onClick="un_verify(${data.id})">
+                            UnVerify
+                        </button>`).appendTo(`#verify`);
+                    }
+                    else {
+                        $(`<span>
+                            Not Block
+                        </span>
+                        <button class="btn btn-user-item" style="background-color: #dc3545;"  onClick="block(${data.id})">
+                            Block
+                        </button>`).appendTo(`#block`);
+
+                        $(`<span>Not Verify</span>
+                        <button class="btn btn-user-item" style="background-color: #1999ff;"  onClick="verify(${data.id})">
+                            Verify
+                        </button>`).appendTo(`#verify`);
+                    }
+
+
+                    $(`<button class="btn btn-user-item" style="background-color: #dc3545;" onclick="delete_id(${data.id})">
+                Delete
+            </button>
+            <a href="/user?id=${data.id}&edit=true">
+                <button class="btn btn-user-item" style="background-color: #1999ff;">
+                    Edit
+                </button>
+            </a>`).appendTo('.user-btm');
+
+                }
+            },
+        );
+    }
+
+    function block(id) {
+        $.post("/api/block-client", { id: id },
+            function (data, textStatus, jqXHR) {
+                if (data == 1) {
+                    alert('block successfully.');
+                    getData();
+                }
+            },
+        );
+    }
+    function un_block(id) {
+        $.post("/api/verify-client", { id: id },
+            function (data, textStatus, jqXHR) {
+                if (data == 1) {
+                    alert('unblock successfully.');
+                    getData();
+                }
+            },
+        );
+
+    }
+    function verify(id) {
+        $.post("/api/verify-client", { id: id },
+            function (data, textStatus, jqXHR) {
+                if (data == 1) {
+                    alert('verify successfully');
+                    getData();
+                }
+            },
+        );
+
+    }
+    function un_verify(id) {
+        $.post("/api/unverify-client", { id: id },
+            function (data, textStatus, jqXHR) {
+                if (data == 1) {
+                    alert('unverify successfully')
+                    getData();
+                }
+            },
+        );
+
+    }
+    function delete_id(id) {
+        $.post("/api/delete-client", { id: id },
+            function (data, textStatus, jqXHR) {
+                if (data == 1) {
+                    alert('deleted')
+                    $(location).attr('href', '/user');
+                }
+            },
+        );
+
+    }
+
+    $(function () {
+
+
+        getData();
+    });
+</script>
