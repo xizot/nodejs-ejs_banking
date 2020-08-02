@@ -54,7 +54,7 @@
     $(function () {
 
         getNoti();
-        var socket = io("http://localhost:5000");
+        var socket = io("https://dack-17ck1.herokuapp.com");
         socket.on('update-noti', data => {
             if (data) {
                 console.log(data);
