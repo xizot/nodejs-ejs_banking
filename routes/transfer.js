@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
     if (req.currentUser.isActive != 1) {
         return res.redirect('/page-confirm');
     }
-    var io = req.app.get('socketio');
+    // var io = req.app.get('socketio');
     exchangeRates = await exchangeRate.findAll();
     banks = await Bank.findAll();
 

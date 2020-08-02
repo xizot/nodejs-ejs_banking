@@ -99,9 +99,6 @@ const users = [];
 
 io.on('connection', (socket) => {
     socket.on("transfer", data => {
-        console.log('=========================================================');
-        console.log(data);
-        console.log('=========================================================');
 
         socket.id = data.id;
         users.push(socket.id);
@@ -111,9 +108,6 @@ io.on('connection', (socket) => {
     });
 
     socket.on("add-new-noti", data => {
-        console.log('=========================================================');
-        console.log(data);
-        console.log('=========================================================');
 
         socket.broadcast.emit('update-noti', 'có yêu cầu mới');
     });
