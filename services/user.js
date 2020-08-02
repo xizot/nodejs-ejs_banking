@@ -8,6 +8,66 @@ const { sendMail } = require('../services/function');
 
 class User extends Model {
 
+    static async findClient(st) {
+
+        const rs = [];
+
+        const found = await User.findAll({
+            where:
+            {
+                [Sequelize.Op.and]:
+                    [
+                        {
+                            displayName: {
+                                [Sequelize.Op.startsWith]: st
+                            },
+                        }
+                        ,
+                        {
+                            permisstion: 0
+                        }
+                    ]
+            }
+        })
+
+        if (found.length > 0) return found;
+        try {
+            if (Number(st)) {
+                const f2 = await User.findOne({
+                    where:
+                    {
+                        [Sequelize.Op.and]:
+                            [
+                                {
+                                    id: st
+                                }
+                                ,
+                                {
+                                    permisstion: 0
+                                }
+                            ]
+                    }
+                });
+                if (f2) rs.push(f2);
+            }
+        } catch (error) {
+
+        }
+        return rs;
+    }
+    static async getClient(page, limit) {
+        const user = await this.findAll({
+            where: {
+                permisstion: {
+                    [Sequelize.Op.ne]: 1
+                }
+            },
+            limit,
+            offset: (page - 1) * limit,
+            order: [['id', 'ASC']]
+        })
+        return user;
+    }
     static async countClient() {
         const count = await this.count({
             where: {
@@ -17,7 +77,6 @@ class User extends Model {
             }
         })
         return (Math.floor(count / 6) + (count % 6 > 0 ? 1 : 0))
-
     }
     static async checkDEmail(id, email) {
         const foundEmail = await User.findAll({
@@ -126,18 +185,15 @@ class User extends Model {
     };
 
     static async createUser(user) {
-        if (user) {
-            return this.create(user).then(async user => {
-                if (user) {
-                    await Customer.create({
-                        userID: user.id,
-                        isActive: 0,
-                    })
-                }
-                return user;
-            });
-        }
-        return 0; // xảy ra lỗi
+        return await User.create(user).then(async data => {
+            if (data) {
+                await Customer.create({
+                    userID: data.id,
+                    isActive: 0,
+                })
+            }
+            return data;
+        });
     }
 }
 

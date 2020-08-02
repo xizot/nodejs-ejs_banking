@@ -1,0 +1,155 @@
+<%- include('./../staff-structure/header')%>
+<div class="user">
+
+    <div class="navs-bar">
+        <div>
+            <a href="/">Home / </a>
+            <span>
+                Request
+            </span>
+        </div>
+    </div>
+    <div class="user-content">
+        <h3 class="title"
+            style="text-align: left;border-bottom: 1px solid #ddd;padding-bottom: 20px;margin-bottom: 20px;">
+            REQUEST
+        </h3>
+        <div class="user-search flex a-center j-end" style="margin-bottom: 20px;">
+            <input type="search" name="" id=""
+                style="height: 35px;padding: 0 15px;border: 1px solid #868e96;outline: none;">
+            <button
+                style="height: 35px;padding: 0 10px;background-color:#868e96;color: white;border: none;outline: none;cursor: pointer;">Search</button>
+        </div>
+        <div class="table">
+            <div class="table-header row a-center ">
+                <div class="col-xs-1 t-center">NO</div>
+                <div class=" col-xs-2 t-center">USER ID</div>
+                <div class=" col-xs-7">REQUEST</div>
+                <div class=" col-xs-2 t-center">CREATED</div>
+            </div>
+
+            <div class="table-gutter">
+
+            </div>
+        </div>
+        <div class="pagination " style="bottom: 13px;">
+            <ul class="flex j-center a-center pag-list">
+
+            </ul>
+        </div>
+    </div>
+</div>
+<%- include('./../staff-structure/footer')%>
+<script>
+    function showPopup(id) {
+        $('.popup').remove();
+        $(` <div class="pop-up" style="">
+        <div class="modal">
+            <form action="" style="min-height: 100pv;">
+                <div class="title" style="margin: 10px 0 30px;">
+                    <h3 style="text-align: center;color: #333;">Handle Request</h3>
+                    <i class="far fa-times-circle close"></i>
+                </div>
+
+                <div class="form-action flex a-center j-center">
+                    <button class="btn btn-confirm-request"
+                        style="width:150px;min-height:35px;color:#fff;background-color: #1999ff;" value ="${id}">Accept</button>
+                    <button class="btn btn-delete-request"
+                        style="margin-left:10px; width:150px;min-height:35px;color:#fff;background-color: #dc3545;" value ="${id}">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>`).prependTo('.user');
+    }
+
+
+
+    $(function () {
+
+        $(document).on('click', '.btn-confirm-request', function () {
+            $.get("/request/accept-request/" + $(this).attr('value'),
+                function (data, textStatus, jqXHR) {
+                    if (data) {
+                        alert('Thành công');
+                    }
+                })
+        });
+        $(document).on('click', '.btn-delete-request', function () {
+            $.get("/request/eject-request/" + $(this).attr('value'),
+                function (data, textStatus, jqXHR) {
+                    if (data) {
+                        alert('Thành công');
+                    }
+                })
+        });
+
+        // item.type != 1 ? 
+        $.get("/api/get-request",
+            function (data, textStatus, jqXHR) {
+                if (data && data.length > 0) {
+                    data.map((item, index) => {
+                        $(`
+                        <div class="table-item row  a-center">
+                    <div class=" col-xs-1 t-center">${index + 1}</div>
+                    <div class=" col-xs-2 t-center"><label style="color:#1999ff; cursor:pointer" onclick=${"showPopup(" + item.id + ")"}>${item.userID}</label></div>
+                    <div class=" col-xs-7">${item.type == 1 ? 'Xác thực tài khoản' : item.type == 2 ? 'Tạo tài khoản ngân hàng' : item.type == 3 ? 'Tạo tài khoản tiết kiệm' : 'Khóa tài khoản'}</div>
+                    <div class=" col-xs-2 t-center">${item.createdAt}</div>
+                        </div>
+                        `).appendTo('.table-gutter');
+                    })
+
+                }
+            },
+        );
+        $.get("/api/count-request",
+            function (data, textStatus, jqXHR) {
+                console.log(data);
+                $('.pag-list').empty();
+                if (data) {
+                    for (let i = 0; i < data; i++) {
+                        $(` <li class="pag-num ${i == 0 ? " active" : ""}" value="${i + 1}">
+                            ${i + 1}
+                            </li>`).appendTo('.pag-list')
+                    }
+                }
+            },
+        );
+
+        // 1: Xác thực tài khoản
+        // 2: Tạo tài khoản ngân hàng
+        // 3: Tạo tài khoản tiết kiệm
+        // 4: yêu cầu khóa tài khoản
+        $(document).on('click', '.pag-num', function (e) {
+            $('.pag-num').removeClass('active');
+            $(this).addClass('active');
+            const numpage = $(this).attr('value')
+            $.get("/api/get-request?page=" + numpage,
+                function (data, textStatus, jqXHR) {
+                    $('.table-gutter').empty();
+                    if (data && data.length > 0) {
+                        data.map((item, index) => {
+                            $(`
+                        <div class="table-item row  a-center">
+                    <div class=" col-xs-1 t-center">${(index + 1) + ((numpage - 1) * 6)}</div>
+                    <div class=" col-xs-2 t-center"><a href="./user?id=${item.userID}">${item.userID}</a></div>
+                    <div class=" col-xs-7">${item.type == 1 ? 'Xác thực tài khoản' : item.type == 2 ? 'Tạo tài khoản ngân hàng' : item.type == 3 ? 'Tạo tài khoản tiết kiệm' : 'Khóa tài khoản'}</div>
+                    <div class=" col-xs-2 t-center">${item.createdAt}</div>
+                        </div>
+                        `).appendTo('.table-gutter');
+                        })
+
+                    }
+                },
+            );
+        })
+        $(document).on('click', '.pop-up', function (e) {
+            $(this).fadeOut(500);
+        });
+        $(document).on('click', '.modal', function (e) {
+            e.stopPropagation();
+        });
+        $(document).on('click', '.close', function (e) {
+            $('.pop-up').fadeOut(500);
+        });
+    });
+</script>

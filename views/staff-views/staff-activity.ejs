@@ -52,36 +52,6 @@
 
 
     $(function () {
-
-        $.get("/staff/api/all-notification",
-            function (data, textStatus, jqXHR) {
-                $('.drop-down').empty();
-                if (data.length > 0) {
-                    data.forEach(element => {
-                        let msg = `User ${element.userID} yêu cầu khóa tài khoản`;
-                        if (element.type == 1) {
-                            msg = `User ${element.userID} xác thực tài khoản`;
-
-                        }
-                        if (element.type == 2) {
-                            msg = `User ${element.userID} yêu cầu mở tài khoản thanh toán`;
-
-                        }
-                        if (element.type == 3) {
-                            msg = `User ${element.userID} yêu cầu mở tài khoản tiết kiệm`;
-
-                        }
-
-                        $(` <li data-x="${msg}"">
-                                    <a href="/request?id=${element.id}">${msg.slice(0, 15)}...</a>
-                                </li>`).appendTo('.drop-down');
-                    });
-
-                }
-            },
-        );
-
-
         $.get("/api/get-activity",
             function (data, textStatus, jqXHR) {
                 $('.activity-lists').empty();

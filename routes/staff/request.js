@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
         }
 
     }
-    return res.render('request', { found, data, id, content });
+    return res.render('./staff-views/request', { found, data, id, content });
 })
 
 router.get('/create-credit-card', async (req, res) => {
@@ -64,9 +64,10 @@ router.get('/block', async (req, res) => {
 })
 
 router.get('/accept-request/:id', async (req, res) => {
-    if (!req.currentUser | !req.currentUser.permisstion == 1) return null;
+    if (!req.currentUser | !req.currentUser.permisstion == 1) return res.json(null)
 
     const { id } = req.params;
+    if (!id) return res.json(null)
     const found2 = await UserRequest.findByPk(id);
     const found = await UserRequest.acceptRequest(id);
 
@@ -104,6 +105,37 @@ router.get('/accept-request/:id', async (req, res) => {
     return res.json(found);
 })
 
+router.get('/eject-request/:id', async (req, res) => {
+    if (!req.currentUser | !req.currentUser.permisstion == 1) return res.json(null)
+    const { id } = req.params;
+    if (!id) return res.json(null)
+    const found2 = await UserRequest.findByPk(id);
+    const deleted = await UserRequest.destroy({
+        where: {
+            id,
+        }
+    })
+
+    if (found2.type == 1) {
+        msg = `Từ chối xác thực tài khoản id ${found2.userID}`;
+    }
+    if (found2.type == 2) {
+        msg = `Từ chối mở tài khoản ngân hàng cho id ${found2.userID}`;
+
+    }
+    if (found2.type == 3) {
+        msg = `Từ chối mở tài khoản tiết kiệm cho id ${found2.userID}`;
+    }
+    if (found2.type == 4) {
+        msg = `Từ chối khóa tài khoản id ${found2.userID}`;
+    }
+    const newActivity = await StaffActivityLog.create({
+        staffID: req.currentUser.id,
+        message: msg,
+    })
+
+    return res.json(deleted);
+})
 
 
 // tim thong tin xac minh cua 1 userid by id

@@ -4,10 +4,7 @@ const User = require('../services/user');
 const asyncHandler = require('express-async-handler');
 const { check, validationResult, body } = require('express-validator');
 
-// const io = require('socket.io-client');
-// process.env.BASE_URL = "http://localhost:5000";
-// let socket;
-// socket = io(process.env.BASE_URL);
+
 
 var errors = [];
 router.get('/', function (req, res) {
@@ -37,6 +34,7 @@ router.post('/', asyncHandler(async function (req, res) {
                 return res.redirect('/forgot-password');
             }
             if (user.token) return res.redirect('/active');
+            if (user.isActive == 5) return res.redirect('/alert/blocked')
             return res.redirect('/');
         }
         else {

@@ -108,9 +108,15 @@ io.on('connection', (socket) => {
         // socket.emit('server-send-client',`Hế lô id: ${data.id}`);
 
         socket.broadcast.emit('server-send-client', 'Có 1 đứa mới vào ae');
-
     });
 
+    socket.on("add-new-noti", data => {
+        console.log('=========================================================');
+        console.log(data);
+        console.log('=========================================================');
+
+        socket.broadcast.emit('update-noti', 'có yêu cầu mới');
+    });
 
 
 });
