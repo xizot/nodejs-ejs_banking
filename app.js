@@ -1,9 +1,9 @@
 const express = require('express');
-const PORT = process.env.PORT || 5000;
 const bodyParser = require('body-parser');
 const app = express();
 var http = require('http').createServer(app)
 var io = require('socket.io').listen(http);
+const PORT = process.env.PORT || 5000;
 const cookieSession = require('cookie-session');
 const db = require('./services/db');
 const passport = require('./middlewares/passport');
