@@ -1,5 +1,5 @@
 
-socket = io("https://dack-17ck1.herokuapp.com");
+socket = io();
 
 const addError = content => {
     $(`
