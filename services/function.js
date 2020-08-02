@@ -9,7 +9,6 @@ const StaffActivity = require('./staffActivityLog');
 
 process.env.ADMIN_EMAIL = '1760131bot@gmail.com';
 process.env.ADMIN_PASSWORD = 'learnenglish';
-process.env.BASE_URL = 'http://localhost:5000';
 // async..await is not allowed in global scope, must use a wrapper
 async function sendMail(to, subject, content, html) {
     // Generate test SMTP service account from ethereal.email

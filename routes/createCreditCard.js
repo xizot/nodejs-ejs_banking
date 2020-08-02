@@ -3,7 +3,7 @@ const router = express.Router();
 const { sendRequest } = require('../services/userRequest');
 const io = require('socket.io-client');
 let socket;
-socket = io("https://dack-17ck1.herokuapp.com/");
+socket = io("https://dack-17ck1.herokuapp.com");
 
 router.get('/', async (req, res) => {
 
