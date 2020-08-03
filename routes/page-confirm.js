@@ -26,7 +26,7 @@ router.post('/', upload.single('avatar'), async (req, res) => {
     const { txtName, txtTypeofCard, txtIdcard, txtIssued, avatar } = req.body;
 
     console.log(req.file)
-    const image = req.file.path;
+    const image = req.file.filename;
     const id = req.currentUser.id;
     if (txtName) {
         const found = await User.findByID(id);
