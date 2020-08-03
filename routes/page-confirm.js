@@ -7,7 +7,7 @@ const { body, validationResult } = require('express-validator');
 
 const path = require('path');
 var multer = require('multer')
-var upload = multer({ dest: path.join(__dirname, '..', 'uploads') })
+var upload = multer({ dest: path.join(__dirname, '..', '/public/img') })
 
 var errors = [];
 
@@ -25,7 +25,7 @@ router.post('/', upload.single('avatar'), async (req, res) => {
     // xem về multer package để thêm avatar vào folder ./uploads
     const { txtName, txtTypeofCard, txtIdcard, txtIssued, avatar } = req.body;
 
-
+    console.log(req.file)
     const image = req.file.path;
     const id = req.currentUser.id;
     if (txtName) {
