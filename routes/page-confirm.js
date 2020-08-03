@@ -24,6 +24,9 @@ router.post('/', upload.single('avatar'), async (req, res) => {
     if (!req.currentUser) return res.redirect('/login');
     // xem về multer package để thêm avatar vào folder ./uploads
     const { txtName, txtTypeofCard, txtIdcard, txtIssued, avatar } = req.body;
+
+
+    const image = req.file.path;
     const id = req.currentUser.id;
     if (txtName) {
         const found = await User.findByID(id);
@@ -32,7 +35,7 @@ router.post('/', upload.single('avatar'), async (req, res) => {
             found.save();
         }
     }
-    const sendRequest = await UserRequest.verifyAccount(id, txtTypeofCard, txtIdcard, txtIssued, avatar);
+    const sendRequest = await UserRequest.verifyAccount(id, txtTypeofCard, txtIdcard, txtIssued, image);
 
     if (sendRequest) {
         return res.redirect('/transfer');
