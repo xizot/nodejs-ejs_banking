@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./vendor/assets/owl.theme.default.min.css">
 
     <link rel="stylesheet" type="text/css" href="./css/Nhat/main.css">
-    <link rel="stylesheet" type="text/css" href="./css/Hoang/style.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./css/Hoang/style.css"> -->
     <link rel="stylesheet" type="text/css" href="./css/Hau/style.css">
     <title><%= title || 'Trang Chủ' %></title>
     <style>
@@ -47,7 +47,7 @@
                                 <ul class="flex">
 
                                     <% if(currentUser.permisstion == 0) { %>
-                                    <li>
+                                    <li class="navs-item n-my-account">
                                         <a href="/my-account">
                                             <button class="btn active">My Account</button>
                                         </a>
@@ -72,25 +72,25 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li>
+                                    <li class="navs-item n-transfer">
                                         <a href="/transfer"><button class="btn">Transfer</button> </a>
                                     </li>
-                                    <li>
+                                    <li class="navs-item n-account">
                                         <a href="/accounts"><button class="btn">Account</button> </a>
 
                                     </li>
-                                    <li>
+                                    <li class="navs-item n-notifications">
                                         <a href="/noti"><button class="btn">Notification</button> </a>
                                         <ul class="drop-down user-noti">
                                             
                                         </ul>
                                         <div class="number-noti"></div>
                                     </li>
-                                    <li>
-                                        <a href="/about"><button class="btn">About</button> </a>
+                                    <li class="navs-item n-about">
+                                        <a href="/about"><button class="btn ">About</button> </a>
                                     </li>
-                                    <li>
-                                        <a href="/contact"><button class="btn">Contact</button> </a>
+                                    <li class="navs-item n-contact">
+                                        <a href="/contact"><button class="btn ">Contact</button> </a>
                                     </li>
                                     <% }if(currentUser.permisstion == 1) { %>
                                             <li>

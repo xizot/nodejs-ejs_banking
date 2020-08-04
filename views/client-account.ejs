@@ -43,7 +43,7 @@
 
                 <div class="accounts">
                     <div class="list-card row">
-                        <div class="list-card-item col-xs-12 col-md-4">
+                        <!-- <div class="list-card-item col-xs-12 col-md-4">
                             <div class="card ">
                                 <div class="title">Pa<span>yy</span>ed</div>
 
@@ -120,7 +120,7 @@
                             <div class="actions">
                                 <input type="radio" name="setDefault" id="" onclick="setDefault(1000299922293)">
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -146,7 +146,7 @@
             function (data, textStatus, jqXHR) {
                 $('.list-card').empty()
                 console.log(data);
-                if (data.length > 0)
+                if (data.length > 0) {
                     data.forEach(element => {
                         $(` <div class="list-card-item col-xs-12 col-md-4">
                                 <div class="card ">
@@ -178,7 +178,10 @@
                                 </div>
                             </div>`).appendTo('.list-card');
                     });
-
+                }
+                if (data.length == 0) {
+                    $(` <a href="/create-credit-card" >Yêu cầu tạo tài khoản ngân hàng</a>`).appendTo('.list-card');
+                }
             },
         );
     });
