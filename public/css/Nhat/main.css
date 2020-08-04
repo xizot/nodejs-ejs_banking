@@ -49,14 +49,16 @@
   min-height: 45px;
   letter-spacing: 1.1px;
   cursor: pointer;
-  -webkit-transition: all .1s ease-in;
-  transition: all .1s ease-in;
+  -webkit-transition: all .4s ease-in;
+  transition: all .4s ease-in;
   background-color: #2dbe60;
 }
 
 .btn:hover {
-  -webkit-transform: translateY(-2px);
-          transform: translateY(-2px);
+  -webkit-transform: translateY(-4px);
+          transform: translateY(-4px);
+  background-color: #2dbe60;
+  color: white;
 }
 
 .flex {
@@ -1211,7 +1213,13 @@ header .container .header__content .left ul > li .drop-down > li a:hover {
 }
 
 footer {
+  background-color: #222831;
+  color: white;
   padding: 4rem 0;
+}
+
+footer a {
+  color: white;
 }
 
 footer .get-update {
@@ -1347,7 +1355,7 @@ footer .footer .container .row .footer-item > ul li:before {
 footer .row .col-xs-6 ul li a {
   padding-left: 10px;
   font-size: 16px;
-  color: #222;
+  color: white;
 }
 
 footer .row .col-xs-6 ul li a:hover {

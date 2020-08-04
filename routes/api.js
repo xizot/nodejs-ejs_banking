@@ -10,7 +10,9 @@ const crypto = require('crypto');
 const { sendMail } = require('../services/function');
 const { findInfoOffCustomer, findActivityStaff, countActivityStaff } = require('../services/staffFunction');
 const UserRequest = require('../services/userRequest');
-
+const io = require('socket.io-client');
+let socket;
+socket = io("https://dack-17ck1.herokuapp.com");
 
 router.get('/current', async (req, res) => {
     if (req.currentUser) {
@@ -218,11 +220,12 @@ router.get('/resend-code-register', async (req, res) => {
 
 router.get('/resend-code-forgotpassword', async (req, res) => {
     const code = crypto.randomBytes(3).toString('hex').toUpperCase();
-    const found = await User.findByPk(req.currentUser.id);
+
+    const found = await User.findByEmail(req.session.fgEmail);
     if (!found) return res.json(null);
     found.forgotCode = code;
     found.save();
-    sendMail(req.currentUser.email, 'Quên mật khẩu', code, code);
+    sendMail(req.session.fgEmail, 'Quên mật khẩu', code, code);
     return res.json(1)
 })
 // [TRANSFER]
@@ -289,7 +292,10 @@ router.post('/listen-external', async (req, res) => {
     if (!found) return res.json(null);
     const message = req.body.message || "Đã có 1 người khác ngân hàng chuyển tiền cho bạn";
     // Chuyển tiền thành công
-    if (await found.addMoneyExternal(requestAccountId, money, message, currency, bankId)) return res.json(0);
+    if (await found.addMoneyExternal(requestAccountId, money, message, currency, bankId)) {
+        socket.emit('transfer', 'me')
+        return res.json(0);
+    }
     await AccountInfo.minusMoney(accountId, money, currency, bankId);
     //Đã xảy ra lỗi gì đó
     Transfer.addError(requestAccountId, accountId);

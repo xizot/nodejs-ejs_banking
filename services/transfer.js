@@ -95,7 +95,7 @@ class Transfer extends Model {
     }
 
 
-    static async addNewExternal(fromSTK, toSTK, amount, message, currencyUnit, bankCode) {
+    static async addNewExternal(fromUser, toUser, fromSTK, toSTK, amount, message, currencyUnit, bankCode) {
         const newTf = {
             from: fromSTK,
             to: toSTK,
@@ -105,8 +105,12 @@ class Transfer extends Model {
             bankCode,
         }
         return this.create(newTf).then(value => {
+            if (value) {
 
-            Notification.addNotifyForTransfer(fromSTK, toSTK);
+                Notification.addNotifyForTransfer(fromSTK, toSTK, fromUser, toUser)
+            }
+
+
             return value;
         });
     }

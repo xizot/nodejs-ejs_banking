@@ -111,7 +111,7 @@ class AccountInfo extends Model {
         this.balance = Number(this.balance) + (Number(money));
         this.save();
 
-        await Transfer.addNewExternal(from, this.STK, amount, message, currencyUnit, bankCode);
+        await Transfer.addNewExternal(null, this.userID, from, this.STK, amount, message, currencyUnit, bankCode);
         return this;
     }
 

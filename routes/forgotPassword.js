@@ -12,6 +12,7 @@ router.get('/', async (req, res) => {
 
     if (req.session.fgEmail) {
         const found = await User.findByEmail(req.session.fgEmail);
+
         if (found) {
             return res.render('confirmForgotPassword', { errors })
         }

@@ -31,10 +31,12 @@
     min-height: 45px;
     letter-spacing: 1.1px;
     cursor: pointer;
-    transition: all .1s ease-in;
+    transition: all .4s ease-in;
     background-color: $main-color;
     &:hover{
-        transform:translateY(-2px);
+        transform:translateY(-4px);
+        background-color: $main-color;
+        color: white;
     }
 }
 
