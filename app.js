@@ -62,12 +62,12 @@ app.use('/staff-action', require('./routes/api/staff-api'));
 app.use('/request', require('./routes/staff/request'));
 app.use('/add-money', require('./routes/staffAddMoney'));
 app.use('/staff-activity', require('./routes/staffActivity'));
-
+app.use('/about', require('./routes/about'));
 // user
-app.use('/my-account', require('./routes/user/myaccount'))
-app.use('/accounts', require('./routes/account'))
-app.use('/history', require('./routes/history'))
-app.use('/user-request', require('./routes/user/request'))
+app.use('/my-account', require('./routes/user/myaccount'));
+app.use('/accounts', require('./routes/account'));
+app.use('/history', require('./routes/history'));
+app.use('/user-request', require('./routes/user/request'));
 app.use('/create-credit-card', require('./routes/createCreditCard'));
 app.use('/create-saving-card', require('./routes/createSavingCard'));
 app.use('/contact', require('./routes/contact'));

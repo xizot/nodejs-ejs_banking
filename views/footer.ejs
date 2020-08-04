@@ -146,6 +146,33 @@
 
     })
 
+
+    let pathname = location.pathname
+    if (pathname == '/page-confirm' || pathname == '/transfer') {
+      $('.navs-item .btn').removeClass('active');
+      $('.n-transfer .btn').addClass('active')
+    }
+    else if (pathname == '/about') {
+      $('.navs-item .btn').removeClass('active');
+      $('.n-about .btn').addClass('active')
+    }
+    else if (pathname == '/my-account') {
+      $('.navs-item .btn').removeClass('active');
+      $('.n-my-account .btn').addClass('active')
+    }
+    else if (pathname == '/accounts') {
+      $('.navs-item .btn').removeClass('active');
+      $('.n-account .btn').addClass('active')
+    }
+    else if (pathname == '/noti') {
+      $('.navs-item .btn').removeClass('active');
+      $('.n-notifications .btn').addClass('active')
+    }
+    else if (pathname == '/contact') {
+      $('.navs-item .btn').removeClass('active');
+      $('.n-contact .btn').addClass('active')
+    }
+
   });
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -196,6 +223,9 @@
       window.addEventListener("orientationChange", lazyload);
     }
   })
+
+
+
 
 </script>
 
