@@ -63,6 +63,7 @@ app.use('/request', require('./routes/staff/request'));
 app.use('/add-money', require('./routes/staffAddMoney'));
 app.use('/staff-activity', require('./routes/staffActivity'));
 app.use('/about', require('./routes/about'));
+app.use('/noti', require('./routes/noti'));
 // user
 app.use('/my-account', require('./routes/user/myaccount'));
 app.use('/accounts', require('./routes/account'));

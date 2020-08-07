@@ -141,7 +141,8 @@ class AccountInfo extends Model {
 
 
     // Hàm này để chuyển tiền cùng ngân hàng
-    static async addMoneyInternal(from, to, amount, message, currencyUnit, bankCode, fromUser) {
+    static async addMoneyInternal(from, to, amount, message, currencyUnit, bankCode, fromUser, fee) {
+
         let money = amount;
         if (currencyUnit == "VND") {
             const rate = await ExchangeRate.findOne({
@@ -163,9 +164,13 @@ class AccountInfo extends Model {
             foundFrom = await this.getBySTKOne(from);
             if (!foundFrom) return 4;
             if (Number(money) > foundFrom.limit) return 8;
-            if (Number(foundFrom.balance) < Number(money)) return 7;
+            console.log('===========================');
+            console.log(Number(fee) + Number(fee));
+            console.log('===========================');
+
+            if (Number(foundFrom.balance) < (Number(money) + Number(fee))) return 7;
             await foundFrom.save();
-            foundFrom.balance = Number(foundFrom.balance) - Number(money);
+            foundFrom.balance = Number(foundFrom.balance) - (Number(money) + Number(fee));
             await foundFrom.save();
 
         }
@@ -183,7 +188,7 @@ class AccountInfo extends Model {
         await foundTo.save();
 
 
-        Transfer.addNewInExternal(from, to, amount, message, currencyUnit, bankCode, fromUser, foundTo.userID);
+        Transfer.addNewInExternal(from, to, amount, message, currencyUnit, bankCode, fromUser, foundTo.userID, fee);
 
         return 0;
     }

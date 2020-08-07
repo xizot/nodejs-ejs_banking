@@ -135,6 +135,7 @@
 <script>
 
     $(function () {
+
         $.get("/api/get-account-default",
             function (data, textStatus, jqXHR) {
                 if (data) {
@@ -180,7 +181,7 @@
                     });
                 }
                 if (data.length == 0) {
-                    $(` <a href="/create-credit-card" >Yêu cầu tạo tài khoản ngân hàng</a>`).appendTo('.list-card');
+                    $(` <a href="/create-credit-card"  class="requestCreditCard">Yêu cầu tạo tài khoản ngân hàng</a>`).appendTo('.list-card');
                 }
             },
         );

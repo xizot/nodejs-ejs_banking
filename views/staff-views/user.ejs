@@ -25,7 +25,8 @@
             <div class="table-header row a-center ">
                 <div class="col-xs-1 t-center">NO</div>
                 <div class=" col-xs-2 t-center">USER ID</div>
-                <div class=" col-xs-7">FULL NAME</div>
+                <div class=" col-xs-3">USERNAME</div>
+                <div class=" col-xs-4">FULL NAME</div>
                 <div class=" col-xs-2 t-center">VERIFY</div>
             </div>
             <div class="table-gutter">
@@ -56,7 +57,8 @@
                         <div class="table-item row  a-center">
                     <div class=" col-xs-1 t-center">${index + 1}</div>
                     <div class=" col-xs-2 t-center"><a href="./user?id=${item.id}">${item.id}</a></div>
-                    <div class=" col-xs-7">${item.displayName}</div>
+                    <div class=" col-xs-3 ">${item.username}</div>
+                    <div class=" col-xs-4">${item.displayName}</div>
                     <div class=" col-xs-2 t-center">${item.isActive == 1 ? 'Yes' : 'No'}</div>
                         </div>
                         `).appendTo('.table-gutter');
