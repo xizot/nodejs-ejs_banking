@@ -96,6 +96,9 @@ app.get('/auth/google/callback',
 //privacy
 app.use('/privacy', require('./routes/privacy'));
 
+//termsOfservice
+app.use('/termsOfservice', require('./routes/termsOfservice'));
+
 const users = [];
 
 
