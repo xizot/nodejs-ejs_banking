@@ -412,9 +412,7 @@
 .font-weight-600 {
     font-weight: 600 !important;
 }
-.mb-4{
-    margin-bottom: 1.5rem!important;
-}
+
 .line-height-4 {
     line-height: 1.6 !important;
 }
@@ -891,3 +889,8 @@
   .text-hs {
       color:#1D2939;
   }
+.post_title_blog
+{
+  color: #333;
+
+}
