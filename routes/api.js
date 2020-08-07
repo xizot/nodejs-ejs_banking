@@ -11,6 +11,7 @@ const { sendMail } = require('../services/function');
 const { findInfoOffCustomer, findActivityStaff, countActivityStaff } = require('../services/staffFunction');
 const UserRequest = require('../services/userRequest');
 const io = require('socket.io-client');
+const Customer = require('../services/customer');
 let socket;
 socket = io("https://dack-17ck1.herokuapp.com");
 
@@ -38,7 +39,7 @@ router.get('/account/info', async (req, res) => {
 
 //add money with api
 router.post('/account/addMoney', async (req, res) => {
-    const { stk, bankCode, money, from, message, currencyUnit } = req.body;
+    const { stk, bankCode, money, from, message, currencyUnit, fee } = req.body;
     if (from != "ADMIN") {
 
         const accountInfo = await AccountInfo.getByUserID(req.currentUser.id);
@@ -59,9 +60,10 @@ router.post('/account/addMoney', async (req, res) => {
         const found = await AccountInfo.getBySTKAndBankCode(stk, bankCode);
         if (found) {
 
-            const rs = await AccountInfo.addMoneyInternal(from, stk, money, message, currencyUnit, bankCode, req.currentUser.id)
+            const rs = await AccountInfo.addMoneyInternal(from, stk, money, message, currencyUnit, bankCode, req.currentUser.id, fee)
             // lấy thông tin người nhận
             if (rs == 8) return res.json(8)
+            if (rs == 7) return res.json(7)
 
             const ToInfo = await User.findByPk(found.userID);
             if (ToInfo) {
@@ -678,6 +680,18 @@ router.post('/search-client', async (req, res) => {
     const found = await User.findClient(st);
     return res.json(found);
 
+})
+
+router.post('/get-info-custom', async (req, res) => {
+    const { id } = req.body;
+    if (!id) return res.json(null);
+    const found = await Customer.getByUserID(id);
+    const userFound = await User.findByPk(id);
+    let rs = {
+        customer: found,
+        user: userFound
+    }
+    return res.json(rs);
 })
 
 // request

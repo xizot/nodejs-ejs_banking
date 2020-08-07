@@ -42,7 +42,7 @@
 <%- include('./../staff-structure/footer')%>
 <script>
     function showPopup(id) {
-        $('.popup').remove();
+        $('.pop-up').remove();
         $(` <div class="pop-up" style="">
         <div class="modal">
             <form action="" style="min-height: 100pv;">
@@ -62,23 +62,159 @@
     </div>`).prependTo('.user');
     }
 
+    function showPopUpVerify(id, idRequest) {
+        $('.pop-up').remove();
+
+        alert(idRequest)
+
+        $.post("/api/get-info-custom", { id },
+            function (data, textStatus, jqXHR) {
+                if (data) {
+                    $(` <div class="pop-up" style="">
+        <div class="modal">
+            <form action="" style="min-height: 100pv;">
+                <div class="title" style="margin: 10px 0 30px;">
+                    <h3 style="text-align: center;color: #333;">Handle Request</h3>
+                    <i class="far fa-times-circle close"></i>
+                </div>
+                <div class="form-group flex a-center">
+                    <label style=" min-width: 75px;">Username: </label>
+                    <p>${data.user.username}</p>
+                </div>
+                <div class="form-group flex a-center">
+                    <label  style=" min-width: 75px;">Fullname: </label>
+                    <p>${data.user.displayName}</p>
+                </div>
+                <div class="form-group flex a-center">
+                    <label  style=" min-width: 75px;">Email: </label>
+                    <p>${data.user.email}</p>
+                </div>
+                
+                <div class="form-group flex a-center">
+                    <label  style=" min-width: 75px;">Birth: </label>
+                    <p>${data.user.dob ? new Date(data.user.dob).toISOString().slice(0, 10) : 'Not update'}</p>
+                </div>
+                <div class="form-group flex a-center">
+                    <label  style=" min-width: 75px;">Card Type: </label>
+                    <p>${data.customer.identityTypes == 1 ? 'CMND' : data.customer.identityTypes == 1 ? 'CCCD' : 'Hộ chiếu'}</p>
+                </div>
+                <div class="form-group flex a-center">
+                    <label  style=" min-width: 75px;">Card ID: </label>
+                    <p>${data.customer.identity}</p>
+                </div>
+                <div class="form-group ">
+                    <label  style=" min-width: 75px;">Card Image: </label>
+                   <img src="/img/${data.customer.image}" style="width:250px;height:170px; border-radius:5px"/>
+                </div>
+
+               
+                <div class="form-action flex a-center j-center">
+                    <button class="btn btn-confirm-request"
+                        style="width:150px;min-height:35px;color:#fff;background-color: #1999ff;" value ="${idRequest}">Verify</button>
+                    <button class="btn btn-delete-request"
+                        style="margin-left:10px; width:150px;min-height:35px;color:#fff;background-color: #dc3545;" value ="${idRequest}">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>`).prependTo('.user');
+                }
+            },
+        );
+
+
+    }
 
 
     $(function () {
 
-        $(document).on('click', '.btn-confirm-request', function () {
+        $(document).on('click', '.btn-confirm-request', function (e) {
+            e.preventDefault();
             $.get("/request/accept-request/" + $(this).attr('value'),
                 function (data, textStatus, jqXHR) {
                     if (data) {
                         alert('Thành công');
+                        $('.pop-up').fadeOut(200);
+                        $('.table-gutter').empty();
+                        $.get("/api/get-request",
+                            function (data, textStatus, jqXHR) {
+                                if (data && data.length > 0) {
+                                    data.map((item, index) => {
+                                        $(`
+                        <div class="table-item row  a-center">
+                    <div class=" col-xs-1 t-center">${index + 1}</div>
+                    <div class=" col-xs-2 t-center"><label style="color:#1999ff; cursor:pointer" onclick=${item.type != 1 ? "showPopup(" + item.id + ")" : "showPopUpVerify(" + item.userID + "," + item.id + ")"}>${item.userID}</label></div>
+                    <div class=" col-xs-7">${item.type == 1 ? 'Xác thực tài khoản' : item.type == 2 ? 'Tạo tài khoản ngân hàng' : item.type == 3 ? 'Tạo tài khoản tiết kiệm' : 'Khóa tài khoản'}</div>
+                    <div class=" col-xs-2 t-center">${item.createdAt}</div>
+                        </div>
+                        `).appendTo('.table-gutter');
+                                    })
+
+                                }
+                            },
+                        );
+                        $.get("/api/count-request",
+                            function (data, textStatus, jqXHR) {
+                                console.log(data);
+                                $('.pag-list').empty();
+                                if (data) {
+                                    for (let i = 0; i < data; i++) {
+                                        $(` <li class="pag-num ${i == 0 ? " active" : ""}" value="${i + 1}">
+                            ${i + 1}
+                            </li>`).appendTo('.pag-list')
+                                    }
+                                }
+                            },
+                        );
+                    }
+                    else {
+                        alert('Đã xảy ra lỗi vui lòng thử lại sau.');
+                        $('.pop-up').fadeOut(200);
+
                     }
                 })
         });
-        $(document).on('click', '.btn-delete-request', function () {
+        $(document).on('click', '.btn-delete-request', function (e) {
+            e.preventDefault();
             $.get("/request/eject-request/" + $(this).attr('value'),
                 function (data, textStatus, jqXHR) {
                     if (data) {
-                        alert('Thành công');
+                        alert('Từ chối yêu cầu thành công');
+                        $('.pop-up').fadeOut(200);
+                        $('.table-gutter').empty();
+                        $.get("/api/get-request",
+                            function (data, textStatus, jqXHR) {
+                                if (data && data.length > 0) {
+                                    data.map((item, index) => {
+                                        $(`
+                        <div class="table-item row  a-center">
+                    <div class=" col-xs-1 t-center">${index + 1}</div>
+                    <div class=" col-xs-2 t-center"><label style="color:#1999ff; cursor:pointer" onclick=${item.type != 1 ? "showPopup(" + item.id + ")" : "showPopUpVerify(" + item.userID + "," + item.id + ")"}>${item.userID}</label></div>
+                    <div class=" col-xs-7">${item.type == 1 ? 'Xác thực tài khoản' : item.type == 2 ? 'Tạo tài khoản ngân hàng' : item.type == 3 ? 'Tạo tài khoản tiết kiệm' : 'Khóa tài khoản'}</div>
+                    <div class=" col-xs-2 t-center">${item.createdAt}</div>
+                        </div>
+                        `).appendTo('.table-gutter');
+                                    })
+
+                                }
+                            },
+                        );
+                        $.get("/api/count-request",
+                            function (data, textStatus, jqXHR) {
+                                console.log(data);
+                                $('.pag-list').empty();
+                                if (data) {
+                                    for (let i = 0; i < data; i++) {
+                                        $(` <li class="pag-num ${i == 0 ? " active" : ""}" value="${i + 1}">
+                            ${i + 1}
+                            </li>`).appendTo('.pag-list')
+                                    }
+                                }
+                            },
+                        );
+                    }
+                    else {
+                        alert('Đã xảy ra lỗi vui lòng thử lại sau.');
+                        $('.pop-up').fadeOut(200);
                     }
                 })
         });
@@ -91,7 +227,7 @@
                         $(`
                         <div class="table-item row  a-center">
                     <div class=" col-xs-1 t-center">${index + 1}</div>
-                    <div class=" col-xs-2 t-center"><label style="color:#1999ff; cursor:pointer" onclick=${"showPopup(" + item.id + ")"}>${item.userID}</label></div>
+                    <div class=" col-xs-2 t-center"><label style="color:#1999ff; cursor:pointer" onclick=${item.type != 1 ? "showPopup(" + item.id + ")" : "showPopUpVerify(" + item.userID + "," + item.id + ")"}>${item.userID}</label></div>
                     <div class=" col-xs-7">${item.type == 1 ? 'Xác thực tài khoản' : item.type == 2 ? 'Tạo tài khoản ngân hàng' : item.type == 3 ? 'Tạo tài khoản tiết kiệm' : 'Khóa tài khoản'}</div>
                     <div class=" col-xs-2 t-center">${item.createdAt}</div>
                         </div>

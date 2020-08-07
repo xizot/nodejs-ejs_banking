@@ -58,7 +58,7 @@
                 <div class="result-square-right  col-xs-6">
                     <div class="card" style="display: none;">
                         <div class="card__content">
-                            <div class="gutter ">
+                            <div class="gutter " style="min-height: 170px;height: auto;">
 
                                 <div class="card-number">
 
@@ -69,6 +69,11 @@
                                         <div class="date">
 
                                         </div>
+                                    </div>
+                                    <div class="flex a-center" style="width: 100%;margin-bottom: 10px;">
+                                        <label for="" style="color:#1e4032; font-size: 12px;">Money: </label>
+                                        <span class="card-money"
+                                            style="margin-left: 10px; color:rgba(250, 250, 250, 0.8);text-shadow: 1px 1px 1px #333, -1px -1px 1px grey"></span>
                                     </div>
                                     <div class="card-info flex a-center">
                                         <div class="card-name">
@@ -177,6 +182,7 @@
                         const date = new Date(data.beginDate).toISOString().slice(0, 10);
                         addText(`<p class="txtNumberx">${stk}</p>`, '.card-number', '.txtNumberx');
                         addText(`<span class="txtDatex">${date}</span>`, '.date', '.txtDatex');
+                        $('.card-money').text(data.balance + '$');
                         addText(`<span class="txtNamex">${data.displayName.toLowerCase()}</span>`, '.card-name', '.txtNamex');
                     }
                 },

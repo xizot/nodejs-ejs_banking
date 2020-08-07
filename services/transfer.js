@@ -115,7 +115,7 @@ class Transfer extends Model {
         });
     }
 
-    static async addNewInExternal(fromSTK, toSTK, amount, message, currencyUnit, bankCode, fromUser, toUser) {
+    static async addNewInExternal(fromSTK, toSTK, amount, message, currencyUnit, bankCode, fromUser, toUser, fee) {
         const newTf = {
             from: fromSTK,
             to: toSTK,
@@ -123,6 +123,7 @@ class Transfer extends Model {
             message,
             currencyUnit,
             bankCode,
+            fee
         }
         return this.create(newTf).then(async value => {
             await Notification.addNotifyForTransfer(fromSTK, toSTK, fromUser, toUser);
@@ -150,8 +151,6 @@ class Transfer extends Model {
         }
         return this.create(newTf).then(value => value);
     }
-
-
     // hàm này để lấy thông tin giao dịch của 1 user có phân trang
     static async getActivityLimit(id, page, limit) {
         return this.findAll({
@@ -221,6 +220,10 @@ Transfer.init({
     status: {
         type: Sequelize.INTEGER,
         defaultValue: 1,
+    },
+    fee: {
+        type: Sequelize.DECIMAL,
+        defaultValue: 0
     }
 
 }, {
