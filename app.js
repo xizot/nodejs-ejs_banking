@@ -92,7 +92,8 @@ app.get('/auth/google/callback',
         res.redirect('/');
     });
 
-
+//privacy
+app.use('/privacy', require('./routes/privacy'));
 
 const users = [];
 
