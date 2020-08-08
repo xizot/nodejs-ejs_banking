@@ -9,6 +9,12 @@
   font-family: 'Open Sans', sans-serif;
 }
 
+.bg-1 {
+  background: url("./../../img/bg-1.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 .color-white {
   color: white;
 }
@@ -430,17 +436,19 @@
 }
 
 header .navigation-bar {
-  background-color: white;
+  background-color: white !important;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 999;
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 header .container .header__content {
-  padding: 20px 0;
+  padding: 10px 0;
 }
 
 header .container .header__content #logo a {
@@ -1381,14 +1389,16 @@ footer .top {
 }
 
 .modal {
-  width: 350px;
+  background-color: white;
+  -webkit-box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3), -2px -2px 15px rgba(0, 0, 0, 0.3);
+          box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3), -2px -2px 15px rgba(0, 0, 0, 0.3);
+  width: 400px;
   position: absolute;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  padding: 20px;
-  background-color: rgba(221, 221, 221, 0.9);
+  padding: 30px;
   border-radius: 10px;
 }
 
@@ -1435,12 +1445,12 @@ footer .top {
 }
 
 .modal form .form-group label {
-  font-size: 16px;
+  font-size: 14px;
+  margin: 15px 0 5px;
 }
 
 .modal form .form-group input {
   height: 45px;
-  margin: 15px 0;
   outline: none;
   border: 1px solid rgba(45, 190, 96, 0.4);
   padding: 10px;
@@ -2567,13 +2577,22 @@ footer .top {
   font-size: 16px;
 }
 
+.transfer .container .modal form .form-group input {
+  height: 40px;
+}
+
+.transfer .container .modal form .form-group label {
+  display: block;
+  margin: 15px 0 5px;
+}
+
 .transfer .container .modal form .form-group select {
-  margin: 15px 0;
   outline: none;
   border: 1px solid rgba(45, 190, 96, 0.4);
   padding: 10px;
   border-radius: 5px;
   width: 100%;
+  height: 40px;
 }
 
 .transfer .container .modal form .form-group select option {

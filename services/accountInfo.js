@@ -9,7 +9,6 @@ const ExchangeRate = require('./exchangeRate');
 
 class AccountInfo extends Model {
 
-
     static async getInfoBySTKandUserID(userID, STK) {
         return this.findOne({
             where: {
@@ -88,7 +87,17 @@ class AccountInfo extends Model {
         }
     }
 
+    static async addMoneyForSTK(STK, userID, money) {
 
+        const found = await AccountInfo.findOne({
+            where: {
+                STK,
+                userID
+            }
+        })
+        found.balance = Number(found.balance) + Number(money)
+        return found.save()
+    }
     // hàm này để chuyển tiền khác ngân hàng
     async addMoneyExternal(from, amount, message, currencyUnit, bankCode) {
 
@@ -141,7 +150,7 @@ class AccountInfo extends Model {
 
 
     // Hàm này để chuyển tiền cùng ngân hàng
-    static async addMoneyInternal(from, to, amount, message, currencyUnit, bankCode, fromUser) {
+    static async addMoneyInternal(from, to, amount, message, currencyUnit, bankCode, fromUser, fee) {
         let money = amount;
         if (currencyUnit == "VND") {
             const rate = await ExchangeRate.findOne({
@@ -163,9 +172,9 @@ class AccountInfo extends Model {
             foundFrom = await this.getBySTKOne(from);
             if (!foundFrom) return 4;
             if (Number(money) > foundFrom.limit) return 8;
-            if (Number(foundFrom.balance) < Number(money)) return 7;
+            if (Number(foundFrom.balance) < (Number(money) + Number(fee))) return 7;
             await foundFrom.save();
-            foundFrom.balance = Number(foundFrom.balance) - Number(money);
+            foundFrom.balance = Number(foundFrom.balance) - (Number(money) + Number(fee));
             await foundFrom.save();
 
         }
@@ -173,7 +182,7 @@ class AccountInfo extends Model {
         const foundTo = await AccountInfo.getBySTKOne(to);
 
         if (!foundTo && foundFrom) {
-            foundFrom.balance = Number(foundFrom.balance) + Number(money);
+            foundFrom.balance = Number(foundFrom.balance) + (Number(money) + Number(fee));
             await foundFrom.save();
             return 2;
         }
@@ -183,9 +192,9 @@ class AccountInfo extends Model {
         await foundTo.save();
 
 
-        Transfer.addNewInExternal(from, to, amount, message, currencyUnit, bankCode, fromUser, foundTo.userID);
+        Transfer.addNewInternal(from, to, amount, message, currencyUnit, bankCode, fromUser, foundTo.userID, fee);
 
-        return 0;
+        return 1;
     }
     // hàm này để Nhân viên thêm tiền cho User
     async staffRecharge(staffID, currencyUnit, amount) {
@@ -244,6 +253,8 @@ class AccountInfo extends Model {
 
 
     }
+
+
 
 }
 

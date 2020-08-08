@@ -2,16 +2,17 @@
 header{
    
     .navigation-bar{
-        background-color:white;
+        background-color:white !important;
         position: sticky;
         top: 0;
         left: 0;
         width: 100%;
         z-index: 999;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     }
     .container{
         .header__content{
-            padding: 20px 0;
+            padding: 10px 0;
             #logo{
                 a{
                     font-weight:bolder;

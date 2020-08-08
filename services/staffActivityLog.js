@@ -35,7 +35,7 @@ StaffActivityLog.init({
         type: Sequelize.STRING,
     },
     date: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
         defaultValue: Sequelize.NOW(),
     },

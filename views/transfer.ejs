@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="form-action">
-                    <button class="btn btn-confirm">Confirm</button>
+                    <button class="btn btn-confirm"><i class="fas fa-check-double"></i> Confirm</button>
                 </div>
             </form>
         </div>
@@ -37,61 +37,77 @@
             </li>
         </ul>
     </div>
-    <div class="container ">
-        <div class="modal">
-            <div class="title">
-                <h3>Send Money</h3>
-                <span>Send your money on anytime, anywhere in the world.</span>
+    <div class="container " style="padding-bottom: 40px;">
+        <div class="row">
+            <div class="col-md-6 col-xs-12 " style="position: relative;">
+
+                <div class="bg-1"
+                    style="width: 100%;height: 370px;border-radius: 200px; position: absolute;top: 50%;left:50%;transform: translate(-50%,-50%);opacity: .8;box-shadow: 2px 2px  15px rgba(0, 0, 0, .2), -2px -2px  15px rgba(0, 0, 0, .2);">
+                    <h3 style="text-align: center;font-size: 36px; color: #000;
+                    margin-top: -60px;">TRANFERRING</h3>
+
+                </div>
             </div>
-            <form action="" method="post">
-                <div class="form-group">
-                    <% if(errors || errors.length){ %>
-                    <% errors.forEach(item=>{%>
-                    <%- `<p>* ${item.msg}</p>`  %>
-                    <%})%>
-                    <%}%>
-                </div>
-                <div class="form-group">
-                    <label for="txtMoney">You Send</label>
-                    <input type="text" name="txtMoney" id="txtMoney" required>
-                </div>
-                <div class="form-group">
-                    <label for="">Currency Unit</label>
-                    <select name="currencyUnit" id="currencyUnit">
-                        <%if(exchangeRates){%>
-                    <%exchangeRates.forEach(item=>{%>
-                    <%-`<option value=${item.displayName}>${item.displayName}</option>`%>
-                    <%})%>
-                    <%}%>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="">Beneficiary Bank</label>
-                    <select name="beneficiaryBank" id="bankCode">
-                        <%if(banks){%>
-                    <%banks.forEach(item=>{%>
-                    <%-`<option value=${item.bankCode}>${item.displayName}</option>`%>
-                    <%})%>
-                    <%}%>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="txtMoney">Card Number</label>
-                    <input type="txtCardNumber" name="txtCardNumber" id="txtCardNumber" required>
-                </div>
-                <div class="form-group">
-                    <label for="txtMessage">Message</label>
-                    <div>
-
-                        <textarea name="txtMessage" id="txtMessage" rows="4" required></textarea>
+            <div class="col-md-6 col-xs-12">
+                <div class="modal">
+                    <div class="title">
+                        <h3>Send Money</h3>
+                        <span>Send your money on anytime, anywhere in the world.</span>
                     </div>
-
+                    <form action="" method="post">
+                        <div class="form-group">
+                            <% if(errors || errors.length){ %>
+                            <% errors.forEach(item=>{%>
+                            <%- `<p>* ${item.msg}</p>`  %>
+                            <%})%>
+                            <%}%>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtMoney">You Send</label>
+                            <input type="text" name="txtMoney" id="txtMoney" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Currency Unit</label>
+                            <select name="currencyUnit" id="currencyUnit">
+                                <option value="USD">USD</option>
+                                <option value="VND">VND</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Beneficiary Bank</label>
+                            <select name="beneficiaryBank" id="bankCode">
+                                <%if(banks){%>
+                            <%banks.forEach(item=>{%>
+                            <%-`<option value=${item.bankCode}>${item.displayName}</option>`%>
+                            <%})%>
+                            <%}%>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtMoney">Card Number</label>
+                            <input type="txtCardNumber" name="txtCardNumber" id="txtCardNumber" required>
+                        </div>
+                        <div class="form-group flex a-center">
+                            <label for="txtMoney">Fee: </label>
+                            <p style="font-size: 14px; margin: 15px 10px 5px;" class="fee">100 $</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtMessage">Message</label>
+                            <div>
+        
+                                <textarea name="txtMessage" id="txtMessage" rows="4" required></textarea>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="form-action">
+                            <a href=""><button class="btn" id="btnContinue"><i class="fas fa-paper-plane"></i> Continue</button></a>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-action">
-                    <a href=""><button class="btn" id="btnContinue">Continue</button></a>
-                </div>
-            </form>
+            </div>
         </div>
+       
     </div>
 </div>
 
@@ -100,155 +116,153 @@
 <script src="./js/Nhat/transfer.js"></script>
 
 <%- include ('footer'); %>
-                    <script>
-                        $(function () {
-                            $('footer').css('display', 'none');
-                        });
+                            <script>
+                                $(function () {
+                                    $('footer').css('display', 'none');
+                                });
 
-                        $(document).on('click', '.btn-confirm', function (e) {
-                            e.preventDefault();
-                            $('.error').remove()
-                            const password = $('#txtPassword').val()
-                            const code = $('#txtCode').val()
-                            if (!password || !code) {
-                                $(`<p class="error" style="color:red;font-size:14px; margin-top: 10px">* Vui lòng điền đầy đủ thông tin</p>`).appendTo(`.modal form`);
-                            }
-                            else {
-                                $.post("api/two-step-verification", { password },
-                                    function (data, textStatus, jqXHR) {
-                                        if (!data) {
-                                            $(`<p class="error" style="color:red;font-size:14px; margin-top: 10px">* Mật khẩu không hợp lệ</p>`).appendTo(`.modal form`);
-                                        }
-                                        else {
-                                            if (code != localStorage.code) {
-                                                $(`<p class="error" style="color:red;font-size:14px; margin-top: 10px">* Code không hợp lệ</p>`).appendTo(`.modal form`);
-                                            }
-                                            else {
-                                                localStorage.removeItem('code');
-                                                const money = $('#txtMoney').val();
-                                                const currencyUnit = $('#currencyUnit').val();
-                                                const bankCode = $('#bankCode').val();
-                                                const stk = $('#txtCardNumber').val();
-                                                const message = $('#txtMessage').val();
-
-                                                if (!money || !currencyUnit || !bankCode || !stk || !message) {
-                                                    alert('Vui lòng điền đầy đủ thông tin');
-                                                    return;
-                                                }
-
-                                                let tmp = money;
-                                                if (currencyUnit == "VND") {
-                                                    tmp = Number(money) / 23000;
-                                                }
-                                                $('.error').remove();
-                                                if (!Number(money) || Number(money) <= 0) {
-                                                    addError('Vui lòng nhập số tiền hợp lệ');
-                                                    return;
-                                                }
-
-                                                $.get("api/account/info", function (data, textStatus, jqXHR) {
-
-                                                    if (!data) {
-                                                        addError('Bạn chưa có chưa có tài khoản ngân hàng <a href="/">Thêm tài khoản</a>');
-                                                    }
-                                                    // else if (data.isActive == 0) {
-                                                    //     addError('Tài khoản ngân hàng của bạn đã bị khóa');
-                                                    // }
-                                                    else if (Number(data.balance) < Number(tmp)) {
-                                                        addError('Số dư tài khoản không đủ');
-                                                    }
-                                                    else {
-                                                        const from = data.STK;
-                                                        $.post("api/account/addMoney", {
-                                                            money: money,
-                                                            currencyUnit: currencyUnit,
-                                                            bankCode: bankCode,
-                                                            stk: stk,
-                                                            message: message,
-                                                            from,
-                                                        },
-                                                            function (data, textStatus, jqXHR) {
-                                                                if (data == '-1') {
-                                                                    addError('Không thể gửi tiền cho chính mình');
-                                                                }
-                                                                if (data == '-2') {
-                                                                    addError('Lỗi không xác định');
-                                                                }
-                                                                if (data == '0') {
-                                                                    addError('Số tài khoản thụ hưởng hoặc ngân hàng không hợp lệ');
-                                                                }
-                                                                if (data == 8) {
-                                                                    addError('Số tiền gửi vượt giới hạn <a href="/change-limit">Thay đổi</>');
-                                                                }
-                                                                if (data == '1') {
-
-                                                                    const activity = {
-                                                                        stk,
-                                                                        money,
-                                                                        currencyUnit
-                                                                    }
-                                                                    socket.emit('transfer', activity)
-                                                                    localStorage.setItem('activityTransfer', JSON.stringify(activity));
-                                                                    $(location).attr('href', '/transfer-success');
-                                                                }
-                                                            },
-                                                        );
-                                                        // console.log('Số dư tài khoản đủ');
-                                                    }
-                                                    return;
-                                                },
-                                                );
-
-                                            }
-                                        }
-                                    },
-                                );
-                            }
-
-                        });
-                        $(document).on('click', '.pop-up', function (e) {
-                            $(this).fadeOut(500);
-                        });
-                        $(document).on('click', '.modal', function (e) {
-                            e.stopPropagation();
-                        });
-                        $(document).on('click', '.close', function (e) {
-                            $('.pop-up').fadeOut(500);
-                        });
-                        $(document).on('click', '.btn-sendCode', function (e) {
-                            e.preventDefault();
-                            const found = $(this).attr('class').split(' ')
-
-                            if (found.length != 1) {
-
-                            }
-                            else {
-                                $.get("api/sendcode-verification",
-                                    function (data, textStatus, jqXHR) {
-                                        if (data) {
-                                            localStorage.setItem("code", data);
-                                        }
-                                    },
-                                );
-                                let i = 10;
-                                $(this).addClass('active');
-                                function setTime() {
-                                    i--;
-                                    $('.btn-sendCode').text(`Wait (${i})`)
-                                    if (i == 0) {
-                                        $('.btn-sendCode').removeClass('active');
-                                        clearTimeout();
-                                        $('.btn-sendCode').text(`Send Code`);
+                                $(document).on('click', '.btn-confirm', function (e) {
+                                    e.preventDefault();
+                                    $('.error').remove()
+                                    const password = $('#txtPassword').val()
+                                    const code = $('#txtCode').val()
+                                    if (!password || !code) {
+                                        $(`<p class="error" style="color:red;font-size:14px; margin-top: 10px">* Vui lòng điền đầy đủ thông tin</p>`).appendTo(`.modal form`);
                                     }
                                     else {
-                                        setTimeout(() => {
-                                            setTime()
-                                        }, 1000)
+                                        $.post("api/two-step-verification", { password },
+                                            function (data, textStatus, jqXHR) {
+                                                if (!data) {
+                                                    $(`<p class="error" style="color:red;font-size:14px; margin-top: 10px">* Mật khẩu không hợp lệ</p>`).appendTo(`.modal form`);
+                                                }
+                                                else {
+                                                    if (code != localStorage.code) {
+                                                        $(`<p class="error" style="color:red;font-size:14px; margin-top: 10px">* Code không hợp lệ</p>`).appendTo(`.modal form`);
+                                                    }
+                                                    else {
+                                                        localStorage.removeItem('code');
+                                                        const money = $('#txtMoney').val();
+                                                        const currencyUnit = $('#currencyUnit').val();
+                                                        const bankCode = $('#bankCode').val();
+                                                        const stk = $('#txtCardNumber').val();
+                                                        const message = $('#txtMessage').val();
+                                                        const fee = $('.fee').text().split(' ')[0];
+
+                                                        if (!money || !currencyUnit || !bankCode || !stk || !message) {
+                                                            alert('Vui lòng điền đầy đủ thông tin');
+                                                            return;
+                                                        }
+
+                                                        $('.error').remove();
+                                                        if (!Number(money) || Number(money) <= 0) {
+                                                            addError('Vui lòng nhập số tiền hợp lệ');
+                                                            return;
+                                                        }
+
+                                                        $.get("api/account/info", function (data, textStatus, jqXHR) {
+
+                                                            if (!data) {
+                                                                addError('Bạn chưa có chưa có tài khoản ngân hàng <a href="/">Thêm tài khoản</a>');
+                                                            }
+                                                            // else if (data.isActive == 0) {
+                                                            //     addError('Tài khoản ngân hàng của bạn đã bị khóa');
+                                                            // }
+                                                            else {
+                                                                const from = data.STK;
+                                                                $.post("api/account/addMoney", {
+                                                                    money: money,
+                                                                    currencyUnit: currencyUnit,
+                                                                    bankCode: bankCode,
+                                                                    stk: stk,
+                                                                    message: message,
+                                                                    from,
+                                                                    fee,
+                                                                },
+                                                                    function (data, textStatus, jqXHR) {
+                                                                        if (data == '-1') {
+                                                                            addError('Không thể gửi tiền cho chính mình');
+                                                                        }
+                                                                        if (data == '-2') {
+                                                                            addError('Lỗi không xác định');
+                                                                        }
+                                                                        if (data == '0') {
+                                                                            addError('Số tài khoản thụ hưởng hoặc ngân hàng không hợp lệ');
+                                                                        }
+                                                                        if (data == 8) {
+                                                                            addError('Số tiền gửi vượt giới hạn <a href="/change-limit">Thay đổi</>');
+                                                                        }
+                                                                        if (data == 7) {
+                                                                            addError('Số dư tài khoản không đủ');
+                                                                        }
+                                                                        if (data == '1') {
+
+                                                                            const activity = {
+                                                                                stk,
+                                                                                money,
+                                                                                currencyUnit
+                                                                            }
+                                                                            socket.emit('transfer', activity)
+                                                                            localStorage.setItem('activityTransfer', JSON.stringify(activity));
+                                                                            $(location).attr('href', '/transfer-success');
+                                                                        }
+                                                                    },
+                                                                );
+                                                                // console.log('Số dư tài khoản đủ');
+                                                            }
+                                                            return;
+                                                        },
+                                                        );
+
+                                                    }
+                                                }
+                                            },
+                                        );
                                     }
-                                }
-                                setTime();
-                            }
-                        });
+
+                                });
+                                $(document).on('click', '.pop-up', function (e) {
+                                    $(this).fadeOut(500);
+                                });
+                                $(document).on('click', '.modal', function (e) {
+                                    e.stopPropagation();
+                                });
+                                $(document).on('click', '.close', function (e) {
+                                    $('.pop-up').fadeOut(500);
+                                });
+                                $(document).on('click', '.btn-sendCode', function (e) {
+                                    e.preventDefault();
+                                    const found = $(this).attr('class').split(' ')
+
+                                    if (found.length != 1) {
+
+                                    }
+                                    else {
+                                        $.get("api/sendcode-verification",
+                                            function (data, textStatus, jqXHR) {
+                                                if (data) {
+                                                    localStorage.setItem("code", data);
+                                                }
+                                            },
+                                        );
+                                        let i = 10;
+                                        $(this).addClass('active');
+                                        function setTime() {
+                                            i--;
+                                            $('.btn-sendCode').text(`Wait (${i})`)
+                                            if (i == 0) {
+                                                $('.btn-sendCode').removeClass('active');
+                                                clearTimeout();
+                                                $('.btn-sendCode').text(`Send Code`);
+                                            }
+                                            else {
+                                                setTimeout(() => {
+                                                    setTime()
+                                                }, 1000)
+                                            }
+                                        }
+                                        setTime();
+                                    }
+                                });
 
 
-                    </script>
+                            </script>

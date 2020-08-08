@@ -2,12 +2,12 @@ const Sequelize = require('sequelize');
 const db = require('./db');
 const Model = Sequelize.Model;
 const Op = Sequelize.Op;
+const moment = require('moment')
 
 const Notification = require('./notification');
 const AccountInfo = require('./accountInfo');
 
 class Transfer extends Model {
-
 
     // hàm này để lấy lịch sử giao dich theo thời gian nhất định của 1 user
     static async getActivityByDate(stk, page, limit, fromDate, toDate) {
@@ -21,7 +21,7 @@ class Transfer extends Model {
                         to: stk
                     }
                 ],
-                createdAt: {
+                date: {
                     [Op.and]: [
                         {
                             [Op.gte]: fromDate
@@ -42,7 +42,7 @@ class Transfer extends Model {
         if (found.length <= 0) return found;
         const rs = found.map((item) => {
             return {
-                date: new Date(item.createdAt).toISOString().slice(5, 10),
+                date: moment(item.date).format('YYYY-MM-DD').slice(5, 10),
                 des: item.from === stk ? 'Đã gửi tiền cho ' + item.to : 'Đã nhận tiền từ ' + item.from,
                 amount: item.from === stk ? '-' + item.amount : '+' + item.amount,
                 currencyUnit: item.currencyUnit,
@@ -115,7 +115,7 @@ class Transfer extends Model {
         });
     }
 
-    static async addNewInExternal(fromSTK, toSTK, amount, message, currencyUnit, bankCode, fromUser, toUser) {
+    static async addNewInternal(fromSTK, toSTK, amount, message, currencyUnit, bankCode, fromUser, toUser, fee) {
         const newTf = {
             from: fromSTK,
             to: toSTK,
@@ -123,6 +123,7 @@ class Transfer extends Model {
             message,
             currencyUnit,
             bankCode,
+            fee: fee || 0
         }
         return this.create(newTf).then(async value => {
             await Notification.addNotifyForTransfer(fromSTK, toSTK, fromUser, toUser);
@@ -203,7 +204,7 @@ Transfer.init({
         type: Sequelize.STRING,
     },
     date: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
         defaultValue: Sequelize.NOW(),
     },
@@ -221,6 +222,10 @@ Transfer.init({
     status: {
         type: Sequelize.INTEGER,
         defaultValue: 1,
+    },
+    fee: {
+        type: Sequelize.DECIMAL,
+        defaultValue: 0
     }
 
 }, {

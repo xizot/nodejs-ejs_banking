@@ -11,6 +11,8 @@ const { sendMail } = require('../services/function');
 const { findInfoOffCustomer, findActivityStaff, countActivityStaff } = require('../services/staffFunction');
 const UserRequest = require('../services/userRequest');
 const io = require('socket.io-client');
+const SavingAccount = require('../services/savingAccount');
+const { use } = require('./forgotPassword');
 let socket;
 socket = io("https://dack-17ck1.herokuapp.com");
 
@@ -39,6 +41,7 @@ router.get('/account/info', async (req, res) => {
 //add money with api
 router.post('/account/addMoney', async (req, res) => {
     const { stk, bankCode, money, from, message, currencyUnit } = req.body;
+    const fee = req.body.fee || 0;
     if (from != "ADMIN") {
 
         const accountInfo = await AccountInfo.getByUserID(req.currentUser.id);
@@ -57,11 +60,14 @@ router.post('/account/addMoney', async (req, res) => {
             }
         }
         const found = await AccountInfo.getBySTKAndBankCode(stk, bankCode);
+
         if (found) {
 
-            const rs = await AccountInfo.addMoneyInternal(from, stk, money, message, currencyUnit, bankCode, req.currentUser.id)
+            const rs = await AccountInfo.addMoneyInternal(from, stk, money, message, currencyUnit, bankCode, req.currentUser.id, fee)
             // lấy thông tin người nhận
             if (rs == 8) return res.json(8)
+            if (rs == 2) return res.json(2)
+            if (rs == 7) return res.json(7)
 
             const ToInfo = await User.findByPk(found.userID);
             if (ToInfo) {
@@ -92,7 +98,7 @@ router.post('/account/addMoney', async (req, res) => {
                     STK gửi: ${from} \n
                     STK nhận: ${stk} \n
                     Tiền đã gửi: ${money} ${currencyUnit} \n
-                    Phí gửi tiền: 0 USD \n
+                    Phí gửi tiền: ${fee} USD \n
                     Lời nhắn: ${message} \n
                     Số dư: ${accountInfo.balance} \n
                     Cảm ơn bạn đã tin tưởng,\n
@@ -103,7 +109,7 @@ router.post('/account/addMoney', async (req, res) => {
                   <p>STK gửi:<b> ${from} </b></p> 
                   <p>STK nhận:<b> ${stk} </b></p>
                   <p>Tiền đã gửi:<b> ${money} ${currencyUnit}  </b></p>
-                  <p>Phí gửi tiền:<b> 0 USD </b></p>
+                  <p>Phí gửi tiền:<b> ${fee} USD </b></p>
                   <p>Lời nhắn:<b> ${message} </b></p>
                   <p>Số dư:<b> ${accountInfo.balance} </b></p>
                   <p style="margin:20px 0 0">Cảm ơn bạn đã tin tưởng,</p>
@@ -111,12 +117,14 @@ router.post('/account/addMoney', async (req, res) => {
                 </div>
             `)
                 }
-
+                else {
+                    await StaffActivityLog.create({
+                        staffID: req.currentUser.id,
+                        message: `Đã nạp tiền cho số tài khoản ${stk} số tiền ${money} ${currencyUnit}`,
+                    })
+                }
             }
-            const newActivity = await StaffActivityLog.create({
-                staffID: req.currentUser.id,
-                message: `Đã nạp tiền cho số tài khoản ${stk} số tiền ${money} ${currencyUnit}`,
-            })
+
             return res.end('1'); // thanh cong
         }
         else {
@@ -126,6 +134,13 @@ router.post('/account/addMoney', async (req, res) => {
 
     return res.end('-2'); //Lỗi k cố định
 })
+
+
+
+
+
+
+
 
 //get info of transfer id with api
 router.get('/transfer/:id', async (req, res) => {
@@ -339,7 +354,7 @@ router.post('/customer-search', async (req, res) => {
     return res.json(await findInfoOffCustomer(st));
 })
 router.get('/get-activity', async (req, res) => {
-    // if (!req.currentUser) return null
+    if (!req.currentUser) return null
     const numpage = req.query.numpage || 1;
     const limit = 10;
     const found = await findActivityStaff(req.currentUser.id, numpage, limit);
@@ -718,4 +733,26 @@ router.post('/seen-notification', async (req, res) => {
     Notifications.seenNotification(id, req.currentUser.id);
     return res.json(1);
 })
+
+
+router.post('/create-savings', async (req, res) => {
+    const { fromSTK, term, userID, currencyUnit, balance } = req.body;
+    if (!fromSTK || !term || !currencyUnit || !userID || !balance) return res.json(null)
+    const rs = await SavingAccount.createRequestSavingAccount(fromSTK, userID, balance, term, currencyUnit)
+    console.log(rs)
+    return res.json(rs)
+})
+
+
+router.post('/eject-savings', async (req, res) => {
+    const { STK, userID } = req.body;
+    if (!STK || !userID) return res.json(null);
+    const rs = await SavingAccount.ejectSavingAccount(STK, userID)
+    console.log(rs)
+    return res.json(rs)
+})
+
+
+
+
 module.exports = router;

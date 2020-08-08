@@ -1,5 +1,11 @@
 @import './variables';
 
+.bg-1{
+    background: url('./../../img/bg-1.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+    
+}
 .color-white{
     color: white;
 }
