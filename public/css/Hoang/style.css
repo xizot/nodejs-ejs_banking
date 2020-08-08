@@ -412,9 +412,7 @@
 .font-weight-600 {
     font-weight: 600 !important;
 }
-.mb-4{
-    margin-bottom: 1.5rem!important;
-}
+
 .line-height-4 {
     line-height: 1.6 !important;
 }
@@ -891,6 +889,7 @@
   .text-hs {
       color:#1D2939;
   }
+<<<<<<< HEAD
 
 
   .main-saving .main-content-wrapper {
@@ -960,3 +959,10 @@
   .btn.active{
     box-shadow: none !important;
   }
+=======
+.post_title_blog
+{
+  color: #333;
+
+}
+>>>>>>> 5d9a0b1192b6b90c3ebcb7a367135c5785fd2bfa

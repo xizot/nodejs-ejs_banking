@@ -1,4 +1,5 @@
 # Lưu ý:
+## PLan:[Phân chia công việc]( https://www.notion.so/Plan-Project-e66cc2907a4b4292a26a79921e7f47a0)
 
 ### Trước khi làm việc cần pull repon về local:
     * "git pull origin master" 
@@ -21,4 +22,6 @@
 
 
 ### Khi bị conflict nếu không biết xử lí thì liên hệ Lead
+
+### Link website: [Payyed](dack-17ck1.herokuapp.com)
 

@@ -70,7 +70,6 @@ router.get('/accept-request/:id', async (req, res) => {
     if (!id) return res.json(null)
     const found2 = await UserRequest.findByPk(id);
     const found = await UserRequest.acceptRequest(id);
-
     let msg = null;
 
     if (!req.currentUser && req.currentUser.permisstion != 1) return null;
@@ -81,8 +80,9 @@ router.get('/accept-request/:id', async (req, res) => {
             const user = await User.findByPk(found2.userID);
             if (user) {
                 user.isActive = 1;
-                user.save();
+                await user.save();
             }
+
         }
         if (found2.type == 2) {
             const user = await User.findByPk(found2.userID);

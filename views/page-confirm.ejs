@@ -1,5 +1,5 @@
 <%- include ('header',{title:'Payyed - Home'}); %>
-<div class="confirm" style="height: 100vh;">
+<div class="confirm bg-main-1" style="height: 100vh;">
 
     <% if(currentUser.isActive == -1){%>
 
@@ -12,30 +12,30 @@
             Verify Account</h3>
         <form action="" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="txtName">Name</label>
+                <label for="txtName">Name: </label>
                 <input type="text" name="txtName" id="txtName" placeholder="<%-currentUser.displayName%>">
             </div>
             <div class="form-group">
-                <label for="txtTypeofCard">Type of card</label>
+                <label for="txtTypeofCard">Type of card: </label>
                 <select name="txtTypeofCard" id="txtTypeofCard"
-                    style="width:100%; height: 45px;outline: none;  border: 1px solid rgba(45, 190, 96, 0.4);padding: 10px;border-radius: 5px;    margin: 15px 0; cursor: pointer;">
+                    style="width:100%; height: 45px;outline: none;  border: 1px solid rgba(45, 190, 96, 0.4);padding: 10px;border-radius: 5px; cursor: pointer;">
                     <option value="1">CMND</option>
                     <option value="2">CCCD</option>
                     <option value="3">Passport</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="txtIdcard">ID card</label>
+                <label for="txtIdcard">ID card: </label>
 
                 <input type="text" name="txtIdcard" id="txtIdcard" required>
             </div>
             <div class="form-group">
-                <label for="txtIssued">Issued</label>
+                <label for="txtIssued">Issued: </label>
                 <input type="date" name="txtIssued" id="txtIssued" value="2020-08-01" required>
             </div>
             <div class="form-group">
                 <label for="avartar" style="display: block;">Confirm picture</label>
-                <input type="file" class="" id="avatar" name="avatar" required>
+                <input type="file" class="" id="avatar" name="avatar" accept="image/*" required>
             </div>
             <div class="form-group">
                 <% if(errors || errors.length){ %>
@@ -58,31 +58,31 @@
                         Verify Account</h3>
                     <form action="" method="post" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label for="txtName">Name</label>
+                            <label for="txtName">Name: </label>
                             <input type="text" name="txtName" id="txtName" placeholder="<%-currentUser.displayName%>"
                                 required>
                         </div>
                         <div class="form-group">
-                            <label for="txtTypeofCard">Type of card</label>
+                            <label for="txtTypeofCard">Type of card: </label>
                             <select name="txtTypeofCard" id="txtTypeofCard"
-                                style="width:100%; height: 45px;outline: none;  border: 1px solid rgba(45, 190, 96, 0.4);padding: 10px;border-radius: 5px;    margin: 15px 0; cursor: pointer;">
+                                style="width:100%; height: 45px;outline: none;  border: 1px solid rgba(45, 190, 96, 0.4);padding: 10px;border-radius: 5px;   cursor: pointer;">
                                 <option value="1">CMND</option>
                                 <option value="2">CCCD</option>
                                 <option value="3">Passport</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="txtIdcard">ID card</label>
+                            <label for="txtIdcard">ID card: </label>
 
                             <input type="text" name="txtIdcard" id="txtIdcard" required>
                         </div>
                         <div class="form-group">
-                            <label for="txtIssued">Issued</label>
+                            <label for="txtIssued">Issued: </label>
                             <input type="date" name="txtIssued" id="txtIssued" value="2020-08-01" required>
                         </div>
                         <div class="form-group">
-                            <label for="avartar" style="display: block;">Confirm picture</label>
-                            <input type="file" class="" id="avatar" name="avatar" required>
+                            <label for="avartar" style="display: block;">Card Image:</label>
+                            <input type="file" class="" id="avatar" name="avatar" accept="image/*" required>
                         </div>
                         <div class="form-group">
                             <% if(errors || errors.length){ %>

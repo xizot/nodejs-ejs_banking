@@ -18,9 +18,24 @@ class User extends Model {
                 [Sequelize.Op.and]:
                     [
                         {
-                            displayName: {
-                                [Sequelize.Op.startsWith]: st
-                            },
+                            [Sequelize.Op.or]: [
+                                {
+                                    displayName: {
+                                        [Sequelize.Op.startsWith]: st
+                                    },
+                                },
+                                {
+                                    username: {
+                                        [Sequelize.Op.startsWith]: st
+                                    },
+                                },
+                                {
+                                    email: {
+                                        [Sequelize.Op.startsWith]: st
+                                    },
+                                }
+
+                            ]
                         }
                         ,
                         {

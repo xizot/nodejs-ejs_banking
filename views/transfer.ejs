@@ -19,6 +19,9 @@
                         <button class="btn-sendCode">Send Code</button>
                     </div>
                 </div>
+                <div class="form-err">
+
+                </div>
                 <div class="form-action">
                     <button class="btn btn-confirm"><i class="fas fa-check-double"></i> Confirm</button>
                 </div>
@@ -45,6 +48,7 @@
                     style="width: 100%;height: 370px;border-radius: 200px; position: absolute;top: 50%;left:50%;transform: translate(-50%,-50%);opacity: .8;box-shadow: 2px 2px  15px rgba(0, 0, 0, .2), -2px -2px  15px rgba(0, 0, 0, .2);">
                     <h3 style="text-align: center;font-size: 36px; color: #000;
                     margin-top: -60px;">TRANFERRING</h3>
+
 
                 </div>
             </div>
@@ -117,6 +121,61 @@
 
 <%- include ('footer'); %>
                             <script>
+
+                                $('#currencyUnit').change(function (e) {
+                                    e.preventDefault();
+                                    const crmoney = $('#txtMoney').val();
+                                    const crUnit = $('#currencyUnit').val();
+                                    if (crUnit == 'VND') {
+                                        if (Number(crmoney) <= 2000000) {
+                                            $('.fee').text('0 USD')
+                                        }
+                                        else if (Number(crmoney) <= 10000000) {
+                                            $('.fee').text('2 USD')
+                                        }
+                                        else {
+                                            $('.fee').text('3 USD')
+                                        }
+                                    }
+                                    else if (crUnit == 'USD') {
+                                        if (Number(crmoney) <= 500) {
+                                            $('.fee').text('0 USD')
+                                        }
+                                        else if (Number(crmoney) <= 2000) {
+                                            $('.fee').text('2 USD')
+                                        }
+                                        else {
+                                            $('.fee').text('3 USD')
+                                        }
+                                    }
+                                });
+                                $('#txtMoney').keyup(function (e) {
+                                    e.preventDefault();
+                                    const crmoney = $('#txtMoney').val();
+                                    const crUnit = $('#currencyUnit').val();
+                                    if (crUnit == 'VND') {
+                                        if (Number(crmoney) <= 2000000) {
+                                            $('.fee').text('0 USD')
+                                        }
+                                        else if (Number(crmoney) <= 10000000) {
+                                            $('.fee').text('2 USD')
+                                        }
+                                        else {
+                                            $('.fee').text('3 USD')
+                                        }
+                                    }
+                                    else if (crUnit == 'USD') {
+                                        if (Number(crmoney) <= 500) {
+                                            $('.fee').text('0 USD')
+                                        }
+                                        else if (Number(crmoney) <= 2000) {
+                                            $('.fee').text('2 USD')
+                                        }
+                                        else {
+                                            $('.fee').text('3 USD')
+                                        }
+                                    }
+                                });
                                 $(function () {
                                     $('footer').css('display', 'none');
                                 });
@@ -127,7 +186,7 @@
                                     const password = $('#txtPassword').val()
                                     const code = $('#txtCode').val()
                                     if (!password || !code) {
-                                        $(`<p class="error" style="color:red;font-size:14px; margin-top: 10px">* Vui lòng điền đầy đủ thông tin</p>`).appendTo(`.modal form`);
+                                        $(`<p class="error" style="color:red;font-size:14px; margin-top: 10px">* Vui lòng điền đầy đủ thông tin</p>`).appendTo(`.modal .form-err`);
                                     }
                                     else {
                                         $.post("api/two-step-verification", { password },

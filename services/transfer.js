@@ -123,6 +123,8 @@ class Transfer extends Model {
             message,
             currencyUnit,
             bankCode,
+            fromUser,
+            toUser,
             fee: fee || 0
         }
         return this.create(newTf).then(async value => {
@@ -151,8 +153,6 @@ class Transfer extends Model {
         }
         return this.create(newTf).then(value => value);
     }
-
-
     // hàm này để lấy thông tin giao dịch của 1 user có phân trang
     static async getActivityLimit(id, page, limit) {
         return this.findAll({

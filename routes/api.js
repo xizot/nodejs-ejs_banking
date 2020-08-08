@@ -13,6 +13,7 @@ const UserRequest = require('../services/userRequest');
 const io = require('socket.io-client');
 const SavingAccount = require('../services/savingAccount');
 const { use } = require('./forgotPassword');
+const Customer = require('../services/customer');
 let socket;
 socket = io("https://dack-17ck1.herokuapp.com");
 
@@ -71,26 +72,28 @@ router.post('/account/addMoney', async (req, res) => {
 
             const ToInfo = await User.findByPk(found.userID);
             if (ToInfo) {
-                sendMail(ToInfo.email, 'Nhận tiền', `Bạn vừa được nhận tiền thành công:\n
-                    STK gửi: ${from} \n
-                    STK nhận: ${stk} \n
-                    Tiền đã nhận: ${money} ${currencyUnit} \n
-                    Lời nhắn: ${message} \n
-                    Số dư: ${found.balance + money}\n
-                    Cảm ơn bạn đã tin tưởng,\n
-                    Payyed.
+                const accountInfo1 = await AccountInfo.getBySTKOne(stk);
 
-                `, `<h3 style="color:#333; text-transform:uppercase; text-align:center; font-size:30px; font-family:Tahoma,Arial,Helvetica,sans-serif">Bạn vừa được nhận tiền thành công:<h3>
-                <div style="padding:20px;background-color:#f1f5f6; border-radius:10px;margin:30px;font-family:Tahoma,Arial,Helvetica,sans-serif; font-size:14px;color:#333">
-                  <p>STK gửi:<b> ${from} </b></p> 
-                  <p>STK nhận:<b> ${stk}  </b></p>
-                  <p>Tiền đã nhận:<b> ${money} ${currencyUnit} </b></p>
-                  <p>Lời nhắn:<b> ${message}  </b></p>
-                  <p>Số dư:<b> ${found.balance + money}  </b></p>
-                  <p style="margin:20px 0 0">Cảm ơn bạn đã tin tưởng,</p>
-                  <p style="font-size:18px; margin-top:5px">Pa<span style="color:#29ad57; font-weight:bold">yy</span>ed.</p>
-                </div>
-            `)
+                sendMail(ToInfo.email, 'Nhận tiền', `Bạn vừa được nhận tiền thành công:\n
+                STK gửi: ${from} \n
+                STK nhận: ${stk} \n
+                Tiền đã nhận: ${money} ${currencyUnit} \n
+                Lời nhắn: ${message} \n
+                Số dư: ${accountInfo1.balance}\n
+                Cảm ơn bạn đã tin tưởng,\n
+                Payyed.
+
+            `, `<h3 style="color:#333; text-transform:uppercase; text-align:center; font-size:30px; font-family:Tahoma,Arial,Helvetica,sans-serif">Bạn vừa được nhận tiền thành công:<h3>
+            <div style="padding:20px;background-color:#f1f5f6; border-radius:10px;margin:30px;font-family:Tahoma,Arial,Helvetica,sans-serif; font-size:14px;color:#333">
+              <p>STK gửi:<b> ${from} </b></p> 
+              <p>STK nhận:<b> ${stk}  </b></p>
+              <p>Tiền đã nhận:<b> ${money} ${currencyUnit} </b></p>
+              <p>Lời nhắn:<b> ${message}  </b></p>
+              <p>Số dư:<b> ${accountInfo1.balance}  </b></p>
+              <p style="margin:20px 0 0">Cảm ơn bạn đã tin tưởng,</p>
+              <p style="font-size:18px; margin-top:5px">Pa<span style="color:#29ad57; font-weight:bold">yy</span>ed.</p>
+            </div>
+        `)
 
                 if (from != "ADMIN") {
                     const accountInfo = await AccountInfo.getByUserID(req.currentUser.id);
@@ -693,6 +696,18 @@ router.post('/search-client', async (req, res) => {
     const found = await User.findClient(st);
     return res.json(found);
 
+})
+
+router.post('/get-info-custom', async (req, res) => {
+    const { id } = req.body;
+    if (!id) return res.json(null);
+    const found = await Customer.getByUserID(id);
+    const userFound = await User.findByPk(id);
+    let rs = {
+        customer: found,
+        user: userFound
+    }
+    return res.json(rs);
 })
 
 // request

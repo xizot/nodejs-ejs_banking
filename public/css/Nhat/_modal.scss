@@ -11,6 +11,9 @@
     border-radius: 10px;
     &-title{
         text-align: center;
+        text-transform: uppercase;
+        font-size: 14px;
+        font-weight: bold;
         i{
             display: inline-block;
             width: 40px;
@@ -69,6 +72,19 @@
                 font-size:12px;
             }
         }
+        .form-action{
+            button{
+                display: block;
+                margin-top: 20px;
+                box-shadow: 2px 2px 5px rgba(0,0,0,.3),
+                -2px -2px 5px rgba(0,0,0,.3);
+                cursor: pointer;
+                transition: all .4s;
+                &:hover{
+                    transform: translateY(-5px);
+                }
+            }
+        }
         .form-actions{
             .remember{
                 margin: 10px 0 30px;
@@ -117,6 +133,7 @@
                 padding: 10px;
                 text-transform: uppercase;
             }
+           
             .another{
                 margin-top: 10px;
                 font-size: 13px;
@@ -174,3 +191,12 @@
     position: relative;
 }
 
+.bg-main-1{
+    background: url('./../../img/bg.png') no-repeat top/cover;
+}
+.bg-main-2{
+    background: url('./../../img/bg-2.png') no-repeat top/cover;
+}
+.bg-main-3{
+    background: url('./../../img/bg-2.jpg') no-repeat top/cover;
+}

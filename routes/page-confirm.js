@@ -14,6 +14,7 @@ var errors = [];
 
 
 router.get('/', async (req, res) => {
+    if (!req.currentUser) return res.redirect('/login')
     if (req.currentUser && req.currentUser.isActive == 1) return res.redirect('/')
     const customer = await Customer.getByUserID(req.currentUser.id);
 

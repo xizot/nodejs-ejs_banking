@@ -1404,6 +1404,9 @@ footer .top {
 
 .modal-title {
   text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .modal-title i {
@@ -1477,6 +1480,21 @@ footer .top {
 .modal form .form-group p {
   color: #2dbe60;
   font-size: 12px;
+}
+
+.modal form .form-action button {
+  display: block;
+  margin-top: 20px;
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), -2px -2px 5px rgba(0, 0, 0, 0.3);
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), -2px -2px 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  -webkit-transition: all .4s;
+  transition: all .4s;
+}
+
+.modal form .form-action button:hover {
+  -webkit-transform: translateY(-5px);
+          transform: translateY(-5px);
 }
 
 .modal form .form-actions .remember {
@@ -1590,6 +1608,18 @@ footer .top {
   width: 100%;
   height: 100%;
   position: relative;
+}
+
+.bg-main-1 {
+  background: url("./../../img/bg.png") no-repeat top/cover;
+}
+
+.bg-main-2 {
+  background: url("./../../img/bg-2.png") no-repeat top/cover;
+}
+
+.bg-main-3 {
+  background: url("./../../img/bg-2.jpg") no-repeat top/cover;
 }
 
 #todo .container {
@@ -2534,6 +2564,17 @@ footer .top {
 
 .transfer .container {
   min-height: calc(100vh-133px);
+}
+
+.transfer .container .tf-left .bg-main-2 {
+  width: 100%;
+  height: 400px;
+  border-radius: 999px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 .transfer .container .modal {
