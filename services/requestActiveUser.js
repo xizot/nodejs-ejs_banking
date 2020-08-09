@@ -89,7 +89,7 @@ RequestActiveUser.init({
         allowNull: false,
     },
     date: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         defaultValue: Sequelize.NOW,
     }
 

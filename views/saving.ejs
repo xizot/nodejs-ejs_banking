@@ -232,7 +232,7 @@
                                 </option>
                             </select>
                             <label class="form-heading " for="form-heading">Số tiền gửi </label>
-                            <input type="text" class="form-control" placeholder="Enter Money">
+                            <input type="text" class="form-control saving-money" placeholder="Enter Money">
                         </div>
                     </form>
                     <div class="pad-5"></div>
@@ -240,33 +240,33 @@
                     <form>
                         <div class="form-group">
                             <label class="form-heading " for="form-heading">Kỳ hạn</label>
-                            <select class="form-control" id="">
-                                <option value="1">1 tháng (+0.55%/năm so với niêm yết)&nbsp;
+                            <select class="form-control" id="term">
+                                <option value="1">1 tháng (lãi suất 0.5%)&nbsp;
                                 </option>
-                                <option value="3">3 tháng (+0.25%/năm so với niêm yết)&nbsp;
+                                <option value="3">3 tháng (lãi suất 1.5%)&nbsp;
                                 </option>
-                                <option value="6">6 tháng (+0.3%/năm so với niêm yết)&nbsp;
+                                <option value="6">6 tháng (lãi suất 3.5%)&nbsp;
                                 </option>
-                                <option value="9">9 tháng (+0.3%/năm so với niêm yết)&nbsp;
+                                <option value="9">9 tháng (lãi suất 5%)&nbsp;
                                 </option>
-                                <option value="12">12 tháng&nbsp;
+                                <option value="12">12 tháng (lãi suất 5%)&nbsp;
                                 </option>
-                                <option value="24">24 Tháng&nbsp;
+                                <option value="24">24 Tháng (lãi suất 5%)&nbsp;
                                 </option>
-                                <option value="36">36 Tháng&nbsp;
+                                <option value="36">36 Tháng (lãi suất 5%)&nbsp;
                                 </option>
                             </select>
                             <label class="form-heading " for="form-heading">Tần suất trả lãi </label>
-                            <select class="form-control" id="">
+                            <select class="form-control" id="" disabled>
                                 <option>Cuối kỳ
                                 </option>
                             </select>
                             <label class="form-heading " for="form-heading">Tất toán tài khoản </label>
-                            <select class="form-control" id="">
+                            <select class="form-control" id="" disabled>
                                 <option>Nhận về tài khoản</option>
                             </select>
                         </div>
-                        <button class="btn btn-success "> Yêu cầu </button>
+                        <button class="btn btn-success btn-send-request"> Yêu cầu </button>
                         <button class="btn btn-cancel"> Hủy </button>
                     </form>
                 </div>
@@ -276,3 +276,59 @@
 
         <%- include('./footer')%>
         <script src="/socket.io/socket.io.js"></script>
+        <script>
+            $(function () {
+                $.post("/api/get-list-account",
+                    function (data, textStatus, jqXHR) {
+                        $('#from-account').empty();
+                        if (data && data.length > 0) {
+                            data.map(item => {
+                                $(`
+                                <option value="${item.STK}">${item.STK} - số dư khả dụng: ${item.balance} ${item.currencyUnit}
+                                </option>
+                                `).appendTo('#from-account');
+                            })
+                        }
+                    },
+                );
+                $('.btn-send-request').click(function (e) {
+                    e.preventDefault();
+                    const balance = $('.saving-money').val()
+                    const fromSTK = $('#from-account').val()
+                    const term = $('#term').val()
+
+                    if (!balance || !Number(balance)) {
+                        alert('Tiền gửi không hợp lệ')
+                        return;
+                    }
+                    if (!fromSTK) {
+                        alert('Bạn chưa có tài khoản thanh toán. Vui lòng tạo trước')
+                        return;
+                    }
+                    $.post("/api/create-savings", { balance, fromSTK, term },
+                        function (data, textStatus, jqXHR) {
+                            if (data) {
+                                if (data == 1) {
+                                    alert('Bạn không đủ tiền')
+                                    return
+                                }
+                                if (data == 3) {
+                                    alert('Bạn đã yêu cầu trước đó. Vui lòng đợi nhanh viên xử lí')
+                                    $(location).attr('href', '/')
+                                    return
+                                }
+                            }
+                            if (data == 0) {
+                                alert('Đã gửi yêu cầu cho nhân viên')
+                                $(location).attr('href', '/')
+                                return;
+                            }
+
+                            alert('Đã xảy ra lỗi')
+                            $(location).attr('href', '/')
+                            return
+                        },
+                    );
+                });
+            });
+        </script>

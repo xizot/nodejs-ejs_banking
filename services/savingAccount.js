@@ -7,12 +7,17 @@ const ExchangeRate = require('./exchangeRate');
 const AccountInfo = require('./accountInfo');
 const User = require('./user');
 const { sendRequest } = require('../services/userRequest');
-const { sendMail } = require('./function')
+const { sendMail } = require('./function');
 
 class SavingAccount extends Model {
 
     static async createRequestSavingAccount(fromSTK, userID, balance, term, currencyUnit) {
+
         const user = await User.findByPk(userID);
+
+        const checkDup = await sendRequest(user.id, 3);
+        if (checkDup == 1) return 3;
+
         if (!user) return null;
         const foundAccountInfo = await AccountInfo.getBySTKOne(fromSTK)
         var money = balance;
@@ -44,12 +49,8 @@ class SavingAccount extends Model {
             STK,
             fromSTK, userID, balance, term, currencyUnit
         })
-
-
-        console.log(rs);
-
         if (!rs) return null;
-        await sendRequest(user.id, 4);
+
         await Transfer.addNewExternal(userID, null, foundAccountInfo.STK, STK, balance, 'Gửi tiết kiệm', currencyUnit, 'ARG')
 
 
@@ -65,7 +66,7 @@ class SavingAccount extends Model {
                 <div style="padding:20px;background-color:#f1f5f6; border-radius:10px;margin:30px;font-family:Tahoma,Arial,Helvetica,sans-serif; font-size:14px;color:#333">
                   <p>Tiền đã gửi:<b> ${money} ${currencyUnit}  </b></p>
                   <p>Phí gửi tiền:<b> 0 USD </b></p>
-                  <p>Số dư:<b> ${Number(foundAccountInfo.balance) - Number(money)} USD </b></p>
+                  <p>Số dư:<b> ${Number(foundAccountInfo.balance)} USD </b></p>
                   <p style="margin:20px 0 0">Cảm ơn bạn đã tin tưởng,</p>
                   <p style="font-size:18px; margin-top:5px; font-weight:bold">Pa<span style="color:#29ad57">yy</span>ed.</p>
                 </div>
@@ -78,37 +79,35 @@ class SavingAccount extends Model {
 
     }
 
-    static async acceptSavingAccount(STK, userID) {
+    static async acceptSavingAccount(userID) {
         return await SavingAccount.update({
             isActive: 1,
         }, {
             where: {
                 userID,
-                STK
+                isActive: 0,
             }
         })
     }
-    static async ejectSavingAccount(STK, userID) {
+    static async ejectSavingAccount(userID) {
         const user = await User.findByPk(userID);
         if (!user) return null;
 
         const found = await SavingAccount.findOne({
             where: {
-                STK,
-                userID
+                userID,
+                isActive: 0
             }
         })
         if (!found) return null;
-        console.log(found);
-
         const rs = await AccountInfo.addMoneyForSTK(found.fromSTK, userID, found.balance)
         if (!rs) return null;
 
-        await Transfer.addNewExternal(null, userID, STK, rs.STK, found.balance, 'Hoàn trả tiết kiệm', found.currencyUnit, 'ARG')
+        await Transfer.addNewExternal(null, userID, found.STK, rs.STK, found.balance, 'Hoàn trả tiết kiệm', found.currencyUnit, 'ARG')
 
         await SavingAccount.destroy({
             where: {
-                STK,
+                STK: found.STK,
                 userID
             }
         })
@@ -158,8 +157,8 @@ SavingAccount.init({
     },
     beginDate: {
         //ngay mo the
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
+        type: Sequelize.DATEONLY,
+        defaultValue: Sequelize.NOW(),
     },
     isActive: {
         type: Sequelize.INTEGER,

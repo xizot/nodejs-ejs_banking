@@ -27,7 +27,7 @@ async function sendMail(to, subject, content, html) {
 
     // send mail with defined transport object
     let info = await transporter.sendMail({
-        from: `"Admin 👻" <${process.env.ADMIN_EMAIL}>`, // sender address
+        from: `"Payyed Bank 👻" <${process.env.ADMIN_EMAIL}>`, // sender address
         to: to, // list of receivers
         subject: subject, // Subject line
         text: content, // plain text body

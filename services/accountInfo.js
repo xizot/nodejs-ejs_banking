@@ -58,6 +58,14 @@ class AccountInfo extends Model {
         })
     }
 
+    static async getAllByUserID(userID) {
+        return this.findAll({
+            where: {
+                userID,
+            }
+        })
+    }
+
     async addMoney(from, amount, message, currencyUnit, bankCode) {
 
         const foundFrom = await AccountInfo.getByUserID(from);
@@ -192,7 +200,14 @@ class AccountInfo extends Model {
         await foundTo.save();
 
 
-        Transfer.addNewInternal(from, to, amount, message, currencyUnit, bankCode, fromUser, foundTo.userID, fee);
+        await Transfer.addNewInternal(from, to, amount, message, currencyUnit, bankCode, fromUser, foundTo.userID, fee);
+
+
+
+
+
+
+
 
         return 1;
     }

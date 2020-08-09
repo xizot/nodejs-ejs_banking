@@ -751,23 +751,24 @@ router.post('/seen-notification', async (req, res) => {
 
 
 router.post('/create-savings', async (req, res) => {
-    const { fromSTK, term, userID, currencyUnit, balance } = req.body;
+    const { fromSTK, term, balance } = req.body;
+    const userID = req.body.userID || req.currentUser.id;
+    const currencyUnit = req.body.currencyUnit || 'USD';
     if (!fromSTK || !term || !currencyUnit || !userID || !balance) return res.json(null)
     const rs = await SavingAccount.createRequestSavingAccount(fromSTK, userID, balance, term, currencyUnit)
-    console.log(rs)
     return res.json(rs)
 })
 
-
-router.post('/eject-savings', async (req, res) => {
-    const { STK, userID } = req.body;
-    if (!STK || !userID) return res.json(null);
-    const rs = await SavingAccount.ejectSavingAccount(STK, userID)
-    console.log(rs)
-    return res.json(rs)
+router.post('/get-list-account', async (req, res) => {
+    if (!req.currentUser) return res.json('login first')
+    if (req.currentUser.permisstion != 1) {
+        const found = await AccountInfo.getAllByUserID(req.currentUser.id);
+        return res.json(found);
+    }
+    const { userId } = req.body;
+    const staffFound = await AccountInfo.getAllByUserID(req.currentUser.id);
+    return res.json(staffFound);
 })
-
-
 
 
 module.exports = router;

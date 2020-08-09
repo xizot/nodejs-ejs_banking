@@ -64,9 +64,6 @@
 
     function showPopUpVerify(id, idRequest) {
         $('.pop-up').remove();
-
-        alert(idRequest)
-
         $.post("/api/get-info-custom", { id },
             function (data, textStatus, jqXHR) {
                 if (data) {
@@ -79,15 +76,15 @@
                 </div>
                 <div class="form-group flex a-center">
                     <label style=" min-width: 75px;">Username: </label>
-                    <p>${data.user.username}</p>
+                    <p style="font-size:14px;margin:15px 0 5px">${data.user.username}</p>
                 </div>
                 <div class="form-group flex a-center">
                     <label  style=" min-width: 75px;">Fullname: </label>
-                    <p>${data.user.displayName}</p>
+                    <p style="font-size:14px;margin:15px 0 5px">${data.user.displayName}</p>
                 </div>
                 <div class="form-group flex a-center">
                     <label  style=" min-width: 75px;">Email: </label>
-                    <p>${data.user.email}</p>
+                    <p style="font-size:14px;margin:15px 0 5px">${data.user.email}</p>
                 </div>
                 
                 <div class="form-group flex a-center">
@@ -96,11 +93,11 @@
                 </div>
                 <div class="form-group flex a-center">
                     <label  style=" min-width: 75px;">Card Type: </label>
-                    <p>${data.customer.identityTypes == 1 ? 'CMND' : data.customer.identityTypes == 1 ? 'CCCD' : 'Hộ chiếu'}</p>
+                    <p style="font-size:14px;margin:15px 0 5px">${data.customer.identityTypes == 1 ? 'CMND' : data.customer.identityTypes == 1 ? 'CCCD' : 'Hộ chiếu'}</p>
                 </div>
                 <div class="form-group flex a-center">
                     <label  style=" min-width: 75px;">Card ID: </label>
-                    <p>${data.customer.identity}</p>
+                    <p style="font-size:14px;margin:15px 0 5px">${data.customer.identity}</p>
                 </div>
                 <div class="form-group ">
                     <label  style=" min-width: 75px;">Card Image: </label>
@@ -229,7 +226,7 @@
                     <div class=" col-xs-1 t-center">${index + 1}</div>
                     <div class=" col-xs-2 t-center"><label style="color:#1999ff; cursor:pointer" onclick=${item.type != 1 ? "showPopup(" + item.id + ")" : "showPopUpVerify(" + item.userID + "," + item.id + ")"}>${item.userID}</label></div>
                     <div class=" col-xs-7">${item.type == 1 ? 'Xác thực tài khoản' : item.type == 2 ? 'Tạo tài khoản ngân hàng' : item.type == 3 ? 'Tạo tài khoản tiết kiệm' : 'Khóa tài khoản'}</div>
-                    <div class=" col-xs-2 t-center">${item.createdAt}</div>
+                    <div class=" col-xs-2 t-center">${item.date.toString().slice(0, 10)}</div>
                         </div>
                         `).appendTo('.table-gutter');
                     })
@@ -239,7 +236,6 @@
         );
         $.get("/api/count-request",
             function (data, textStatus, jqXHR) {
-                console.log(data);
                 $('.pag-list').empty();
                 if (data) {
                     for (let i = 0; i < data; i++) {
@@ -269,7 +265,7 @@
                     <div class=" col-xs-1 t-center">${(index + 1) + ((numpage - 1) * 6)}</div>
                     <div class=" col-xs-2 t-center"><a href="./user?id=${item.userID}">${item.userID}</a></div>
                     <div class=" col-xs-7">${item.type == 1 ? 'Xác thực tài khoản' : item.type == 2 ? 'Tạo tài khoản ngân hàng' : item.type == 3 ? 'Tạo tài khoản tiết kiệm' : 'Khóa tài khoản'}</div>
-                    <div class=" col-xs-2 t-center">${item.createdAt}</div>
+                    <div class=" col-xs-2 t-center">${item.date.toString().slice(0, 10)}</div>
                         </div>
                         `).appendTo('.table-gutter');
                         })

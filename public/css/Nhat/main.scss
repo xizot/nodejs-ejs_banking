@@ -40,7 +40,13 @@ header .container .header__content .left ul > li .drop-down > li {
 
 
 
-
+.drop-down{
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: none;
+    padding-left: 20px !important;;
+    padding-right: 20px !important;
+}
 
 
 .loading{

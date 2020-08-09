@@ -469,7 +469,7 @@ header .container .header__content .left ul > li:hover > a {
 }
 
 header .container .header__content .left ul > li .drop-down {
-  padding: 10px 5px;
+  padding: 10px 10px 20px;
   display: none;
   position: absolute;
   bottom: 0;
@@ -482,8 +482,8 @@ header .container .header__content .left ul > li .drop-down {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
-  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(0, 0, 0, 0.1);
-          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(0, 0, 0, 0.2);
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(0, 0, 0, 0.2);
   z-index: 9999;
   -webkit-transition: all .4s;
   transition: all .4s;
@@ -499,7 +499,7 @@ header .container .header__content .left ul > li .drop-down:after {
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   border-top: 7px solid transparent;
-  border-bottom: 7px solid white;
+  border-bottom: 7px solid red;
 }
 
 header .container .header__content .left ul > li .drop-down > li {
@@ -1450,6 +1450,7 @@ footer .top {
 .modal form .form-group label {
   font-size: 14px;
   margin: 15px 0 5px;
+  display: block;
 }
 
 .modal form .form-group input {
@@ -4335,6 +4336,14 @@ main {
 
 header .container .header__content .left ul > li .drop-down > li {
   padding: 0 15px;
+}
+
+.drop-down {
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: none;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
 }
 
 .loading {

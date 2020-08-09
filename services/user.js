@@ -267,7 +267,7 @@ User.init({
         type: Sequelize.STRING
     },
     dob: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
     },
     address: {
         type: Sequelize.STRING,
