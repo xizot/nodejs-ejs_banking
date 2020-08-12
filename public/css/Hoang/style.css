@@ -894,12 +894,89 @@
   .text-hs {
       color:#1D2939;
   }
+<<<<<<< HEAD
+
+
+  .main-saving .main-content-wrapper {
+    width: 100%;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #ffffff 0%, #f2f2f2 100%);
+    position: relative;
+    color: #333;
+  }
+  .main-saving {
+    width: 700px;
+    margin:40px auto;
+    float: none;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3),  -2px -2px 10px rgba(0, 0, 0, 0.2);
+   
+  }
+  .main-saving .panel.panel-success{
+    background: transparent;
+    border: none;
+  }
+  .main-saving .panel.panel-success{
+    background: transparent;
+  }
+  .main-saving  .bg-history {
+    background-color: #1D2939 !important;
+  }
+  .main-saving  .bg-saving {
+      background-color: #2dbe60 !important;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+  }
+  .main-saving  .text-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff !important;
+    padding:10px 0;
+    text-transform: uppercase;
+  }
+  .main-saving  .panel-body-heading {
+    color: #2dbe60;
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0 0 5px;
+  
+  }
+  .main-saving .form-heading {
+    color: #979fa6;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .main-saving .panel-body{
+    padding: 30px 30px;
+  }
+  .main-saving .btn{
+    width: 144px;
+    height: 40px;
+    margin-top: 10px;
+  }
+  .main-saving .btn-cancel{
+    background-color: black;
+    color: white;
+    margin-left: 15px;
+  }
+  .btn.active{
+    box-shadow: none !important;
+  }
+=======
 .post_title_blog
 {
   color: #333;
+<<<<<<< HEAD
 }
 .border-top
 {   
   border-style: outset;
   padding: 11px;
 }
+=======
+
+}
+>>>>>>> 5d9a0b1192b6b90c3ebcb7a367135c5785fd2bfa
+>>>>>>> 28eaaf31a9af052be9adb4f0e0c9aa81a41c60d1

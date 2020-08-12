@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./vendor/animate.min.css">
+    <link rel="stylesheet" href="./vendor/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="./vendor/assets/owl.theme.default.min.css">
+
+    <link rel="stylesheet" type="text/css" href="./css/Nhat/main.css">
+    <link rel="stylesheet" type="text/css" href="./css/Hoang/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/Hau/style.css">
+    <title>Payyed - Create Saving Account </title>
+    <style>
+        .mt-60 {
+            margin-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loading">
+        <div class="loading-content">
+            <span>...Loading</span>
+
+        </div>
+    </div>
+    <div class="over-layer">
+
+        <header>
+            <div class="navigation-bar">
+                <div class="container">
+                    <div class="header__content flex j-between a-center">
+                        <div class="left flex a-center j-between">
+                            <div id="logo" class="logo">
+                                <a href="/">
+                                    <img src="http://demo.harnishdesign.net/html/payyed/images/logo.png" alt="">
+                                </a>
+                            </div>
+
+                            <div>
+                                <%if(currentUser){%>
+                                <ul class="flex">
+
+                                    <% if(currentUser.permisstion == 0) { %>
+                                    <li class="navs-item n-my-account">
+                                        <a href="/my-account">
+                                            <button class="btn active">My Account</button>
+                                        </a>
+                                        <ul class="drop-down">
+                                            <li>
+                                                <a href="/change-password">Change Password</a>
+                                            </li>
+                                            <li>
+                                                <a href="/my-account">Update Info</a>
+                                            </li>
+                                            <% if(currentUser.isActive != 1){%>
+                                            <li>
+                                                <a href="/page-confirm">Verify Account</a>
+                                            </li>
+
+                                            <%}%>
+                                            <li>
+                                                <a href="/create-credit-card">Create New Credit Card</a>
+                                            </li>
+                                            <li>
+                                                <a href="/create-saving-card">Create New Saving Card</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="navs-item n-transfer">
+                                        <a href="/transfer"><button class="btn">Transfer</button> </a>
+                                    </li>
+                                    <li class="navs-item n-account">
+                                        <a href="/accounts"><button class="btn">Account</button> </a>
+
+                                    </li>
+                                    <li class="navs-item n-notifications">
+                                        <a href="/noti"><button class="btn">Notification</button> </a>
+                                        <ul class="drop-down user-noti">
+                                            
+                                        </ul>
+                                        <div class="number-noti"></div>
+                                    </li>
+                                    <li class="navs-item n-about">
+                                        <a href="/about"><button class="btn ">About</button> </a>
+                                    </li>
+                                    <li class="navs-item n-contact">
+                                        <a href="/contact"><button class="btn ">Contact</button> </a>
+                                    </li>
+                                    <% }if(currentUser.permisstion == 1) { %>
+                                            <li>
+                                                <a href="/quanli"><button class="btn">Manage</button> </a>
+                                            </li>
+                                            <li>
+                                                <a href="/request"><button class="btn">Notification</button> </a>
+                                                <ul class="drop-down">
+                                                    <%if(staffNotificationCount > 0){%>
+                                                    <%staffNotification.map((item,index)=>{%>
+                                                    <% if(item.type == 1){%>
+                                                    <%-`<li><a href="/request?id=${item.id}">User ${item.userID} yêu cầu xác thực tài khoản </a></li>`%>
+                                                    <% }%>
+
+                                                    <% if(item.type == 2){%>
+                                                    <%-`<li><a href="/request?id=${item.id}">User ${item.userID} yêu cầu mở tài khoản ngân hàng </a></li></li>`%>
+                                                    <% }%>
+
+                                                    <% if(item.type == 3){%>
+                                                    <%-`<li><a href="/request?id=${item.id}">User ${item.userID} yêu cầu mở tài khoản tiết kiệm</a></li>`%>
+                                                    <% }%>
+                                                    <% if(item.type == 4){%>
+                                                    <%-`<li><a href="/request?id=${item.id}">User ${item.userID} yêu cầu khóa tài khoản </a></li>`%>
+                                                    <% }%>
+
+                                                    <% })%>
+                                                    <%}%>
+                                        </ul>
+
+                                        <div class="number-noti">
+                                            <%if(staffNotificationCount >0){%>
+                                                    <%-staffNotificationCount%>
+                                                    <%}%>
+                                        </div>
+
+                                    </li>
+
+                                    <%} %>
+
+                                                </ul>
+                                                <%}%>
+                            </div>
+
+                            <% if(!currentUser) { %>
+                                                <div class="sign-in__sign-up">
+                                                    <a href="/login">
+                                                        <button class="btn btn-sign-in">
+                                                            Sign In
+                                                        </button>
+                                                    </a>
+                                                    <a href="/register">
+                                                        <button class="btn btn-sign-up">
+                                                            Sign Up
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                                <% } else{%>
+
+                                                <%-`<a class="username" href="/logout">
+                            <button class="btn">
+                            ${currentUser.displayName} (Log out)
+                            </button></a>`%>
+                                                <% }%>
+                                                <div class="menu-res wow bounceInDown">
+                                                    <label class="fas fa-bars nvn-bar" id="nvn-bar"></label>
+                                                    <div class="bars wow fadeInDown ">
+                                                        <div class="bars-content">
+                                                            <label class="fas fa-times nvn-close"
+                                                                id="nvn-close"></label>
+                                                            <div class="bars-nav">
+                                                                <%if(currentUser){%>
+                                                                <% if(currentUser.permisstion == 0) { %>
+                                                                <a href="/my-account"><button class="btn">My
+                                                                        Account</button>
+                                                                </a>
+                                                                <a href="/transfer"><button
+                                                                        class="btn">Transfer</button>
+                                                                </a>
+
+                                                                <a href="/accounts"><button class="btn">Account</button>
+                                                                </a>
+                                                                <a href="/noti"><button
+                                                                        class="btn">Notification</button> </a>
+                                                                <a href="/"><button class="btn">Help</button> </a>
+                                                                <a href="/"><button
+                                                                        <% }if(currentUser.permisstion == 1) { %> <a
+                                                                        href="/quanli"><button
+                                                                            class="btn">Manage</button>
+                                                                </a>
+                                                                <a href="/noti"><button
+                                                                        class="btn">Notification</button> </a>
+
+                                                                <%}}%>
+
+                                                            </div>
+                                                            <div class="bars-actions flex j-center a-center">
+                                                                <% if(!currentUser) { %>
+
+                                                                <div class="sign-in__sign-up flex">
+                                                                    <a href="/login">
+                                                                        <button class="btn btn-sign-in">
+                                                                            Sign In
+                                                                        </button>
+                                                                    </a>
+                                                                    <a href="/register">
+                                                                        <button class="btn btn-sign-up">
+                                                                            Sign Up
+                                                                        </button>
+                                                                    </a>
+                                                                </div>
+                                                                <% } else{%>
+
+                                                                <%-`<a class="username" href="/logout">
+                                                <button class="btn">
+                                                ${currentUser.displayName} (Log out)
+                                                </button></a>`%>
+                                                                <% }%>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </header>
+        <div class="main-saving">
+            <div class="panel panel-success">
+                <div class="panel-heading bg-saving">
+                    <h3 class="panel-title text-title"> Tiền gửi tiết kiệm </h3>
+                </div>
+                <div class="panel-body">
+                    <h4 class="panel-body-heading">Chi tiết tài khoản gửi </h4>
+                    <form>
+                        <div class="form-group">
+                            <label class="form-heading " for="form-heading">Tài khoản nguồn</label>
+                            <select class="form-control" id="from-account">
+                                <option>104868743055 TRUONG HUY HOANG (DDA) - số dư khả dụng: 35,123 VND
+                                </option>
+                            </select>
+                            <label class="form-heading " for="form-heading">Số tiền gửi </label>
+                            <input type="text" class="form-control saving-money" placeholder="Enter Money">
+                        </div>
+                    </form>
+                    <div class="pad-5"></div>
+                    <h4 class="panel-body-heading">Chi tiết về kỳ hạn thanh toán </h4>
+                    <form>
+                        <div class="form-group">
+                            <label class="form-heading " for="form-heading">Kỳ hạn</label>
+                            <select class="form-control" id="term">
+                                <option value="1">1 tháng (lãi suất 0.5%)&nbsp;
+                                </option>
+                                <option value="3">3 tháng (lãi suất 1.5%)&nbsp;
+                                </option>
+                                <option value="6">6 tháng (lãi suất 3.5%)&nbsp;
+                                </option>
+                                <option value="9">9 tháng (lãi suất 5%)&nbsp;
+                                </option>
+                                <option value="12">12 tháng (lãi suất 5%)&nbsp;
+                                </option>
+                                <option value="24">24 Tháng (lãi suất 5%)&nbsp;
+                                </option>
+                                <option value="36">36 Tháng (lãi suất 5%)&nbsp;
+                                </option>
+                            </select>
+                            <label class="form-heading " for="form-heading">Tần suất trả lãi </label>
+                            <select class="form-control" id="" disabled>
+                                <option>Cuối kỳ
+                                </option>
+                            </select>
+                            <label class="form-heading " for="form-heading">Tất toán tài khoản </label>
+                            <select class="form-control" id="" disabled>
+                                <option>Nhận về tài khoản</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-success btn-send-request"> Yêu cầu </button>
+                        <button class="btn btn-cancel"> Hủy </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <%- include('./footer')%>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            $(function () {
+                $.post("/api/get-list-account",
+                    function (data, textStatus, jqXHR) {
+                        $('#from-account').empty();
+                        if (data && data.length > 0) {
+                            data.map(item => {
+                                $(`
+                                <option value="${item.STK}">${item.STK} - số dư khả dụng: ${item.balance} ${item.currencyUnit}
+                                </option>
+                                `).appendTo('#from-account');
+                            })
+                        }
+                    },
+                );
+                $('.btn-send-request').click(function (e) {
+                    e.preventDefault();
+                    const balance = $('.saving-money').val()
+                    const fromSTK = $('#from-account').val()
+                    const term = $('#term').val()
+
+                    if (!balance || !Number(balance)) {
+                        alert('Tiền gửi không hợp lệ')
+                        return;
+                    }
+                    if (!fromSTK) {
+                        alert('Bạn chưa có tài khoản thanh toán. Vui lòng tạo trước')
+                        return;
+                    }
+                    $.post("/api/create-savings", { balance, fromSTK, term },
+                        function (data, textStatus, jqXHR) {
+                            if (data) {
+                                if (data == 1) {
+                                    alert('Bạn không đủ tiền')
+                                    return
+                                }
+                                if (data == 3) {
+                                    alert('Bạn đã yêu cầu trước đó. Vui lòng đợi nhanh viên xử lí')
+                                    $(location).attr('href', '/')
+                                    return
+                                }
+                            }
+                            if (data == 0) {
+                                alert('Đã gửi yêu cầu cho nhân viên')
+                                $(location).attr('href', '/')
+                                return;
+                            }
+
+                            alert('Đã xảy ra lỗi')
+                            $(location).attr('href', '/')
+                            return
+                        },
+                    );
+                });
+            });
+        </script>

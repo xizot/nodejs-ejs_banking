@@ -120,6 +120,7 @@
 
             $.post("/api/transfer/activity", { fromDate: fromDate, toDate: toDate, page: page },
                 function (data, textStatus, jqXHR) {
+
                     $('.history-item').empty();
                     if (data.length > 0) {
                         data.forEach(element => {

@@ -2,16 +2,17 @@
 header{
    
     .navigation-bar{
-        background-color:white;
+        background-color:white !important;
         position: sticky;
         top: 0;
         left: 0;
         width: 100%;
         z-index: 999;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     }
     .container{
         .header__content{
-            padding: 20px 0;
+            padding: 10px 0;
             #logo{
                 a{
                     font-weight:bolder;
@@ -28,7 +29,7 @@ header{
                             color: $main-color;
                         }
                         .drop-down{
-                            padding:10px 5px;
+                            padding:10px 10px 20px;
                             display: none;
                             position: absolute;
                             bottom: 0;
@@ -38,7 +39,7 @@ header{
                             border-radius: 5px;
                             min-width: 250px;
                             width: max-content;
-                            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(0, 0, 0, 0.1);
+                            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(0, 0, 0, 0.2);
                             z-index: 9999;
                             transition: all .4s;
                            
@@ -51,7 +52,7 @@ header{
                                 border-left: 7px solid transparent;
                                 border-right: 7px solid transparent;
                                 border-top: 7px solid transparent;
-                                border-bottom: 7px solid white;
+                                border-bottom: 7px solid red;
                             }
                             >li{
                                 padding: 0 15px !important;

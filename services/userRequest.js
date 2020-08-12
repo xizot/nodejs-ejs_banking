@@ -187,8 +187,8 @@ UserRequest.init({
         allowNull: false,
     },
     date: {
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
+        type: Sequelize.DATEONLY,
+        defaultValue: Sequelize.NOW(),
     },
     type: {
 

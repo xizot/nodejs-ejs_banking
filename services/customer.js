@@ -41,7 +41,7 @@ Customer.init({
 
     },
     beginDate: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
 
     },
     image: {

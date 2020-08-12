@@ -9,6 +9,12 @@
   font-family: 'Open Sans', sans-serif;
 }
 
+.bg-1 {
+  background: url("./../../img/bg-1.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 .color-white {
   color: white;
 }
@@ -430,17 +436,19 @@
 }
 
 header .navigation-bar {
-  background-color: white;
+  background-color: white !important;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 999;
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 header .container .header__content {
-  padding: 20px 0;
+  padding: 10px 0;
 }
 
 header .container .header__content #logo a {
@@ -461,7 +469,7 @@ header .container .header__content .left ul > li:hover > a {
 }
 
 header .container .header__content .left ul > li .drop-down {
-  padding: 10px 5px;
+  padding: 10px 10px 20px;
   display: none;
   position: absolute;
   bottom: 0;
@@ -474,8 +482,8 @@ header .container .header__content .left ul > li .drop-down {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
-  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(0, 0, 0, 0.1);
-          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(0, 0, 0, 0.2);
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(0, 0, 0, 0.2);
   z-index: 9999;
   -webkit-transition: all .4s;
   transition: all .4s;
@@ -491,7 +499,7 @@ header .container .header__content .left ul > li .drop-down:after {
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   border-top: 7px solid transparent;
-  border-bottom: 7px solid white;
+  border-bottom: 7px solid red;
 }
 
 header .container .header__content .left ul > li .drop-down > li {
@@ -1381,16 +1389,16 @@ footer .top {
 }
 
 .modal {
-  -webkit-box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3), -2px -2px 10px rgba(0, 0, 0, 0.3);
-          box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3), -2px -2px 10px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  -webkit-box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3), -2px -2px 15px rgba(0, 0, 0, 0.3);
+          box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3), -2px -2px 15px rgba(0, 0, 0, 0.3);
   width: 400px;
   position: absolute;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  padding: 25px 30px 25px;
-  background-color: white;
+  padding: 30px;
   border-radius: 10px;
 }
 
@@ -1439,7 +1447,7 @@ footer .top {
   color: #222222;
 }
 
-.modal form .form-group label, .modal form .form-group p {
+.modal form .form-group label {
   font-size: 14px;
   margin: 15px 0 5px;
   display: block;
@@ -2611,13 +2619,22 @@ footer .top {
   font-size: 16px;
 }
 
+.transfer .container .modal form .form-group input {
+  height: 40px;
+}
+
+.transfer .container .modal form .form-group label {
+  display: block;
+  margin: 15px 0 5px;
+}
+
 .transfer .container .modal form .form-group select {
-  margin: 15px 0;
   outline: none;
   border: 1px solid rgba(45, 190, 96, 0.4);
   padding: 10px;
   border-radius: 5px;
   width: 100%;
+  height: 40px;
 }
 
 .transfer .container .modal form .form-group select option {
@@ -4319,6 +4336,14 @@ main {
 
 header .container .header__content .left ul > li .drop-down > li {
   padding: 0 15px;
+}
+
+.drop-down {
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: none;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
 }
 
 .loading {

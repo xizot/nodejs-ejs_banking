@@ -11,6 +11,8 @@ const { sendMail } = require('../services/function');
 const { findInfoOffCustomer, findActivityStaff, countActivityStaff } = require('../services/staffFunction');
 const UserRequest = require('../services/userRequest');
 const io = require('socket.io-client');
+const SavingAccount = require('../services/savingAccount');
+const { use } = require('./forgotPassword');
 const Customer = require('../services/customer');
 let socket;
 socket = io("https://dack-17ck1.herokuapp.com");
@@ -39,7 +41,8 @@ router.get('/account/info', async (req, res) => {
 
 //add money with api
 router.post('/account/addMoney', async (req, res) => {
-    const { stk, bankCode, money, from, message, currencyUnit, fee } = req.body;
+    const { stk, bankCode, money, from, message, currencyUnit } = req.body;
+    const fee = req.body.fee || 0;
     if (from != "ADMIN") {
 
         const accountInfo = await AccountInfo.getByUserID(req.currentUser.id);
@@ -58,35 +61,39 @@ router.post('/account/addMoney', async (req, res) => {
             }
         }
         const found = await AccountInfo.getBySTKAndBankCode(stk, bankCode);
+
         if (found) {
 
             const rs = await AccountInfo.addMoneyInternal(from, stk, money, message, currencyUnit, bankCode, req.currentUser.id, fee)
             // lấy thông tin người nhận
             if (rs == 8) return res.json(8)
+            if (rs == 2) return res.json(2)
             if (rs == 7) return res.json(7)
 
             const ToInfo = await User.findByPk(found.userID);
             if (ToInfo) {
-                sendMail(ToInfo.email, 'Nhận tiền', `Bạn vừa được nhận tiền thành công:\n
-                    STK gửi: ${from} \n
-                    STK nhận: ${stk} \n
-                    Tiền đã nhận: ${money} ${currencyUnit} \n
-                    Lời nhắn: ${message} \n
-                    Số dư: ${found.balance + money}\n
-                    Cảm ơn bạn đã tin tưởng,\n
-                    Payyed.
+                const accountInfo1 = await AccountInfo.getBySTKOne(stk);
 
-                `, `<h3 style="color:#333; text-transform:uppercase; text-align:center; font-size:30px; font-family:Tahoma,Arial,Helvetica,sans-serif">Bạn vừa được nhận tiền thành công:<h3>
-                <div style="padding:20px;background-color:#f1f5f6; border-radius:10px;margin:30px;font-family:Tahoma,Arial,Helvetica,sans-serif; font-size:14px;color:#333">
-                  <p>STK gửi:<b> ${from} </b></p> 
-                  <p>STK nhận:<b> ${stk}  </b></p>
-                  <p>Tiền đã nhận:<b> ${money} ${currencyUnit} </b></p>
-                  <p>Lời nhắn:<b> ${message}  </b></p>
-                  <p>Số dư:<b> ${found.balance + money}  </b></p>
-                  <p style="margin:20px 0 0">Cảm ơn bạn đã tin tưởng,</p>
-                  <p style="font-size:18px; margin-top:5px">Pa<span style="color:#29ad57; font-weight:bold">yy</span>ed.</p>
-                </div>
-            `)
+                sendMail(ToInfo.email, 'Nhận tiền', `Bạn vừa được nhận tiền thành công:\n
+                STK gửi: ${from} \n
+                STK nhận: ${stk} \n
+                Tiền đã nhận: ${money} ${currencyUnit} \n
+                Lời nhắn: ${message} \n
+                Số dư: ${accountInfo1.balance}\n
+                Cảm ơn bạn đã tin tưởng,\n
+                Payyed.
+
+            `, `<h3 style="color:#333; text-transform:uppercase; text-align:center; font-size:30px; font-family:Tahoma,Arial,Helvetica,sans-serif">Bạn vừa được nhận tiền thành công:<h3>
+            <div style="padding:20px;background-color:#f1f5f6; border-radius:10px;margin:30px;font-family:Tahoma,Arial,Helvetica,sans-serif; font-size:14px;color:#333">
+              <p>STK gửi:<b> ${from} </b></p> 
+              <p>STK nhận:<b> ${stk}  </b></p>
+              <p>Tiền đã nhận:<b> ${money} ${currencyUnit} </b></p>
+              <p>Lời nhắn:<b> ${message}  </b></p>
+              <p>Số dư:<b> ${accountInfo1.balance}  </b></p>
+              <p style="margin:20px 0 0">Cảm ơn bạn đã tin tưởng,</p>
+              <p style="font-size:18px; margin-top:5px">Pa<span style="color:#29ad57; font-weight:bold">yy</span>ed.</p>
+            </div>
+        `)
 
                 if (from != "ADMIN") {
                     const accountInfo = await AccountInfo.getByUserID(req.currentUser.id);
@@ -94,7 +101,7 @@ router.post('/account/addMoney', async (req, res) => {
                     STK gửi: ${from} \n
                     STK nhận: ${stk} \n
                     Tiền đã gửi: ${money} ${currencyUnit} \n
-                    Phí gửi tiền: 0 USD \n
+                    Phí gửi tiền: ${fee} USD \n
                     Lời nhắn: ${message} \n
                     Số dư: ${accountInfo.balance} \n
                     Cảm ơn bạn đã tin tưởng,\n
@@ -105,7 +112,7 @@ router.post('/account/addMoney', async (req, res) => {
                   <p>STK gửi:<b> ${from} </b></p> 
                   <p>STK nhận:<b> ${stk} </b></p>
                   <p>Tiền đã gửi:<b> ${money} ${currencyUnit}  </b></p>
-                  <p>Phí gửi tiền:<b> 0 USD </b></p>
+                  <p>Phí gửi tiền:<b> ${fee} USD </b></p>
                   <p>Lời nhắn:<b> ${message} </b></p>
                   <p>Số dư:<b> ${accountInfo.balance} </b></p>
                   <p style="margin:20px 0 0">Cảm ơn bạn đã tin tưởng,</p>
@@ -113,12 +120,14 @@ router.post('/account/addMoney', async (req, res) => {
                 </div>
             `)
                 }
-
+                else {
+                    await StaffActivityLog.create({
+                        staffID: req.currentUser.id,
+                        message: `Đã nạp tiền cho số tài khoản ${stk} số tiền ${money} ${currencyUnit}`,
+                    })
+                }
             }
-            const newActivity = await StaffActivityLog.create({
-                staffID: req.currentUser.id,
-                message: `Đã nạp tiền cho số tài khoản ${stk} số tiền ${money} ${currencyUnit}`,
-            })
+
             return res.end('1'); // thanh cong
         }
         else {
@@ -128,6 +137,13 @@ router.post('/account/addMoney', async (req, res) => {
 
     return res.end('-2'); //Lỗi k cố định
 })
+
+
+
+
+
+
+
 
 //get info of transfer id with api
 router.get('/transfer/:id', async (req, res) => {
@@ -341,7 +357,7 @@ router.post('/customer-search', async (req, res) => {
     return res.json(await findInfoOffCustomer(st));
 })
 router.get('/get-activity', async (req, res) => {
-    // if (!req.currentUser) return null
+    if (!req.currentUser) return null
     const numpage = req.query.numpage || 1;
     const limit = 10;
     const found = await findActivityStaff(req.currentUser.id, numpage, limit);
@@ -732,4 +748,27 @@ router.post('/seen-notification', async (req, res) => {
     Notifications.seenNotification(id, req.currentUser.id);
     return res.json(1);
 })
+
+
+router.post('/create-savings', async (req, res) => {
+    const { fromSTK, term, balance } = req.body;
+    const userID = req.body.userID || req.currentUser.id;
+    const currencyUnit = req.body.currencyUnit || 'USD';
+    if (!fromSTK || !term || !currencyUnit || !userID || !balance) return res.json(null)
+    const rs = await SavingAccount.createRequestSavingAccount(fromSTK, userID, balance, term, currencyUnit)
+    return res.json(rs)
+})
+
+router.post('/get-list-account', async (req, res) => {
+    if (!req.currentUser) return res.json('login first')
+    if (req.currentUser.permisstion != 1) {
+        const found = await AccountInfo.getAllByUserID(req.currentUser.id);
+        return res.json(found);
+    }
+    const { userId } = req.body;
+    const staffFound = await AccountInfo.getAllByUserID(req.currentUser.id);
+    return res.json(staffFound);
+})
+
+
 module.exports = router;

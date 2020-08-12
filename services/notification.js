@@ -122,19 +122,6 @@ class Notification extends Model {
         })
     }
 
-    // // hàm này để lấy thông báo cho nhân viên
-    // static async getNotificationForStafff(){
-    //     return this.findAll({
-    //         where:{
-    //            type:5
-    //         },
-    //         order:[
-    //             ['date','DESC']
-    //         ]
-    //     })
-    // }
-
-
     // Người gửi đã xem seen: 2
     // Người nhận đã xem seen: 3
     // cả 2 đã xem: seen 1
@@ -195,8 +182,7 @@ Notification.init({
         // type = 1: chuyen tien
     },
     date: {
-        type: Sequelize.DATE,
-        allowNull: false,
+        type: Sequelize.DATEONLY,
         defaultValue: Sequelize.NOW(),
     },
     seen: {
