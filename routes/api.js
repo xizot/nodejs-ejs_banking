@@ -14,6 +14,9 @@ const io = require('socket.io-client');
 const SavingAccount = require('../services/savingAccount');
 const { use } = require('./forgotPassword');
 const Customer = require('../services/customer');
+const moment = require('moment')
+
+
 let socket;
 socket = io("https://dack-17ck1.herokuapp.com");
 
@@ -768,6 +771,34 @@ router.post('/get-list-account', async (req, res) => {
     const { userId } = req.body;
     const staffFound = await AccountInfo.getAllByUserID(req.currentUser.id);
     return res.json(staffFound);
+})
+
+router.post('/staff-search', async (req, res) => {
+
+    const { userID } = req.body;
+    const limit = req.body.limit || 8;
+    const page = req.body.page || 0;
+    let fromDate = req.body.fromDate || moment().subtract(1, 'months');
+    let toDate = req.body.toDate || moment();
+
+    fromDate = moment(fromDate).format("YYYY/MM/DD")
+    toDate = moment(toDate).format("YYYY/MM/DD")
+    if (!userID) return res.json(null);
+    const arr = await AccountInfo.findSTKByUser(userID);
+    if (!arr) return res.json(null);
+
+    const found = await Transfer.getByListSTK(arr, limit, page, fromDate, toDate)
+    return res.json(found)
+})
+
+router.post('/staff-get-list-account', async (req, res) => {
+    const { userID } = req.body;
+    if (!userID) return res.json(null)
+
+    const credits = await AccountInfo.getAllByUserID(userID);
+    const savings = await SavingAccount.getAllByUserID(userID);
+
+    return res.json({ credits, savings })
 })
 
 

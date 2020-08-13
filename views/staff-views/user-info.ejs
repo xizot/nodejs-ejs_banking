@@ -60,7 +60,58 @@
         <div class="row j-between user-btm" style="margin: 10px 0;">
 
         </div>
+        <div class="accounts row">
+            <div class="accounts__content accounts__content--credit col-xs-12 col-md-6">
+                <h3>Credit Accounts</h3>
+                <ul class="accounts__content--list row accounts__content--credit--list">
+
+                </ul>
+            </div>
+            <div class="accounts__content accounts__content--saving col-xs-12 col-md-6">
+                <h3>Saving Accounts</h3>
+                <ul class="accounts__content--list row accounts__content--saving--list">
+
+                </ul>
+            </div>
+
+        </div>
+        <div class="acc-history">
+            <div class="acc-history__title">
+                <h3>HISTORY</h3>
+            </div>
+            <div class="acc-history__filter flex a-center">
+                <div class="acc-history__filter--input flex a-center">
+                    <input type="date" value="2020-07-01" id="fromDate">
+                    <i class="fas fa-long-arrow-alt-right"></i>
+                    <input type="date" value="2020-08-20" id="toDate">
+                </div>
+                <div class="acc-history__filter--action">
+                    <button class="btn-filter">Filter</button>
+                </div>
+
+            </div>
+
+            <div class="acc-history__table">
+                <div class="acc-history__table--header row a-center ">
+                    <div class=" col-xs-2 t-center">DATE</div>
+                    <div class=" col-xs-2 t-center">FROM ID</div>
+                    <div class=" col-xs-2">TO ID</div>
+                    <div class=" col-xs-3">MESSAGE</div>
+                    <div class=" col-xs-2 t-center">TYPE</div>
+                    <div class=" col-xs-1 t-center">Money</div>
+                </div>
+
+                <ul class="acc-history__table--list">
+
+                </ul>
+            </div>
+            <div class="pagination" style="bottom: 13px;">
+                <ul class="flex j-center a-center pag-list">
+                </ul>
+            </div>
+        </div>
     </div>
+
 </div>
 <%- include('./../staff-structure/footer')%>
 <script>
@@ -220,9 +271,127 @@
 
     }
 
+
+    function getHistory(userID, fromDate, toDate, page) {
+        $.post("/api/staff-search", { userID, fromDate, toDate, page },
+            function (data, textStatus, jqXHR) {
+                $('.pag-list').empty();
+                $('.acc-history__table--list').empty();
+                if (data) {
+                    if (data.list.length > 0) {
+                        data.list.map(item => {
+                            $(` <li class="acc-history__table--list--list-item row a-center">
+                            <div class=" col-xs-2 t-center">${item.date.toString().slice(0, 10)}</div>
+                            <div class=" col-xs-2 t-center">${item.from}</div>
+                            <div class=" col-xs-2">${item.to}</div>
+                            <div class=" col-xs-3">${item.message}</div>
+                            <div class=" col-xs-2 t-center">${item.type}</div>
+                            <div class="col-xs-1 t-center">${item.amount}</div>
+                        </li>`).appendTo('.acc-history__table--list');
+
+                        })
+                    }
+                    let numpage = Math.floor(data.count / 8) + (data.count % 8 > 0 ? 1 : 0);
+                    for (let i = 0; i < numpage; i++) {
+                        if (i == page) {
+                            $(` <li class="pag-num active" value=${i}>${i + 1}</li>`).appendTo('.pag-list');
+                        }
+                        else {
+                            $(` <li class="pag-num" value=${i}>${i + 1}</li>`).appendTo('.pag-list');
+                        }
+                    }
+                }
+            },
+        );
+
+        $.post("/api/staff-get-list-account", { userID },
+            function (data, textStatus, jqXHR) {
+                $('.accounts__content--credit--list').empty();
+                $('.accounts__content--saving--list').empty();
+                if (data.credits.length > 0) {
+                    data.credits.map(item => {
+                        $(`<li class="accounts__content--list--list-item col-xs-12 col-md-6">
+                        <div class="accounts__content--list--list-item--infor">
+                            <div class="stk">
+                                <label for="">STK: </label>
+                                <label for="">${item.STK}</label>
+                            </div>
+                            <div class="type">
+                                <label for="">Account Type: </label>
+                                <label for="">Credit</label>
+                            </div>
+                            <div class="type">
+                                <label for="">Balance: </label>
+                                <label for="">$ ${item.balance}</label>
+                            </div>
+                        </div>
+                    </li>`).appendTo('.accounts__content--credit--list');
+                    })
+
+                }
+
+
+                if (data.savings.length > 0) {
+                    data.savings.map(item => {
+                        $(`<li class="accounts__content--list--list-item col-xs-12 col-md-6">
+                        <div class="accounts__content--list--list-item--infor">
+                            <div class="stk">
+                                <label for="">STK: </label>
+                                <label for="">${item.STK}</label>
+                            </div>
+                            <div class="type">
+                                <label for="">Account Type: </label>
+                                <label for="">Credit</label>
+                            </div>
+                            <div class="type">
+                                <label for="">Balance: </label>
+                                <label for="">$ ${item.balance}</label>
+                            </div>
+                        </div>
+                    </li>`).appendTo('.accounts__content--saving--list');
+                    })
+
+                }
+            },
+
+        );
+
+    }
+
+
     $(function () {
 
-
         getData();
+
+        //first get data 
+        let userID = location.search.split('=')[1];
+        let fromDate = new Date($('#fromDate').val()).toISOString().slice(0, 10).split('-').join('/');
+        let toDate = new Date($('#toDate').val()).toISOString().slice(0, 10).split('-').join('/');
+        getHistory(userID, fromDate, toDate, 0)
+
+
+        // get data when filter
+        $('.btn-filter').click(function (e) {
+            e.preventDefault();
+            fromDate = new Date($('#fromDate').val()).toISOString().slice(0, 10).split('-').join('/');
+            toDate = new Date($('#toDate').val()).toISOString().slice(0, 10).split('-').join('/');
+            getHistory(userID, fromDate, toDate, 0)
+        });
+
+        //get data when change page
+        $(document).on('click', '.pag-num', function (e) {
+            e.preventDefault();
+
+            $('.pag-num').removeClass('active');
+            $(this).addClass('active');
+
+            fromDate = new Date($('#fromDate').val()).toISOString().slice(0, 10).split('-').join('/');
+            toDate = new Date($('#toDate').val()).toISOString().slice(0, 10).split('-').join('/');
+            const page = $(this).attr('value');
+            getHistory(userID, fromDate, toDate, page)
+        });
+
+
+
     });
 </script>

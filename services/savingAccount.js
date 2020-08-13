@@ -11,6 +11,18 @@ const { sendMail } = require('./function');
 
 class SavingAccount extends Model {
 
+
+    static async getAllByUserID(userID) {
+        const found = await this.findAll({
+            where: {
+                userID,
+            }
+        })
+
+        return found
+    }
+
+
     static async createRequestSavingAccount(fromSTK, userID, balance, term, currencyUnit) {
 
         const user = await User.findByPk(userID);
@@ -43,7 +55,7 @@ class SavingAccount extends Model {
         foundAccountInfo.balance = Number(foundAccountInfo.balance) - Number(money);
 
 
-        const STK = new Date().valueOf();
+        const STK = "SV" + new Date().valueOf().toString();
 
         const rs = await SavingAccount.create({
             STK,

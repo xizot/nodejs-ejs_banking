@@ -9,6 +9,9 @@ const ExchangeRate = require('./exchangeRate');
 
 class AccountInfo extends Model {
 
+
+
+
     static async getInfoBySTKandUserID(userID, STK) {
         return this.findOne({
             where: {
@@ -17,6 +20,7 @@ class AccountInfo extends Model {
             }
         })
     }
+
 
     static async getBySTK(stk) {
         return this.findOne({
@@ -47,6 +51,17 @@ class AccountInfo extends Model {
                 bankCode: bankCode,
             }
         })
+    }
+
+    static async findSTKByUser(userID) {
+        const found = await this.findAll({
+            where: {
+                userID,
+            }
+        })
+
+        if (found.length <= 0) return null;
+        return found.map(item => item.STK)
     }
 
     static async getByUserID(userID) {

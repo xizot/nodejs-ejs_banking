@@ -184,7 +184,55 @@ class Transfer extends Model {
             }
         })
     }
+
+    static async getByListSTK(arr, limit, page, fromDate, toDate) {
+        const found = await this.findAndCountAll({
+            where: {
+                [Sequelize.Op.or]: [
+                    {
+                        from: arr
+                    },
+                    {
+                        to: arr,
+                    }
+                ],
+                [Sequelize.Op.and]: [
+                    {
+                        date: {
+                            [Sequelize.Op.gte]: fromDate
+                        }
+                    },
+                    {
+                        date: {
+                            [Sequelize.Op.lte]: toDate
+                        }
+                    }
+                ]
+            }
+            ,
+            order: [['createdAt', 'DESC']],
+            limit,
+            offset: page * limit
+        })
+        if (found.length <= 0) return found;
+        return {
+            list: found.rows.map(item => {
+                return {
+                    date: item.date,
+                    from: item.from,
+                    to: item.to,
+                    message: item.message,
+                    currencyUnit: item.currencyUnit,
+                    type: arr.indexOf(item.from) != -1 ? "Send" : "Receive",
+                    amount: arr.indexOf(item.from) != -1 ? item.currencyUnit == "VND" ? "- ₫" + item.amount : "- $" + item.amount : item.currencyUnit == "VND" ? "+ ₫" + item.amount : "+ $" + item.amount
+                }
+            }),
+            count: found.count
+        }
+    }
 }
+
+
 
 Transfer.init({
     //attributes
