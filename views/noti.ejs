@@ -10,12 +10,15 @@
     <link rel="stylesheet" href="./vendor/animate.min.css">
     <link rel="stylesheet" href="./vendor/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="./vendor/assets/owl.theme.default.min.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/Nhat/main.css">
     <link rel="stylesheet" type="text/css" href="./css/Hoang/style.css">
     <link rel="stylesheet" type="text/css" href="./css/Hau/style.css">
     <title>Payyed - About Us</title>
-   
+
     <header>
         <div class="navigation-bar">
             <div class="container">
@@ -143,30 +146,27 @@
                                                 <label class="fas fa-bars nvn-bar" id="nvn-bar"></label>
                                                 <div class="bars wow fadeInDown ">
                                                     <div class="bars-content">
-                                                        <label class="fas fa-times nvn-close"
-                                                            id="nvn-close"></label>
+                                                        <label class="fas fa-times nvn-close" id="nvn-close"></label>
                                                         <div class="bars-nav">
                                                             <%if(currentUser){%>
                                                             <% if(currentUser.permisstion == 0) { %>
                                                             <a href="/my-account"><button class="btn">My
                                                                     Account</button>
                                                             </a>
-                                                            <a href="/transfer"><button
-                                                                    class="btn">Transfer</button>
+                                                            <a href="/transfer"><button class="btn">Transfer</button>
                                                             </a>
 
                                                             <a href="/accounts"><button class="btn">Account</button>
                                                             </a>
-                                                            <a href="/noti"><button
-                                                                    class="btn">Notification</button> </a>
+                                                            <a href="/noti"><button class="btn">Notification</button>
+                                                            </a>
                                                             <a href="/"><button class="btn">Help</button> </a>
                                                             <a href="/"><button
                                                                     <% }if(currentUser.permisstion == 1) { %> <a
-                                                                    href="/quanli"><button
-                                                                        class="btn">Manage</button>
+                                                                    href="/quanli"><button class="btn">Manage</button>
                                                             </a>
-                                                            <a href="/noti"><button
-                                                                    class="btn">Notification</button> </a>
+                                                            <a href="/noti"><button class="btn">Notification</button>
+                                                            </a>
 
                                                             <%}}%>
 
@@ -208,33 +208,34 @@
             <span>...Loading</span>
         </div>
     </div>
-   
+
     <div class="container">
-     <h2>Notification</h2>
-     <div class="mb-4"></div>
-     <div class="grid-2">
-        <div class="blog-noti">
-            <div class="image"> <a href="#"><img class="img-responsive" src="./img/our-values-vision.jpg" alt=""></a> </div>
-            <h4 ><a href="#" class="post_title_blog">Volutpat Dignissim Dolor Sed Luctur Ullamcoper Nissi</a></h4>
-             <p class="description"><a href="#" class="post_title_blog" >Lorem ipsum dolor sit amet, consectetur...</a></p>
+        <h2>Notification</h2>
+        <p> Select subscriptions to be delivered to<a href="mailto:thh.it00@gmail.com"> thh.it00@gmail.com</a></p>
+        <div class="noti">
+            <ul class="">
+                <li class="border-top">
+                    <input class="form-check-input  " type="checkbox" value="" > Send Money 
+                    <p> Bạn đã trúng 1 tỷ </p>
+                </li>
+            </ul>
+
+            <ul class="">
+                <li class="border-top">
+                    <input class="form-check-input" type="checkbox" value="" > Receive Money 
+                    <p> Bạn đã nhận 1 tỷ </p>
+                </li>
+            </ul>
+            <ul class="">
+                <li class="border-top">
+                    <input class="form-check-input" type="checkbox" value="" > Send Money 
+                    <p> Bạn đã chuyển 1 tỷ </p>
+                </li>
+            </ul>
+            <button class="btn btn-primary">Đánh dấu đã đọc </button>
+            <div class="mb-3"></div>
         </div>
-        <div class="blog-noti">
-            <div class="image"> <a href="#"><img class="img-responsive" src="./img/our-values-vision.jpg" alt=""></a> </div>
-            <h4 ><a href="#" class="post_title_blog">Volutpat Dignissim Dolor Sed Luctur Ullamcoper Nissi</a></h4>
-              <p class="description"><a href="#" class="post_title_blog" >Lorem ipsum dolor sit amet, consectetur...</a></p>
-        </div>
-        <div class="blog-noti">
-            <div class="image"> <a href="#"><img class="img-responsive" src="./img/our-values-vision.jpg" alt=""></a> </div>
-            <h4 ><a href="#" class="post_title_blog">Volutpat Dignissim Dolor Sed Luctur Ullamcoper Nissi</a></h4>
-              <p class="description"><a href="#" class="post_title_blog" >Lorem ipsum dolor sit amet, consectetur...</a></p>
-        </div>
-        <div class="blog-noti">
-            <div class="image"> <a href="#"><img class="img-responsive" src="./img/our-values-vision.jpg" alt=""></a> </div>
-            <h4 ><a href="#" class="post_title_blog">Volutpat Dignissim Dolor Sed Luctur Ullamcoper Nissi</a></h4>
-              <p class="description"><a href="#" class="post_title_blog" >Lorem ipsum dolor sit amet, consectetur...</a></p>
-        </div>
-     </div>
     </div>
-    <div class="mb-4"></div>
+
 </body>
-            <%- include ('footer'); %>
+<%- include ('footer'); %>

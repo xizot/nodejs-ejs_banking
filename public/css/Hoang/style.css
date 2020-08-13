@@ -523,6 +523,11 @@
 .mb-4 {
     margin-bottom: 2rem!important;
 }
+.mb-3 {
+  margin-bottom: 3rem!important;
+  margin-top: 3rem!important;
+}
+
 .team {
     text-align: center;
     padding: 15px;
@@ -963,6 +968,15 @@
 .post_title_blog
 {
   color: #333;
+<<<<<<< HEAD
+}
+.border-top
+{   
+  border-style: outset;
+  padding: 11px;
+}
+=======
 
 }
 >>>>>>> 5d9a0b1192b6b90c3ebcb7a367135c5785fd2bfa
+>>>>>>> 28eaaf31a9af052be9adb4f0e0c9aa81a41c60d1
