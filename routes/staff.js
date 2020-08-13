@@ -6,7 +6,8 @@ var currentFind = null;
 var users = null;
 // vi du lay danh sach user
 router.get('/', async (req, res) => {
-
+    if (!req.currentUser) return res.redirect('/login')
+    if (req.currentUser && req.currentUser.isActive == 5) return res.redirect('/alert/blocked')
     if (req.currentUser.permisstion != 1) {
         res.redirect('/error');
     }

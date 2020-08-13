@@ -469,7 +469,9 @@ header .container .header__content .left ul > li:hover > a {
 }
 
 header .container .header__content .left ul > li .drop-down {
-  padding: 10px 10px 20px;
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: none;
   position: absolute;
   bottom: 0;
@@ -478,7 +480,7 @@ header .container .header__content .left ul > li .drop-down {
           transform: translate(-50%, 100%);
   background-color: white;
   border-radius: 5px;
-  min-width: 250px;
+  min-width: 210px;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
@@ -503,7 +505,7 @@ header .container .header__content .left ul > li .drop-down:after {
 }
 
 header .container .header__content .left ul > li .drop-down > li {
-  padding: 0 15px !important;
+  padding: 10px 15px !important;
   cursor: pointer;
 }
 
@@ -515,8 +517,12 @@ header .container .header__content .left ul > li .drop-down > li a {
   display: block;
 }
 
+header .container .header__content .left ul > li .drop-down > li:hover {
+  background-color: #2dbe60 !important;
+}
+
 header .container .header__content .left ul > li .drop-down > li:hover a {
-  color: #2dbe60;
+  color: #fff !important;
 }
 
 header .container .header__content .left ul > li .number-noti {
@@ -3152,6 +3158,10 @@ footer .top {
           transform: translateX(-50%);
 }
 
+.staff header .navigation .right ul .noti .drop-down:hover li {
+  background-color: #00b297 !important;
+}
+
 .staff header .navigation .right ul .noti .drop-down li {
   white-space: nowrap;
   width: 100%;
@@ -3186,7 +3196,7 @@ footer .top {
   display: block;
   left: -18px;
   border-style: solid;
-  border-width: 6px;
+  border-width: 8px;
   border-color: transparent transparent transparent #ddd;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -4481,14 +4491,6 @@ main {
 
 header .container .header__content .left ul > li .drop-down > li {
   padding: 0 15px;
-}
-
-.drop-down {
-  max-height: 600px;
-  overflow-y: auto;
-  overflow-x: none;
-  padding-left: 20px !important;
-  padding-right: 20px !important;
 }
 
 .loading {

@@ -14,6 +14,7 @@ router.get('/:id', async (req, res) => {
 
     if (req.currentUser && req.currentUser.token && req.currentUser.permisstion == 0) return res.redirect('/active');
 
+    if (req.currentUser.isActive == 5) return res.redirect('/alert/blocked')
     const { id } = req.params;
     // thông tin chueyẻn khảon
     const htrTransfer = await Transfer.findAll(

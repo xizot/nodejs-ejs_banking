@@ -29,7 +29,9 @@ header{
                             color: $main-color;
                         }
                         .drop-down{
-                            padding:10px 10px 20px;
+                            max-height: 600px;
+                            overflow-y: auto;
+                            overflow-x: hidden;
                             display: none;
                             position: absolute;
                             bottom: 0;
@@ -37,12 +39,11 @@ header{
                             transform: translate(-50%,100%);
                             background-color: white;
                             border-radius: 5px;
-                            min-width: 250px;
+                            min-width: 210px;
                             width: max-content;
                             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(0, 0, 0, 0.2);
                             z-index: 9999;
                             transition: all .4s;
-                           
                             &:after{
                                 content: '';
                                 position: absolute;
@@ -55,8 +56,9 @@ header{
                                 border-bottom: 7px solid red;
                             }
                             >li{
-                                padding: 0 15px !important;
+                                padding: 10px 15px !important;
                                 cursor: pointer;
+                              
                               a{
                                   font-size: 14px;
                                   padding: 10px 0;
@@ -64,9 +66,12 @@ header{
                                   font-weight: bold;
                                   display: block;
                               }
-                              &:hover  a{
-                                color: $main-color;
-                            }
+                              &:hover{
+                                background-color: $main-color !important;
+                                a{
+                                    color: #fff !important;
+                                }
+                              } 
                            
                           }
                         }

@@ -21,7 +21,7 @@ class StaffActivityLog extends Model {
             where: {
                 staffID,
             },
-            order: [['date', 'DESC']]
+            order: [['createdAt', 'DESC']]
         })
     }
 }
