@@ -801,5 +801,26 @@ router.post('/staff-get-list-account', async (req, res) => {
     return res.json({ credits, savings })
 })
 
+// CLIENT
+router.get('/client-list-account', async (req, res) => {
+    const userID = req.currentUser.id;
+    if (!userID) return res.json(null)
 
+    const credits = await AccountInfo.getAllByUserID(userID);
+    const savings = await SavingAccount.getAllByUserID(userID);
+
+    return res.json({ credits, savings })
+})
+
+
+
+// CLIENT
+router.get('/client-saving-account', async (req, res) => {
+    const userID = req.currentUser.id;
+    if (!userID) return res.json(null)
+
+    const savings = await SavingAccount.getAllByUserID(userID);
+
+    return res.json(savings)
+})
 module.exports = router;

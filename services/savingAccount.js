@@ -16,6 +16,7 @@ class SavingAccount extends Model {
         const found = await this.findAll({
             where: {
                 userID,
+                isActive: 1
             }
         })
 
@@ -27,8 +28,6 @@ class SavingAccount extends Model {
 
         const user = await User.findByPk(userID);
 
-        const checkDup = await sendRequest(user.id, 3);
-        if (checkDup == 1) return 3;
 
         if (!user) return null;
         const foundAccountInfo = await AccountInfo.getBySTKOne(fromSTK)
@@ -51,6 +50,8 @@ class SavingAccount extends Model {
 
         if (!foundAccountInfo) return null; // loi
         if (Number(foundAccountInfo.balance) < Number(money)) return 1; // khong du tien
+        const checkDup = await sendRequest(user.id, 3);
+        if (checkDup == 1) return 3;
 
         foundAccountInfo.balance = Number(foundAccountInfo.balance) - Number(money);
 

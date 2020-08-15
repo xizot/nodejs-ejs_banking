@@ -43,14 +43,26 @@
                     </h4>
 
                     <div class="accounts">
-                        <div class="list-card row">
+                        <div class="list-card row list-credit-card">
 
                         </div>
                     </div>
 
                 </div>
                 <div class="saving">
+                    <h4 class="sub-title">
+                        Saving Cards
+                    </h4>
 
+                    <div class="accounts">
+                        <ul class="list-card row list-saving-card">
+
+                        </ul>
+                    </div>
+                    <div class="withdraw">
+                        <button class="btn">Withdraw</button>
+
+                    </div>
                 </div>
 
             </div>
@@ -73,8 +85,7 @@
         );
         $.get("api/account/infor",
             function (data, textStatus, jqXHR) {
-                $('.list-card').empty()
-                console.log(data);
+                $('.list-credit-card').empty()
                 if (data.length > 0) {
                     data.forEach(element => {
                         $(` <div class="list-card-item col-xs-12 col-md-4">
@@ -98,7 +109,7 @@
                                 <div class="actions">
                                     <input type="radio" name="setDefault" id="" ${element.isDefault ? 'checked' : ''} onclick="setDefault(${element.STK}, ${element.userID})">
                                 </div>
-                            </div>`).appendTo('.list-card');
+                            </div>`).appendTo('.list-credit-card');
                     });
                 }
                 if (data.length == 0) {
@@ -106,6 +117,40 @@
                 }
             },
         );
+
+        $.get("/api/client-list-account",
+            function (data, textStatus, jqXHR) {
+                $('.list-saving-card').empty()
+                if (data && data.savings.length > 0) {
+                    data.savings.map(item => {
+                        $(`
+                        <li class="col-xs-12 col-md-4">
+                                <div class="list-saving-card__card-item">
+                                    <div class="flex">
+                                        <label for="">STK:</label>
+                                        <label for="">${item.STK}</label>
+                                    </div>
+                                    <div class="flex">
+                                        <label for="">Balance:</label>
+                                        <label for="">$${item.balance}</label>
+                                    </div>
+                                    <div class="flex">
+                                        <label for="">Begin:</label>
+                                        <label for="">${item.beginDate.toString().slice(0, 10)}</label>
+                                    </div>
+                                    <div class="flex">
+                                        <label for="">Term:</label>
+                                        <label for="">${item.term} months</label>
+                                    </div>
+                                </div>
+                            </li>
+                        `).appendTo('.list-saving-card');
+                    })
+                }
+            },
+
+        );
+
     });
     function setDefault(stk, userID) {
 

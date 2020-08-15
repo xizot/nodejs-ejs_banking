@@ -3769,6 +3769,61 @@ footer .top {
   margin: 20px auto 0;
 }
 
+.list-saving-card li {
+  padding: 10px;
+}
+
+.withdraw {
+  padding: 20px 10px 10px;
+}
+
+.withdraw button {
+  display: block;
+  width: 250px;
+  margin: 0 auto;
+  background-color: white;
+  color: rgba(211, 49, 49, 0.8);
+  font-weight: bolder;
+  border: 1px solid rgba(211, 49, 49, 0.8) !important;
+}
+
+.withdraw button:hover {
+  background-image: radial-gradient(circle farthest-corner at 10% 20%, #e22525 0%, #d33131 82.8%);
+  -webkit-box-shadow: 14px 14px 26px rgba(211, 49, 49, 0.8), inset 12px 12px 10px rgba(211, 49, 49, 0.8), inset -12px -12px 10px rgba(211, 49, 49, 0.8);
+          box-shadow: 14px 14px 26px rgba(211, 49, 49, 0.8), inset 12px 12px 10px rgba(211, 49, 49, 0.8), inset -12px -12px 10px rgba(211, 49, 49, 0.8);
+}
+
+.list-saving-card__card-item {
+  border-radius: 10px;
+  padding: 20px;
+  -webkit-box-shadow: 14px 14px 26px rgba(211, 49, 49, 0.8), inset 12px 12px 10px rgba(211, 49, 49, 0.8), inset -12px -12px 10px rgba(211, 49, 49, 0.8);
+          box-shadow: 14px 14px 26px rgba(211, 49, 49, 0.8), inset 12px 12px 10px rgba(211, 49, 49, 0.8), inset -12px -12px 10px rgba(211, 49, 49, 0.8);
+  background-image: radial-gradient(circle farthest-corner at 10% 20%, #e22525 0%, #d33131 82.8%);
+  min-height: 150px;
+}
+
+.list-saving-card__card-item .flex {
+  margin: 8px 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.list-saving-card__card-item .flex label {
+  font-size: 14px;
+  color: #fff;
+}
+
+.list-saving-card__card-item .flex label:first-child {
+  margin-right: 5px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.list-saving-card__card-item .flex label:last-child {
+  font-size: 18px;
+}
+
 .history .title {
   background-color: #ddd;
   padding: 10px 0;

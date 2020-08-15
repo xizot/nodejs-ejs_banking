@@ -11,7 +11,7 @@ class Transfer extends Model {
 
     // hàm này để lấy lịch sử giao dich theo thời gian nhất định của 1 user
     static async getActivityByDate(stk, page, limit, fromDate, toDate) {
-        const found = await this.findAll({
+        const found = await this.findAndCountAll({
             where: {
                 [Op.or]: [
                     {
@@ -39,17 +39,20 @@ class Transfer extends Model {
             order: [['createdAt', 'DESC']]
         })
 
-        if (found.length <= 0) return found;
-        const rs = found.map((item) => {
+        if (!found) return found;
+        const rs = found.rows.map((item) => {
             return {
                 date: moment(item.date).format('YYYY-MM-DD').slice(5, 10),
                 des: item.from === stk ? 'Đã gửi tiền cho ' + item.to : 'Đã nhận tiền từ ' + item.from,
                 amount: item.from === stk ? '-' + item.amount : '+' + item.amount,
                 currencyUnit: item.currencyUnit,
-
+                message: item.message
             }
         })
-        return (rs);
+        return {
+            list: rs,
+            count: found.count
+        };
     }
     static async countActivity(stk, fromDate, toDate) {
         const count = await this.count({
