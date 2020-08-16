@@ -4544,6 +4544,60 @@ main {
   min-height: 35px;
 }
 
+.privacy-fee {
+  margin-bottom: 20px;
+}
+
+.privacy-fee .privacy-fee__item h4 {
+  font-size: 14px;
+  margin: 40px 0 20px;
+}
+
+.privacy-fee .privacy-fee__item table {
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.privacy-fee .privacy-fee__item table tr th {
+  height: 35px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-right: 1px solid #ddd;
+  min-width: 150px;
+  padding: 0 15px;
+}
+
+.privacy-fee .privacy-fee__item table tr th:last-child {
+  border-right: none;
+}
+
+.privacy-fee .privacy-fee__item table tr td {
+  height: 35px;
+  text-align: left;
+  font-size: 14px;
+  border-right: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  min-width: 150px;
+  padding: 0 15px;
+}
+
+.privacy-fee .privacy-fee__item table tr td:last-child {
+  border-right: none;
+}
+
+.privacy h3 {
+  font-size: 15px;
+  text-transform: uppercase;
+  margin: 20px 0 10px;
+  font-weight: bold;
+}
+
+.privacy a {
+  color: #2dbe60;
+}
+
 header .container .header__content .left ul > li .drop-down > li {
   padding: 0 15px;
 }
