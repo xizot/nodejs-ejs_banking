@@ -41,6 +41,10 @@
 </div>
 <%- include('./../staff-structure/footer')%>
 <script>
+    var socket = io('https://dack-17ck1.herokuapp.com');
+
+
+
     function showPopup(id) {
         $('.pop-up').remove();
         $(` <div class="pop-up" style="">
@@ -166,9 +170,10 @@
                     else {
                         alert('Đã xảy ra lỗi vui lòng thử lại sau.');
                         $('.pop-up').fadeOut(200);
-
                     }
+                    socket.emit("add-new-noti", "hello");
                 })
+
         });
         $(document).on('click', '.btn-delete-request', function (e) {
             e.preventDefault();
@@ -195,6 +200,8 @@
                                 }
                             },
                         );
+
+
                         $.get("/api/count-request",
                             function (data, textStatus, jqXHR) {
                                 console.log(data);
@@ -213,6 +220,7 @@
                         alert('Đã xảy ra lỗi vui lòng thử lại sau.');
                         $('.pop-up').fadeOut(200);
                     }
+                    socket.emit("add-new-noti", "hello");
                 })
         });
 

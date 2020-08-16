@@ -64,23 +64,34 @@
                                             </li>
 
                                             <%}%>
+
+                                            <% if(currentUser.isActive == 1){%>
                                             <li>
                                                 <a href="/create-credit-card">Create New Credit Card</a>
                                             </li>
                                             <li>
                                                 <a href="/create-saving-card">Create New Saving Card</a>
                                             </li>
+                                            <%}%>
                                         </ul>
                                     </li>
-                                    <li class="navs-item n-transfer">
-                                        <a href="/transfer"><button class="btn">Transfer</button> </a>
-                                    </li>
-                                    <li class="navs-item n-withdraw">
-                                        <a href="/withdraw"><button class="btn">Withdraw</button> </a>
-                                    </li>
+
+                                    <% if(currentUser.isActive == 1){%>
+                                            <li class="navs-item n-transfer">
+                                                <a href="/transfer"><button class="btn">Transfer</button> </a>
+                                            </li>
+                                            <li class="navs-item n-withdraw">
+                                                <a href="/withdraw"><button class="btn">Withdraw</button> </a>
+                                            </li>
+                                            <%}%>
+                                    <% if(currentUser.isActive != 1){%>
+                                            <li class="navs-item n-page-confirm">
+                                                <a href="/page-confirm"><button class="btn">Verify</button> </a>
+                                            </li>
+                                            <%}%>
+                                    
                                     <li class="navs-item n-account">
                                         <a href="/accounts"><button class="btn">Account</button> </a>
-
                                     </li>
                                     <li class="navs-item n-notifications">
                                         <a href="/noti"><button class="btn">Notification</button> </a>

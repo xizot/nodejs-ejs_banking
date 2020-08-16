@@ -3158,14 +3158,14 @@ footer .top {
           transform: translateX(-50%);
 }
 
-.staff header .navigation .right ul .noti .drop-down:hover li {
-  background-color: #00b297 !important;
-}
-
 .staff header .navigation .right ul .noti .drop-down li {
   white-space: nowrap;
   width: 100%;
   position: relative;
+}
+
+.staff header .navigation .right ul .noti .drop-down li:hover {
+  background-color: #00b297 !important;
 }
 
 .staff header .navigation .right ul .noti .drop-down li a {
