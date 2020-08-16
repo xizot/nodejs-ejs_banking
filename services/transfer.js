@@ -94,7 +94,13 @@ class Transfer extends Model {
             fromUser,
             toUser,
         }
-        return this.create(newTf).then(value => value);
+        return this.create(newTf).then(value => {
+            if (value) {
+
+                Notification.addNotifyForTransfer(fromSTK, toSTK, fromUser, toUser)
+            }
+            return value;
+        });
     }
 
 

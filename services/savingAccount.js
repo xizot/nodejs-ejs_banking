@@ -12,6 +12,15 @@ const { sendMail } = require('./function');
 class SavingAccount extends Model {
 
 
+    static async getInfo(STK) {
+        const found = await this.findOne({
+            where: {
+                STK
+            }
+        })
+        return found;
+    }
+
     static async getAllByUserID(userID) {
         const found = await this.findAll({
             where: {
@@ -19,6 +28,7 @@ class SavingAccount extends Model {
                 isActive: 1
             }
         })
+
 
         return found
     }

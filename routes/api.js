@@ -7,7 +7,7 @@ const StaffActivityLog = require('../services/staffActivityLog');
 const Notifications = require('../services/notification');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
-const { sendMail } = require('../services/function');
+const { sendMail, calculatorProfit } = require('../services/function');
 const { findInfoOffCustomer, findActivityStaff, countActivityStaff } = require('../services/staffFunction');
 const UserRequest = require('../services/userRequest');
 const io = require('socket.io-client');
@@ -768,7 +768,6 @@ router.post('/get-list-account', async (req, res) => {
         const found = await AccountInfo.getAllByUserID(req.currentUser.id);
         return res.json(found);
     }
-    const { userId } = req.body;
     const staffFound = await AccountInfo.getAllByUserID(req.currentUser.id);
     return res.json(staffFound);
 })
@@ -813,8 +812,6 @@ router.get('/client-list-account', async (req, res) => {
 })
 
 
-
-// CLIENT
 router.get('/client-saving-account', async (req, res) => {
     const userID = req.currentUser.id;
     if (!userID) return res.json(null)
@@ -823,4 +820,35 @@ router.get('/client-saving-account', async (req, res) => {
 
     return res.json(savings)
 })
+
+// lay thong tin tai khoan tiet kiem
+router.post('/client-saving-info', async (req, res) => {
+    const { STK } = req.body;
+    if (!STK) return res.json(null)
+
+    const savings = await SavingAccount.getInfo(STK);
+    if (!savings) return null;
+    return res.json(calculatorProfit(savings.term, savings.beginDate, savings.balance))
+})
+
+
+router.post('/withdraw', async (req, res) => {
+    const { fromSTK, STK, money } = req.body;
+
+    const userID = req.currentUser.id;
+    if (!userID) return res.json(null)
+
+    const account = await AccountInfo.addMoneyForSTK(STK, userID, money);
+
+    await SavingAccount.destroy({
+        where: {
+            STK: fromSTK
+        }
+    })
+
+    if (!account) return null;
+    socket.emit('transfer', 'me')
+    return res.json('ok')
+})
+
 module.exports = router;

@@ -76,6 +76,9 @@
                                     <li class="navs-item n-transfer">
                                         <a href="/transfer"><button class="btn">Transfer</button> </a>
                                     </li>
+                                    <li class="navs-item n-withdraw">
+                                        <a href="/withdraw"><button class="btn">Withdraw</button> </a>
+                                    </li>
                                     <li class="navs-item n-account">
                                         <a href="/accounts"><button class="btn">Account</button> </a>
 
@@ -249,7 +252,9 @@
                             <label class="form-heading " for="form-heading">Số tháng đã gửi</label>
                             <input type="text" class="form-control saving-money" placeholder="" value="0" id="months"
                                 disabled>
-
+                            <label class="form-heading " for="form-heading">Số ngày đã gửi</label>
+                            <input type="text" class="form-control saving-money" placeholder="" value="0" id="day"
+                                disabled>
                             <label class="form-heading " for="form-heading">Tài khoản nhận</label>
                             <select class="form-control" id="to-account">
 
@@ -257,8 +262,10 @@
 
                         </div>
 
-                        <button class="btn btn-success btn-withdraw"> Yêu cầu </button>
-                        <button class="btn btn-cancel"> Hủy </button>
+                        <button class="btn btn-success btn-withdraw">Withdraw</button>
+                        <a href="/../">
+                            <button class="btn btn-cancel">Cancel</button>
+                        </a>
                     </form>
                     <div class="pad-5"></div>
 
@@ -271,6 +278,57 @@
         <script src="/socket.io/socket.io.js"></script>
         <script>
             $(function () {
+                $('.btn-cancel').click(function (e) {
+                    e.preventDefault();
+                    $(location).attr('href', '/')
+                });
+
+                $('.btn-withdraw').click(function (e) {
+                    e.preventDefault();
+                    const fromSTK = $('#from-account').val();
+                    const STK = $('#to-account').val();
+                    const money = $('#total-money').val();
+                    if (!fromSTK) {
+                        alert('Bạn chưa có tài khoản tiết kiệm')
+                        return
+                    }
+                    $.post("/api/withdraw", { fromSTK, STK, money },
+                        function (data, textStatus, jqXHR) {
+
+                            if (!data) {
+                                alert('Đã xảy ra lỗi')
+                                $(location).attr('href', '/');
+                            }
+                            alert('Rút tiền thành công');
+                            $.get("/api/client-saving-account",
+                                function (data, textStatus, jqXHR) {
+                                    $('#from-account').empty();
+                                    if (data && data.length > 0) {
+                                        data.map(item => {
+                                            $(`
+                                <option value="${item.STK}">${item.STK} - tiền gửi tiết kiệm: ${item.balance} ${item.currencyUnit}
+                                </option>
+                                `).appendTo('#from-account');
+                                            $('#term').val(item.term)
+                                        })
+                                        const STK = data[0].STK;
+                                        $.post("/api/client-saving-info", { STK },
+                                            function (data, textStatus, jqXHR) {
+                                                if (data) {
+                                                    $('#total-money').val(data.total)
+                                                    $('#months').val(data.months)
+                                                    $('#day').val(data.day)
+                                                    $('#profit').val(data.profit)
+                                                    $('#percent').val(data.percent)
+                                                }
+                                            },
+                                        );
+                                    }
+                                },
+                            );
+                        },
+                    );
+                });
                 $.post("/api/get-list-account",
                     function (data, textStatus, jqXHR) {
                         $('#to-account').empty();
@@ -280,15 +338,29 @@
                                 <option value="${item.STK}">${item.STK} </option>
                                 `).appendTo('#to-account');
                             })
+
                         }
+
+
                     },
                 );
 
-
+                $(document).on('change', '#from-account', function () {
+                    $.post("/api/client-saving-info", { STK: $('#from-account').val() },
+                        function (data, textStatus, jqXHR) {
+                            if (data) {
+                                $('#total-money').val(data.total)
+                                $('#months').val(data.months)
+                                $('#day').val(data.day)
+                                $('#profit').val(data.profit)
+                                $('#percent').val(data.percent)
+                            }
+                        },
+                    );
+                });
                 $.get("/api/client-saving-account",
                     function (data, textStatus, jqXHR) {
                         $('#from-account').empty();
-                        console.log(data);
                         if (data && data.length > 0) {
                             data.map(item => {
                                 $(`
@@ -297,6 +369,18 @@
                                 `).appendTo('#from-account');
                                 $('#term').val(item.term)
                             })
+                            const STK = data[0].STK;
+                            $.post("/api/client-saving-info", { STK },
+                                function (data, textStatus, jqXHR) {
+                                    if (data) {
+                                        $('#total-money').val(data.total)
+                                        $('#months').val(data.months)
+                                        $('#day').val(data.day)
+                                        $('#profit').val(data.profit)
+                                        $('#percent').val(data.percent)
+                                    }
+                                },
+                            );
                         }
                     },
                 );

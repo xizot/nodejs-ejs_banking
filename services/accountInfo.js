@@ -118,7 +118,8 @@ class AccountInfo extends Model {
                 userID
             }
         })
-        found.balance = Number(found.balance) + Number(money)
+        found.balance = Number(found.balance) + Number(money);
+        await Transfer.addNew(null, userID, 'saving account', STK, money, 'withdraw', 'USD', 'ARG');
         return found.save()
     }
     // hàm này để chuyển tiền khác ngân hàng
@@ -140,7 +141,7 @@ class AccountInfo extends Model {
             }
         }
 
-        this.balance = Number(this.balance) + (Number(money));
+        this.balance = (Number(this.balance) + (Number(money))).toFixed(4);
         this.save();
 
         await Transfer.addNewExternal(null, this.userID, from, this.STK, amount, message, currencyUnit, bankCode);
@@ -167,7 +168,7 @@ class AccountInfo extends Model {
 
         if (!foundTo) return 3;
 
-        foundTo.balance = Number(foundTo.balance) + Number(money);
+        foundTo.balance = (Number(foundTo.balance) - Number(money)).toFixed(4);
         await foundTo.save();
     }
 
@@ -197,7 +198,7 @@ class AccountInfo extends Model {
             if (Number(money) > foundFrom.limit) return 8;
             if (Number(foundFrom.balance) < (Number(money) + Number(fee))) return 7;
             await foundFrom.save();
-            foundFrom.balance = Number(foundFrom.balance) - (Number(money) + Number(fee));
+            foundFrom.balance = (Number(foundFrom.balance) - (Number(money) + Number(fee))).toFixed(4);
             await foundFrom.save();
 
         }
@@ -205,13 +206,13 @@ class AccountInfo extends Model {
         const foundTo = await AccountInfo.getBySTKOne(to);
 
         if (!foundTo && foundFrom) {
-            foundFrom.balance = Number(foundFrom.balance) + (Number(money) + Number(fee));
+            foundFrom.balance = (Number(foundFrom.balance) + (Number(money) + Number(fee))).toFixed(4);
             await foundFrom.save();
             return 2;
         }
 
 
-        foundTo.balance = Number(foundTo.balance) + Number(money);
+        foundTo.balance = (Number(foundTo.balance) + Number(money)).toFixed(4);
         await foundTo.save();
 
 

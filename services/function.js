@@ -6,6 +6,8 @@ const Customer = require('./customer');
 const Transfer = require('./transfer');
 const Notification = require('./notification');
 const StaffActivity = require('./staffActivityLog');
+const moment = require('moment');
+
 
 process.env.ADMIN_EMAIL = '1760131bot@gmail.com';
 process.env.ADMIN_PASSWORD = 'learnenglish';
@@ -91,6 +93,38 @@ const findCustomerInfo = async id => {
     return rsUser;
 
 }
+
+const calculatorProfit = (term, beginDate, balance) => {
+    const months = moment().diff(beginDate, "months");
+    const day = moment().diff(beginDate, 'days');
+
+    let percent = 0;
+    if (term >= 0 && term <= 1) percent = 0.05;
+    else if (term < 3) percent = 0.05;
+    else if (term < 6) percent = 0.15;
+    else if (term < 9) percent = 0.35;
+    else if (term >= 9) percent = 0.5;
+
+    if (months < term) percent *= 0.5; // neu rut tien truoc thoi han
+
+    const max = (Number(balance) + (Number(balance) * percent)).toFixed(4) // so tien toi da duoc nhan neu dung han
+
+    const currentProfit = (balance * percent * (day / 360)).toFixed(4);
+
+    let profit = currentProfit > percent ? percent : currentProfit
+    profit = profit < 0 ? 0 : profit;
+
+    let total = (Number(balance) + Number(profit)).toFixed(4) > max ? max : (Number(balance) + Number(profit)).toFixed(4);
+    return {
+        percent,
+        profit,
+        total,
+        months,
+        day,
+    }
+}
+
+
 
 const validateEmail = (email) => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -179,4 +213,4 @@ const CreateNewCreditCard = async (userID, displayName) => {
 
 
 
-module.exports = { sendMail, sendSMS, findCustomerInfo, validateEmail, randomSTK, StaffBlockUser, StaffDeleteUser, StaffRechargeToUser, CreateNewCreditCard };
+module.exports = { sendMail, sendSMS, findCustomerInfo, validateEmail, randomSTK, StaffBlockUser, StaffDeleteUser, StaffRechargeToUser, CreateNewCreditCard, calculatorProfit };
