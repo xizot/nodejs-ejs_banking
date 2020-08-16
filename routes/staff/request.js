@@ -126,6 +126,7 @@ router.get('/eject-request/:id', async (req, res) => {
     if (!req.currentUser | !req.currentUser.permisstion == 1) return res.json(null)
     const { id } = req.params;
     if (!id) return res.json(null)
+    let msg = null;
     const found2 = await UserRequest.findByPk(id);
     const deleted = await UserRequest.destroy({
         where: {
