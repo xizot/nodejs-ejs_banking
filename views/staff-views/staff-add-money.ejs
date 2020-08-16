@@ -218,9 +218,6 @@
                 from: 'ADMIN',
             },
                 function (data, textStatus, jqXHR) {
-
-                    console.log(data);
-
                     if (data == '1') {
                         alert('Nạp tiền thành công');
                         const activity = {
@@ -232,6 +229,8 @@
                         localStorage.setItem('activityTransfer', JSON.stringify(activity));
                         $(location).attr('href', '/add-money');
                     }
+                    alert('Đã xảy ra lỗi');
+                    return;
                 },
             );
         })
