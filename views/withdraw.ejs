@@ -276,6 +276,8 @@
 
         <%- include('./footer')%>
         <script src="/socket.io/socket.io.js"></script>
+
+        var socket = io('https://dack-17ck1.herokuapp.com');
         <script>
             $(function () {
                 $('.btn-cancel').click(function (e) {
@@ -299,33 +301,9 @@
                                 alert('Đã xảy ra lỗi')
                                 $(location).attr('href', '/');
                             }
+                            socket.emit('transfer', { nice: "nice" })
                             alert('Rút tiền thành công');
-                            $.get("/api/client-saving-account",
-                                function (data, textStatus, jqXHR) {
-                                    $('#from-account').empty();
-                                    if (data && data.length > 0) {
-                                        data.map(item => {
-                                            $(`
-                                <option value="${item.STK}">${item.STK} - tiền gửi tiết kiệm: ${item.balance} ${item.currencyUnit}
-                                </option>
-                                `).appendTo('#from-account');
-                                            $('#term').val(item.term)
-                                        })
-                                        const STK = data[0].STK;
-                                        $.post("/api/client-saving-info", { STK },
-                                            function (data, textStatus, jqXHR) {
-                                                if (data) {
-                                                    $('#total-money').val(data.total)
-                                                    $('#months').val(data.months)
-                                                    $('#day').val(data.day)
-                                                    $('#profit').val(data.profit)
-                                                    $('#percent').val(data.percent)
-                                                }
-                                            },
-                                        );
-                                    }
-                                },
-                            );
+                            $(location).attr('href', '/')
                         },
                     );
                 });

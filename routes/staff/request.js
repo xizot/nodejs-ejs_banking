@@ -91,15 +91,23 @@ router.get('/accept-request/:id', async (req, res) => {
             msg = `Mở tài khoản ngân hàng cho id ${found2.userID}`;
             if (user) {
                 await CreateNewCreditCard(found2.userID, user.displayName);
-                sendMail(user.email, 'Tài khoản thanh toán', 'Nhân viên vừa chấp thuận yêu cầu tạo tài khoản thanh toán của bạn', 'Nhân viên vừa chấp thuận yêu cầu tạo tài khoản thanh toán của bạn')
+
+                if (user) {
+                    sendMail(user.email, 'Tài khoản thanh toán', 'Nhân viên vừa chấp thuận yêu cầu tạo tài khoản thanh toán của bạn', 'Nhân viên vừa chấp thuận yêu cầu tạo tài khoản thanh toán của bạn')
+
+                }
+
             }
 
         }
         if (found2.type == 3) {
+            const user = await User.findByPk(found2.userID);
             msg = `Mở tài khoản tiết kiệm cho id ${found2.userID}`;
             await acceptSavingAccount(found2.userID)
+            if (user) {
 
-            sendMail(user.email, 'Tài khoản tiết khiệm', 'Nhân viên vừa chấp thuận yêu cầu tạo tài khoản tiết kiệm của bạn', 'Nhân viên vừa chấp thuận yêu cầu tạo tài khoản tiết kiệm của bạn')
+                sendMail(user.email, 'Tài khoản tiết khiệm', 'Nhân viên vừa chấp thuận yêu cầu tạo tài khoản tiết kiệm của bạn', 'Nhân viên vừa chấp thuận yêu cầu tạo tài khoản tiết kiệm của bạn')
+            }
 
         }
         if (found2.type == 4) {

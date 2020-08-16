@@ -60,7 +60,6 @@
                         </ul>
                     </div>
                     <div class="withdraw">
-                        <button class="btn">Withdraw</button>
 
                     </div>
                 </div>
@@ -113,7 +112,7 @@
                     });
                 }
                 if (data.length == 0) {
-                    $(` <a href="/create-credit-card"  class="requestCreditCard">Yêu cầu tạo tài khoản ngân hàng</a>`).appendTo('.list-card');
+                    $(` <a href="/create-credit-card"  class="requestCreditCard" style="margin-top:-50px; color:#30cb67">Yêu cầu tạo tài khoản ngân hàng</a>`).appendTo('.list-credit-card');
                 }
             },
         );
@@ -146,6 +145,16 @@
                             </li>
                         `).appendTo('.list-saving-card');
                     })
+
+                    $('.withdraw').empty()
+                    $(`
+                    <a href="/withdraw">
+                            <button class="btn">Withdraw</button>
+                        </a>
+                    `).appendTo('.withdraw');
+                }
+                if (data && data.savings.length == 0) {
+                    $(` <a href="/create-saving-card"  class="requestCreditCard" style="margin-top:-50px;color:red">Yêu cầu tạo tài khoản tiết kiệm</a>`).appendTo('.list-saving-card');
                 }
             },
 
