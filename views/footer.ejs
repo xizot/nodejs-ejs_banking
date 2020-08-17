@@ -65,26 +65,29 @@
 <script>
   var socket = io("https://dack-17ck1.herokuapp.com");
   socket.on('server-send-client', data => {
-    $.get("/api/count-notification",
-      function (data, textStatus, jqXHR) {
 
-        if (data && data > 0) {
-          $('.number-noti').fadeIn(200);
-          $('.number-noti').text(data)
-        }
-      }
-    );
+    $('.user-noti').empty();
     $.get("/api/notification",
       function (data, textStatus, jqXHR) {
         $('.user-noti').empty();
 
         if (data && data.length > 0) {
+
           data.map(item => {
             $(`<li class="${!item.seen ? 'not-seen' : ''}" ><a href="${item.type == 1 ? '/history' : ''}" onclick="seenNotification(${item.id})">${item.msg}</a></li>`).appendTo('.user-noti');
           })
         }
       }
     );
+    $.get("/api/count-notification",
+      function (data, textStatus, jqXHR) {
+        if (data && data > 0) {
+          $('.number-noti').fadeIn(200);
+          $('.number-noti').text(data)
+        }
+      }
+    );
+
   });
   const seenNotification = (id) => {
     $.post("/api/seen-notification", { id: id },
