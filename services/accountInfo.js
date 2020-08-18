@@ -1,352 +1,380 @@
-const bcrypt = require('bcrypt');
-const Sequelize = require('sequelize');
-const db = require('./db');
+const bcrypt = require("bcrypt");
+const Sequelize = require("sequelize");
+const db = require("./db");
 const Model = Sequelize.Model;
-const Transfer = require('./transfer');
-const Notification = require('./notification');
-const StaffActivity = require('./staffActivityLog');
-const ExchangeRate = require('./exchangeRate');
+const Transfer = require("./transfer");
+const Notification = require("./notification");
+const StaffActivity = require("./staffActivityLog");
+const ExchangeRate = require("./exchangeRate");
 
 class AccountInfo extends Model {
+  static async getInfoBySTKandUserID(userID, STK) {
+    return this.findOne({
+      where: {
+        STK,
+        userID,
+      },
+    });
+  }
 
+  static async getBySTK(stk) {
+    return this.findOne({
+      where: {
+        STK: stk,
+      },
+    });
+  }
+  static async getBySTKOne(stk) {
+    return this.findOne({
+      where: {
+        STK: stk,
+      },
+    });
+  }
+  static async getBySTKAndBankCode(stk, bankcode) {
+    return this.findOne({
+      where: {
+        STK: stk,
+        bankCode: bankcode,
+      },
+    });
+  }
 
+  static async getByBankCode(bankCode) {
+    return this.findAll({
+      where: {
+        bankCode: bankCode,
+      },
+    });
+  }
 
+  static async findSTKByUser(userID) {
+    const found = await this.findAll({
+      where: {
+        userID,
+      },
+    });
 
-    static async getInfoBySTKandUserID(userID, STK) {
-        return this.findOne({
-            where: {
-                STK,
-                userID,
-            }
-        })
+    if (found.length <= 0) return null;
+    return found.map((item) => item.STK);
+  }
+
+  static async getByUserID(userID) {
+    return this.findOne({
+      where: {
+        userID: userID,
+        isDefault: true,
+      },
+    });
+  }
+
+  static async getAllByUserID(userID) {
+    return this.findAll({
+      where: {
+        userID,
+      },
+    });
+  }
+
+  async addMoney(from, amount, message, currencyUnit, bankCode) {
+    const foundFrom = await AccountInfo.getByUserID(from);
+    var money = amount;
+
+    if (currencyUnit == "VND") {
+      const rate = await ExchangeRate.findOne({
+        where: {
+          displayName: "VND",
+        },
+      });
+
+      if (rate) {
+        money = money * rate;
+      } else {
+        money = money * (1 / 23000);
+      }
+    }
+    if (foundFrom) {
+      foundFrom.balance = foundFrom.balance - money;
+      foundFrom.save();
+      this.balance = Number(this.balance) + Number(money);
+      this.save();
+      await Transfer.addNew(
+        foundFrom.userID,
+        this.userID,
+        foundFrom.STK,
+        this.STK,
+        amount,
+        message,
+        currencyUnit,
+        bankCode
+      );
+      return this;
+    }
+  }
+
+  static async addMoneyForSTK(STK, userID, money) {
+    const found = await AccountInfo.findOne({
+      where: {
+        STK,
+        userID,
+      },
+    });
+    found.balance = Number(found.balance) + Number(money);
+    await Transfer.addNew(
+      null,
+      userID,
+      "saving account",
+      STK,
+      money,
+      "withdraw",
+      "USD",
+      "ARG"
+    );
+    return found.save();
+  }
+  // hàm này để chuyển tiền khác ngân hàng
+  async addMoneyExternal(from, amount, message, currencyUnit, bankCode) {
+    let money = amount;
+    if (currencyUnit == "VND") {
+      const rate = await ExchangeRate.findOne({
+        where: {
+          displayName: "VND",
+        },
+      });
+
+      if (rate) {
+        money = Number(money) * Number(rate.rate);
+      } else {
+        money = Number(money) * Number(1 / 23000);
+      }
     }
 
+    this.balance = (Number(this.balance) + Number(money)).toFixed(4);
+    this.save();
 
-    static async getBySTK(stk) {
-        return this.findOne({
-            where: {
-                STK: stk,
-            }
-        })
+    await Transfer.addNewExternal(
+      null,
+      this.userID,
+      from,
+      this.STK,
+      amount,
+      message,
+      currencyUnit,
+      bankCode
+    );
+    return this;
+  }
+
+  static async minusMoney(to, amount, currencyUnit, bankCode) {
+    let money = amount;
+    if (currencyUnit == "VND") {
+      const rate = await ExchangeRate.findOne({
+        where: {
+          displayName: "VND",
+        },
+      });
+
+      if (rate) {
+        money = Number(money) * Number(rate.rate);
+      } else {
+        money = Number(money) * Number(1 / 23000);
+      }
     }
-    static async getBySTKOne(stk) {
-        return this.findOne({
-            where: {
-                STK: stk,
-            }
-        })
-    }
-    static async getBySTKAndBankCode(stk, bankcode) {
-        return this.findOne({
-            where: {
-                STK: stk,
-                bankCode: bankcode,
-            }
-        })
-    }
+    const foundTo = await AccountInfo.getBySTKOne(to);
 
-    static async getByBankCode(bankCode) {
-        return this.findAll({
-            where: {
-                bankCode: bankCode,
-            }
-        })
-    }
+    if (!foundTo) return 3;
 
-    static async findSTKByUser(userID) {
-        const found = await this.findAll({
-            where: {
-                userID,
-            }
-        })
+    foundTo.balance = (Number(foundTo.balance) - Number(money)).toFixed(4);
+    await foundTo.save();
+  }
 
-        if (found.length <= 0) return null;
-        return found.map(item => item.STK)
-    }
+  // Hàm này để chuyển tiền cùng ngân hàng
+  static async addMoneyInternal(
+    from,
+    to,
+    amount,
+    message,
+    currencyUnit,
+    bankCode,
+    fromUser,
+    fee
+  ) {
+    let money = amount;
+    if (currencyUnit == "VND") {
+      const rate = await ExchangeRate.findOne({
+        where: {
+          displayName: "VND",
+        },
+      });
 
-    static async getByUserID(userID) {
-        return this.findOne({
-            where: {
-                userID: userID,
-                isDefault: true,
-            }
-        })
-    }
-
-    static async getAllByUserID(userID) {
-        return this.findAll({
-            where: {
-                userID,
-            }
-        })
-    }
-
-    async addMoney(from, amount, message, currencyUnit, bankCode) {
-
-        const foundFrom = await AccountInfo.getByUserID(from);
-        var money = amount;
-
-        if (currencyUnit == "VND") {
-            const rate = await ExchangeRate.findOne({
-                where: {
-                    displayName: 'VND',
-                }
-            })
-
-            if (rate) {
-                money = money * rate
-            }
-            else {
-                money = money * (1 / 23000)
-            }
-        }
-        if (foundFrom) {
-            foundFrom.balance = foundFrom.balance - money;
-            foundFrom.save();
-            this.balance = Number(this.balance) + (Number(money));
-            this.save();
-            await Transfer.addNew(foundFrom.userID, this.userID, foundFrom.STK, this.STK, amount, message, currencyUnit, bankCode);
-            return this;
-        }
+      if (rate) {
+        money = Number(money) * Number(rate.rate);
+      } else {
+        money = Number(money) * Number(1 / 23000);
+      }
     }
 
-    static async addMoneyForSTK(STK, userID, money) {
-
-        const found = await AccountInfo.findOne({
-            where: {
-                STK,
-                userID
-            }
-        })
-        found.balance = Number(found.balance) + Number(money);
-        await Transfer.addNew(null, userID, 'saving account', STK, money, 'withdraw', 'USD', 'ARG');
-        return found.save()
-    }
-    // hàm này để chuyển tiền khác ngân hàng
-    async addMoneyExternal(from, amount, message, currencyUnit, bankCode) {
-
-        let money = amount;
-        if (currencyUnit == "VND") {
-            const rate = await ExchangeRate.findOne({
-                where: {
-                    displayName: 'VND',
-                }
-            })
-
-            if (rate) {
-                money = Number(money) * Number(rate.rate);
-            }
-            else {
-                money = Number(money) * Number(1 / 23000)
-            }
-        }
-
-        this.balance = (Number(this.balance) + (Number(money))).toFixed(4);
-        this.save();
-
-        await Transfer.addNewExternal(null, this.userID, from, this.STK, amount, message, currencyUnit, bankCode);
-        return this;
+    let foundFrom = null;
+    if (from != "ADMIN") {
+      foundFrom = await this.getBySTKOne(from);
+      if (!foundFrom) return 4;
+      if (Number(money) > foundFrom.limit) return 8;
+      if (Number(foundFrom.balance) < Number(money) + Number(fee)) return 7;
+      await foundFrom.save();
+      foundFrom.balance = (
+        Number(foundFrom.balance) -
+        (Number(money) + Number(fee))
+      ).toFixed(4);
+      await foundFrom.save();
     }
 
-    static async minusMoney(to, amount, currencyUnit, bankCode) {
-        let money = amount;
-        if (currencyUnit == "VND") {
-            const rate = await ExchangeRate.findOne({
-                where: {
-                    displayName: 'VND',
-                }
-            })
+    const foundTo = await AccountInfo.getBySTKOne(to);
 
-            if (rate) {
-                money = Number(money) * Number(rate.rate);
-            }
-            else {
-                money = Number(money) * Number(1 / 23000)
-            }
-        }
-        const foundTo = await AccountInfo.getBySTKOne(to);
-
-        if (!foundTo) return 3;
-
-        foundTo.balance = (Number(foundTo.balance) - Number(money)).toFixed(4);
-        await foundTo.save();
+    if (!foundTo && foundFrom) {
+      foundFrom.balance = (
+        Number(foundFrom.balance) +
+        (Number(money) + Number(fee))
+      ).toFixed(4);
+      await foundFrom.save();
+      return 2;
     }
 
+    foundTo.balance = (Number(foundTo.balance) + Number(money)).toFixed(4);
+    await foundTo.save();
 
-    // Hàm này để chuyển tiền cùng ngân hàng
-    static async addMoneyInternal(from, to, amount, message, currencyUnit, bankCode, fromUser, fee) {
-        let money = amount;
-        if (currencyUnit == "VND") {
-            const rate = await ExchangeRate.findOne({
-                where: {
-                    displayName: 'VND',
-                }
-            })
+    await Transfer.addNewInternal(
+      from,
+      to,
+      amount,
+      message,
+      currencyUnit,
+      bankCode,
+      fromUser,
+      foundTo.userID,
+      fee
+    );
 
-            if (rate) {
-                money = Number(money) * Number(rate.rate);
-            }
-            else {
-                money = Number(money) * Number(1 / 23000)
-            }
-        }
+    return 1;
+  }
+  // hàm này để Nhân viên thêm tiền cho User
+  async staffRecharge(staffID, currencyUnit, amount) {
+    let money = amount;
 
-        let foundFrom = null;
-        if (from != "ADMIN") {
-            foundFrom = await this.getBySTKOne(from);
-            if (!foundFrom) return 4;
-            if (Number(money) > foundFrom.limit) return 8;
-            if (Number(foundFrom.balance) < (Number(money) + Number(fee))) return 7;
-            await foundFrom.save();
-            foundFrom.balance = (Number(foundFrom.balance) - (Number(money) + Number(fee))).toFixed(4);
-            await foundFrom.save();
+    if (currencyUnit == "VND") {
+      const rate = await ExchangeRate.findOne({
+        where: {
+          displayName: "VND",
+        },
+      });
 
-        }
-
-        const foundTo = await AccountInfo.getBySTKOne(to);
-
-        if (!foundTo && foundFrom) {
-            foundFrom.balance = (Number(foundFrom.balance) + (Number(money) + Number(fee))).toFixed(4);
-            await foundFrom.save();
-            return 2;
-        }
-
-
-        foundTo.balance = (Number(foundTo.balance) + Number(money)).toFixed(4);
-        await foundTo.save();
-
-
-        await Transfer.addNewInternal(from, to, amount, message, currencyUnit, bankCode, fromUser, foundTo.userID, fee);
-
-
-
-
-
-
-
-
-        return 1;
-    }
-    // hàm này để Nhân viên thêm tiền cho User
-    async staffRecharge(staffID, currencyUnit, amount) {
-
-        let money = amount;
-
-        if (currencyUnit == "VND") {
-            const rate = await ExchangeRate.findOne({
-                where: {
-                    displayName: 'VND',
-                }
-            })
-
-            if (rate) {
-                money = Number(money) * Number(rate.rate);
-            }
-            else {
-                money = Number(money) * Number(1 / 23000)
-            }
-        }
-
-        this.balance = Number(this.balance) + Number(money);
-        this.save();
-        Notification.addNotifyForStaffRecharge(staffID, this.userID).then(value => {
-            const msg = `Nhân viên ${staffID} đã nạp tiền cho ${this.userID} số tiền ${amount}`;
-            StaffActivity.addStaffActivity(staffID, msg);
-
-            const tfMsg = `Nhân viên đã nạp tiền vào tài khoản của bạn số tiền ${amount}`;
-            Transfer.staffAddNew(staffID, this.userID, this.STK, amount, tfMsg, currencyUnit);
-            return true;
-        })
-
-        return null;
-
+      if (rate) {
+        money = Number(money) * Number(rate.rate);
+      } else {
+        money = Number(money) * Number(1 / 23000);
+      }
     }
 
-    static async setActive(id, num) {
-        const found = await this.findByPk(id);
+    this.balance = Number(this.balance) + Number(money);
+    this.save();
+    Notification.addNotifyForStaffRecharge(staffID, this.userID).then(
+      (value) => {
+        const msg = `Nhân viên ${staffID} đã nạp tiền cho ${this.userID} số tiền ${amount}`;
+        StaffActivity.addStaffActivity(staffID, msg);
 
-        if (found) {
-            found.isActive = num;
-            found.save();
-        }
+        const tfMsg = `Nhân viên đã nạp tiền vào tài khoản của bạn số tiền ${amount}`;
+        Transfer.staffAddNew(
+          staffID,
+          this.userID,
+          this.STK,
+          amount,
+          tfMsg,
+          currencyUnit
+        );
+        return true;
+      }
+    );
+
+    return null;
+  }
+
+  static async setActive(id, num) {
+    const found = await this.findByPk(id);
+
+    if (found) {
+      found.isActive = num;
+      found.save();
     }
+  }
 
-    // hàm này để set tài khoản giao dịch mặc định
-    static async setDefault(userID, STK, bankCode) {
-        return this.findOne({
-            where: {
-                STK: STK,
-                userID: userID,
-                bankCode: bankCode,
-                isDefault: true,
-            }
-        })
-
-
-    }
-
-
-
+  // hàm này để set tài khoản giao dịch mặc định
+  static async setDefault(userID, STK, bankCode) {
+    return this.findOne({
+      where: {
+        STK: STK,
+        userID: userID,
+        bankCode: bankCode,
+        isDefault: true,
+      },
+    });
+  }
 }
 
-AccountInfo.init({
+AccountInfo.init(
+  {
     //attributes
     STK: {
-        //so tai khoan
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
+      //so tai khoan
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true,
     },
     // chủ sở hữu
     displayName: {
-        type: Sequelize.STRING,
+      type: Sequelize.STRING,
     },
     userID: {
-        type: Sequelize.INTEGER,
+      type: Sequelize.INTEGER,
     },
     balance: {
-        //so du tai khoan
-        type: Sequelize.DECIMAL,
-        defaultValue: 0,
+      //so du tai khoan
+      type: Sequelize.DECIMAL,
+      defaultValue: 0,
     },
     currencyUnit: {
-        // loai tien te : USD / VND
-        type: Sequelize.STRING,
-        defaultValue: 'USD'
+      // loai tien te : USD / VND
+      type: Sequelize.STRING,
+      defaultValue: "USD",
     },
     beginDate: {
-        //ngay mo the
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
+      //ngay mo the
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW,
     },
     isActive: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
     },
     // ma ngan hang ARG: agribank / TECHCOMBANK: Techombank
     bankCode: {
-        type: Sequelize.STRING,
-        defaultValue: 'ARG'
+      type: Sequelize.STRING,
+      defaultValue: "ARG",
     },
     limit: {
-        type: Sequelize.DECIMAL,
-        defaultValue: 5000,
+      type: Sequelize.DECIMAL,
+      defaultValue: 5000,
     },
     isDefault: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-    }
-
-}, {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+    },
+  },
+  {
     sequelize: db,
-    modelName: 'accountinfor'
-})
+    modelName: "accountinfor",
+  }
+);
 
 // User.hasOne(AccountInfo, { foreignKey: 'userID', sourceKey: 'id' });
 // Bank.hasOne(AccountInfo, { foreignKey: 'bankCode', sourceKey: 'bankCode' })
 
-
-
-
 module.exports = AccountInfo;
-
