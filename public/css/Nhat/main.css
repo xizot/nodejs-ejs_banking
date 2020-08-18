@@ -453,7 +453,7 @@ header .container .header__content {
 
 header .container .header__content #logo a {
   font-weight: bolder;
-  color: #FFF;
+  color: #fff;
 }
 
 header .container .header__content .left {
@@ -487,12 +487,26 @@ header .container .header__content .left ul > li .drop-down {
   -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(0, 0, 0, 0.2);
           box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(0, 0, 0, 0.2);
   z-index: 9999;
-  -webkit-transition: all .4s;
-  transition: all .4s;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+header .container .header__content .left ul > li .drop-down::-webkit-scrollbar {
+  width: 4px;
+}
+
+header .container .header__content .left ul > li .drop-down::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+header .container .header__content .left ul > li .drop-down::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
 }
 
 header .container .header__content .left ul > li .drop-down:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 50%;
@@ -533,7 +547,7 @@ header .container .header__content .left ul > li .number-noti {
   top: 6px;
   right: 3px;
   border-radius: 50px;
-  background-color: #DF0A15;
+  background-color: #df0a15;
   width: 16px;
   height: 16px;
   line-height: 16px;
@@ -544,8 +558,8 @@ header .container .header__content .left ul > li .number-noti {
 }
 
 header .container .header__content .left ul > li:hover {
-  -webkit-transition: all .4s;
-  transition: all .4s;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
 }
 
 header .container .header__content .left ul > li:hover > .drop-down {
@@ -597,12 +611,12 @@ header .container .header__content .left a button {
 header .container .header__content .left .username .btn {
   color: white !important;
   background: linear-gradient(145deg, #29ab56, #30cb67);
-  -webkit-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
 
 header .container .header__content .btn-sign-in {
-  color: #FFF;
+  color: #fff;
   background-color: black;
 }
 
@@ -639,8 +653,8 @@ header .container .header__content .btn-sign-up {
 header .menu-res .username .btn {
   color: white;
   background: linear-gradient(145deg, #29ab56, #30cb67);
-  -webkit-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
 
 header .menu-res .fa-bars {
@@ -696,11 +710,13 @@ header .bars-content .bars-nav a .btn:hover {
   color: #2dbe60 !important;
 }
 
-header .bars-content .bars-actions .username, header .bars-content .bars-actions .sign-in__sign-up {
+header .bars-content .bars-actions .username,
+header .bars-content .bars-actions .sign-in__sign-up {
   display: block !important;
 }
 
-header .bars-content .bars-actions .username .btn, header .bars-content .bars-actions .sign-in__sign-up .btn {
+header .bars-content .bars-actions .username .btn,
+header .bars-content .bars-actions .sign-in__sign-up .btn {
   display: block !important;
 }
 
@@ -792,8 +808,8 @@ header .bars {
           animation-fill-mode: forwards;
   -webkit-animation-timing-function: ease-in-out;
           animation-timing-function: ease-in-out;
-  -webkit-animation-duration: .6s;
-          animation-duration: .6s;
+  -webkit-animation-duration: 0.6s;
+          animation-duration: 0.6s;
 }
 
 header .bars-actions .sign-in__sign-up {
@@ -1094,8 +1110,8 @@ header .bars-actions .sign-in__sign-up .btn {
 }
 
 .section-3 .section-content .section-content-item .gutter:hover {
-  -webkit-transition: all .4s;
-  transition: all .4s;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
   -webkit-box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1), -2px -2px 10px rgba(0, 0, 0, 0.1);
           box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1), -2px -2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -4602,6 +4618,20 @@ header .container .header__content .left ul > li .drop-down > li {
   padding: 0 15px;
 }
 
+body::-webkit-scrollbar {
+  width: 0.75rem;
+}
+
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
 .loading {
   position: fixed;
   left: 0px;
@@ -4634,7 +4664,7 @@ header .container .header__content .left ul > li .drop-down > li {
 }
 
 .loading-content:before, .loading-content::after {
-  content: '';
+  content: "";
   width: 200px;
   height: 200px;
   position: absolute;
