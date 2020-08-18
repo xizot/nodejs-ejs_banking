@@ -1,6 +1,5 @@
-
 const showTransactionDetail = (amount, fee, total, from, to, message, date) => {
-    $(`
+  $(`
     <div class="transaction-details">
     <div class="transaction-details__content row">
         <div class="col-sm-4">
@@ -48,34 +47,25 @@ const showTransactionDetail = (amount, fee, total, from, to, message, date) => {
         </div>
     </div>
 </div>
-    `).appendTo('.dashboard');
-}
+    `).appendTo(".dashboard");
+};
 
-const fetchData = url=>{
-    const filterFrom = $("#filter-from").val();
-    const filterTo = $("#filter-to").val();
-
-    console.log(filterFrom);
-    console.log(filterTo);
-    
-    // $.get("url", function (data, textStatus, jqXHR) {
-    //         console.log(data);
-            
-    //     },
-    // );
-}
+const fetchData = (url) => {
+  const filterFrom = $("#filter-from").val();
+  const filterTo = $("#filter-to").val();
+};
 
 $(function () {
-    fetchData("123");
+  fetchData("123");
 });
 
-$(document).on('click', '.close-transactiondt', function (e) {
-    $('.transaction-details').fadeOut(500);
+$(document).on("click", ".close-transactiondt", function (e) {
+  $(".transaction-details").fadeOut(500);
 });
-$(document).on('click', '.transaction-details', function (e) {
-    $('.transaction-details').fadeOut(500);
+$(document).on("click", ".transaction-details", function (e) {
+  $(".transaction-details").fadeOut(500);
 });
 
-$(document).on('click', '.transaction-details__content', function (e) {
-    e.stopPropagation();
+$(document).on("click", ".transaction-details__content", function (e) {
+  e.stopPropagation();
 });

@@ -127,7 +127,7 @@
     } else {
       $.post(
         "/api/update-client",
-        { displayName, email, phoneNumber, userID, address, password },
+        { displayName, email, phoneNumber, userID, address, password, dob },
         function (data, textStatus, jqXHR) {
           if (data) {
             alert("Cập nhật thành công");
@@ -138,14 +138,6 @@
         }
       );
     }
-    console.log(displayName);
-    console.log(userID);
-    console.log(email);
-    console.log(phoneNumber);
-    console.log(dob);
-    console.log(address);
-    console.log(password);
-    console.log(rePassword);
   }
 
   $(function () {

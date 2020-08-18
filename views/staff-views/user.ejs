@@ -1,144 +1,187 @@
 <%- include('./../staff-structure/header')%>
 <div class="user">
-    <div class="navs-bar">
-        <div>
-            <a href="/">Home / </a>
-            <span>
-                User
-            </span>
-        </div>
+  <div class="navs-bar">
+    <div>
+      <a href="/">Home / </a>
+      <span>
+        User
+      </span>
     </div>
-    <div class="user-content">
-        <h3 class="title"
-            style="text-align: left;border-bottom: 1px solid #ddd;padding-bottom: 20px;margin-bottom: 20px;">
-            USER
-        </h3>
-        <div class="user-search flex a-center j-end" style="margin-bottom: 20px;">
-            <input type="search" name="" id="txtSearchUser"
-                style="height: 35px;padding: 0 15px;border: 1px solid #868e96;outline: none;">
-            <button
-                style="height: 35px;padding: 0 10px;background-color:#868e96;color: white;border: none;outline: none;cursor: pointer;"
-                class="btn-search-user">Search</button>
-        </div>
-        <div class="table">
-
-            <div class="table-header row a-center ">
-                <div class="col-xs-1 t-center">NO</div>
-                <div class=" col-xs-2 t-center">USER ID</div>
-                <div class=" col-xs-3">USERNAME</div>
-                <div class=" col-xs-4">FULL NAME</div>
-                <div class=" col-xs-2 t-center">VERIFY</div>
-            </div>
-            <div class="table-gutter">
-
-            </div>
-        </div>
-        <div class="pagination " style="bottom: 13px;">
-            <ul class="flex j-center a-center pag-list">
-                <li class="pag-num active">1</li>
-                <li class="pag-num ">2</li>
-            </ul>
-        </div>
+  </div>
+  <div class="user-content">
+    <h3
+      class="title"
+      style="
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+      "
+    >
+      USER
+    </h3>
+    <div class="user-search flex a-center j-end" style="margin-bottom: 20px;">
+      <input
+        type="search"
+        name=""
+        id="txtSearchUser"
+        style="
+          height: 35px;
+          padding: 0 15px;
+          border: 1px solid #868e96;
+          outline: none;
+        "
+      />
+      <button
+        style="
+          height: 35px;
+          padding: 0 10px;
+          background-color: #868e96;
+          color: white;
+          border: none;
+          outline: none;
+          cursor: pointer;
+        "
+        class="btn-search-user"
+      >
+        Search
+      </button>
     </div>
+    <div class="table">
+      <div class="table-header row a-center">
+        <div class="col-xs-1 t-center">NO</div>
+        <div class="col-xs-1 t-center">USER ID</div>
+        <div class="col-xs-3" style="padding: 0 0 0 35px;">USERNAME</div>
+        <div class="col-xs-3" style="padding: 0;">FULL NAME</div>
+        <div class="col-xs-3" style="padding: 0;">EMAIL</div>
+        <div class="col-xs-1 t-center">VERIFY</div>
+      </div>
+      <div class="table-gutter"></div>
+    </div>
+    <div class="pagination" style="bottom: 13px;">
+      <ul class="flex j-center a-center pag-list">
+        <li class="pag-num active">1</li>
+        <li class="pag-num">2</li>
+      </ul>
+    </div>
+  </div>
 </div>
 <%- include('./../staff-structure/footer')%>
 <script>
-    $(function () {
+  $(function () {
+    function getData() {
+      $.get("/api/get-client", function (data, textStatus, jqXHR) {
+        $(".table-gutter").empty();
+        $(".pag-list").empty();
 
-        function getData() {
-            $.get("/api/get-client",
-                function (data, textStatus, jqXHR) {
-                    $('.table-gutter').empty();
-                    $('.pag-list').empty()
-
-                    if (data && data.length > 0) {
-                        data.map((item, index) => {
-                            $(`
+        if (data && data.length > 0) {
+          data.map((item, index) => {
+            $(`
                         <div class="table-item row  a-center">
                     <div class=" col-xs-1 t-center">${index + 1}</div>
-                    <div class=" col-xs-2 t-center"><a href="./user?id=${item.id}">${item.id}</a></div>
-                    <div class=" col-xs-3 ">${item.username}</div>
-                    <div class=" col-xs-4">${item.displayName}</div>
-                    <div class=" col-xs-2 t-center">${item.isActive == 1 ? 'Yes' : 'No'}</div>
+                    <div class=" col-xs-1 t-center"><a href="./user?id=${
+                      item.id
+                    }">${item.id}</a></div>
+                    <div class=" col-xs-3 " style="padding: 0 0 0 35px;">${
+                      item.username
+                    }</div>
+                    <div class=" col-xs-3">${item.displayName}</div>
+                    <div class=" col-xs-3">${
+                      item.email ? item.email : "Not Update"
+                    }</div>
+                    <div class=" col-xs-1 t-center">${
+                      item.isActive == 1 ? "Yes" : "No"
+                    }</div>
                         </div>
-                        `).appendTo('.table-gutter');
-                        })
-
-                    }
-                },
-            );
-            $.get("/api/count-client",
-                function (data, textStatus, jqXHR) {
-                    console.log(data);
-                    $('.pag-list').empty();
-                    if (data) {
-                        for (let i = 0; i < data; i++) {
-                            $(` <li class="pag-num ${i == 0 ? " active" : ""}" value="${i + 1}">
-                            ${i + 1}
-                            </li>`).appendTo('.pag-list')
-                        }
-                    }
-                },
-            );
+                        `).appendTo(".table-gutter");
+          });
         }
-        getData();
-        $('.btn-search-user').click(function (e) {
-            if ($('#txtSearchUser').val().length > 0) {
-                $.post("/api/search-client", { st: $('#txtSearchUser').val() },
-                    function (data, textStatus, jqXHR) {
-                        $('.table-gutter').empty();
-                        $('.pag-list').empty()
+      });
+      $.get("/api/count-client", function (data, textStatus, jqXHR) {
+        $(".pag-list").empty();
+        if (data) {
+          for (let i = 0; i < data; i++) {
+            $(` <li class="pag-num ${i == 0 ? " active" : ""}" value="${i + 1}">
+                            ${i + 1}
+                            </li>`).appendTo(".pag-list");
+          }
+        }
+      });
+    }
+    getData();
+    $(".btn-search-user").click(function (e) {
+      if ($("#txtSearchUser").val().length > 0) {
+        $.post(
+          "/api/search-client",
+          { st: $("#txtSearchUser").val() },
+          function (data, textStatus, jqXHR) {
+            $(".table-gutter").empty();
+            $(".pag-list").empty();
 
-                        if (data && data.length > 0) {
-                            data.map((item, index) => {
-                                $(`
-                           <div class="table-item row  a-center">
-                       <div class=" col-xs-1 t-center">${index}</div>
-                       <div class=" col-xs-2 t-center"><a href="./user?id=${item.id}">${item.id}</a></div>
-                       <div class=" col-xs-7">${item.displayName}</div>
-                       <div class=" col-xs-2 t-center">${item.isActive == 1 ? 'Yes' : 'No'}</div>
-                           </div>
-                           `).appendTo('.table-gutter');
-                            })
-
-                        }
-                    },
-                );
-            }
-            else {
-                getData();
-            }
-        })
-
-        $('#txtSearchUser').change(function () {
-            if ($(this).val().length == 0) {
-                getData();
-            }
-        })
-
-        $(document).on('click', '.pag-num', function (e) {
-            $('.pag-num').removeClass('active');
-            $(this).addClass('active');
-            const numpage = $(this).attr('value')
-            $.get("/api/get-client?page=" + numpage,
-                function (data, textStatus, jqXHR) {
-                    $('.table-gutter').empty();
-                    if (data && data.length > 0) {
-                        data.map((item, index) => {
-                            $(`
+            if (data && data.length > 0) {
+              data.map((item, index) => {
+                $(`
                         <div class="table-item row  a-center">
-                    <div class=" col-xs-1 t-center">${(index + 1) + ((numpage - 1) * 6)}</div>
-                    <div class=" col-xs-2 t-center"><a href="./user?id=${item.id}">${item.id}</a></div>
-                    <div class=" col-xs-7">${item.displayName}</div>
-                    <div class=" col-xs-2 t-center">${item.isActive == 1 ? 'Yes' : 'No'}</div>
+                    <div class=" col-xs-1 t-center">${index + 1}</div>
+                    <div class=" col-xs-1 t-center"><a href="./user?id=${
+                      item.id
+                    }">${item.id}</a></div>
+                    <div class=" col-xs-3" style="padding: 0 0 0 35px;">${
+                      item.username
+                    }</div>
+                    <div class=" col-xs-3">${item.displayName}</div>
+                    <div class=" col-xs-3">${
+                      item.email ? item.email : "Not Update"
+                    }</div>
+                    <div class=" col-xs-1 t-center">${
+                      item.isActive == 1 ? "Yes" : "No"
+                    }</div>
                         </div>
-                        `).appendTo('.table-gutter');
-                        })
-
-                    }
-                },
-            );
-        })
-
+                        `).appendTo(".table-gutter");
+              });
+            }
+          }
+        );
+      } else {
+        getData();
+      }
     });
+
+    $("#txtSearchUser").change(function () {
+      if ($(this).val().length == 0) {
+        getData();
+      }
+    });
+
+    $(document).on("click", ".pag-num", function (e) {
+      $(".pag-num").removeClass("active");
+      $(this).addClass("active");
+      const numpage = $(this).attr("value");
+      $.get("/api/get-client?page=" + numpage, function (
+        data,
+        textStatus,
+        jqXHR
+      ) {
+        $(".table-gutter").empty();
+        if (data && data.length > 0) {
+          data.map((item, index) => {
+            $(`
+                        <div class="table-item row  a-center">
+                    <div class=" col-xs-1 t-center">${
+                      index + 1 + (numpage - 1) * 6
+                    }</div>
+                    <div class=" col-xs-2 t-center"><a href="./user?id=${
+                      item.id
+                    }">${item.id}</a></div>
+                    <div class=" col-xs-7">${item.displayName}</div>
+                    <div class=" col-xs-2 t-center">${
+                      item.isActive == 1 ? "Yes" : "No"
+                    }</div>
+                        </div>
+                        `).appendTo(".table-gutter");
+          });
+        }
+      });
+    });
+  });
 </script>
