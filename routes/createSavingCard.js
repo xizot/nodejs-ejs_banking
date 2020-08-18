@@ -1,7 +1,5 @@
 const router = require("express").Router();
 const io = require("socket.io-client");
-let socket;
-socket = io("https://dack-17ck1.herokuapp.com");
 
 router.get("/", async (req, res) => {
   if (!req.currentUser) return res.redirect("/login");
@@ -15,7 +13,6 @@ router.get("/", async (req, res) => {
 
   const id = req.currentUser.id || null;
   if (!id) return res.end("error");
-  socket.emit("add-new-noti", "me");
   return res.render("saving");
 });
 

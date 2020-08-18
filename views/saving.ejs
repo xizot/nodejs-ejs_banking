@@ -281,6 +281,7 @@
         <script src="/socket.io/socket.io.js"></script>
         <script>
             $(function () {
+                var socket = io("https://dack-17ck1.herokuapp.com")
                 $.post("/api/get-list-account",
                     function (data, textStatus, jqXHR) {
                         $('#from-account').empty();
@@ -316,12 +317,14 @@
                                     return
                                 }
                                 if (data == 3) {
-                                    alert('Bạn đã yêu cầu trước đó. Vui lòng đợi nhanh viên xử lí')
+                                    alert('Bạn đã yêu cầu trước đó. Vui lòng đợi nhân viên xử lí')
                                     $(location).attr('href', '/')
                                     return
                                 }
                             }
                             if (data == 0) {
+                                socket.emit('add-new-noti', 'me');
+                                socket.emit('transfer', {nice:'nice'})
                                 alert('Đã gửi yêu cầu cho nhân viên')
                                 $(location).attr('href', '/')
                                 return;
