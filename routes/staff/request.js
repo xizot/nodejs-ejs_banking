@@ -161,7 +161,6 @@ router.get("/eject-request/:id", async (req, res) => {
         },
       }
     );
-    socket.emit("transfer", "me");
   }
   if (found2.type == 2) {
     msg = `Từ chối mở tài khoản ngân hàng cho id ${found2.userID}`;
@@ -169,6 +168,7 @@ router.get("/eject-request/:id", async (req, res) => {
   if (found2.type == 3) {
     msg = `Từ chối mở tài khoản tiết kiệm cho id ${found2.userID}`;
     const rs = await ejectSavingAccount(found2.userID);
+    socket.emit("transfer", "me");
   }
   if (found2.type == 4) {
     msg = `Từ chối khóa tài khoản id ${found2.userID}`;
