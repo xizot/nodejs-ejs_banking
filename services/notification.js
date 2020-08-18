@@ -64,7 +64,7 @@ class Notification extends Model {
           },
         ],
       },
-      order: [["createdAt", "ASC"]],
+      order: [["id", "DESC"]],
     });
   }
 
