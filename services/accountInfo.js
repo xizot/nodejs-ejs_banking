@@ -112,7 +112,8 @@ class AccountInfo extends Model {
     }
   }
 
-  static async addMoneyForSTK(STK, userID, money) {
+  static async addMoneyForSTK(STK, userID, money, msg) {
+    let newmsg = msg ? msg : "Withdraw";
     const found = await AccountInfo.findOne({
       where: {
         STK,
@@ -126,7 +127,7 @@ class AccountInfo extends Model {
       "saving account",
       STK,
       money,
-      "withdraw",
+      newmsg,
       "USD",
       "ARG"
     );

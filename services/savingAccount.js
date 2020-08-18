@@ -142,7 +142,8 @@ class SavingAccount extends Model {
     const rs = await AccountInfo.addMoneyForSTK(
       found.fromSTK,
       userID,
-      found.balance
+      found.balance,
+      "Hoàn trả tiền tiết kiệm"
     );
     if (!rs) return null;
 

@@ -281,7 +281,57 @@
     });
 
     // item.type != 1 ?
+
+    var socket = io("https://dack-17ck1.herokuapp.com");
+    socket.on("update-noti", (data) => {
+      if (data) {
+        $.get("/api/get-request", function (data, textStatus, jqXHR) {
+          $(".table-gutter").empty();
+          if (data && data.length > 0) {
+            data.map((item, index) => {
+              $(`
+                        <div class="table-item row  a-center">
+                    <div class=" col-xs-1 t-center">${index + 1}</div>
+                    <div class=" col-xs-2 t-center"><label style="color:#1999ff; cursor:pointer" onclick=${
+                      item.type != 1
+                        ? "showPopup(" + item.id + ")"
+                        : "showPopUpVerify(" + item.userID + "," + item.id + ")"
+                    }>${item.userID}</label></div>
+                    <div class=" col-xs-7">${
+                      item.type == 1
+                        ? "Xác thực tài khoản"
+                        : item.type == 2
+                        ? "Tạo tài khoản ngân hàng"
+                        : item.type == 3
+                        ? "Tạo tài khoản tiết kiệm"
+                        : "Khóa tài khoản"
+                    }</div>
+                    <div class=" col-xs-2 t-center">${item.date
+                      .toString()
+                      .slice(0, 10)}</div>
+                        </div>
+                        `).appendTo(".table-gutter");
+            });
+          }
+
+          $.get("/api/count-request", function (data, textStatus, jqXHR) {
+            $(".pag-list").empty();
+            if (data) {
+              for (let i = 0; i < data; i++) {
+                $(` <li class="pag-num ${i == 0 ? " active" : ""}" value="${
+                  i + 1
+                }">
+                            ${i + 1}
+                            </li>`).appendTo(".pag-list");
+              }
+            }
+          });
+        });
+      }
+    });
+
     $.get("/api/get-request", function (data, textStatus, jqXHR) {
+      $(".table-gutter").empty();
       if (data && data.length > 0) {
         data.map((item, index) => {
           $(`
@@ -307,16 +357,18 @@
                         </div>
                         `).appendTo(".table-gutter");
         });
-      }
-    });
-    $.get("/api/count-request", function (data, textStatus, jqXHR) {
-      $(".pag-list").empty();
-      if (data) {
-        for (let i = 0; i < data; i++) {
-          $(` <li class="pag-num ${i == 0 ? " active" : ""}" value="${i + 1}">
+        $.get("/api/count-request", function (data, textStatus, jqXHR) {
+          $(".pag-list").empty();
+          if (data) {
+            for (let i = 0; i < data; i++) {
+              $(` <li class="pag-num ${i == 0 ? " active" : ""}" value="${
+                i + 1
+              }">
                             ${i + 1}
                             </li>`).appendTo(".pag-list");
-        }
+            }
+          }
+        });
       }
     });
 
