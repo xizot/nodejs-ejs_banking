@@ -1,177 +1,183 @@
 <%- include('./../staff-structure/header')%>
 <div class="user">
-    <div class="navs-bar">
-        <div>
-            <a href="/">Home / </a>
-            <span>
-                User
-            </span>
-        </div>
+  <div class="navs-bar">
+    <div>
+      <a href="/">Home / </a>
+      <span>
+        User
+      </span>
     </div>
-    <div class="user-content user-item-content">
-        <h3 class="title" style="text-align: left;border-bottom: 1px solid #ddd;padding-bottom: 20px;">USER
-        </h3>
-        <div class="table user-item-edit">
-            <div class="table-gutter">
-                <div class="table-gutter-item row" style="margin: 0;">
-                    <div class="col-xs-6">
-                        <div class="gt">
-                            <label for="">User ID: <span class="red">*</span></label>
-                            <input type="text" disabled id="userID">
-                        </div>
-                    </div>
-                    <div class="col-xs-6">
-                        <div class="gt">
-                            <label for="">Full name: <span class="red">*</span></label>
-                            <input type="text" id="fullName">
-                        </div>
-                    </div>
-                </div>
-                <div class="table-gutter-item row" style="margin: 0;">
-                    <div class="col-xs-6">
-                        <div class="gt">
-                            <label for="">Phone number: <span class="red">*</span></label>
-                            <input type="text" id="phoneNumber">
-                        </div>
-                    </div>
-                    <div class="col-xs-6">
-                        <div class="gt">
-                            <label for="">Email: <span class="red">*</span></label>
-                            <input type="email" id="email">
-                        </div>
-                    </div>
-                </div>
-                <div class="table-gutter-item row" style="margin: 0;">
-                    <div class="col-xs-6">
-                        <div class="gt">
-                            <label for="">Date Of Birth: <span class="red">*</span></label>
-                            <input type="date" id="dob">
-                        </div>
-                    </div>
-                    <div class="col-xs-6">
-                        <div class="gt">
-                            <label for="">Address Number:</label>
-                            <input type="text" id="address">
-                        </div>
-                    </div>
-                </div>
-                <div class="table-gutter-item row" style="margin: 0;">
-                    <div class="col-xs-6">
-                        <div class="gt">
-                            <label for="">Password: <span class="red">*</span></label>
-                            <input type="password" id="newPassword" autocomplete="off">
-                        </div>
-                    </div>
-                    <div class="col-xs-6">
-                        <div class="gt">
-                            <label for="">Re-Password: <span class="red">*</span></label>
-                            <input type="password" id="rePassword" autocomplete="off">
-                        </div>
-                    </div>
-                </div>
-                <div class="table-gutter-item row j-end user-edit-btm" style="padding: 0 20px;">
-
-                </div>
+  </div>
+  <div class="user-content user-item-content">
+    <h3
+      class="title"
+      style="
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 20px;
+      "
+    >
+      USER
+    </h3>
+    <div class="table user-item-edit">
+      <div class="table-gutter">
+        <div class="table-gutter-item row" style="margin: 0;">
+          <div class="col-xs-6">
+            <div class="gt">
+              <label for="">User ID: <span class="red">*</span></label>
+              <input type="text" disabled id="userID" />
             </div>
-
+          </div>
+          <div class="col-xs-6">
+            <div class="gt">
+              <label for="">Full name: <span class="red">*</span></label>
+              <input type="text" id="fullName" />
+            </div>
+          </div>
         </div>
+        <div class="table-gutter-item row" style="margin: 0;">
+          <div class="col-xs-6">
+            <div class="gt">
+              <label for="">Phone number: <span class="red">*</span></label>
+              <input type="text" id="phoneNumber" />
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="gt">
+              <label for="">Email: <span class="red">*</span></label>
+              <input type="email" id="email" />
+            </div>
+          </div>
+        </div>
+        <div class="table-gutter-item row" style="margin: 0;">
+          <div class="col-xs-6">
+            <div class="gt">
+              <label for="">Date Of Birth: <span class="red">*</span></label>
+              <input type="date" id="dob" />
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="gt">
+              <label for="">Address Number:</label>
+              <input type="text" id="address" />
+            </div>
+          </div>
+        </div>
+        <div class="table-gutter-item row" style="margin: 0;">
+          <div class="col-xs-6">
+            <div class="gt">
+              <label for="">Password: <span class="red">*</span></label>
+              <input type="password" id="newPassword" autocomplete="off" />
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="gt">
+              <label for="">Re-Password: <span class="red">*</span></label>
+              <input type="password" id="rePassword" autocomplete="off" />
+            </div>
+          </div>
+        </div>
+        <div
+          class="table-gutter-item row j-end user-edit-btm"
+          style="padding: 0 20px;"
+        ></div>
+      </div>
     </div>
+  </div>
 </div>
 <%- include('./../staff-structure/footer')%>
 
 <script>
-    function cancel() {
-        $(location).attr('href', '/user');
+  function cancel() {
+    $(location).attr("href", "/user");
+  }
+
+  function save(id) {
+    const displayName = $("#fullName").val();
+    const userID = id;
+    const email = $("#email").val();
+    const phoneNumber = $("#phoneNumber").val();
+    const dob = new Date($("#dob").val())
+      .toISOString()
+      .slice(0, 10)
+      .split("-")
+      .join("/");
+    const address = $("#address").val();
+    const password = $("#newPassword").val();
+    const rePassword = $("#rePassword").val();
+
+    if (!displayName || displayName.length <= 0) {
+      alert("Vui lòng nhập tên");
+      $("#fullname").focus();
+    } else if (!email || email.length <= 0) {
+      alert("Vui lòng nhập email");
+      $("#email").focus();
+    } else if (!phoneNumber || phoneNumber.length <= 0) {
+      alert("Vui lòng nhập số điện thoại");
+      $("#phoneNumber").focus();
+    } else if (!dob || dob.length <= 0) {
+      alert("Vui lòng chọn ngày sinh");
+      $("#dob").focus();
+    } else if (!address || address.length <= 0) {
+      alert("Vui lòng nhập địa chỉ");
+      $("#address").focus();
+    } else if (password.length > 0 && rePassword != password) {
+      alert("Mật khẩu xác thực không trùng khớp");
+      $("#rePassword").focus();
+    } else {
+      $.post(
+        "/api/update-client",
+        { displayName, email, phoneNumber, userID, address, password },
+        function (data, textStatus, jqXHR) {
+          if (data) {
+            alert("Cập nhật thành công");
+          } else {
+            alert("Đã xảy ra lỗi");
+            $(location).attr("href", "/user?id=2&edit=true");
+          }
+        }
+      );
     }
+    console.log(displayName);
+    console.log(userID);
+    console.log(email);
+    console.log(phoneNumber);
+    console.log(dob);
+    console.log(address);
+    console.log(password);
+    console.log(rePassword);
+  }
 
-    function save(id) {
-        const displayName = $('#fullName').val();
-        const userID = id;
-        const email = $('#email').val();
-        const phoneNumber = $('#phoneNumber').val();
-        const dob = $('#dob').val();
-        const address = $('#address').val();
-        const password = $('#newPassword').val();
-        const rePassword = $('#rePassword').val();
+  $(function () {
+    const addValue = (txt, sel) => {
+      $(sel).val(txt);
+    };
 
-        if (!displayName || displayName.length <= 0) {
-            alert('Vui lòng nhập tên');
-            $('#fullname').focus();
-        }
-        else if (!email || email.length <= 0) {
-            alert('Vui lòng nhập email');
-            $('#email').focus();
-        }
-        else if (!phoneNumber || phoneNumber.length <= 0) {
-            alert('Vui lòng nhập số điện thoại');
-            $('#phoneNumber').focus();
-        }
-        else if (!dob || dob.length <= 0) {
-            alert('Vui lòng chojn ngày sinh');
-            $('#dob').focus();
-        }
-        else if (!address || address.length <= 0) {
-            alert('Vui lòng nhập địa chỉ');
-            $('#address').focus();
-        }
-        else if (password.length > 0 && rePassword != password) {
-            alert('Mật khẩu xác thực không trùng khớp');
-            $('#rePassword').focus();
-        }
-
-        else {
-            $.post("/api/update-client", { displayName, email, phoneNumber, userID, address, password },
-                function (data, textStatus, jqXHR) {
-                    if (data) {
-                        alert('Cập nhật thành công');
-
-                    }
-                    else {
-                        alert('Đã xảy ra lỗi');
-                        $(location).attr('href', '/user?id=2&edit=true');
-                    }
-                },
-            );
-        }
-        console.log(displayName);
-        console.log(userID);
-        console.log(email);
-        console.log(phoneNumber);
-        console.log(dob);
-        console.log(address);
-        console.log(password);
-        console.log(rePassword);
-    }
-
-    $(function () {
-
-        const addValue = (txt, sel) => {
-            $(sel).val(txt);
-        }
-
-
-
-        $.get("/api/get-client-info" + location.search,
-            function (data, textStatus, jqXHR) {
-                $('.user-edit-btm').empty()
-                $('#userID').val('')
-                $('#fullName').val('')
-                $('#email').val('')
-                $('#phoneNumber').val('')
-                $('#dob').val('')
-                $('#address').val('')
-                if (data) {
-                    addValue(data.id, '#userID')
-                    addValue(data.displayName, '#fullName')
-                    addValue(data.email, '#email')
-                    addValue(data.phoneNumber, '#phoneNumber')
-                    addValue(new Date(data.dob).toISOString().slice(0, 10), '#dob')
-                    addValue(data.address, '#address')
-                    $(`   <button class="btn btn-user-item" style="background-color: #1999ff;"  onclick="save(${data.id})">Save</button>
+    $.get("/api/get-client-info" + location.search, function (
+      data,
+      textStatus,
+      jqXHR
+    ) {
+      $(".user-edit-btm").empty();
+      $("#userID").val("");
+      $("#fullName").val("");
+      $("#email").val("");
+      $("#phoneNumber").val("");
+      $("#dob").val("");
+      $("#address").val("");
+      if (data) {
+        addValue(data.id, "#userID");
+        addValue(data.displayName, "#fullName");
+        addValue(data.email, "#email");
+        addValue(data.phoneNumber, "#phoneNumber");
+        addValue(new Date(data.dob).toISOString().slice(0, 10), "#dob");
+        addValue(data.address, "#address");
+        $(`   <button class="btn btn-user-item" style="background-color: #1999ff;"  onclick="save(${data.id})">Save</button>
                     <button class="btn btn-user-item" style="background-color: #868e96;margin-left: 10px;"
-                        onclick="cancel()">Cancel</button>`).appendTo(`.user-edit-btm`);
-                }
-            },
+                        onclick="cancel()">Cancel</button>`).appendTo(
+          `.user-edit-btm`
         );
+      }
     });
+  });
 </script>
