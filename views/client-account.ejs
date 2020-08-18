@@ -1,128 +1,76 @@
 <%- include('./header', {title:'Payyed - My Account'})%>
 <div class="my-account" style="height: calc(100vh - 85px);">
-    <div class="my-account__content row">
-        <div class="col-xs-2 option">
-            <ul>
-                <li class="flex">
-                    <i class="far fa-file-alt"></i>
-                    <a href="/my-account">Applications</a>
-                </li>
-                <li class="flex">
-                    <i class="fas fa-layer-group"></i>
-                    <a href="/accounts">Account</a>
-                </li>
-                <li class="flex">
-                    <i class="fas fa-comments-dollar"></i>
-                    <a href="/transfer">Transfer</a>
-                </li>
-                <li class="flex">
-                    <i class="fas fa-history"></i>
-                    <a href="/history">History</a>
-                </li>
-                <li class="flex">
-                    <i class="fas fa-ban"></i>
-                    <a href="/change-limit">Limit Blance</a>
-                </li>
-            </ul>
-            <div class="available">
-                <i class="fas fa-credit-card"></i>
-                <h3 class="money">
-                    <span>$</span> <span class="money-avail">0</span>
-                </h3>
-                <label>Available Balance</label>
-            </div>
-        </div>
-        <div class="col-xs-10 my-account-content">
-            <h3 class="title">
-                Account
-            </h3>
-            <div class="personal-details">
-                <div class="credit">
-                    <h4 class="sub-title">
-                        Credit Cards
-                    </h4>
-
-                    <div class="accounts">
-                        <div class="list-card row list-credit-card">
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="saving">
-                    <h4 class="sub-title">
-                        Saving Cards
-                    </h4>
-
-                    <div class="accounts">
-                        <ul class="list-card row list-saving-card">
-
-                        </ul>
-                    </div>
-                    <div class="withdraw">
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
+  <div class="my-account__content row">
+    <div class="col-xs-2 option">
+      <ul>
+        <li class="flex">
+          <i class="far fa-file-alt"></i>
+          <a href="/my-account">Applications</a>
+        </li>
+        <li class="flex">
+          <i class="fas fa-layer-group"></i>
+          <a href="/accounts">Account</a>
+        </li>
+        <li class="flex">
+          <i class="fas fa-comments-dollar"></i>
+          <a href="/transfer">Transfer</a>
+        </li>
+        <li class="flex">
+          <i class="fas fa-history"></i>
+          <a href="/history">History</a>
+        </li>
+        <li class="flex">
+          <i class="fas fa-ban"></i>
+          <a href="/change-limit">Limit Blance</a>
+        </li>
+      </ul>
+      <div class="available">
+        <i class="fas fa-credit-card"></i>
+        <h3 class="money"><span>$</span> <span class="money-avail">0</span></h3>
+        <label>Available Balance</label>
+      </div>
     </div>
+    <div class="col-xs-10 my-account-content">
+      <h3 class="title">
+        Account
+      </h3>
+      <div class="personal-details">
+        <div class="credit">
+          <h4 class="sub-title">
+            Credit Cards
+          </h4>
+
+          <div class="accounts">
+            <div class="list-card row list-credit-card"></div>
+          </div>
+        </div>
+        <div class="saving">
+          <h4 class="sub-title">
+            Saving Cards
+          </h4>
+
+          <div class="accounts">
+            <ul class="list-card row list-saving-card"></ul>
+          </div>
+          <div class="withdraw"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <%- include ('footer'); %>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/Nhat/myaccount.js"></script>
 <script>
-
-    $(function () {
-
-        $.get("/api/get-account-default",
-            function (data, textStatus, jqXHR) {
-                if (data) {
-                    $('.money-avail').text(data.balance);
-                }
-            },
-        );
-        $.get("api/account/infor",
-            function (data, textStatus, jqXHR) {
-                $('.list-credit-card').empty()
-                if (data.length > 0) {
-                    data.forEach(element => {
-                        $(` <div class="list-card-item col-xs-12 col-md-4">
-                                <div class="card ">
-                                    <div class="flex a-center j-between">
-                                        <div class="title">Pa<span>yy</span>ed</div>
-                                        <p class="money" style="color:rgba(250, 250, 250, 0.8);font-weight: 700">$ ${element.balance}</p>
-                                        </div>
-
-                                    <div class="stk">${element.STK.match(/.{1,4}/g).join(' ')}</div>
-                                    <div class="date flex a-center">
-                                        <div class="tt">
-                                            Valid<br>date :
-                                        </div>
-                                        <div class="sh">
-                                            ${new Date(element.beginDate).toISOString().slice(0, 10)}
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="actions">
-                                    <input type="radio" name="setDefault" id="" ${element.isDefault ? 'checked' : ''} onclick="setDefault(${element.STK}, ${element.userID})">
-                                </div>
-                            </div>`).appendTo('.list-credit-card');
-                    });
-                }
-                if (data.length == 0) {
-                    $(` <a href="/create-credit-card"  class="requestCreditCard" style="margin-top:-50px; color:#30cb67">Yêu cầu tạo tài khoản ngân hàng</a>`).appendTo('.list-credit-card');
-                }
-            },
-        );
-
-        $.get("/api/client-list-account",
-            function (data, textStatus, jqXHR) {
-                $('.list-saving-card').empty()
-                if (data && data.savings.length > 0) {
-                    data.savings.map(item => {
-                        $(`
+  $(function () {
+    var socket = io("https://dack-17ck1.herokuapp.com");
+    socket.on("update-account", (data) => {
+      if (data) {
+        $.get("/api/client-list-account", function (data, textStatus, jqXHR) {
+          $(".list-saving-card").empty();
+          if (data && data.savings.length > 0) {
+            data.savings.map((item) => {
+              $(`
                         <li class="col-xs-12 col-md-4">
                                 <div class="list-saving-card__card-item">
                                     <div class="flex">
@@ -135,56 +83,154 @@
                                     </div>
                                     <div class="flex">
                                         <label for="">Begin:</label>
-                                        <label for="">${item.beginDate.toString().slice(0, 10)}</label>
+                                        <label for="">${item.beginDate
+                                          .toString()
+                                          .slice(0, 10)}</label>
                                     </div>
                                     <div class="flex">
                                         <label for="">Term:</label>
-                                        <label for="">${item.term} months</label>
+                                        <label for="">${
+                                          item.term
+                                        } months</label>
                                     </div>
                                 </div>
                             </li>
-                        `).appendTo('.list-saving-card');
-                    })
+                        `).appendTo(".list-saving-card");
+            });
 
-                    $('.withdraw').empty()
-                    $(`
+            $(".withdraw").empty();
+            $(`
                     <a href="/withdraw">
                             <button class="btn">Withdraw</button>
                         </a>
-                    `).appendTo('.withdraw');
-                }
-                if (data && data.savings.length == 0) {
-                    $(` <a href="/create-saving-card"  class="requestCreditCard" style="margin-top:-50px;color:red">Yêu cầu tạo tài khoản tiết kiệm</a>`).appendTo('.list-saving-card');
-                }
-            },
-
-        );
-
+                    `).appendTo(".withdraw");
+          }
+          if (data && data.savings.length == 0) {
+            $(
+              ` <a href="/create-saving-card"  class="requestCreditCard" style="margin-top:-50px;color:red">Yêu cầu tạo tài khoản tiết kiệm</a>`
+            ).appendTo(".list-saving-card");
+          }
+        });
+      }
     });
-    function setDefault(stk, userID) {
+    $.get("/api/get-account-default", function (data, textStatus, jqXHR) {
+      if (data) {
+        $(".money-avail").text(data.balance);
+      }
+    });
+    $.get("api/account/infor", function (data, textStatus, jqXHR) {
+      $(".list-credit-card").empty();
+      if (data.length > 0) {
+        data.forEach((element) => {
+          $(` <div class="list-card-item col-xs-12 col-md-4">
+                                <div class="card ">
+                                    <div class="flex a-center j-between">
+                                        <div class="title">Pa<span>yy</span>ed</div>
+                                        <p class="money" style="color:rgba(250, 250, 250, 0.8);font-weight: 700">$ ${
+                                          element.balance
+                                        }</p>
+                                        </div>
 
-        $.post("/api/set-default", { stk: stk, userID: userID },
-            function (data, textStatus, jqXHR) {
-                if (data) {
-                    alert('Chuyển tài khoản thanh toán mặc định thành công');
-                    $.get("/api/get-account-default",
-                        function (data, textStatus, jqXHR) {
-                            if (data) {
-                                $('.money-avail').text(data.balance);
-                            }
-                        },
-                    );
-                }
-            },
-        );
+                                    <div class="stk">${element.STK.match(
+                                      /.{1,4}/g
+                                    ).join(" ")}</div>
+                                    <div class="date flex a-center">
+                                        <div class="tt">
+                                            Valid<br>date :
+                                        </div>
+                                        <div class="sh">
+                                            ${new Date(element.beginDate)
+                                              .toISOString()
+                                              .slice(0, 10)}
+                                        </div>
 
-    }
-    $('footer').css('display', 'none');
-    $('.option ul li').click(function (e) {
-        $('.option ul li').removeClass('active')
-        $(this).toggleClass('active');
-    })
+                                    </div>
+                                </div>
+                                <div class="actions">
+                                    <input type="radio" name="setDefault" id="" ${
+                                      element.isDefault ? "checked" : ""
+                                    } onclick="setDefault(${element.STK}, ${
+            element.userID
+          })">
+                                </div>
+                            </div>`).appendTo(".list-credit-card");
+        });
+      }
+      if (data.length == 0) {
+        $(
+          ` <a href="/create-credit-card"  class="requestCreditCard" style="margin-top:-50px; color:#30cb67">Yêu cầu tạo tài khoản ngân hàng</a>`
+        ).appendTo(".list-credit-card");
+      }
+    });
 
-    $('.navigation-bar').css('background-color', 'rgba(45, 190, 96, 0.5)')
-    $('.navigation-bar .btn').css('background-color', 'transparent')
+    $.get("/api/client-list-account", function (data, textStatus, jqXHR) {
+      $(".list-saving-card").empty();
+      if (data && data.savings.length > 0) {
+        data.savings.map((item) => {
+          $(`
+                        <li class="col-xs-12 col-md-4">
+                                <div class="list-saving-card__card-item">
+                                    <div class="flex">
+                                        <label for="">STK:</label>
+                                        <label for="">${item.STK}</label>
+                                    </div>
+                                    <div class="flex">
+                                        <label for="">Balance:</label>
+                                        <label for="">$${item.balance}</label>
+                                    </div>
+                                    <div class="flex">
+                                        <label for="">Begin:</label>
+                                        <label for="">${item.beginDate
+                                          .toString()
+                                          .slice(0, 10)}</label>
+                                    </div>
+                                    <div class="flex">
+                                        <label for="">Term:</label>
+                                        <label for="">${
+                                          item.term
+                                        } months</label>
+                                    </div>
+                                </div>
+                            </li>
+                        `).appendTo(".list-saving-card");
+        });
+
+        $(".withdraw").empty();
+        $(`
+                    <a href="/withdraw">
+                            <button class="btn">Withdraw</button>
+                        </a>
+                    `).appendTo(".withdraw");
+      }
+      if (data && data.savings.length == 0) {
+        $(
+          ` <a href="/create-saving-card"  class="requestCreditCard" style="margin-top:-50px;color:red">Yêu cầu tạo tài khoản tiết kiệm</a>`
+        ).appendTo(".list-saving-card");
+      }
+    });
+  });
+  function setDefault(stk, userID) {
+    $.post("/api/set-default", { stk: stk, userID: userID }, function (
+      data,
+      textStatus,
+      jqXHR
+    ) {
+      if (data) {
+        alert("Chuyển tài khoản thanh toán mặc định thành công");
+        $.get("/api/get-account-default", function (data, textStatus, jqXHR) {
+          if (data) {
+            $(".money-avail").text(data.balance);
+          }
+        });
+      }
+    });
+  }
+  $("footer").css("display", "none");
+  $(".option ul li").click(function (e) {
+    $(".option ul li").removeClass("active");
+    $(this).toggleClass("active");
+  });
+
+  $(".navigation-bar").css("background-color", "rgba(45, 190, 96, 0.5)");
+  $(".navigation-bar .btn").css("background-color", "transparent");
 </script>

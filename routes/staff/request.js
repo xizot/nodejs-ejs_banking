@@ -102,6 +102,7 @@ router.get("/accept-request/:id", async (req, res) => {
         await CreateNewCreditCard(found2.userID, user.displayName);
 
         if (user) {
+          socket.emit("add-new-account", "me");
           sendMail(
             user.email,
             "Tài khoản thanh toán",
@@ -112,6 +113,7 @@ router.get("/accept-request/:id", async (req, res) => {
       }
     }
     if (found2.type == 3) {
+      socket.emit("add-new-account", "me");
       const user = await User.findByPk(found2.userID);
       msg = `Mở tài khoản tiết kiệm cho id ${found2.userID}`;
       await acceptSavingAccount(found2.userID);
