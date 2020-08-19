@@ -4,7 +4,11 @@ const io = require("socket.io-client");
 const StaffActivityLog = require("../../services/staffActivityLog");
 const User = require("../../services/user");
 const Customer = require("../../services/customer");
-const { CreateNewCreditCard, sendMail } = require("./../../services/function");
+const {
+  CreateNewCreditCard,
+  sendMail,
+  getStructure,
+} = require("./../../services/function");
 
 // const Transfer = require('../../services/transfer');
 const UserRequest = require("../../services/userRequest");
@@ -91,7 +95,10 @@ router.get("/accept-request/:id", async (req, res) => {
           user.email,
           "Xác thực tài khoản thành công",
           "Tài khoản của bạn đã được xác thực. Bây giờ bạn có thể chuyển tiền",
-          "Tài khoản của bạn đã được xác thực. Bây giờ bạn có thể chuyển tiền"
+          getStructure(
+            "TÀI KHOẢN",
+            "Tài khoản của bạn đã được xác thực. Bây giờ bạn có thể chuyển tiền"
+          )
         );
       }
     }
@@ -107,7 +114,10 @@ router.get("/accept-request/:id", async (req, res) => {
             user.email,
             "Tài khoản thanh toán",
             "Nhân viên vừa chấp thuận yêu cầu tạo tài khoản thanh toán của bạn",
-            "Nhân viên vừa chấp thuận yêu cầu tạo tài khoản thanh toán của bạn"
+            getStructure(
+              "TÀI KHOẢN THANH TOÁN",
+              "Nhân viên vừa chấp thuận yêu cầu tạo tài khoản thanh toán của bạn"
+            )
           );
         }
       }
@@ -122,7 +132,10 @@ router.get("/accept-request/:id", async (req, res) => {
           user.email,
           "Tài khoản tiết khiệm",
           "Nhân viên vừa chấp thuận yêu cầu tạo tài khoản tiết kiệm của bạn",
-          "Nhân viên vừa chấp thuận yêu cầu tạo tài khoản tiết kiệm của bạn"
+          getStructure(
+            "TÀI KHOẢN TIẾT KIỆM",
+            "Nhân viên vừa chấp thuận yêu cầu tạo tài khoản tiết kiệm của bạn"
+          )
         );
       }
     }

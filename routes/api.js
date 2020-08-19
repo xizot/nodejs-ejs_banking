@@ -7,7 +7,11 @@ const StaffActivityLog = require("../services/staffActivityLog");
 const Notifications = require("../services/notification");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
-const { sendMail, calculatorProfit } = require("../services/function");
+const {
+  sendMail,
+  calculatorProfit,
+  getStructure,
+} = require("../services/function");
 const {
   findInfoOffCustomer,
   findActivityStaff,
