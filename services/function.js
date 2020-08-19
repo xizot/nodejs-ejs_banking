@@ -58,16 +58,23 @@ const sendSMS = (to, text) => {
     });
   }, 0);
 };
+const getStructure = (title, content) => {
+  return `<div><h3 style="color:#333; text-transform:uppercase; text-align:center; font-size:30px; font-family:Tahoma,Arial,Helvetica,sans-serif">${title}<h3>
+      <div style="padding:20px;background-color:#f1f5f6; border-radius:10px;margin:30px;font-family:Tahoma,Arial,Helvetica,sans-serif; font-size:14px;color:#333;min-height:250px">
+          <h3 style="font-size:18px; font-weight:bold;text-align:center;color:#333">${content}</h3>
+        <p style="margin:40px 0 0;text-align:center">Cảm ơn bạn đã tin tưởng,</p>
+        <p style="font-size:18px; margin-top:5px;text-align:center">Pa<span style="color:#29ad57; font-weight:bold">yy</span>ed.</p>
+      </div>`;
+};
 
 const findCustomerInfo = async (id) => {
   var rsUser = null;
-  // thong tin co ban o trong req. het r
+
   const user = await User.findByPk(id); // thong tin ve tai khaon
   const customer = await Customer.findByPk(id); // thong tin ve ca nhan
   const accountInfo = await AccountInfo.findByPk(id); // thong tin tai khoan ngan hang
   const tranferInfo = await Transfer.findByPk(id); // thong tin giao dicch
 
-  //giờ đơn giản muốn lấy cái nào thì gọi thằng đó thôi. ví du //ấy tên
   rsUser = {
     displayName: user.displayName,
     STK: accountInfo.STK,
@@ -79,12 +86,10 @@ const findCustomerInfo = async (id) => {
     message: tranferInfo.message,
     balance: accountInfo.balance,
     LichSuChuyenTien: tranferInfo != null ? 1 : 0, // 0 chưa chuyển lần nào, 1 đã chuyển haowjc nhận ( tồn tại trong db)
-    from: tranferInfo != null ? tranferInfo.from : -1, //-1 là chưa chuyển tiền, lúc show check điểu kiện là sao
+    from: tranferInfo != null ? tranferInfo.from : -1, //-1 là chưa chuyển tiền, lúc show
     to: tranferInfo != null ? tranferInfo.to : -1,
     amount: tranferInfo != null ? tranferInfo.amount : -1,
   };
-
-  // console.log(rsUser);
 
   return rsUser;
 };
@@ -215,4 +220,5 @@ module.exports = {
   StaffRechargeToUser,
   CreateNewCreditCard,
   calculatorProfit,
+  getStructure,
 };

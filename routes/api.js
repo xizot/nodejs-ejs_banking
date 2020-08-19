@@ -255,7 +255,12 @@ router.get("/resend-code-register", async (req, res) => {
   if (!found) return res.json(null);
   found.token = token;
   found.save();
-  sendMail(req.currentUser.email, "Mã kích hoạt", token, token);
+  sendMail(
+    req.currentUser.email,
+    "Mã kích hoạt",
+    token,
+    getStructure("MÃ KÍCH HOẠT", `Mã kích hoạt ${token}`)
+  );
   return res.json(1);
 });
 
@@ -266,7 +271,12 @@ router.get("/resend-code-forgotpassword", async (req, res) => {
   if (!found) return res.json(null);
   found.forgotCode = code;
   found.save();
-  sendMail(req.session.fgEmail, "Quên mật khẩu", code, code);
+  sendMail(
+    req.session.fgEmail,
+    "Quên mật khẩu",
+    code,
+    getStructure("QUÊN MẬT KHẨU", code)
+  );
   return res.json(1);
 });
 // [TRANSFER]
@@ -537,7 +547,12 @@ router.post("/two-step-verification", async (req, res) => {
 
 router.get("/sendcode-verification", async (req, res) => {
   const code = crypto.randomBytes(3).toString("hex").toUpperCase();
-  sendMail(req.currentUser.email, "Mã xác thực chuyển tiền", code, code);
+  sendMail(
+    req.currentUser.email,
+    "Mã xác thực chuyển tiền",
+    code,
+    getStructure("XÁC THỰC CHUYỂN TIỀN", `Mã chuyển tiền: ${code}`)
+  );
   return res.json(code);
 });
 
@@ -632,7 +647,7 @@ router.post("/verify-client", async (req, res) => {
     user.email,
     "Tài khoản đã được xác thực",
     "Nhân viên đã xác thực tài khoản của bạn",
-    "Nhân viên đã xác thực tài khoản của bạn"
+    getStructure("TÀI KHOẢN", "Nhân viên đã xác thực tài khoản của bạn")
   );
   //gui thong bao qua mail cho user
 
@@ -660,7 +675,7 @@ router.post("/block-client", async (req, res) => {
     user.email,
     "Tài khoản đã bị khóa",
     "Nhân viên đã khóa tài khoản của bạn",
-    "Nhân viên đã khóa tài khoản của bạn"
+    getStructure("TÀI KHOẢN", "Nhân viên đã khóa tài khoản của bạn")
   );
   //gui thong bao qua mail cho user
 
@@ -689,7 +704,7 @@ router.post("/unverify-client", async (req, res) => {
     user.email,
     "Tài khoản đã bị hủy xác thực",
     "Nhân viên đã hủy thực tài khoản của bạn",
-    "Nhân viên đã hủy xác thực tài khoản của bạn"
+    getStructure("TÀI KHOẢN", "Nhân viên đã hủy thực tài khoản của bạn")
   );
   //gui thong bao qua mail cho user
 
@@ -717,7 +732,7 @@ router.post("/unblock-client", async (req, res) => {
     user.email,
     "Tài khoản đã được mở khóa",
     "Nhân viên đã mở khóa tài khoản của bạn",
-    "Nhân viên đã mở khóa tài khoản của bạn"
+    getStructure("TÀI KHOẢN", "Nhân viên đã mở khóa tài khoản của bạn")
   );
   //gui thong bao qua mail cho user
 
@@ -744,7 +759,7 @@ router.post("/delete-client", async (req, res) => {
     user.email,
     "Tài khoản đã xóa khỏi hệ thống",
     "Nhân viên đã xóa tài khoản của bạn",
-    "Nhân viên đã xóa tài khoản của bạn"
+    getStructure("TÀI KHOẢN", "Nhân viên đã xóa tài khoản của bạn")
   );
   //gui thong bao qua mail cho user
 
@@ -790,7 +805,7 @@ router.post("/update-client", async (req, res) => {
       email,
       "Tài khoản được nhân viên cập nhật",
       "Nhân viên đã cập nhật tài khoản của bạn",
-      "Nhân viên đã cập nhật tài khoản của bạn"
+      getStructure("TÀI KHOẢN", "Nhân viên đã cập nhật tài khoản của bạn")
     );
     return res.json(rs);
   }
@@ -819,7 +834,7 @@ router.post("/update-client", async (req, res) => {
       email,
       "Tài khoản được nhân viên cập nhật",
       "Nhân viên đã cập nhật tài khoản của bạn",
-      "Nhân viên đã cập nhật tài khoản của bạn"
+      getStructure("TÀI KHOẢN", "Nhân viên đã cập nhật tài khoản của bạn")
     );
     //gui thong bao qua mail cho user
 

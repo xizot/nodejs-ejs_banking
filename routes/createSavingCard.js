@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const io = require("socket.io-client");
 
 router.get("/", async (req, res) => {
   if (!req.currentUser) return res.redirect("/login");

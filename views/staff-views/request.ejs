@@ -173,6 +173,7 @@
           alert("Thành công");
           $(".pop-up").fadeOut(200);
           $(".table-gutter").empty();
+          socket.emit("add-new-noti", "hello");
           $.get("/api/get-request", function (data, textStatus, jqXHR) {
             if (data && data.length > 0) {
               data.map((item, index) => {
@@ -200,7 +201,6 @@
             }
           });
           $.get("/api/count-request", function (data, textStatus, jqXHR) {
-            console.log(data);
             $(".pag-list").empty();
             if (data) {
               for (let i = 0; i < data; i++) {
@@ -217,7 +217,6 @@
           alert("Đã xảy ra lỗi vui lòng thử lại sau.");
           $(".pop-up").fadeOut(200);
         }
-        socket.emit("add-new-noti", "hello");
       });
     });
     $(document).on("click", ".btn-delete-request", function (e) {
@@ -229,6 +228,7 @@
       ) {
         if (data) {
           alert("Từ chối yêu cầu thành công");
+          socket.emit("add-new-noti", "hello");
           $(".pop-up").fadeOut(200);
           $(".table-gutter").empty();
           $.get("/api/get-request", function (data, textStatus, jqXHR) {
@@ -259,7 +259,6 @@
           });
 
           $.get("/api/count-request", function (data, textStatus, jqXHR) {
-            console.log(data);
             $(".pag-list").empty();
             if (data) {
               for (let i = 0; i < data; i++) {
@@ -276,7 +275,6 @@
           alert("Đã xảy ra lỗi vui lòng thử lại sau.");
           $(".pop-up").fadeOut(200);
         }
-        socket.emit("add-new-noti", "hello");
       });
     });
 
@@ -361,11 +359,11 @@
           $(".pag-list").empty();
           if (data) {
             for (let i = 0; i < data; i++) {
-              $(` <li class="pag-num ${i == 0 ? " active" : ""}" value="${
-                i + 1
-              }">
-                            ${i + 1}
-                            </li>`).appendTo(".pag-list");
+              $(
+                ` <li class="pag-num ${i == 0 ? " active" : ""}" value="${
+                  i + 1
+                }">${i + 1}</li>`
+              ).appendTo(".pag-list");
             }
           }
         });
