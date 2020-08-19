@@ -4,6 +4,8 @@ const { body, validationResult } = require('express-validator');
 const User = require('../services/user');
 var errors = [];
 router.get('/', (req, res) => {
+    if (!req.currentUser) return res.redirect('/login')
+    if (req.currentUser && req.currentUser.isActive == 5) return res.redirect('/alert/blocked')
     return res.render('active', { errors });
 })
 
