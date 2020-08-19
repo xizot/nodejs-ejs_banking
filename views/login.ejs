@@ -1,101 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/Nhat/main.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/Nhat/main.css" />
     <title>Payyed - Login page</title>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <div class="loading">
-        <div class="loading-content">
-            <span>...Loading</span>
-
-        </div>
+      <div class="loading-content">
+        <span>...Loading</span>
+      </div>
     </div>
 
     <!-- //header -->
     <div class="wrapper row">
-        <div class="wrapper__left  col-xs-12 col-md-6">
-            <div class="overlayer">
-
-            </div>
-            <div class="wrapper__left--content">
-                <div>
-                    <a href="/"><img src="http://demo.harnishdesign.net/html/payyed/images/logo.png"
-                            style="position:absolute; z-index: 99; top:30px; left: 60px;background: white;padding: 4px 8px; border-radius: 5px;"
-                            alt=""></a>
-                </div>
-                <div>
-                    <h3>Welcome back!</h3>
-                    <p>We are glad to see you again! Instant deposits, withdrawals & payouts trusted by millions
-                        worldwide.</p>
-                </div>
-            </div>
-
+      <div class="wrapper__left col-xs-12 col-md-6">
+        <div class="overlayer"></div>
+        <div class="wrapper__left--content">
+          <div>
+            <a href="/"
+              ><img
+                src="http://demo.harnishdesign.net/html/payyed/images/logo.png"
+                style="
+                  position: absolute;
+                  z-index: 99;
+                  top: 30px;
+                  left: 60px;
+                  background: white;
+                  padding: 4px 8px;
+                  border-radius: 5px;
+                "
+                alt=""
+            /></a>
+          </div>
+          <div>
+            <h3>Welcome back!</h3>
+            <p>
+              We are glad to see you again! Instant deposits, withdrawals &
+              payouts trusted by millions worldwide.
+            </p>
+          </div>
         </div>
-        <div class="wrapper__right  col-xs-12 col-md-6">
-            <div class="modal">
-                <div class="title">
-                    <h3 style="margin: 0  0 20px; font-size: 18px;text-align: center;color: #333;font-weight: 400;">
-                        Log In</h3>
-                </div>
-                <form action="" method="post">
-                    <div class="form-group">
-                        <label for="txtEmail">Email Address</label>
-                        <input type="text" required placeholder="Enter Your Email , Username, Phone Number"
-                            name="txtEmail" id="txtEmail">
-                    </div>
-                    <div class="form-group">
-                        <label for="txtPassword">Password</label>
-                        <input type="password" required name="txtPassword" id="txtPassword"
-                            placeholder="* * * * * * * * *">
-                    </div>
-                    <div class="form-group">
-                        <% if(errors || errors.length){ %>
-                        <% errors.forEach(item=>{%>
-                        <%- `<p style="color:red">* ${item.msg}</p>`  %>
-                        <%})%>
-                        <%}%>
-                    </div>
-                    <div class="form-actions">
-                        <div class="remember flex a-center j-between">
-                            <div class="flex a-center j-between">
-                                <input type="checkbox" name="remember" id="remember">
-                                <label for="remember" class="cb-rember"></label>
-                                <label for="remember" class="txt-remember">Ghi Nhớ</label>
-                            </div>
-
-                            <a href="/forgot-password" class="forgotPassword">Quên mật khẩu?</a>
-                        </div>
-                        <input type="submit" value="Đăng Nhập">
-
-                        <div class="another t-center">
-
-                            Don't have an account? <a href="./register">Sign up</a>
-                        </div>
-                    </div>
-                </form>
-
-                <div class="social-login">
-                    <center><span>Or login with</span></center>
-                    <div class="flex j-center">
-                        <a href="/auth/facebook"><button class="btn btn-facebook"><i class="fab fa-facebook-square"></i> Facebook</button></a>
-                        <a href="/auth/google"><button class="btn btn-google bg-red"><i class="fab fa-google"></i> Google</button></a>
-                    </div>
-                   
-                </div>
+      </div>
+      <div class="wrapper__right col-xs-12 col-md-6">
+        <div class="modal">
+          <div class="title">
+            <h3
+              style="
+                margin: 0 0 20px;
+                font-size: 18px;
+                text-align: center;
+                color: #333;
+                font-weight: 400;
+              "
+            >
+              Log In
+            </h3>
+          </div>
+          <form action="" method="post">
+            <div class="form-group">
+              <label for="txtEmail">Email Address</label>
+              <input
+                type="text"
+                required
+                placeholder="Enter Your Email , Username, Phone Number"
+                name="txtEmail"
+                id="txtEmail"
+              />
             </div>
+            <div class="form-group">
+              <label for="txtPassword">Password</label>
+              <input
+                type="password"
+                required
+                name="txtPassword"
+                id="txtPassword"
+                placeholder="* * * * * * * * *"
+              />
+            </div>
+            <div class="form-group">
+              <% if(errors || errors.length){ %> <% errors.forEach(item=>{%> <%-
+              `
+              <p style="color: red;">* ${item.msg}</p>
+              ` %> <%})%> <%}%>
+            </div>
+            <div class="form-actions">
+              <div class="remember flex a-center j-between">
+                <div class="flex a-center j-between">
+                  <input type="checkbox" name="remember" id="remember" />
+                  <label for="remember" class="cb-rember"></label>
+                  <label for="remember" class="txt-remember">Ghi Nhớ</label>
+                </div>
+
+                <a href="/forgot-password" class="forgotPassword"
+                  >Quên mật khẩu?</a
+                >
+              </div>
+              <input type="submit" value="Đăng Nhập" />
+
+              <div class="another t-center">
+                Don't have an account? <a href="./register">Sign up</a>
+              </div>
+            </div>
+          </form>
+
+          <div class="social-login">
+            <center><span>Or login with</span></center>
+            <div class="flex j-center">
+              <a href="/auth/facebook"
+                ><button class="btn btn-facebook">
+                  <i class="fab fa-facebook-square"></i> Facebook
+                </button></a
+              >
+              <a href="/auth/google"
+                ><button class="btn btn-google bg-red">
+                  <i class="fab fa-google"></i> Google
+                </button></a
+              >
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</body>
-<script src="./vendor/jquery.min.js"></script>
-<script>
-    $(window).on('load', () => {
-        $('.loading').fadeOut(200);
-    })
-</script>
+  </body>
+  <script src="./vendor/jquery.min.js"></script>
+  <script>
+    $(window).on("load", () => {
+      $(".loading").fadeOut(200);
+    });
+  </script>
 </html>

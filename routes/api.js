@@ -519,7 +519,9 @@ router.get("/get-account-default", async (req, res) => {
   return res.json(found);
 });
 router.get("/get-all", async (req, res) => {
-  const found = await AccountInfo.findAll();
+  const found = await AccountInfo.findAll({
+    order: [["createdAt", "DESC"]],
+  });
   return res.json(found);
 });
 

@@ -1,110 +1,190 @@
 <%- include ('header',{title:'Payyed - Home'}); %>
 <div class="confirm bg-main-1" style="height: 100vh;">
+  <% if(currentUser.isActive == -1){%> <%- include('notification',{msg:' Cảm ơn
+  bạn đã cập nhật thông tin. Nhân viên sẽ kiểm tra và phản hồi lại sau'})%>
+  <%}else if(currentUser.isActive == -2){%> <%-
+  include('notification',{msg:'Thông tin bạn cung cấp không hợp lệ vui lòng cung
+  cấp lại'})%>
+  <div class="modal" style="top: 225px; transform: translateX(-50%);">
+    <h3
+      style="
+        margin: 0 0 20px;
+        font-size: 18px;
+        text-align: center;
+        color: #333;
+        font-weight: 400;
+      "
+    >
+      Verify Account
+    </h3>
+    <form action="" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="txtName">Name: </label>
+        <input
+          type="text"
+          name="txtName"
+          id="txtName"
+          value="<%-currentUser.displayName%>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="txtTypeofCard">Type of card: </label>
+        <select
+          name="txtTypeofCard"
+          id="txtTypeofCard"
+          style="
+            width: 100%;
+            height: 45px;
+            outline: none;
+            border: 1px solid rgba(45, 190, 96, 0.4);
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+          "
+        >
+          <option value="1">CMND</option>
+          <option value="2">CCCD</option>
+          <option value="3">Passport</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="txtIdcard">ID card: </label>
 
-    <% if(currentUser.isActive == -1){%>
+        <input type="text" name="txtIdcard" id="txtIdcard" required />
+      </div>
+      <div class="form-group">
+        <label for="txtIssued">Issued: </label>
+        <input
+          type="date"
+          name="txtIssued"
+          id="txtIssued"
+          value="2020-08-01"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="avartar" style="display: block;">Confirm picture</label>
+        <input
+          type="file"
+          class=""
+          id="avatar"
+          name="avatar"
+          accept="image/*"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <% if(errors || errors.length){ %> <% errors.forEach(item=>{%> <%- `
+        <p style="color: red;">* ${item.msg}</p>
+        ` %> <%})%> <%}%>
+      </div>
 
-    <%- include('notification',{msg:' Cảm ơn bạn đã cập nhật thông tin. Nhân viên sẽ kiểm tra và phản hồi lại sau'})%>
-    <%}else if(currentUser.isActive == -2){%>
-    <%- include('notification',{msg:'Thông tin bạn cung cấp không hợp lệ vui lòng cung cấp lại'})%>
-    <div class="modal" style="top: 225px;transform: translateX(-50%);">
+      <div class="form-action" style="text-align: center;">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          style="width: 100%; color: white;"
+        >
+          Verify
+        </button>
+      </div>
+    </form>
+  </div>
+  <%}else{%> <%- include('notification',{msg:' Vui lòng xác minh thông tin của
+  bạn'})%>
+  <div class="modal" style="top: 225px; transform: translateX(-50%);">
+    <h3
+      style="
+        margin: 0 0 20px;
+        font-size: 18px;
+        text-align: center;
+        color: #333;
+        font-weight: 400;
+      "
+    >
+      Verify Account
+    </h3>
+    <form action="" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="txtName">Name: </label>
+        <input
+          type="text"
+          name="txtName"
+          id="txtName"
+          placeholder="<%-currentUser.displayName%>"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="txtTypeofCard">Type of card: </label>
+        <select
+          name="txtTypeofCard"
+          id="txtTypeofCard"
+          style="
+            width: 100%;
+            height: 45px;
+            outline: none;
+            border: 1px solid rgba(45, 190, 96, 0.4);
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+          "
+        >
+          <option value="1">CMND</option>
+          <option value="2">CCCD</option>
+          <option value="3">Passport</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="txtIdcard">ID card: </label>
 
-        <h3 style="margin: 0  0 20px; font-size: 18px;text-align: center;color: #333;font-weight: 400;">
-            Verify Account</h3>
-        <form action="" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="txtName">Name: </label>
-                <input type="text" name="txtName" id="txtName" value="<%-currentUser.displayName%>">
-            </div>
-            <div class="form-group">
-                <label for="txtTypeofCard">Type of card: </label>
-                <select name="txtTypeofCard" id="txtTypeofCard"
-                    style="width:100%; height: 45px;outline: none;  border: 1px solid rgba(45, 190, 96, 0.4);padding: 10px;border-radius: 5px; cursor: pointer;">
-                    <option value="1">CMND</option>
-                    <option value="2">CCCD</option>
-                    <option value="3">Passport</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="txtIdcard">ID card: </label>
+        <input type="text" name="txtIdcard" id="txtIdcard" required />
+      </div>
+      <div class="form-group">
+        <label for="txtIssued">Issued: </label>
+        <input
+          type="date"
+          name="txtIssued"
+          id="txtIssued"
+          value="2020-08-01"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="avartar" style="display: block;">Card Image:</label>
+        <input
+          type="file"
+          class=""
+          id="avatar"
+          name="avatar"
+          accept="image/*"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <% if(errors || errors.length){ %> <% errors.forEach(item=>{%> <%- `
+        <p style="color: red;">* ${item.msg}</p>
+        ` %> <%})%> <%}%>
+      </div>
 
-                <input type="text" name="txtIdcard" id="txtIdcard" required>
-            </div>
-            <div class="form-group">
-                <label for="txtIssued">Issued: </label>
-                <input type="date" name="txtIssued" id="txtIssued" value="2020-08-01" required>
-            </div>
-            <div class="form-group">
-                <label for="avartar" style="display: block;">Confirm picture</label>
-                <input type="file" class="" id="avatar" name="avatar" accept="image/*" required>
-            </div>
-            <div class="form-group">
-                <% if(errors || errors.length){ %>
-                <% errors.forEach(item=>{%>
-                <%- `<p style="color:red" >* ${item.msg}</p>`  %>
-                <%})%>
-                <%}%>
-                </div>
-    
-                <div class="form-action" style="text-align: center;">
-                    <button type="submit" class="btn btn-primary" style="width: 100%; color: white;">Verify</button>
-                </div>
-            </form>
-        </div>
-<%}else{%>
-                <%- include('notification',{msg:' Vui lòng xác minh thông tin của bạn'})%>
-                <div class="modal" style="top: 225px;transform: translateX(-50%);">
+      <div class="form-action" style="text-align: center;">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          style="width: 100%; color: white;"
+        >
+          Verify
+        </button>
+      </div>
+    </form>
+  </div>
+  <%}%>
+</div>
 
-                    <h3 style="margin: 0  0 20px; font-size: 18px;text-align: center;color: #333;font-weight: 400;">
-                        Verify Account</h3>
-                    <form action="" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="txtName">Name: </label>
-                            <input type="text" name="txtName" id="txtName" placeholder="<%-currentUser.displayName%>"
-                                required>
-                        </div>
-                        <div class="form-group">
-                            <label for="txtTypeofCard">Type of card: </label>
-                            <select name="txtTypeofCard" id="txtTypeofCard"
-                                style="width:100%; height: 45px;outline: none;  border: 1px solid rgba(45, 190, 96, 0.4);padding: 10px;border-radius: 5px;   cursor: pointer;">
-                                <option value="1">CMND</option>
-                                <option value="2">CCCD</option>
-                                <option value="3">Passport</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="txtIdcard">ID card: </label>
+<%- include ('footer'); %>
 
-                            <input type="text" name="txtIdcard" id="txtIdcard" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="txtIssued">Issued: </label>
-                            <input type="date" name="txtIssued" id="txtIssued" value="2020-08-01" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="avartar" style="display: block;">Card Image:</label>
-                            <input type="file" class="" id="avatar" name="avatar" accept="image/*" required>
-                        </div>
-                        <div class="form-group">
-                            <% if(errors || errors.length){ %>
-                            <% errors.forEach(item=>{%>
-                            <%- `<p style="color:red" >* ${item.msg}</p>`  %>
-                            <%})%>
-                            <%}%>
-            </div>
-
-            <div class="form-action" style="text-align: center;">
-                <button type="submit" class="btn btn-primary" style="width: 100%; color: white;">Verify</button>
-            </div>
-                    </form>
-                </div>
-<%}%>
-                        </div>
-
-
-                        <%- include ('footer'); %>
-
-                        <script>
-                            $(function () {
-                                $('footer').css('display', 'none');
-                            });
-                        </script>
+<script>
+  $(function () {
+    $("footer").css("display", "none");
+  });
+</script>

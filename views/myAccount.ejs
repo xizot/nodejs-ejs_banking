@@ -1,177 +1,168 @@
 <%- include('./header', {title:'Payyed - My Account'})%>
 <div class="my-account" style="height: calc(100vh - 85px);">
-    <div class="my-account__content row">
-        <div class="col-xs-2 option">
-            <ul>
-                <li class="flex">
-                    <i class="far fa-file-alt"></i>
-                    <a href="/my-account">Applications</a>
-                </li>
-                <li class="flex">
-                    <i class="fas fa-layer-group"></i>
-                    <a href="/accounts">Account</a>
-                </li>
-                <li class="flex">
-                    <i class="fas fa-comments-dollar"></i>
-                    <a href="/transfer">Transfer</a>
-                </li>
-                <li class="flex">
-                    <i class="fas fa-history"></i>
-                    <a href="/history">History</a>
-                </li>
-                <li class="flex">
-                    <i class="fas fa-ban"></i>
-                    <a href="/change-limit">Limit Blance</a>
-                </li>
-
-            </ul>
-            <div class="available">
-                <i class="fas fa-credit-card"></i>
-                <h3 class="money">
-                    <span>$</span> <span class="money-avail">0</span>
-                </h3>
-                <label>Available Balance</label>
-            </div>
-        </div>
-        <div class="col-xs-10 my-account-content">
-            <h3 class="title">
-                Application
-            </h3>
-            <div class="personal-details">
-                <h4 class="sub-title">
-                    PERSONAL DETAILS
-                </h4>
-                <div class="personal-details-content row">
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtFullname" value="">
-                        <label for="fullname">Full name</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="email" id="txtEmail" placeholder="John@yahoo.com.vn">
-                        <label for="txtEmail">Email</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtUsername" value="xizot" placeholder="xizot">
-                        <label for="txtUsername">Username</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtAddress" placeholder="">
-                        <label for="txtAddress">Address</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="date" id="DateOfBirth" value="2020-01-01">
-                        <label for="DateOfBirth">Date of Birth</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <input type="text" id="txtPhone" value="02899995555">
-                        <label for="txtPhone">Mobile Phone</label>
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-
-                    </div>
-                    <div class="col-xs-6 fullname info-item">
-                        <button class="btn btn-update">Update</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+  <div class="my-account__content row">
+    <div class="col-xs-2 option">
+      <ul>
+        <li class="flex">
+          <i class="far fa-file-alt"></i>
+          <a href="/my-account">Applications</a>
+        </li>
+        <li class="flex">
+          <i class="fas fa-layer-group"></i>
+          <a href="/accounts">Account</a>
+        </li>
+        <li class="flex">
+          <i class="fas fa-comments-dollar"></i>
+          <a href="/transfer">Transfer</a>
+        </li>
+        <li class="flex">
+          <i class="fas fa-history"></i>
+          <a href="/history">History</a>
+        </li>
+        <li class="flex">
+          <i class="fas fa-ban"></i>
+          <a href="/change-limit">Limit Blance</a>
+        </li>
+      </ul>
+      <div class="available">
+        <i class="fas fa-credit-card"></i>
+        <h3 class="money"><span>$</span> <span class="money-avail">0</span></h3>
+        <label>Available Balance</label>
+      </div>
     </div>
+    <div class="col-xs-10 my-account-content">
+      <h3 class="title">
+        Application
+      </h3>
+      <div class="personal-details">
+        <h4 class="sub-title">
+          PERSONAL DETAILS
+        </h4>
+        <div class="personal-details-content row">
+          <div class="col-xs-6 fullname info-item">
+            <input type="text" id="txtFullname" value="" />
+            <label for="fullname">Full name</label>
+          </div>
+          <div class="col-xs-6 fullname info-item">
+            <input type="email" id="txtEmail" placeholder="John@yahoo.com.vn" />
+            <label for="txtEmail">Email</label>
+          </div>
+          <div class="col-xs-6 fullname info-item">
+            <input
+              type="text"
+              id="txtUsername"
+              value="xizot"
+              placeholder="xizot"
+            />
+            <label for="txtUsername">Username</label>
+          </div>
+          <div class="col-xs-6 fullname info-item">
+            <input type="text" id="txtAddress" placeholder="" />
+            <label for="txtAddress">Address</label>
+          </div>
+          <div class="col-xs-6 fullname info-item">
+            <input type="date" id="DateOfBirth" value="2020-01-01" />
+            <label for="DateOfBirth">Date of Birth</label>
+          </div>
+          <div class="col-xs-6 fullname info-item">
+            <input type="text" id="txtPhone" value="02899995555" />
+            <label for="txtPhone">Mobile Phone</label>
+          </div>
+          <div class="col-xs-6 fullname info-item"></div>
+          <div class="col-xs-6 fullname info-item">
+            <button class="btn btn-update">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <%- include('./footer')%>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/Nhat/myaccount.js"></script>
 <script>
-    $(function () {
-        $.get("/api/get-account-default",
-            function (data, textStatus, jqXHR) {
-                if (data) {
-                    $('.money-avail').text(data.balance);
-                }
-            },
-        );
-
-        $.get("/api/current",
-            function (data, textStatus, jqXHR) {
-                if (data) {
-                    $('#txtFullname').val(data.displayName)
-                    $('#txtEmail').val(data.email)
-                    $('#txtUsername').val(data.username)
-                    $('#txtAddress').val(data.address)
-                    $('#DateOfBirth').val(new Date(data.dob).toISOString().slice(0, 10) || new Date().toISOString().slice(0, 10))
-                    $('#txtPhone').val(data.phoneNumber)
-                }
-            },
-        );
-
-
-        $('footer').css('display', 'none');
-        $('.option ul li').click(function (e) {
-            $('.option ul li').removeClass('active')
-            $(this).toggleClass('active');
-        })
-
-        $('.navigation-bar').css('background-color', 'rgba(45, 190, 96, 0.5)')
-        $('.navigation-bar .btn').css('background-color', 'transparent')
-
-
-        $('.btn-update').click(function (e) {
-
-            const newObj = {
-                displayName: $(txtFullname).val(),
-                email: $(txtEmail).val(),
-                username: $(txtUsername).val(),
-                address: $(txtAddress).val() || null,
-                dob: $(DateOfBirth).val(),
-                phoneNumber: $(txtPhone).val() || null,
-            }
-            $.post("/api/update-info", newObj,
-                function (data, textStatus, jqXHR) {
-                    if (!data) {
-                        alert('Chưa đăng nhập');
-                        $(location).attr('href', '/login');
-                    }
-                    else if (data == 3) {
-                        alert('Tài khoản không tồn tại');
-                        $(location).attr('href', '/logout');
-                    }
-                    else if (data == 4) {
-                        alert('Email đã tồn tại ở tài khoản khác');
-
-                        $.get("/api/current",
-                            function (data, textStatus, jqXHR) {
-                                if (data) {
-                                    $('#txtFullname').val(data.displayName)
-                                    $('#txtEmail').val(data.email)
-                                    $('#txtUsername').val(data.username)
-                                    $('#txtAddress').val(data.address)
-                                    $('#DateOfBirth').val(new Date(data.dob).toISOString().slice(0, 10) || new Date().toISOString().slice(0, 10))
-                                    $('#txtPhone').val(data.phoneNumber)
-                                }
-                            },
-                        );
-                    }
-                    else if (data == 5) {
-                        alert('Username đã tồn tại ở tài khoản khác');
-                        $.get("/api/current",
-                            function (data, textStatus, jqXHR) {
-                                if (data) {
-                                    $('#txtFullname').val(data.displayName)
-                                    $('#txtEmail').val(data.email)
-                                    $('#txtUsername').val(data.username)
-                                    $('#txtAddress').val(data.address)
-                                    $('#DateOfBirth').val(new Date(data.dob).toISOString().slice(0, 10) || new Date().toISOString().slice(0, 10))
-                                    $('#txtPhone').val(data.phoneNumber)
-                                }
-                            },
-                        );
-                    }
-                    else {
-                        alert('Update thành công')
-                        $(location).attr('href', '/my-account');
-                    }
-                },
-            );
-        })
+  $(function () {
+    $.get("/api/get-account-default", function (data, textStatus, jqXHR) {
+      if (data) {
+        $(".money-avail").text(data.balance);
+      }
     });
+
+    $.get("/api/current", function (data, textStatus, jqXHR) {
+      if (data) {
+        $("#txtFullname").val(data.displayName);
+        $("#txtEmail").val(data.email);
+        $("#txtUsername").val(data.username);
+        $("#txtAddress").val(data.address);
+        $("#DateOfBirth").val(
+          new Date(data.dob).toISOString().slice(0, 10) ||
+            new Date().toISOString().slice(0, 10)
+        );
+        $("#txtPhone").val(data.phoneNumber);
+      }
+    });
+
+    $("footer").css("display", "none");
+    $(".option ul li").click(function (e) {
+      $(".option ul li").removeClass("active");
+      $(this).toggleClass("active");
+    });
+
+    $(".navigation-bar").css("background-color", "rgba(45, 190, 96, 0.5)");
+    $(".navigation-bar .btn").css("background-color", "transparent");
+
+    $(".btn-update").click(function (e) {
+      const newObj = {
+        displayName: $(txtFullname).val(),
+        email: $(txtEmail).val(),
+        username: $(txtUsername).val(),
+        address: $(txtAddress).val() || null,
+        dob: $(DateOfBirth).val(),
+        phoneNumber: $(txtPhone).val() || null,
+      };
+      $.post("/api/update-info", newObj, function (data, textStatus, jqXHR) {
+        if (!data) {
+          alert("Chưa đăng nhập");
+          $(location).attr("href", "/login");
+        } else if (data == 3) {
+          alert("Tài khoản không tồn tại");
+          $(location).attr("href", "/logout");
+        } else if (data == 4) {
+          alert("Email đã tồn tại ở tài khoản khác");
+
+          $.get("/api/current", function (data, textStatus, jqXHR) {
+            if (data) {
+              $("#txtFullname").val(data.displayName);
+              $("#txtEmail").val(data.email);
+              $("#txtUsername").val(data.username);
+              $("#txtAddress").val(data.address);
+              $("#DateOfBirth").val(
+                new Date(data.dob).toISOString().slice(0, 10) ||
+                  new Date().toISOString().slice(0, 10)
+              );
+              $("#txtPhone").val(data.phoneNumber);
+            }
+          });
+        } else if (data == 5) {
+          alert("Username đã tồn tại ở tài khoản khác");
+          $.get("/api/current", function (data, textStatus, jqXHR) {
+            if (data) {
+              $("#txtFullname").val(data.displayName);
+              $("#txtEmail").val(data.email);
+              $("#txtUsername").val(data.username);
+              $("#txtAddress").val(data.address);
+              $("#DateOfBirth").val(
+                new Date(data.dob).toISOString().slice(0, 10) ||
+                  new Date().toISOString().slice(0, 10)
+              );
+              $("#txtPhone").val(data.phoneNumber);
+            }
+          });
+        } else {
+          alert("Update thành công");
+          $(location).attr("href", "/my-account");
+        }
+      });
+    });
+  });
 </script>

@@ -1,137 +1,149 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <%- include ('header',{title:'Payyed - Activity'}); %>
 
 <div class="container">
+  <%if(!accountInfo){%> <%- include('notification',{msg:'User chưa có tài khoản
+  ngân hàng'})%> <%}else if(!htrTransfer){%> <%-
+  include('notification',{msg:'User chưa có giao dịch nào'})%> <%}else{%>
 
-    <%if(!accountInfo){%>
-    <%- include('notification',{msg:'User chưa có tài khoản ngân hàng'})%>
-    <%}else if(!htrTransfer){%>
-    <%- include('notification',{msg:'User chưa có giao dịch nào'})%>
-    <%}else{%>
-
-
-    <div class="text-center title-history ">LỊCH SỬ GIAO DỊCH</div>
+  <div class="text-center title-history">LỊCH SỬ GIAO DỊCH</div>
+  <div class="mar-35"></div>
+  <div class="main-content">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#">Tài khoản</a></li>
+      <li>
+        <a href="/recharge" class="btn recharge">
+          <i class="fa fa-credit-card" aria-hidden="true"> Nạp tiền</i>
+        </a>
+      </li>
+    </ul>
     <div class="mar-35"></div>
-    <div class="main-content">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#">Tài khoản</a></li>
-            <li><a href="/recharge" class="btn recharge">
-                    <i class="fa fa-credit-card" aria-hidden="true"> Nạp tiền</i>
-                </a></li>
-        </ul>
-        <div class="mar-35"></div>
-        <select class="mdb-select md-form">
-            <option value="" disabled selected><%-accountInfo.STK%> - <%-displayName%> - Số dư :<%-accountInfo.balance%>
-                USD</option>
-            <option value="1">Thông tin tài khoản 2</option>
-            <option value="2">Thông tin tài khoản 3 </option>
-        </select>
-        <div class="mar-35"></div>
-        <div class="surplus-main grid">
-            <div class="surplus"> Số dư hiện tại <br> <%-accountInfo.balance%> USD </div>
-            <div class="surplus"> Số dư khả dụng <br> <%-accountInfo.balance%> USD </div>
-        </div>
-        <div class="accordion-wrapper">
-            <div class="text-center title-history ">Thông tin tài khoản </div>
-            <div class="accordion-body" id="acctdetail">
-                <div class="account-info-wrapper grid">
-                    <div class="account-info-col account-details-status">
-                        <div class="0" id="statusDetails">
-                            <div class="account-info-label">Trạng thái tài khoản
-                            </div>
-                            <div class="account-info-controls">
-                                <%-accountInfo.isActive  == 0 ? " Chưa xác thực": " " %>
-                                <%-accountInfo.isActive  == 1 ? " Đã xác thực": " " %>
-                                <%-accountInfo.isActive  == 2 ? " Khóa": " " %>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="account-info-col" id="accountOrCardNameDetails">
-                        <div class="account-info-label">Tên chủ tài khoản
-                        </div>
-                        <div class="account-info-controls">
-                            <%-displayName%>
-                        </div>
-                    </div>
-                    <div class="account-info-col" id="accountNumDetails">
-                        <div class="account-info-label">Số tài khoản
-                        </div>
-                        <div class="account-info-controls"><%-accountInfo.STK%>
-                        </div>
-                    </div>
-                    <div class="account-info-col" id="issueDateDetails">
-                        <div class="account-info-label">Ngày mở tài khoản
-                        </div>
-                        <div class="account-info-controls">
-                            <%-new Date(accountInfo.beginDate).toLocaleDateString("en-US") %>
-                        </div>
-                    </div>
-                    <div class="account-info-col" id="accountNumDetails">
-                        <div class="account-info-label">Ngân hàng
-                        </div>
-                        <div class="account-info-controls"><%-accountInfo.bankCode  ==  "ARG" ? " Agribank": " " %>
-                        </div>
-                    </div>
-                    <div class="account-info-col" id="accountNumDetails">
-                        <div class="account-info-label">Kỳ hạn
-                        </div>
-                        <div class="account-info-controls"><%-accountInfo.term%>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <select class="mdb-select md-form">
+      <option value="" disabled selected
+        ><%-accountInfo.STK%> - <%-displayName%> - Số dư
+        :<%-accountInfo.balance%> USD</option
+      >
+      <option value="1">Thông tin tài khoản 2</option>
+      <option value="2">Thông tin tài khoản 3 </option>
+    </select>
     <div class="mar-35"></div>
-    <fieldset class="fieldset" id="search-transactions">
-        <legend class="legend">Tìm kiếm giao dịch</legend>
-        <div class="search-wrapper" id="search-wrapper">
-            <div class="basic-search accounts grid" id="basic-search">
-                <div class="form-group searchform cf">
-                    <label for="txtCustomer">Nội dung chuyển khoản</label>
-                    <input type="text" class="text-center" required="" placeholder="Nội dung  ">
-                    <input type="submit" value="Tìm kiếm ">
-                </div>
-                <div class="form-group searchform cf">
-                    <label for="txtCustomer">Thời gian giao dịch</label>
-                    <input type="text" class="text-center" required="" placeholder="Thời gian  ">
-                    <input type="submit" value="Tìm kiếm ">
-                </div>
-            </div>
-        </div>
-    </fieldset>
-    <div class="mar-100"></div>
-    <div class="">
-        <% if(htrTransfer){%>
-        <table class="table table-searchform container">
-            <thead>
-                <tr>
-                    <th scope="col">Ngày</th>
-                    <th scope="col">Loai giao dịch</th>
-                    <th scope="col">Nội dung</th>
-                    <th scope="col">Số tiền</th>
-                    <th scope="col">Số dư</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% htrTransfer.forEach(item=>{%>
-                <tr>
-                    <td><%-new Date(item.date).toLocaleDateString("en-US") %> </td>
-                    <td><%-item.from == accountInfo.STK ? " Chuyển tiền " : " Nhận tiền "%></td>
-                    <td><%-item.message%></td>
-                    <td><%-item.amount%> </td>
-                    <td> <%-accountInfo.balance%></td>
-                </tr>
-                <% })%>
-            </tbody>
-        </table>
-        <%  }else        
-           res.redirect('/error');
-          %>
+    <div class="surplus-main grid">
+      <div class="surplus">
+        Số dư hiện tại <br />
+        <%-accountInfo.balance%> USD
+      </div>
+      <div class="surplus">
+        Số dư khả dụng <br />
+        <%-accountInfo.balance%> USD
+      </div>
     </div>
-    <div class="mar-100"></div>
+    <div class="accordion-wrapper">
+      <div class="text-center title-history">Thông tin tài khoản</div>
+      <div class="accordion-body" id="acctdetail">
+        <div class="account-info-wrapper grid">
+          <div class="account-info-col account-details-status">
+            <div class="0" id="statusDetails">
+              <div class="account-info-label">Trạng thái tài khoản</div>
+              <div class="account-info-controls">
+                <%-accountInfo.isActive == 0 ? " Chưa xác thực": " " %>
+                <%-accountInfo.isActive == 1 ? " Đã xác thực": " " %>
+                <%-accountInfo.isActive == 2 ? " Khóa": " " %>
+              </div>
+            </div>
+          </div>
+          <div class="account-info-col" id="accountOrCardNameDetails">
+            <div class="account-info-label">Tên chủ tài khoản</div>
+            <div class="account-info-controls">
+              <%-displayName%>
+            </div>
+          </div>
+          <div class="account-info-col" id="accountNumDetails">
+            <div class="account-info-label">Số tài khoản</div>
+            <div class="account-info-controls"><%-accountInfo.STK%></div>
+          </div>
+          <div class="account-info-col" id="issueDateDetails">
+            <div class="account-info-label">Ngày mở tài khoản</div>
+            <div class="account-info-controls">
+              <%-new Date(accountInfo.beginDate).toLocaleDateString("en-US") %>
+            </div>
+          </div>
+          <div class="account-info-col" id="accountNumDetails">
+            <div class="account-info-label">Ngân hàng</div>
+            <div class="account-info-controls">
+              <%-accountInfo.bankCode == "ARG" ? " Agribank": " " %>
+            </div>
+          </div>
+          <div class="account-info-col" id="accountNumDetails">
+            <div class="account-info-label">Kỳ hạn</div>
+            <div class="account-info-controls"><%-accountInfo.term%></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mar-35"></div>
+  <fieldset class="fieldset" id="search-transactions">
+    <legend class="legend">Tìm kiếm giao dịch</legend>
+    <div class="search-wrapper" id="search-wrapper">
+      <div class="basic-search accounts grid" id="basic-search">
+        <div class="form-group searchform cf">
+          <label for="txtCustomer">Nội dung chuyển khoản</label>
+          <input
+            type="text"
+            class="text-center"
+            required=""
+            placeholder="Nội dung  "
+          />
+          <input type="submit" value="Tìm kiếm " />
+        </div>
+        <div class="form-group searchform cf">
+          <label for="txtCustomer">Thời gian giao dịch</label>
+          <input
+            type="text"
+            class="text-center"
+            required=""
+            placeholder="Thời gian  "
+          />
+          <input type="submit" value="Tìm kiếm " />
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <div class="mar-100"></div>
+  <div class="">
+    <% if(htrTransfer){%>
+    <table class="table table-searchform container">
+      <thead>
+        <tr>
+          <th scope="col">Ngày</th>
+          <th scope="col">Loai giao dịch</th>
+          <th scope="col">Nội dung</th>
+          <th scope="col">Số tiền</th>
+          <th scope="col">Số dư</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% htrTransfer.forEach(item=>{%>
+        <tr>
+          <td><%-new Date(item.date).toLocaleDateString("en-US") %></td>
+          <td>
+            <%-item.from == accountInfo.STK ? " Chuyển tiền " : " Nhận tiền "%>
+          </td>
+          <td><%-item.message%></td>
+          <td><%-item.amount%></td>
+          <td><%-accountInfo.balance%></td>
+        </tr>
+        <% })%>
+      </tbody>
+    </table>
+    <% }else res.redirect('/error'); %>
+  </div>
+  <div class="mar-100"></div>
 
-    <%}%>
-  <%- include ('footer');%>
+  <%}%> <%- include ('footer');%>
+</div>
