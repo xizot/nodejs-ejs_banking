@@ -9,31 +9,22 @@
     </div>
   </div>
   <div class="user-content">
-    <h3
-      class="title"
-      style="
+    <h3 class="title" style="
         text-align: left;
         border-bottom: 1px solid #ddd;
         padding-bottom: 20px;
         margin-bottom: 20px;
-      "
-    >
+      ">
       USER
     </h3>
     <div class="user-search flex a-center j-end" style="margin-bottom: 20px;">
-      <input
-        type="search"
-        name=""
-        id="txtSearchUser"
-        style="
+      <input type="search" name="" id="txtSearchUser" style="
           height: 35px;
           padding: 0 15px;
           border: 1px solid #868e96;
           outline: none;
-        "
-      />
-      <button
-        style="
+        " />
+      <button style="
           height: 35px;
           padding: 0 10px;
           background-color: #868e96;
@@ -41,9 +32,7 @@
           border: none;
           outline: none;
           cursor: pointer;
-        "
-        class="btn-search-user"
-      >
+        " class="btn-search-user">
         Search
       </button>
     </div>
@@ -60,8 +49,7 @@
     </div>
     <div class="pagination" style="bottom: 13px;">
       <ul class="flex j-center a-center pag-list">
-        <li class="pag-num active">1</li>
-        <li class="pag-num">2</li>
+
       </ul>
     </div>
   </div>
@@ -77,21 +65,21 @@
         if (data && data.length > 0) {
           data.map((item, index) => {
             $(`
-                        <div class="table-item row  a-center">
-                    <div class=" col-xs-1 t-center">${index + 1}</div>
-                    <div class=" col-xs-1 t-center"><a href="./user?id=${
-                      item.id
-                    }">${item.id}</a></div>
+                <div class="table-item row  a-center">
+                <div class=" col-xs-1 t-center">${index + 1}</div>
+                <div class=" col-xs-1 t-center"><a href="./user?id=${
+              item.id
+              }">${item.id}</a></div>
                     <div class=" col-xs-3 " style="padding: 0 0 0 35px;">${
-                      item.username
-                    }</div>
+              item.username
+              }</div>
                     <div class=" col-xs-3">${item.displayName}</div>
                     <div class=" col-xs-3">${
-                      item.email ? item.email : "Not Update"
-                    }</div>
+              item.email ? item.email : "Not Update"
+              }</div>
                     <div class=" col-xs-1 t-center">${
-                      item.isActive == 1 ? "Yes" : "No"
-                    }</div>
+              item.isActive == 1 ? "Yes" : "No"
+              }</div>
                         </div>
                         `).appendTo(".table-gutter");
           });
@@ -124,18 +112,18 @@
                         <div class="table-item row  a-center">
                     <div class=" col-xs-1 t-center">${index + 1}</div>
                     <div class=" col-xs-1 t-center"><a href="./user?id=${
-                      item.id
-                    }">${item.id}</a></div>
+                  item.id
+                  }">${item.id}</a></div>
                     <div class=" col-xs-3" style="padding: 0 0 0 35px;">${
-                      item.username
-                    }</div>
+                  item.username
+                  }</div>
                     <div class=" col-xs-3">${item.displayName}</div>
                     <div class=" col-xs-3">${
-                      item.email ? item.email : "Not Update"
-                    }</div>
+                  item.email ? item.email : "Not Update"
+                  }</div>
                     <div class=" col-xs-1 t-center">${
-                      item.isActive == 1 ? "Yes" : "No"
-                    }</div>
+                  item.isActive == 1 ? "Yes" : "No"
+                  }</div>
                         </div>
                         `).appendTo(".table-gutter");
               });
@@ -167,16 +155,20 @@
           data.map((item, index) => {
             $(`
                         <div class="table-item row  a-center">
+                    <div class=" col-xs-1 t-center">${index + 1}</div>
+                    <div class=" col-xs-1 t-center"><a href="./user?id=${
+              item.id
+              }">${item.id}</a></div>
+                    <div class=" col-xs-3" style="padding: 0 0 0 35px;">${
+              item.username
+              }</div>
+                    <div class=" col-xs-3">${item.displayName}</div>
+                    <div class=" col-xs-3">${
+              item.email ? item.email : "Not Update"
+              }</div>
                     <div class=" col-xs-1 t-center">${
-                      index + 1 + (numpage - 1) * 6
-                    }</div>
-                    <div class=" col-xs-2 t-center"><a href="./user?id=${
-                      item.id
-                    }">${item.id}</a></div>
-                    <div class=" col-xs-7">${item.displayName}</div>
-                    <div class=" col-xs-2 t-center">${
-                      item.isActive == 1 ? "Yes" : "No"
-                    }</div>
+              item.isActive == 1 ? "Yes" : "No"
+              }</div>
                         </div>
                         `).appendTo(".table-gutter");
           });
