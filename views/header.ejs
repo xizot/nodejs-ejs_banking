@@ -186,16 +186,20 @@
 
                                                                 <a href="/accounts"><button class="btn">Account</button>
                                                                 </a>
-                                                                <a href="/"><button
-                                                                        class="btn">Notification</button> </a>
-                                                                <a href="/"><button class="btn">Help</button> </a>
+                                                                <a href="/"><button class="btn">Notification</button>
+                                                                </a>
+                                                                <a href="/about"><button class="btn">About</button> </a>
+                                                                <%-`<a class="" href="/logout">
+                                                                    <button class="btn">
+                                                                    ${currentUser.displayName} (Log out)
+                                                                    </button></a>`%>
                                                                 <a href="/"><button
                                                                         <% }if(currentUser.permisstion == 1) { %> <a
                                                                         href="/quanli"><button
                                                                             class="btn">Manage</button>
                                                                 </a>
-                                                                <a href="/"><button
-                                                                        class="btn">Notification</button> </a>
+                                                                <a href="/"><button class="btn">Notification</button>
+                                                                </a>
 
                                                                 <%}}%>
 

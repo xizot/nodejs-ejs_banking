@@ -2941,6 +2941,10 @@ footer .top {
   color: #2dbe60;
 }
 
+.my-account .my-account__content {
+  overflow: scroll;
+}
+
 .my-account .my-account__content .option {
   padding: 20px 0;
   border-right: 1px solid #ddd;
@@ -2960,12 +2964,38 @@ footer .top {
   color: #4f4f4f;
 }
 
+@media only screen and (min-width: 320px) {
+  .my-account .my-account__content .option ul li a {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .my-account .my-account__content .option ul li a {
+    display: unset;
+  }
+}
+
 .my-account .my-account__content .option ul li:hover {
   background-color: rgba(45, 190, 96, 0.1);
 }
 
 .my-account .my-account__content .option ul li i {
   width: 35px;
+}
+
+@media only screen and (min-width: 320px) {
+  .my-account .my-account__content .option ul li i {
+    display: block;
+    margin-left: -10px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .my-account .my-account__content .option ul li i {
+    display: unset;
+    margin-left: unset;
+  }
 }
 
 .my-account .my-account__content .option ul li:first-child {
@@ -2977,6 +3007,18 @@ footer .top {
   background-color: rgba(45, 190, 96, 0.5);
   padding: 40px 0px;
   text-align: center;
+}
+
+@media only screen and (min-width: 320px) {
+  .my-account .my-account__content .option .available {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .my-account .my-account__content .option .available {
+    display: block;
+  }
 }
 
 .my-account .my-account__content .option .available i {
@@ -3020,10 +3062,26 @@ footer .top {
 }
 
 .personal-details {
-  margin: 40px;
+  position: relative;
+  overflow-x: scroll;
+  overflow-y: hidden;
   background-color: white;
   border-radius: 5px;
   padding: 5px 20px 20px;
+}
+
+@media only screen and (min-width: 320px) {
+  .personal-details {
+    width: 700px;
+    margin: 10px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .personal-details {
+    width: unset;
+    margin: 40px;
+  }
 }
 
 .personal-details h4.sub-title {
@@ -4263,7 +4321,7 @@ main {
 .user-content {
   border: 1px solid #ddd;
   height: 550px;
-  min-width: 500px;
+  min-width: 900px;
   width: calc(100% - 80px);
   position: relative;
   margin: 80px auto;
