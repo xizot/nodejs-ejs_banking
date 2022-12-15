@@ -28,7 +28,7 @@
     "crypto": "^1.0.1",
     "dateformat": "^3.0.3",
     "ejs": "^3.0.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-async-handler": "^1.1.4",
     "express-redirect": "^1.2.2",
     "express-validator": "^6.4.1",
